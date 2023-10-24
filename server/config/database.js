@@ -6,7 +6,7 @@ require('dotenv').config();
 // Get environment variable for connection string
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
-module.exports = async (app) => {
+module.exports = async () => {
 	try {
 		await mongoose.connect(CONNECTION_STRING);
 		console.log('Database successfully connected');
