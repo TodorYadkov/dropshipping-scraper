@@ -7,7 +7,7 @@
 # Tasks
 ## First part
 1. Create Github Repo - Done
-2. Add colaborators - Done
+2. Add collaborators - Done
 3. Deploy Back-End application - In progress
 4. Deploy Front-End application - In progress
 5. Connecting back-end and front-end - In progress
