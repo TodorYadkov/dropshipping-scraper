@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { api } from './util/http-requester.js';
+import './App.css';
 
 function App() {
 	const [heading, setHeading] = useState(null);
