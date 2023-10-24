@@ -1,3 +1,5 @@
+const homeController = require('../controllers/homeController');
+
 module.exports = (app) => {
-    app.use('/', () => console.log('Hello'));
-}
+	app.use('/', homeController);
+};
