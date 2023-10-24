@@ -2,7 +2,7 @@
 
 Our project is part of the Softuni initiative, providing students with an opportunity to work on a project that closely resembles real-world applications. 
 
-This project is managed by [Deyan Danailov](https://github.com/DeyanDanailov) and developped by [Rosen Dobrev](https://github.com/RosenDobrev10) and [Todor Yadkov](https://github.com/TodorYadkov).
+This project is managed by [Deyan Danailov](https://github.com/DeyanDanailov) and developped by [Rosen Dobrev](https://github.com/RosenDobrev10), [Todor Yadkov](https://github.com/TodorYadkov) and [Maxim Kraychev](https://github.com/maximkraychev).
 
 ## Project Overview
 
