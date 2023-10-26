@@ -19,7 +19,7 @@ const productSchema = new Schema({
         match: [/^https?:\/\//, 'Image URL must start with http or https!']
     },
     availability: {
-        type: String,
+        type: Boolean,
         required: [true, 'Availability is required!']
     }
     //  TODO.. Add owner ID;
