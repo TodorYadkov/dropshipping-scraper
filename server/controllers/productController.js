@@ -1,4 +1,4 @@
-const { getSingleProduct, createProduct, updateProduct, deleteProduct } = require('../models/Product.js');
+const { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } = require('../services/productService');
 const { validateProductSchema } = require('../util/validationProductSchema.js')
 const productController = require('express').Router();
 
@@ -7,6 +7,18 @@ productController.get('/:productId', async (req, res) => {
     try {
         const product = await getSingleProduct(req.params.productId);
         res.status(200).json(product);
+    } catch (err) {
+        console.log(err.message);
+        console.error(err);
+        //TODO...
+    }
+});
+
+// GET ALL
+productController.get('/', async (req, res) => {
+    try {
+        const products = await getAllProducts();
+        res.status(200).json(products);
     } catch (err) {
         console.log(err.message);
         console.error(err);
