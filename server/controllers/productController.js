@@ -1,4 +1,4 @@
-const { getSingleProduct, createProduct } = require('../models/Product.js');
+const { getSingleProduct, createProduct, updateProduct, deleteProduct } = require('../models/Product.js');
 const { validateProductSchema } = require('../util/validationProductSchema.js')
 const productController = require('express').Router();
 
@@ -38,6 +38,20 @@ productController.put('/:productId', async (req, res) => {
         const editedProduct = await updateProduct(productId, req.body);
 
         res.status(200).json(editedProduct);
+    } catch (err) {
+        console.log(err.message);
+        console.error(err);
+        //TODO...
+    }
+});
+
+// DELETE
+productController.delete('/:productId', async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        const deletedProduct = await deleteProduct(productId);
+
+        res.status(200).json(deletedProduct);
     } catch (err) {
         console.log(err.message);
         console.error(err);
