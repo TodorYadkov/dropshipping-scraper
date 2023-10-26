@@ -4,7 +4,7 @@ const { Product } = require('../models/Product.js');
 const getSingleProduct = (productId) => Product.findById(productId);
 
 // GET ALL
-const getAllProduct = () => Product.find();
+const getAllProducts = () => Product.find();
 
 // CREATE 
 const createProduct = (product) => Product.create(product);
@@ -17,7 +17,7 @@ const deleteProduct = (productId) => Product.findByIdAndDelete(productId, { retu
 
 module.exports = {
     getSingleProduct,
-    getAllProduct,
+    getAllProducts,
     createProduct,
     updateProduct,
     deleteProduct,
