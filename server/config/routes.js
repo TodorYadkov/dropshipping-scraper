@@ -1,9 +1,9 @@
 const homeController = require('../controllers/homeController');
 const productController = require('../controllers/productController');
-
+const logRequests = require('../middlewares/displayRequest');
 
 module.exports = (app) => {
-	
+	app.use(logRequests()) // Logging every request 
 	app.use('/', homeController);
 	app.use('/products', productController);
 	app.all('*', (req, res, next) => {
