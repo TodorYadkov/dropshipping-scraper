@@ -11,3 +11,6 @@ const createProduct = (product) => Product.create(product);
 
 // UPDATE
 const updateProduct = (productId, product) => Product.findByIdAndUpdate(productId, product, { runValidators: true, new: true });
+
+// DELETE 
+const deleteProduct = (productId) => Product.findByIdAndDelete(productId, { returnDocument: true });
