@@ -9,7 +9,7 @@ const validateProductSchema = joi.object({
 
     imagesURL: joi.string().required().trim(),
 
-    availability: joi.boolean().required().trim(),
+    availability: joi.boolean(),
 });
 
 module.exports = { validateProductSchema };
