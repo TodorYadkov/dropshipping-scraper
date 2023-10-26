@@ -8,9 +8,9 @@
 ## First part
 1. Create Github Repo - Done
 2. Add collaborators - Done
-3. Deploy Back-End application - In progress
-4. Deploy Front-End application - In progress
-5. Connecting back-end and front-end - In progress
+3. Deploy Back-End application - Done
+4. Deploy Front-End application - Done
+5. Connecting back-end and front-end - Done
 6. Write main functionality of the back-end - In progress
 7. Write main functionality of the front-end - In progress
 
@@ -20,8 +20,8 @@ Write back-end RESTful API:
 - controller
 - endpoint
   - /                     - main path
-  - /products             - catalog
-  - /products/:productId  - product
+  - /products             - catalog - Done
+  - /products/:productId  - product - Done
   - /login                - user login
   - /register             - user register
   - /logout               - user logout
