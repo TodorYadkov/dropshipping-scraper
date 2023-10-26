@@ -8,3 +8,6 @@ const getAllProduct = () => Product.find();
 
 // CREATE 
 const createProduct = (product) => Product.create(product);
+
+// UPDATE
+const updateProduct = (productId, product) => Product.findByIdAndUpdate(productId, product, { runValidators: true, new: true });
