@@ -14,3 +14,11 @@ const updateProduct = (productId, product) => Product.findByIdAndUpdate(productI
 
 // DELETE 
 const deleteProduct = (productId) => Product.findByIdAndDelete(productId, { returnDocument: true });
+
+module.exports = {
+    getSingleProduct,
+    getAllProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+};
