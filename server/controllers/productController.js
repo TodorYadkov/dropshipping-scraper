@@ -28,5 +28,21 @@ productController.post('/', async (req, res) => {
     }
 });
 
+// PUT
+// TODO.. user details
+productController.put('/:productId', async (req, res) => {
+    try {
+        await validateProductSchema.validateAsync(req.body);
+
+        const productId = req.params.productId;
+        const editedProduct = await updateProduct(productId, req.body);
+
+        res.status(200).json(editedProduct);
+    } catch (err) {
+        console.log(err.message);
+        console.error(err);
+        //TODO...
+    }
+});
 
 module.exports = productController;
