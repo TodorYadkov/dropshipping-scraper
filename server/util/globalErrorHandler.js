@@ -32,5 +32,5 @@ module.exports = (err, req, res, next) => {
 
 
     // General Express errors
-    return res.status(500).json({ message: ['Internal server error', err], statusCode: 500 });
+    return res.status(500).json({ message: 'Internal server error', error: err, statusCode: 500 });
 };
