@@ -17,7 +17,7 @@ export default (err, req, res) => {
             // Other Mongoose errors
             return res.status(409).json({ message: 'Internal database error', error: err, statusCode: 409 });
         }
-    } else if (err.isJoi) {
+    } else if (err.name === 'ValidationError') {  // TODO.. change from (err.joi) find why it didn't hit the if statement 
         // Joi library validation error
         return res.status(statusCode).json({ message: err.details.map(error => error.message).join(', '), statusCode });
 
