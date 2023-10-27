@@ -15,7 +15,7 @@ function isUserGuest(req, res, next) {
 }
 
 function isOwner(req, res, next) {
-	if (req.user._id === res.locals.preload?.owner?._id) {
+	if (req.user._id === res.locals.preload.owner?._id) {
 		next();
 	} else {
 		return res.status(403).json({ message: 'Forbidden', statusCode: 403 });
