@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
 const productSchema = new Schema({
 	name: {
@@ -21,8 +21,12 @@ const productSchema = new Schema({
 	availability: {
 		type: Boolean,
 		required: [true, 'Availability is required!']
+	},
+	owner: {
+		type: Types.ObjectId,
+		ref: 'User',
+		required: [true, 'Owner is required']
 	}
-	//  TODO.. Add owner ID;
 });
 
 const Product = model('Product', productSchema);
