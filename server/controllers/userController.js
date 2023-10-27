@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { userRegister, userLogin, userLogout } from '../services/userService.js'
+import { userRegister, userLogin, userLogout, getUserById } from '../services/userService.js'
 import { validateRegisterSchema, validateLoginSchema } from '../util/validationSchemes.js';
 import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
+import { preload } from '../middlewares/preloader.js';
 const userController = Router();
 
 //  Register
-userController.post('/register', isUserGuest,  async (req, res, next) => {
+userController.post('/register', isUserGuest, async (req, res, next) => {
     try {
         await validateRegisterSchema.validateAsync(req.body);
         const user = await userRegister(req.body);
@@ -31,7 +32,18 @@ userController.post('/login', isUserGuest, async (req, res, next) => {
 //  Logout
 userController.get('/logout', isUserLogged, async (req, res, next) => {
     try {
-        const user = await userLogout(req.userToken);
+        await userLogout(req.userToken);
+
+        res.status(200).json({ message: 'Logout successful.' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+//  Profile
+userController.get('/profile', isUserLogged, async (req, res, next) => {
+    try {
+        const user = await getUserById(req.user._id);
 
         res.status(200).json(user);
     } catch (err) {
