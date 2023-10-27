@@ -1,10 +1,16 @@
 import { Router } from 'express';
 import { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } from '../services/productService.js';
 import { validateProductSchema } from '../util/validationSchemes.js';
+import { preload } from '../middlewares/preloader.js';
+import { isOwner } from '../middlewares/guards.js';
 const productController = Router();
 
+
+// Run preload every time before isOwner guard !!!
+
+
 // GET
-productController.get('/:productId', async (req, res, next) => {
+productController.get('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
         const product = await getSingleProduct(req.params.productId);
 
@@ -17,7 +23,7 @@ productController.get('/:productId', async (req, res, next) => {
 // GET ALL
 productController.get('/', async (req, res, next) => {
     try {
-        const products = await getAllProducts();
+        const products = await getAllProducts(req.user._id);
 
         res.status(200).json(products);
     } catch (err) {
@@ -26,11 +32,10 @@ productController.get('/', async (req, res, next) => {
 });
 
 // POST 
-// TODO.. user details
 productController.post('/', async (req, res, next) => {
     try {
         await validateProductSchema.validateAsync(req.body);
-        const newProduct = await createProduct(req.body);
+        const newProduct = await createProduct(req.body, req.user._id);
 
         res.status(201).json(newProduct);
     } catch (err) {
@@ -39,8 +44,7 @@ productController.post('/', async (req, res, next) => {
 });
 
 // PUT
-// TODO.. user details
-productController.put('/:productId', async (req, res, next) => {
+productController.put('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
         await validateProductSchema.validateAsync(req.body);
         const productId = req.params.productId;
@@ -53,7 +57,7 @@ productController.put('/:productId', async (req, res, next) => {
 });
 
 // DELETE
-productController.delete('/:productId', async (req, res, next) => {
+productController.delete('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
         const productId = req.params.productId;
         const deletedProduct = await deleteProduct(productId);
