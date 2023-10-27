@@ -4,12 +4,10 @@ import { Product } from '../models/Product.js';
 const getSingleProduct = (productId) => Product.findById(productId);
 
 // GET ALL
-const getAllProducts = () => Product.find();
-// TODO Add userId as parameter
+const getAllProducts = (userId) => Product.find({ owner: userId });
 
 // CREATE 
-const createProduct = (product) => Product.create(product);
-// TODO Add userId as parameter
+const createProduct = (product, userId) => Product.create({...product, owner: userId});
 
 // UPDATE
 const updateProduct = (productId, product) => Product.findByIdAndUpdate(productId, product, { runValidators: true, new: true });
