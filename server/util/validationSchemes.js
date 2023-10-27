@@ -1,0 +1,28 @@
+import joi from 'joi';
+import { USER_ROLES } from '../environments/userRoles';
+
+const validateProductSchema = joi.object({
+	name: joi.string().required().trim().max(500),
+
+	description: joi.string().required().trim(),
+
+	price: joi.number().required(),
+
+	imagesURL: joi.string().required().trim(),
+
+	availability: joi.boolean().required(),
+
+	owner: joi.string().required()
+});
+
+const validateUserScheme = joi.object({
+	name: joi.string().required().trim().max(50),
+
+	email: joi.string().required().trim().email(),
+
+	password: joi.string().required().trim().min(8).max(20).lowercase(1).uppercase(1),
+
+	role: joi.any().valid(...Object.values(USER_ROLES))
+});
+
+export { validateProductSchema, validateUserScheme };
