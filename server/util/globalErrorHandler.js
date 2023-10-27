@@ -1,7 +1,7 @@
 import { Error as _Error } from 'mongoose';
 
 // Global error handler
-export default (err, req, res) => {
+export default (err, req, res, next) => {
     // Get status code
     const statusCode = err.statusCode || 400;
 
@@ -17,7 +17,7 @@ export default (err, req, res) => {
             // Other Mongoose errors
             return res.status(409).json({ message: 'Internal database error', error: err, statusCode: 409 });
         }
-    } else if (err.name === 'ValidationError') {  // TODO.. change from (err.joi) find why it didn't hit the if statement 
+    } else if (err.isJoi) {
         // Joi library validation error
         return res.status(statusCode).json({ message: err.details.map(error => error.message).join(', '), statusCode });
 
