@@ -73,6 +73,7 @@ async function userLogin({ email, password }) {
 }
 
 //  Logout
+//  The function can be asynchronous with DB integration
 async function userLogout(userToken) {
     tokenBlackList.add(userToken);
 }
