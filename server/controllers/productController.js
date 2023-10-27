@@ -1,4 +1,4 @@
-const { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } = require('../services/productService');
+const { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } = require('../services/productService.js');
 const { validateProductSchema } = require('../util/validationProductSchema.js')
 const productController = require('express').Router();
 
