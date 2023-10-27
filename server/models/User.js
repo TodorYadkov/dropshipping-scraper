@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { USER_ROLES } from '../environments/userRoles';
+import { USER_ROLES } from '../environments/userRoles.js';
 
 const userSchema = new Schema({
 	name: {
@@ -22,7 +22,8 @@ const userSchema = new Schema({
         enum: {
             values: [...Object.values(USER_ROLES)],
             message: '{VALUE} is not supported!'
-        }
+        },
+        default: USER_ROLES.USER
     }
 });
 
