@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { userRegister, userLogin, userLogout} from '../services/userService'
-import { validateRegisterSchema, validateLoginSchema } from '../util/validationSchemes';
+import { userRegister, userLogin, userLogout } from '../services/userService.js'
+import { validateRegisterSchema, validateLoginSchema } from '../util/validationSchemes.js';
+import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
 const userController = Router();
 
 //  Register
-userController.post('/register', async (req, res, next) => {
+userController.post('/register', isUserGuest,  async (req, res, next) => {
     try {
         await validateRegisterSchema.validateAsync(req.body);
         const user = await userRegister(req.body);
@@ -16,7 +17,7 @@ userController.post('/register', async (req, res, next) => {
 });
 
 //  Login
-userController.post('/login', async (req, res, next) => {
+userController.post('/login', isUserGuest, async (req, res, next) => {
     try {
         await validateLoginSchema.validateAsync(req.body);
         const user = await userLogin(req.body);
@@ -28,7 +29,7 @@ userController.post('/login', async (req, res, next) => {
 });
 
 //  Logout
-userController.post('/logout', async (req, res, next) => {
+userController.get('/logout', isUserLogged, async (req, res, next) => {
     try {
         const user = await userLogout(req.userToken);
 
