@@ -1,8 +1,8 @@
-const homeController = require('../controllers/homeController.js');
-const productController = require('../controllers/productController.js');
-const logRequests = require('../middlewares/displayRequest.js');
+import { homeController } from '../controllers/homeController.js';
+import { productController } from '../controllers/productController.js';
+import logRequests from '../middlewares/displayRequest.js';
 
-module.exports = (app) => {
+export default (app) => {
 	app.use(logRequests()); // Logging every request
 	app.use('/', homeController);
 	app.use('/products', productController);

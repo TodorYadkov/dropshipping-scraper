@@ -1,11 +1,13 @@
-const { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } = require('../services/productService.js');
-const { validateProductSchema } = require('../util/validationProductSchema.js')
-const productController = require('express').Router();
+import { Router } from 'express';
+import { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } from '../services/productService.js';
+import { validateProductSchema } from '../util/validationProductSchema.js';
+const productController = Router();
 
 // GET
 productController.get('/:productId', async (req, res, next) => {
     try {
         const product = await getSingleProduct(req.params.productId);
+
         res.status(200).json(product);
     } catch (err) {
         next(err);
@@ -16,6 +18,7 @@ productController.get('/:productId', async (req, res, next) => {
 productController.get('/', async (req, res, next) => {
     try {
         const products = await getAllProducts();
+
         res.status(200).json(products);
     } catch (err) {
         next(err);
@@ -28,6 +31,7 @@ productController.post('/', async (req, res, next) => {
     try {
         await validateProductSchema.validateAsync(req.body);
         const newProduct = await createProduct(req.body);
+
         res.status(201).json(newProduct);
     } catch (err) {
         next(err);
@@ -39,7 +43,6 @@ productController.post('/', async (req, res, next) => {
 productController.put('/:productId', async (req, res, next) => {
     try {
         await validateProductSchema.validateAsync(req.body);
-
         const productId = req.params.productId;
         const editedProduct = await updateProduct(productId, req.body);
 
@@ -61,4 +64,4 @@ productController.delete('/:productId', async (req, res, next) => {
     }
 });
 
-module.exports = productController;
+export { productController };

@@ -1,7 +1,6 @@
-const homeController = require('express').Router();
+import { Router } from 'express';
+const homeController = Router();
 
-homeController.get('/', (req, res) => {
-	res.status(200).json({ hello: 'Hello World !' });
-});
+homeController.get('/', (req, res) => res.status(200).json({ hello: 'Hello World !' }));
 
-module.exports = homeController;
+export { homeController };

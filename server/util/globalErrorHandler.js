@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+import { Error as _Error } from 'mongoose';
 
 // Global error handler
-module.exports = (err, req, res, next) => {
+export default (err, req, res) => {
     // Get status code
     const statusCode = err.statusCode || 400;
 
-    if (err instanceof mongoose.Error.ValidationError) {
+    if (err instanceof _Error.ValidationError) {
         // Mongoose validation error
         return res.status(statusCode).json({ message: Object.values(err.errors).map(error => error.message).join(', '), statusCode });
-    } else if (err instanceof mongoose.Error) {
+    } else if (err instanceof _Error) {
         // Other Mongoose errors
         if (err.code === 11000) {
             // Duplicate key error
@@ -29,7 +29,6 @@ module.exports = (err, req, res, next) => {
         // Custom server error
         return res.status(statusCode).json({ message: err.message, statusCode });
     }
-
 
     // General Express errors
     return res.status(500).json({ message: 'Internal server error', error: err, statusCode: 500 });

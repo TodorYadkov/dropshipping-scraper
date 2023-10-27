@@ -15,6 +15,4 @@ const preload =
 		}
 	};
 
-module.exports = {
-	preload
-};
+export { preload };

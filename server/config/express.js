@@ -1,11 +1,11 @@
-const express = require('express');
-const cookieParser = require('cookie-parser');
-const cors = require('../middlewares/cors.js');
+import { json, urlencoded } from 'express';
+import cookieParser from 'cookie-parser';
+import cors from '../middlewares/cors.js';
 
-module.exports = (app) => {
+export default (app) => {
 	app.use(cors());
-	app.use(express.json());
-	app.use(express.urlencoded({ extended: true }));
+	app.use(json());
+	app.use(urlencoded({ extended: true }));
 	app.use(cookieParser());
 
 	// TODO Create these two middlewares 

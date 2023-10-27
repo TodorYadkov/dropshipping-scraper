@@ -1,4 +1,4 @@
-const { Product } = require('../models/Product.js');
+import { Product } from '../models/Product.js';
 
 // GET ONE
 const getSingleProduct = (productId) => Product.findById(productId);
@@ -15,7 +15,7 @@ const updateProduct = (productId, product) => Product.findByIdAndUpdate(productI
 // DELETE 
 const deleteProduct = (productId) => Product.findByIdAndDelete(productId, { returnDocument: true });
 
-module.exports = {
+export {
     getSingleProduct,
     getAllProducts,
     createProduct,

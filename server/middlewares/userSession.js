@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
-const { tokenBlackList } = require('../util/tokenBlackList.js');
+import { verify } from 'jsonwebtoken';
+import { tokenBlackList } from '../util/tokenBlackList.js';
 
-module.exports = () => (req, res, next) => {
+export default () => (req, res, next) => {
 	const userToken = req.headers['x-authorization'];
 
 	if (userToken) {
@@ -10,7 +10,7 @@ module.exports = () => (req, res, next) => {
 				throw new Error('The token has already been used. Please sign in again.');
 			}
 
-			const decodedToken = jwt.verify(
+			const decodedToken = verify(
 				userToken,
 				process.env.JWT_SECRET,
 				(err, decodedToken) => {
