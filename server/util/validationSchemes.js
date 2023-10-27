@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { USER_ROLES } from '../environments/userRoles';
+import { USER_ROLES } from '../environments/userRoles.js';
 
 const validateProductSchema = joi.object({
 	name: joi.string().required().trim().max(500),
