@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } from '../services/productService.js';
-import { validateProductSchema } from '../util/validationProductSchema.js';
+import { validateProductSchema } from '../util/validationSchemes.js';
 const productController = Router();
 
 // GET
