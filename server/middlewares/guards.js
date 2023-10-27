@@ -22,7 +22,7 @@ function isOwner(req, res, next) {
 	}
 }
 
-function userRole(role) {
+function userRole(role) { 
 	return (req, res, next) => {
 		if (req.user.role === role) {
 			next();
@@ -31,6 +31,8 @@ function userRole(role) {
 		}
 	}
 }
+
+// TODO... another guards
 
 export {
 	isUserLogged,
