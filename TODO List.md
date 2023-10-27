@@ -1,11 +1,15 @@
 # TODO list:
+
 ## Status code
-- Draft
-- In progress
-- Done
+
+-   Draft
+-   In progress
+-   Done
 
 # Tasks
+
 ## First part
+
 1. Create Github Repo - Done
 2. Add collaborators - Done
 3. Deploy Back-End application - Done
@@ -16,25 +20,63 @@
 8. Write main functionality of the extension - In progress
 
 ## Second part
+
 Write back-end RESTful API:
-- model
-- controller
-- endpoint
-  - /           - main path - In progress           - /                     - get     - unauthenticated request - Nothing for now
-  - /products  - Done          
-                                                    - /products             - get     - authenticated request   - Get all products
-                                                    - /products             - post    - authenticated request   - Create product
-                                                    - /products/:productId  - get     - authenticated request   - Get one product
-                                                    - /products/:productId  - put     - authenticated request   - Edit product
-                                                    - /products/:productId  - delete  - authenticated request   - Delete product
-  - /users - Done    
-                                                    - /users/register       - post    - unauthenticated request - Register new user
-                                                    - /users/login          - post    - unauthenticated request - Login user
-                                                    - /users/logout         - get     - authenticated request   - Logout user
-                                                    - /users/profile        - get     - authenticated request   - Get user details
- 
 
+-   model
+-   controller
 
+### Endpoints
 
-# Useful links: 
+-   **Main Path (In Progress)**
+
+    -   `/`
+        -   Method: GET
+        -   Authentication: Unauthenticated request
+        -   Description: Nothing for now
+
+-   **Products (Done)**
+
+    -   `/products`
+        -   Method: GET
+        -   Authentication: Authenticated request
+        -   Description: Get all products
+    -   `/products`
+        -   Method: POST
+        -   Authentication: Authenticated request
+        -   Description: Create product
+    -   `/products/:productId`
+        -   Method: GET
+        -   Authentication: Authenticated request
+        -   Description: Get one product
+    -   `/products/:productId`
+        -   Method: PUT
+        -   Authentication: Authenticated request
+        -   Description: Edit product
+    -   `/products/:productId`
+        -   Method: DELETE
+        -   Authentication: Authenticated request
+        -   Description: Delete product
+
+-   **Users (Done)**
+    -   `/users`
+    -   `/users/register`
+        -   Method: POST
+        -   Authentication: Unauthenticated request
+        -   Description: Register new user
+    -   `/users/login`
+        -   Method: POST
+        -   Authentication: Unauthenticated request
+        -   Description: Login user
+    -   `/users/logout`
+        -   Method: GET
+        -   Authentication: Authenticated request
+        -   Description: Logout user
+    -   `/users/profile`
+        -   Method: GET
+        -   Authentication: Authenticated request
+        -   Description: Get user details
+
+# Useful links:
+
 1. [Deploy back-end info](https://masteringbackend.com/posts/how-to-deploy-your-node-js-backend-project-to-vercel-a-step-by-step-guide)
