@@ -22,5 +22,3 @@ async function sendMessageToContent(message) {
 
     const response = await chrome.tabs.sendMessage(tabId, message);
 }
-
-
