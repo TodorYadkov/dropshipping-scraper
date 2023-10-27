@@ -1,14 +1,14 @@
-import { bcrypt } from 'bcrypt';
-import { jwt } from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
-import { User } from '../models/User';
+import { User } from '../models/User.js';
 import { tokenBlackList } from '../util/tokenBlackList.js';
 
 const jwtSecret = process.env.JWT_SECRET;
 const roundsBcrypt = 10;
 
 // Register
-async function userRegister({ name, email, password, role }) {
+async function userRegister({ name, email, password, role }) {  
 
     // Check if the username or email is already taken
     const isExisting = await User.findOne({ email });
