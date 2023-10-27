@@ -1,4 +1,4 @@
-import { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { tokenBlackList } from '../util/tokenBlackList.js';
 
 export default () => (req, res, next) => {
@@ -10,7 +10,7 @@ export default () => (req, res, next) => {
 				throw new Error('The token has already been used. Please sign in again.');
 			}
 
-			const decodedToken = verify(
+			const decodedToken = jwt.verify(
 				userToken,
 				process.env.JWT_SECRET,
 				(err, decodedToken) => {
