@@ -15,7 +15,7 @@ const validateProductSchema = joi.object({
 	owner: joi.string().required()
 });
 
-const validateUserScheme = joi.object({
+const validateRegisterSchema = joi.object({
 	name: joi.string().required().trim().max(50),
 
 	email: joi.string().required().trim().email(),
@@ -25,4 +25,10 @@ const validateUserScheme = joi.object({
 	role: joi.any().valid(...Object.values(USER_ROLES))
 });
 
-export { validateProductSchema, validateUserScheme };
+const validateLoginSchema = joi.object({
+	email: joi.string().required().trim().email(),
+
+	password: joi.string().required().trim().min(8).max(20).lowercase(1).uppercase(1),
+});
+
+export { validateProductSchema, validateRegisterSchema, validateLoginSchema };
