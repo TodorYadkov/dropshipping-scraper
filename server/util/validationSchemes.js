@@ -11,8 +11,6 @@ const validateProductSchema = joi.object({
 	imagesURL: joi.string().required().trim(),
 
 	availability: joi.boolean().required(),
-
-	owner: joi.string().required()
 });
 
 const validateRegisterSchema = joi.object({
