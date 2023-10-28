@@ -33,7 +33,7 @@ Write back-end RESTful API:
     -   `/`
         -   Method: GET
         -   Authentication: Unauthenticated request
-        -   Description: Nothing for now
+        -   Description: Only for testing
 
 -   **Products (Done)**
 
