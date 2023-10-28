@@ -1,3 +1,8 @@
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    console.log('Message received in content script:', request);
-});
+try {
+    // Do some DOM manipulation  
+    console.log('Content script is done!');
+    chrome.runtime.sendMessage({ message: "closeTab" });
+
+} catch(err) {
+    chrome.runtime.sendMessage({message: 'contentError', contentError: err});
+}

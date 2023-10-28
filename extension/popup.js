@@ -1,26 +1,36 @@
-import { getCurrentTab } from "./util.js";
+const startScript = document.getElementById('start-script');
+const stopScript = document.getElementById('stop-script');
 
-const sendToBackgroundButton = document.getElementById('sendToBackground');
-const sendToContentButton = document.getElementById('sendToContent');
+//  Depending on the background state show the initial button;
+backgroundState();
 
-sendToBackgroundButton.addEventListener('click', () => {
-    sendMessageToBackground({ message: 'Hello from popup to background!' });
+//  Send message to start the background, change the buttons;
+startScript.addEventListener('click', () => {
+    sendMessageToBackground({ message: 'start' });
+    startScript.style.display = 'none';
+    stopScript.style.display = 'block';
 });
 
-sendToContentButton.addEventListener('click', () => {
-    sendMessageToContent({ message: 'Hello from popup to content!' });
+//  Send message to stop the background, change the buttons;
+stopScript.addEventListener('click', () => {
+    sendMessageToBackground({ message: 'stop' });
+    startScript.style.display = 'block';
+    stopScript.style.display = 'none';
 });
 
+async function backgroundState() {
+
+    chrome.storage.session.get(["isScriptRunning"]).then((result) => {
+        if (result.isScriptRunning) {
+            stopScript.style.display = 'block';
+        } else {
+            startScript.style.display = 'block';
+        }
+      });
+
+}
+
+// Message function;
 async function sendMessageToBackground(message) {
-    const response = await chrome.runtime.sendMessage(message);
+    return chrome.runtime.sendMessage(message);
 }
-
-async function sendMessageToContent(message) {
-    // const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
-    // const tabId = tabs[0].id;
-    const tabId = await getCurrentTab();
-
-    const response = await chrome.tabs.sendMessage(tabId, message);
-}
-
-
