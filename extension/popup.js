@@ -1,36 +1,26 @@
-const startScript = document.getElementById('start-script');
-const stopScript = document.getElementById('stop-script');
+const button = document.getElementById('btn');
 
 //  Depending on the background state show the initial button;
 backgroundState();
 
 //  Send message to start the background, change the buttons;
-startScript.addEventListener('click', () => {
-    sendMessageToBackground({ message: 'start' });
-    startScript.style.display = 'none';
-    stopScript.style.display = 'block';
-});
-
-//  Send message to stop the background, change the buttons;
-stopScript.addEventListener('click', () => {
-    sendMessageToBackground({ message: 'stop' });
-    startScript.style.display = 'block';
-    stopScript.style.display = 'none';
+button.addEventListener('click', () => {
+	if (button.textContent === 'Start') {
+		sendMessageToBackground({ message: 'start' });
+		button.textContent = 'Stop';
+	} else {
+		sendMessageToBackground({ message: 'stop' });
+		button.textContent = 'Start';
+	}
 });
 
 async function backgroundState() {
-
-    chrome.storage.session.get(["isScriptRunning"]).then((result) => {
-        if (result.isScriptRunning) {
-            stopScript.style.display = 'block';
-        } else {
-            startScript.style.display = 'block';
-        }
-      });
-
+	chrome.storage.session.get(['isScriptRunning']).then((result) => {
+		button.textContent = result.isScriptRunning ? 'Stop' : 'Start';
+	});
 }
 
 // Message function;
 async function sendMessageToBackground(message) {
-    return chrome.runtime.sendMessage(message);
+	return chrome.runtime.sendMessage(message);
 }
