@@ -1,40 +1,40 @@
 import { sendData } from './services/dataService.js';
 import { fetchDataFromServer } from './util/fetchDataFromServer.js';
 
-try {
-    let intervalId;                                         //  It's used to clear the setInterval
-    let test = 0
- 
-    chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+// let intervalId; // It's used to clear the setInterval
 
-        switch(request.message) {
-           
-            case 'closeTab':                                             //  if message match: close the sender tab
-                chrome.tabs.remove(sender.tab.id); 
-                break;
-            case 'start':                                               //  if message match: start the opening tabs
-                chrome.storage.session.set({ isScriptRunning: true });
-                intervalId = setInterval(fetchDataFromServer, Math.random() * 10000 + 5000);
-                break;
-            case 'stop':                                                //  if message match: stop the opening of tabs
-                chrome.storage.session.set({ isScriptRunning: false })
-                clearInterval(intervalId);    
-                break; 
-            case 'contentError':                                        //  in case of error close the sender tab
-                console.log(request.contentError);                      //  TODO.. log or show error to the user
-                chrome.tabs.remove(sender.tab.id);
-                break;
-            case 'doneScraping':
-                console.log(request);
-                console.log(sender);
-                console.log(test++);
-                sendData({ title: request.product});
-                chrome.tabs.remove(sender.tab.id);
-                break;
-        }
+chrome.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
-    });
+    switch (message.message) {
 
-} catch(err) {
-    console.log(err);
-}
+        case 'start':
+            chrome.storage.session.set({ isScriptRunning: true });
+            // Set up the alarm to trigger fetchDataFromServer
+            chrome.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 }); // Math.random() +
+            break;
+        case 'doneScraping':
+            sendData({ title: message.product });
+            chrome.tabs.remove(sender.tab.id);
+            break;
+        case 'stop':
+            chrome.storage.session.set({ isScriptRunning: false });
+            // Clear the alarm when the script is stopped
+            chrome.alarms.clear('fetchDataAlarm');
+            break;
+        case 'closeTab':
+            chrome.tabs.remove(sender.tab.id);
+            break;
+        case 'contentError':
+            console.log(message.contentError);
+            chrome.tabs.remove(sender.tab.id);
+            break;
+    }
+
+});
+
+// Listen for the alarm and trigger fetchDataFromServer
+chrome.alarms.onAlarm.addListener((alarm) => {
+    if (alarm.name === 'fetchDataAlarm') {
+        fetchDataFromServer();
+    }
+});
