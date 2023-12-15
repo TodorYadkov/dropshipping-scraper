@@ -2,9 +2,9 @@
 
 ## Status code
 
--   Draft
--   In progress
--   Done
+- Draft
+- In progress
+- Done
 
 # Tasks
 
@@ -23,60 +23,64 @@
 
 Write back-end RESTful API:
 
--   model
--   controller
+- model
+- controller
 
 ### Endpoints
 
--   **Main Path (In Progress)**
+- **Main Path (In Progress)**
 
-    -   `/`
-        -   Method: GET
-        -   Authentication: Unauthenticated request
-        -   Description: Only for testing
+  - `/`
+    - Method: GET
+    - Authentication: Unauthenticated request
+    - Description: Only for testing
 
--   **Products (Done)**
+- **Products (Done)**
 
-    -   `/products`
-        -   Method: GET
-        -   Authentication: Authenticated request
-        -   Description: Get all products
-    -   `/products`
-        -   Method: POST
-        -   Authentication: Authenticated request
-        -   Description: Create product
-    -   `/products/:productId`
-        -   Method: GET
-        -   Authentication: Authenticated request
-        -   Description: Get one product
-    -   `/products/:productId`
-        -   Method: PUT
-        -   Authentication: Authenticated request
-        -   Description: Edit product
-    -   `/products/:productId`
-        -   Method: DELETE
-        -   Authentication: Authenticated request
-        -   Description: Delete product
+  - `/products`
+    - Method: GET
+    - Authentication: Authenticated request
+    - Description: Get all products
+  - `/products`
+    - Method: POST
+    - Authentication: Authenticated request
+    - Description: Create product
+  - `/products/:productId`
+    - Method: GET
+    - Authentication: Authenticated request
+    - Description: Get one product
+  - `/products/:productId`
+    - Method: PUT
+    - Authentication: Authenticated request
+    - Description: Edit product
+  - `/products/:productId`
+    - Method: DELETE
+    - Authentication: Authenticated request
+    - Description: Delete product
 
--   **Users (Done)**
-    -   `/users`
-    -   `/users/register`
-        -   Method: POST
-        -   Authentication: Unauthenticated request
-        -   Description: Register new user
-    -   `/users/login`
-        -   Method: POST
-        -   Authentication: Unauthenticated request
-        -   Description: Login user
-    -   `/users/logout`
-        -   Method: GET
-        -   Authentication: Authenticated request
-        -   Description: Logout user
-    -   `/users/profile`
-        -   Method: GET
-        -   Authentication: Authenticated request
-        -   Description: Get user details
+- **Users (Done)**
+  - `/users`
+  - `/users/register`
+    - Method: POST
+    - Authentication: Unauthenticated request
+    - Description: Register new user
+  - `/users/login`
+    - Method: POST
+    - Authentication: Unauthenticated request
+    - Description: Login user
+  - `/users/logout`
+    - Method: GET
+    - Authentication: Authenticated request
+    - Description: Logout user
+  - `/users/profile`
+    - Method: GET
+    - Authentication: Authenticated request
+    - Description: Get user details
 
 # Useful links:
 
 1. [Deploy back-end info](https://masteringbackend.com/posts/how-to-deploy-your-node-js-backend-project-to-vercel-a-step-by-step-guide)
+
+## Extension
+
+- Add icon on extension popup
