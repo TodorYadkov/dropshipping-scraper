@@ -14,7 +14,8 @@
             ],
             "js": [
                 "contentScript.js"
-            ]
+            ],
+            "run_at": "document_idle"
         }
     ],
     "options_page": "./misc/options.html",
@@ -26,7 +27,8 @@
         "activeTab",
         "tabs",
         "storage",
-        "scripting"
+        "scripting",
+        "alarms"
     ],
     "host_permissions": [
         "<all_urls>"
