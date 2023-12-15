@@ -1,8 +1,3 @@
 body {
-    min-width: 150px;
-}
-
-#start-script,
-#stop-script {
-    display: none;
+    width: 350px;
 }
