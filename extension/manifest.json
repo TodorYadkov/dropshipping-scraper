@@ -1,36 +1,44 @@
 {
-    "name": "Scraper",
-    "description": "This is a test scraper",
-    "version": "0.0.1",
-    "manifest_version": 3,
-    "background": {
-        "service_worker": "./background.js",
-        "type": "module"
+	"name": "Scraper",
+	"description": "This is a test scraper",
+	"version": "0.0.1",
+	"manifest_version": 3,
+	"background": {
+		"service_worker": "/background.js",
+		"type": "module"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://*.amazon.com/*",
+				"*://*.amazon.co.jp/*",
+				"*://*.amazon.co.uk/*",
+				"*://*.amazon.de/*",
+				"*://*.amazon.fr/*",
+				"*://*.amazon.ca/*",
+				"*://*.amazon.es/*",
+				"*://*.amazon.it/*",
+				"*://*.amazon.com.be/*",
+				"*://*.amazon.nl/*",
+				"*://*.amazon.pl/*",
+				"*://*.amazon.se/*",
+				"*://*.amazon.com.mx/*",
+				"*://*.amazon.com.br/*"
+			],
+			"js": ["contentScript.js"],
+			"run_at": "document_idle"
+		}
+	],
+	"options_page": "/misc/options.html",
+	"icons": {
+        "128": "assets/logo.png"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "contentScript.js"
-            ],
-            "run_at": "document_idle"
-        }
-    ],
-    "options_page": "./misc/options.html",
-    "action": {
-        "default_popup": "popup.html",
-        "default_title": "Scraper"
-    },
-    "permissions": [
-        "activeTab",
-        "tabs",
-        "storage",
-        "scripting",
-        "alarms"
-    ],
-    "host_permissions": [
-        "<all_urls>"
-    ]
+	"action": {
+		"default_popup": "popup.html",
+		"default_title": "Scraper"
+	},
+	"permissions": ["activeTab", "tabs", "storage", "scripting", "alarms"],
+	"host_permissions": [
+		"<all_urls>"
+	]
 }
