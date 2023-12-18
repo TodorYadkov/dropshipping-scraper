@@ -21,9 +21,18 @@ userController.post('/register', isUserGuest, async (req, res, next) => {
 userController.post('/login', isUserGuest, async (req, res, next) => {
     try {
         await validateLoginSchema.validateAsync(req.body);
-        const user = await userLogin(req.body);
+        console.log(req.body);
 
-        res.status(200).json(user);
+        // send back to extension mock data;
+        res.status(200).json({
+            email: 'pesho@abv.bg',
+            extensionName: 'browser 1',
+            accessToken: '283ehfuihwf3uiheuhfe'
+        }); 
+
+        // const user = await userLogin(req.body);
+
+        // res.status(200).json(user);
     } catch (err) {
         next(err);
     }
