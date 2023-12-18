@@ -1,9 +1,12 @@
+// import { multiBrowser } from './constants/constants.js'
+
 try {
     const title = document.querySelector('h1#title span#productTitle').textContent;
     chrome.runtime.sendMessage({ message: 'doneScraping', product: title.trim() });
 
 } catch (err) {
-    chrome.runtime.sendMessage({ message: 'contentError', contentError: err });
+    chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message }); 
+    // TODO find why object cannot be send to the background
 }
 
 // const xpathExpression = "//*[@id='title']/span[@id='productTitle']";
