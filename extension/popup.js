@@ -45,6 +45,7 @@ function submitHandler(e) {
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 	switch (message.message) {
+		// TODO: after successful login use the new user info for popup html 
 		case 'loginSuccessful':
 			console.log(message.user);
 			break;
