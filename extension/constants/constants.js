@@ -1,0 +1,1 @@
+export const multiBrowser = (chrome || browser); 
