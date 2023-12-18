@@ -2,6 +2,7 @@ import { login } from './services/authService.js';
 import { sendData } from './services/dataService.js';
 import { fetchDataFromServer } from './util/fetchDataFromServer.js';
 import { multiBrowser } from './constants/constants.js'
+import { setData } from './util/storageActions.js';
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
@@ -22,7 +23,10 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             multiBrowser.alarms.clear('fetchDataAlarm');
             break;
         case 'login':
-            // const  = await login(message.userData);
+            const loggedUserData = await login(message.userData);
+            await setData(loggedUserData);
+            // After successful login send the user information to popup so the html can be updated with user information
+            sendResponse({ message: 'loginSuccessful', user: loggedUserData });
             break;
         case 'contentError':
             console.log(message);
@@ -39,6 +43,29 @@ multiBrowser.alarms.onAlarm.addListener((alarm) => {
     }
 });
 
+// TODO: maybe send message to popup on storage.locals change 
+
+// multiBrowser.storage.onChanged.addListener((changes, namespace) => {
+//     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
+//         console.log(
+//           `Storage key "${key}" in namespace "${namespace}" changed.`,
+//           `Old value was "${oldValue}", new value is "${newValue}".`
+//         );
+//       }
+// })
+
+// On change this is the changes object that we receiving
+
+// {
+//     "extensionName": {
+//         "newValue": "browser 2",
+//         "oldValue": "browser 1"
+//     }
+// }
+
+
+
+
 
 // 1. Login
 
@@ -46,7 +73,7 @@ multiBrowser.alarms.onAlarm.addListener((alarm) => {
 //     email: 'pesho@abv.bg',
 //     password: '123456',
 //     extensionName: 'browser 1',
-//     isExtention: true
+//     isExtension: true
 // }
 
 // 1.1 Server response
