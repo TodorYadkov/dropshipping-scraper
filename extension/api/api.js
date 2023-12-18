@@ -30,7 +30,7 @@ async function httpRequester(method, endpoint, data) {
         return response.json();
     } catch (error) {
         console.log(error);
-        alert(err.message);
+        // alert(err.message); alert is not working here
         // throw error.message;
     }
 }
