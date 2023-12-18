@@ -28,12 +28,25 @@ async function sendMessageToBackground(message) {
 	return multiBrowser.runtime.sendMessage(message);
 }
 
+// Send login form data to the backgroundScript
 form.addEventListener(
 	'submit',
-	(e) => sendMessageToBackground({
-		message: 'login',
-		userData: Object.fromEntries(new FormData(e.target))
-	})
+	submitHandler
 );
 
+function submitHandler(e) {
+	e.preventDefault();
+	sendMessageToBackground({
+		message: 'login',
+		userData: Object.fromEntries(new FormData(e.target))
+	});
+}
 
+
+multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
+	switch (message.message) {
+		case 'loginSuccessful':
+			console.log(message.user);
+			break;
+	}
+});
