@@ -1,26 +1,39 @@
-const button = document.getElementById('btn');
+import { multiBrowser } from './constants/constants.js'
+import { getData } from './util/storageActions.js';
+
+const buttonAction = document.querySelector('.btn.action');
+const form = document.querySelector('.form');
 
 //  Depending on the background state show the initial button;
 backgroundState();
 
 //  Send message to start the background, change the buttons;
-button.addEventListener('click', () => {
-	if (button.textContent === 'Start') {
+buttonAction.addEventListener('click', () => {
+	if (buttonAction.textContent === 'Start') {
 		sendMessageToBackground({ message: 'start' });
-		button.textContent = 'Stop';
+		buttonAction.textContent = 'Stop';
 	} else {
 		sendMessageToBackground({ message: 'stop' });
-		button.textContent = 'Start';
+		buttonAction.textContent = 'Start';
 	}
 });
 
 async function backgroundState() {
-	chrome.storage.session.get(['isScriptRunning']).then((result) => {
-		button.textContent = result.isScriptRunning ? 'Stop' : 'Start';
-	});
+	const result = await getData(['isScriptRunning']);
+	buttonAction.textContent = result.isScriptRunning ? 'Stop' : 'Start';
 }
 
 // Message function;
 async function sendMessageToBackground(message) {
-	return chrome.runtime.sendMessage(message);
+	return multiBrowser.runtime.sendMessage(message);
 }
+
+form.addEventListener(
+	'submit',
+	(e) => sendMessageToBackground({
+		message: 'login',
+		userData: Object.fromEntries(new FormData(e.target))
+	})
+);
+
+
