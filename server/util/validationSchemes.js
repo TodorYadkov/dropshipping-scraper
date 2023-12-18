@@ -32,6 +32,10 @@ const validateLoginSchema = joi.object({
 	email: joi.string().required().trim().email().lowercase(),
 
 	password: joi.string().required().trim().min(8).max(20),
+
+	extensionName: joi.string().trim().min(5).max(100),
+
+	isExtension: joi.boolean()
 	// This doesn't work - password: joi.string().required().trim().min(8).max(20).lowercase(1).uppercase(1),
 	// TODO: If we want to add more complex password validation without any other library, we can use this regex
 	// Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
