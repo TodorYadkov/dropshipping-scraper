@@ -19,8 +19,8 @@
 
         <div class="home">
             <h3>Dropshipping Software System</h3>
-            <h5>Our project is part of the SoftUni initiative, providing students with an opportunity to work on a
-                project that closely resembles real-world applications.</h5>
+            <p>Our project is part of the SoftUni initiative, providing students with an opportunity to work on a
+                project that closely resembles real-world applications.</p>
             <ul>
                 <li>Lead by: <a href="https://github.com/DeyanDanailov" target="_blank">Deyan Danailov</a></li>
                 <li>Developed by: <a href="https://github.com/TodorYadkov" target="_blank">Todor Yadkov</a>, <a
@@ -28,34 +28,43 @@
                         href="https://github.com/maximkraychev" target="_blank">Maxim Kraychev</a></li>
             </ul>
 
-            <div class="user-info">
-                <p class="email">test@example.com</p>
-                <p class="extension-name">Extension 1</p>
+        </div>
+
+        <div class="user-info">
+            <div class="info-container">
+                <p class="email">Email: <span>test@example.com</span></p>
+                <p class="extension-name">Extension Name: <span>Extension 1</span></p>
+            </div>
+            <div class="buttons-container">
                 <button class="btn action">Start</button>
-                <button class="btn documentation">Documentation</button>
+                <button class="btn logout">Logout</button>
+                <a href="https://github.com/TodorYadkov/dropshipping-scraper" target="_blank"
+                    class="btn documentation">Documentation</a>
             </div>
         </div>
 
         <div class="login-form">
             <form class="form" method="post">
 
+                <h2>Login</h2>
+
                 <div>
                     <label for="email">Email</label>
-                    <input id="email" class="email" type="email" name="email" required>
+                    <input id="email" class="email" type="email" name="email" required placeholder="Email">
                 </div>
 
                 <div>
                     <label for="extension-name">Extension Name</label>
                     <input id="extension-name" class="extension-name" type="text" name="extensionName" required
-                        minlength="5" maxlength="100">
+                        minlength="5" maxlength="100" placeholder="Extension Name">
                 </div>
 
                 <div>
                     <label for="password">Password</label>
-                    <input id="password" class="password" type="password" name="password" required>
+                    <input id="password" class="password" type="password" name="password" required placeholder="Password">
                 </div>
 
-                <input class="btn submit" type="submit" value="Login">
+                <input class="btn submit" type="submit" value="Sign in">
 
             </form>
         </div>
