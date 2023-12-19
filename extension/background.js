@@ -2,36 +2,52 @@ import { login } from './services/authService.js';
 import { sendData } from './services/dataService.js';
 import { fetchDataFromServer } from './util/fetchDataFromServer.js';
 import { multiBrowser } from './constants/constants.js'
-import { setData } from './util/storageActions.js';
+import { removeData, setData } from './util/storageActions.js';
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
-    switch (message.message) {
+    try {
+        switch (message.message) {
 
-        case 'start':
-            multiBrowser.storage.local.set({ isScriptRunning: true });
-            // Set up the alarm to trigger fetchDataFromServer
-            multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 }); // Math.random() + Add this later !!!
-            break;
-        case 'doneScraping':
-            sendData({ title: message.product });
-            multiBrowser.tabs.remove(sender.tab.id);
-            break;
-        case 'stop':
-            multiBrowser.storage.local.set({ isScriptRunning: false });
-            // Clear the alarm when the script is stopped
-            multiBrowser.alarms.clear('fetchDataAlarm');
-            break;
-        case 'login':
-            const loggedUserData = await login(message.userData);
-            await setData(loggedUserData);
-            // After successful login send the user information to popup so the html can be updated with user information
-            sendResponse({ message: 'loginSuccessful', user: loggedUserData });
-            break;
-        case 'contentError':
-            console.log(message);
-            multiBrowser.tabs.remove(sender.tab.id);
-            break;
+            case 'start':
+                await setData({ isScriptRunning: true });
+                // Set up the alarm to trigger fetchDataFromServer
+                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 }); // Math.random() + Add this later !!!
+                break;
+
+            case 'doneScraping':
+                sendData({ title: message.product });
+                multiBrowser.tabs.remove(sender.tab.id);
+                break;
+
+            case 'stop':
+                await setData({ isScriptRunning: false });
+                // Clear the alarm when the script is stopped
+                multiBrowser.alarms.clear('fetchDataAlarm');
+                break;
+
+            case 'login':
+                const loggedUserData = await login(message.userData);
+                await setData({ userData: loggedUserData });
+                // After successful login send the user information to popup so the html can be updated with user information
+                sendResponse({ message: 'loginSuccessful', user: loggedUserData });
+                break;
+
+            case 'logout':
+                await removeData(['userData']);
+                await setData({ isScriptRunning: false });
+                multiBrowser.alarms.clear('fetchDataAlarm');
+                console.log('logout background');
+                sendResponse({ message: 'successfulLogout' });
+                break;
+
+            case 'contentError':
+                console.log(message);
+                multiBrowser.tabs.remove(sender.tab.id);
+                break;
+        }
+    } catch (err) {
+        console.log(err);
     }
 
 });
@@ -43,7 +59,7 @@ multiBrowser.alarms.onAlarm.addListener((alarm) => {
     }
 });
 
-// TODO: maybe send message to popup on storage.locals change 
+// TODO: maybe send message to popup on storage.locals change
 
 // multiBrowser.storage.onChanged.addListener((changes, namespace) => {
 //     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
