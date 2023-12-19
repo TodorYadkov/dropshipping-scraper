@@ -11,8 +11,11 @@
 </head>
 
 <body>
-    <div>
-        <h1><img src="assets/amazon.svg" alt="amazonScraper"> Amazon Scraper</h1>
+    <div class="container">
+        <div class="image-wrapper">
+            <img src="assets/amazon.svg" alt="amazonScraper">
+        </div>
+        <h1 class="heading">Amazon Scraper</h1>
 
         <div class="home">
             <h3>Dropshipping Software System</h3>
@@ -24,25 +27,32 @@
                         href="https://github.com/RosenDobrev10" target="_blank">Rosen Dobrev</a> and <a
                         href="https://github.com/maximkraychev" target="_blank">Maxim Kraychev</a></li>
             </ul>
-            <button class="btn action">Start</button>
+
+            <div class="user-info">
+                <p class="email">test@example.com</p>
+                <p class="extension-name">Extension 1</p>
+                <button class="btn action">Start</button>
+                <button class="btn documentation">Documentation</button>
+            </div>
         </div>
 
         <div class="login-form">
             <form class="form" method="post">
-                
+
                 <div>
                     <label for="email">Email</label>
-                    <input id="email" type="email" name="email" required>
+                    <input id="email" class="email" type="email" name="email" required>
                 </div>
 
                 <div>
                     <label for="extension-name">Extension Name</label>
-                    <input id="extension-name" type="text" name="extensionName" required minlength="5" maxlength="100">
+                    <input id="extension-name" class="extension-name" type="text" name="extensionName" required
+                        minlength="5" maxlength="100">
                 </div>
 
                 <div>
                     <label for="password">Password</label>
-                    <input id="password" type="password" name="password" required>
+                    <input id="password" class="password" type="password" name="password" required>
                 </div>
 
                 <input class="btn submit" type="submit" value="Login">
