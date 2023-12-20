@@ -1,7 +1,7 @@
 import { login } from './services/authService.js';
 import { sendData } from './services/dataService.js';
 import { fetchDataFromServer } from './util/fetchDataFromServer.js';
-import { multiBrowser } from './constants/constants.js'
+import { multiBrowser, tokenName } from './constants/constants.js'
 import { removeData, setData } from './util/storageActions.js';
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
@@ -27,17 +27,23 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 break;
 
             case 'login':
-                const loggedUserData = await login(message.userData);
-                await setData({ userData: loggedUserData });
-                // After successful login send the user information to popup so the html can be updated with user information
-                // sendResponse({ message: 'loginSuccessful', user: loggedUserData });
-                multiBrowser.runtime.sendMessage({ message: 'successfulLogin', user: loggedUserData });
+                try {
+                    const loggedUserData = await login(message.userData);
+
+                    await setData({ [tokenName]: loggedUserData });
+                    // After successful login send the user information to popup so the html can be updated with user information
+                    // sendResponse({ message: 'loginSuccessful', user: loggedUserData });
+                    multiBrowser.runtime.sendMessage({ message: 'successfulLogin', userData: loggedUserData });
+
+                } catch (error) {
+                    multiBrowser.runtime.sendMessage({ message: 'errorServerLogin', error: error.message });
+                }
                 break;
 
             case 'logout':
-                await removeData(['userData']);
-                await setData({ isScriptRunning: false });
                 multiBrowser.alarms.clear('fetchDataAlarm');
+                await setData({ isScriptRunning: false });
+                await removeData([tokenName]);
                 // Can made this with sendResponse
                 multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
                 break;
@@ -49,7 +55,6 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
     } catch (err) {
         console.log(err);
     }
-
 });
 
 // Listen for the alarm and trigger fetchDataFromServer
