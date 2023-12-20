@@ -46,21 +46,24 @@
         <form class="form" method="post">
 
             <h2>Login</h2>
-
+            <p class="server-error"></p>
+            
             <div>
                 <label for="email">Email</label>
-                <input id="email" class="email" type="email" name="email" required placeholder="Email">
+                <input id="email" class="email" type="email" name="email" placeholder="Email">
+                <p class="error">Email is not correct</p>
             </div>
 
             <div>
                 <label for="extension-name">Extension Name</label>
-                <input id="extension-name" class="extension-name" type="text" name="extensionName" required
-                    minlength="5" maxlength="100" placeholder="Extension Name">
+                <input id="extension-name" class="extension-name" type="text" name="extensionName" placeholder="Extension Name">
+                <p class="error">Extension Name is required</p>
             </div>
 
             <div>
                 <label for="password">Password</label>
-                <input id="password" class="password" type="password" name="password" required placeholder="Password">
+                <input id="password" class="password" type="password" name="password" placeholder="Password">
+                <p class="error">Invalid password</p>
             </div>
 
             <input class="btn submit" type="submit" value="Sign in">
