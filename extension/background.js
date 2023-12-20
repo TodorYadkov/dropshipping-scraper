@@ -30,19 +30,19 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 const loggedUserData = await login(message.userData);
                 await setData({ userData: loggedUserData });
                 // After successful login send the user information to popup so the html can be updated with user information
-                sendResponse({ message: 'loginSuccessful', user: loggedUserData });
+                // sendResponse({ message: 'loginSuccessful', user: loggedUserData });
+                multiBrowser.runtime.sendMessage({ message: 'successfulLogin', user: loggedUserData });
                 break;
 
             case 'logout':
                 await removeData(['userData']);
                 await setData({ isScriptRunning: false });
                 multiBrowser.alarms.clear('fetchDataAlarm');
-                console.log('logout background');
-                sendResponse({ message: 'successfulLogout' });
+                // Can made this with sendResponse
+                multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
                 break;
 
             case 'contentError':
-                console.log(message);
                 multiBrowser.tabs.remove(sender.tab.id);
                 break;
         }
