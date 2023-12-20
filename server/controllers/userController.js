@@ -8,8 +8,10 @@ const userController = Router();
 //  Register
 userController.post('/register', isUserGuest, async (req, res, next) => {
     try {
-        await validateRegisterSchema.validateAsync(req.body);
-        const user = await userRegister(req.body);
+        const userData = req.body;
+
+        await validateRegisterSchema.validateAsync(userData);
+        const user = await userRegister(userData);
 
         res.status(200).json(user);
     } catch (err) {
@@ -20,18 +22,13 @@ userController.post('/register', isUserGuest, async (req, res, next) => {
 //  Login
 userController.post('/login', isUserGuest, async (req, res, next) => {
     try {
-        await validateLoginSchema.validateAsync(req.body);
+        const userData = req.body;
 
-        // send back to extension mock data;
-        res.status(200).json({
-            email: req.body.email,
-            extensionName: req.body.extensionName,
-            accessToken: '283ehfuihwf3uiheuhfe'
-        });
+        await validateLoginSchema.validateAsync(userData);
 
-        // const user = await userLogin(req.body);
+        const user = await userLogin(userData);
 
-        // res.status(200).json(user);
+        res.status(200).json(user);
     } catch (err) {
         next(err);
     }
