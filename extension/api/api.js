@@ -1,4 +1,6 @@
 import { HOST } from './endPoints.js';
+import { tokenName } from '../constants/constants.js';
+import { getData, removeData } from '../util/storageActions.js';
 
 async function httpRequester(method, endpoint, data) {
     const url = HOST + endpoint;
@@ -12,27 +14,22 @@ async function httpRequester(method, endpoint, data) {
         options.body = JSON.stringify(data);
     }
 
-    // const userData = localStorage.getItem(USER_DATA);
-    // if (userData) {
-    // 	options.headers['X-Authorization'] = userData.accessToken;
-    // }
-    try {
-        const response = await fetch(url, options);
-        if (response.ok === false) {
-            if (response.status === 403) {
-                localStorage.removeItem(USER_DATA);
-            }
+    const userDetails = await getData([tokenName]);
+    if (userDetails['accessToken'] !== undefined) {
+        options.headers['X-Authorization'] = userDetails.accessToken;
+    }
 
-            const error = await response.json();
-            throw error;
+    const response = await fetch(url, options);
+    if (response.ok === false) {
+        if (response.status === 403) {
+            await removeData([tokenName])
         }
 
-        return response.json();
-    } catch (error) {
-        console.log(error);
-        // alert(err.message); alert is not working here
-        // throw error.message;
+        const error = await response.json();
+        throw error;
     }
+
+    return response.json();
 }
 
 export const api = {
