@@ -1,7 +1,7 @@
 {
 	"name": "Scraper",
-	"description": "This is a test scraper",
-	"version": "0.0.1",
+	"description": "SoftUni Project - Lead by: Deyan Danailov",
+	"version": "1.0.0",
 	"manifest_version": 3,
 	"background": {
 		"service_worker": "/background.js",
@@ -25,20 +25,41 @@
 				"*://*.amazon.com.mx/*",
 				"*://*.amazon.com.br/*"
 			],
-			"js": ["contentScript.js"],
+			"js": [
+				"contentScript.js"
+			],
 			"run_at": "document_idle"
 		}
 	],
 	"options_page": "/misc/options.html",
 	"icons": {
-        "128": "assets/logo.png"
-    },
+		"128": "assets/logo.png"
+	},
 	"action": {
 		"default_popup": "popup.html",
 		"default_title": "Scraper"
 	},
-	"permissions": ["activeTab", "tabs", "storage", "scripting", "alarms"],
+	"permissions": [
+		"activeTab",
+		"tabs",
+		"storage",
+		"scripting",
+		"alarms"
+	],
 	"host_permissions": [
-		"<all_urls>"
+		"*://*.amazon.com/*",
+		"*://*.amazon.co.jp/*",
+		"*://*.amazon.co.uk/*",
+		"*://*.amazon.de/*",
+		"*://*.amazon.fr/*",
+		"*://*.amazon.ca/*",
+		"*://*.amazon.es/*",
+		"*://*.amazon.it/*",
+		"*://*.amazon.com.be/*",
+		"*://*.amazon.nl/*",
+		"*://*.amazon.pl/*",
+		"*://*.amazon.se/*",
+		"*://*.amazon.com.mx/*",
+		"*://*.amazon.com.br/*"
 	]
 }
