@@ -21,14 +21,13 @@ userController.post('/register', isUserGuest, async (req, res, next) => {
 userController.post('/login', isUserGuest, async (req, res, next) => {
     try {
         await validateLoginSchema.validateAsync(req.body);
-        console.log(req.body);
 
         // send back to extension mock data;
         res.status(200).json({
-            email: 'pesho@abv.bg',
-            extensionName: 'browser 1',
+            email: req.body.email,
+            extensionName: req.body.extensionName,
             accessToken: '283ehfuihwf3uiheuhfe'
-        }); 
+        });
 
         // const user = await userLogin(req.body);
 
