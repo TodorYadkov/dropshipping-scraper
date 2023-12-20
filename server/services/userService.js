@@ -43,22 +43,39 @@ async function userRegister({ name, email, password, role }) {
 }
 
 //  Login
-async function userLogin({ email, password }) {
-
+async function userLogin(userData) {
     // Check if the user exist
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: userData.email });
     if (!user) {
         throw new Error('Invalid username or password!');
     }
 
     // Validate password
-    const matchPassword = await bcrypt.compare(password, user.password);
+    const matchPassword = await bcrypt.compare(userData.password, user.password);
     if (!matchPassword) {
         throw new Error('Invalid username or password!');
     }
 
-    // Create token
-    const userToken = await generateToken(user);
+    // Add is extension in accessToken
+    user.isExtension = userData.isExtension;
+
+    let userToken;
+    if (userData.isExtension) {
+        // Create token for extension
+        userToken = await generateToken(user);
+
+    } else {
+        // Create token for frontend
+        userToken = await generateToken(user);
+    }
+
+    // TODO: How to handle extensionName
+    // {
+    //     email: 'pesho@abv.bg',
+    //     password: '123456',
+    //     extensionName: 'browser 1',
+    //     isExtension: true
+    // }
 
     // Return user info
     return {
@@ -68,6 +85,7 @@ async function userLogin({ email, password }) {
             name: user.name,
             email: user.email,
             role: user.role,
+            extensionName: 'MOCK_DATA',
         }
     };
 }
@@ -85,13 +103,14 @@ const getUserById = (userId) => User.findById(userId).select('-password'); // Se
 async function generateToken(user) {
 
     //  JWT sign options
-    const options = { expiresIn: '7d' }
+    const options = { expiresIn: user.isExtension ? '365d' : '31d' };
 
     const payload = {
         _id: user._id,
         name: user.name,
         email: user.email,
         role: user.role,
+        isExtension: user.isExtension,
     }
 
     try {
