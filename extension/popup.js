@@ -34,6 +34,9 @@ form.addEventListener('submit', (e) => {
 	const userInput = Object.fromEntries(new FormData(e.target));
 	const { verifiedInput, hasError } = checkUserInput(userInput, form);
 
+	// Add property is from extension - This is used on the server
+	verifiedInput.isExtension = true;
+
 	if (hasError === false) {
 		sendMessageToBackground({
 			message: 'login',
@@ -50,7 +53,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 	try {
 		switch (message.message) {
 			case 'successfulLogin':
-				const { email, extensionName } = message.userData;
+				const { email, extensionName } = message.userData.userDetails;
 
 				userInfo.querySelector('.email>span').textContent = email;
 				userInfo.querySelector('.extension-name>span').textContent = extensionName;
@@ -91,7 +94,7 @@ async function backgroundState() {
 		result[tokenName]?.accessToken ? form.remove() : userInfo.remove();
 
 		if (result[tokenName]) {
-			const { email, extensionName } = result[tokenName];
+			const { email, extensionName } = result[tokenName].userDetails;
 
 			userInfo.querySelector('.email>span').textContent = email;
 			userInfo.querySelector('.extension-name>span').textContent = extensionName;
