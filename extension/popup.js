@@ -1,5 +1,6 @@
-import { multiBrowser } from './constants/constants.js'
 import { getData } from './util/storageActions.js';
+import { multiBrowser, tokenName } from './constants/constants.js'
+import { checkUserInput } from './util/validateUserInput.js';
 
 // Get reference to DOM elements
 const mainContainer = document.querySelector('.container');
@@ -9,6 +10,8 @@ const logoutBtn = document.querySelector('.btn.logout');
 
 const userInfo = document.querySelector('.user-info');
 const form = document.querySelector('.form');
+
+const serverError = form.querySelector('.server-error');
 
 // Depending on the background state show the initial state
 backgroundState();
@@ -27,10 +30,16 @@ buttonAction.addEventListener('click', () => {
 // Send login form data to the background
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
-	sendMessageToBackground({
-		message: 'login',
-		userData: Object.fromEntries(new FormData(e.target))
-	});
+
+	const userInput = Object.fromEntries(new FormData(e.target));
+	const { verifiedInput, hasError } = checkUserInput(userInput, form);
+
+	if (hasError === false) {
+		sendMessageToBackground({
+			message: 'login',
+			userData: verifiedInput
+		});
+	}
 });
 
 // Logout functionality
@@ -41,8 +50,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 	try {
 		switch (message.message) {
 			case 'successfulLogin':
-				const result = await getData(['userData']);
-				const { email, extensionName } = result.userData;
+				const { email, extensionName } = message.userData;
 
 				userInfo.querySelector('.email>span').textContent = email;
 				userInfo.querySelector('.extension-name>span').textContent = extensionName;
@@ -51,11 +59,19 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 
 				form.remove();
 				mainContainer.append(userInfo);
+
+				serverError.textContent = '';
+				serverError.style.display = 'none';
 				break;
 
 			case 'successfulLogout':
 				mainContainer.append(form);
 				userInfo.remove();
+				break;
+
+			case 'errorServerLogin':
+				serverError.textContent = message.error;
+				serverError.style.display = 'block';
 				break;
 		}
 
@@ -67,15 +83,15 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 // Initial state to popup extension
 async function backgroundState() {
 	try {
-
-		const result = await getData(['isScriptRunning', 'userData']);
+		const result = await getData(['isScriptRunning', tokenName]);
 		// Set appropriate state on button depending on script running
 		buttonAction.textContent = result.isScriptRunning ? 'Stop' : 'Start';
-		// Set which section to be visible depending on user state
-		result?.userData?.accessToken ? form.remove() : userInfo.remove();
 
-		if (result?.userData) {
-			const { email, extensionName } = result.userData;
+		// Set which section to be visible depending on user state
+		result[tokenName]?.accessToken ? form.remove() : userInfo.remove();
+
+		if (result[tokenName]) {
+			const { email, extensionName } = result[tokenName];
 
 			userInfo.querySelector('.email>span').textContent = email;
 			userInfo.querySelector('.extension-name>span').textContent = extensionName;
