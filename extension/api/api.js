@@ -15,8 +15,8 @@ async function httpRequester(method, endpoint, data) {
     }
 
     const userDetails = await getData([tokenName]);
-    if (userDetails['accessToken'] !== undefined) {
-        options.headers['X-Authorization'] = userDetails.accessToken;
+    if (userDetails[tokenName] !== undefined) {
+        options.headers['X-Authorization'] = userDetails[tokenName]['accessToken'];
     }
 
     const response = await fetch(url, options);
