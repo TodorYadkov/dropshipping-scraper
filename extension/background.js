@@ -1,4 +1,4 @@
-import { login } from './services/authService.js';
+import { login, logout } from './services/authService.js';
 import { sendData } from './services/dataService.js';
 import { fetchDataFromServer } from './util/fetchDataFromServer.js';
 import { multiBrowser, tokenName } from './constants/constants.js'
@@ -12,11 +12,11 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'start':
                 await setData({ isScriptRunning: true });
                 // Set up the alarm to trigger fetchDataFromServer
-                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 }); // Math.random() + Add this later !!!
+                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 }); // TODO: Math.random() + Add this later !!!
                 break;
 
             case 'doneScraping':
-                sendData({ title: message.product });
+                sendData(message.product);
                 multiBrowser.tabs.remove(sender.tab.id);
                 break;
 
@@ -29,7 +29,6 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'login':
                 try {
                     const loggedUserData = await login(message.userData);
-
                     await setData({ [tokenName]: loggedUserData });
                     // After successful login send the user information to popup so the html can be updated with user information
                     // sendResponse({ message: 'loginSuccessful', user: loggedUserData });
@@ -43,6 +42,8 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'logout':
                 multiBrowser.alarms.clear('fetchDataAlarm');
                 await setData({ isScriptRunning: false });
+                
+                await logout();
                 await removeData([tokenName]);
                 // Can made this with sendResponse
                 multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
@@ -53,7 +54,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 break;
         }
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 });
 
