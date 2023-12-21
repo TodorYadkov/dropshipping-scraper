@@ -82,5 +82,3 @@ Write back-end RESTful API:
 1. [Deploy back-end info](https://masteringbackend.com/posts/how-to-deploy-your-node-js-backend-project-to-vercel-a-step-by-step-guide)
 
 ## Extension
-
-- Add icon on extension popup
