@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { userRegister, userLogin, userLogout, getUserById } from '../services/userService.js'
 import { validateRegisterSchema, validateLoginSchema } from '../util/validationSchemes.js';
 import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
-import { preload } from '../middlewares/preloader.js';
 const userController = Router();
 
 //  Register
