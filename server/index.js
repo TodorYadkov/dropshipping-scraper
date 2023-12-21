@@ -13,7 +13,7 @@ async function start() {
 	const app = express();
 
 	await databaseConfig();
-	expressConfig(app);
+	await expressConfig(app);
 	routesConfig(app);
 	app.use(globalErrorHandling);
 
