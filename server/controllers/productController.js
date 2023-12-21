@@ -5,10 +5,6 @@ import { preload } from '../middlewares/preloader.js';
 import { isOwner } from '../middlewares/guards.js';
 const productController = Router();
 
-
-// Run preload every time before isOwner guard !!!
-
-
 // GET
 productController.get('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
