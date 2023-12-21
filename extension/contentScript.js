@@ -1,11 +1,32 @@
 // import { multiBrowser } from './constants/constants.js'
+const patternPrice = /(?<currency>[a-zA-Z]+)(?<value>[0-9]+\.?[0-9]+)/g;
 
 try {
     const title = document.querySelector('h1#title span#productTitle').textContent;
-    chrome.runtime.sendMessage({ message: 'doneScraping', product: title.trim() });
+    
+    const price = document.querySelector('.a-price')
+    const priceSymbol = price.querySelector('.a-price-symbol').textContent;
+    const priceWhole = price.querySelector('.a-price-whole').textContent;
+    const priceDecimal = price.querySelector('.a-price-decimal').textContent;
+    const priceFraction = price.querySelector('.a-price-fraction').textContent;
+
+    const currency = priceSymbol;
+    const value = priceWhole + priceDecimal + priceFraction;
+
+    const productInfo = {
+        title,
+        price: {
+            currency,
+            value
+        }
+    }
+
+
+    chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfo });
 
 } catch (err) {
-    chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message }); 
+    chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message });
+    console.error(err);
     // TODO find why object cannot be send to the background
 }
 
