@@ -50,6 +50,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 break;
 
             case 'contentError':
+                // TODO send request to back end with message.contentError 
                 multiBrowser.tabs.remove(sender.tab.id);
                 break;
         }
