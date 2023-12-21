@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import { User } from '../models/User.js';
-import { tokenBlackList } from '../util/tokenBlackList.js';
+import { addTokenToBlackList } from './tokenBlackListService.js';
 
 const jwtSecret = process.env.JWT_SECRET;
 const roundsBcrypt = 10;
@@ -85,15 +85,24 @@ async function userLogin(userData) {
             name: user.name,
             email: user.email,
             role: user.role,
-            extensionName: 'MOCK_DATA',
+            extensionName: 'MOCK_DATA_FROM_LOGIN_USER_SERVICE_88',
         }
     };
 }
 
 //  Logout
-//  The function can be asynchronous with DB integration
-async function userLogout(userToken) {
-    tokenBlackList.add(userToken);
+async function userLogout({ _id, accessToken, extensionName, email }) {
+    const userLogoutData = {
+        email,
+        accessToken,
+        userId: _id
+    };
+
+    if (extensionName) {
+        userLogoutData.extensionName = extensionName;
+    }
+
+    return addTokenToBlackList(userLogoutData);
 }
 
 //  Get user 
@@ -111,6 +120,7 @@ async function generateToken(user) {
         email: user.email,
         role: user.role,
         isExtension: user.isExtension,
+        extensionName: 'MOCK_DATA_FROM_GENERATE_TOKEN_116',
     }
 
     try {
