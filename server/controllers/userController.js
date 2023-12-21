@@ -37,7 +37,9 @@ userController.post('/login', isUserGuest, async (req, res, next) => {
 //  Logout
 userController.get('/logout', isUserLogged, async (req, res, next) => {
     try {
-        await userLogout(req.userToken);
+        const userData = { ...req.user, accessToken: req.userToken };
+        
+        await userLogout(userData);
 
         res.status(200).json({ message: 'Logout successful.' });
     } catch (err) {
