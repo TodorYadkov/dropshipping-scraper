@@ -2,32 +2,35 @@
 const patternPrice = /(?<currency>[a-zA-Z]+)(?<value>[0-9]+\.?[0-9]+)/g;
 
 try {
+    const image = document.querySelector('.imgTagWrapper img').src;
+
     const title = document.querySelector('h1#title span#productTitle').textContent;
-    
-    const price = document.querySelector('.a-price')
-    const priceSymbol = price.querySelector('.a-price-symbol').textContent;
-    const priceWhole = price.querySelector('.a-price-whole').textContent;
-    const priceDecimal = price.querySelector('.a-price-decimal').textContent;
-    const priceFraction = price.querySelector('.a-price-fraction').textContent;
 
-    const currency = priceSymbol;
-    const value = priceWhole + priceDecimal + priceFraction;
+    const priceWithCurrency = document.querySelector('.a-offscreen').textContent;
+    const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
+    const currency = priceWithCurrency.substring(0, positionOfFirstNumber);
+    const price = priceWithCurrency.substring(positionOfFirstNumber);
 
-    const productInfo = {
+    const rating = document.querySelector('#acrPopover > span.a-declarative > a > span').textContent;
+
+    const description = document.querySelector('#feature-bullets > ul').textContent;
+
+    const productInfoRaw = {
+        image,
         title,
-        price: {
-            currency,
-            value
-        }
+        currency,
+        price,
+        rating,
+        description
     }
 
+    const productInfo = Object.fromEntries(Object.entries(productInfoRaw).map(([k, v]) => [k, v.trim()]));
 
     chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfo });
 
 } catch (err) {
     chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message });
     console.error(err);
-    // TODO find why object cannot be send to the background
 }
 
 // const xpathExpression = "//*[@id='title']/span[@id='productTitle']";
