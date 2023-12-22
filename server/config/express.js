@@ -1,5 +1,4 @@
 import { json, urlencoded } from 'express';
-import cookieParser from 'cookie-parser';
 import cors from '../middlewares/cors.js';
 import userSession from '../middlewares/userSession.js';
 import tokenBlackListConfig from './tokenBlackListConfig.js';
