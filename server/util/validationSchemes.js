@@ -2,16 +2,25 @@ import joi from 'joi';
 import { USER_ROLES } from '../environments/userRoles.js';
 
 const validateProductSchema = joi.object({
-	name: joi.string().required().trim().max(500),
+	name: joi.string().allow(null).trim().max(500).optional(),
 
-	description: joi.string().required().trim(),
+	description: joi.string().allow(null).trim().optional(),
 
-	price: joi.number().required(),
+	price: joi.number().allow(null).optional(),
 
-	imagesURL: joi.string().required().trim(),
+	currency: joi.string().allow(null).trim().optional(),
 
-	availability: joi.boolean().required(),
+	imagesURL: joi.string().allow(null).trim().optional(),
+
+	availability: joi.boolean().allow(null).optional(),
+
+	amazonUrl: joi.string().trim().custom(amazonUrlValidator).required(),
+
+	rating: joi.number().allow(null).optional(),
 });
+
+// Schema for updating a product to skip unknown properties -> exclude the system properties from mongoDB
+const updateProductSchema = validateProductSchema.options({ stripUnknown: true });;
 
 const validateRegisterSchema = joi.object({
 	name: joi.string().required().trim().max(50),
@@ -42,4 +51,23 @@ const validateLoginSchema = joi.object({
 	// /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 });
 
-export { validateProductSchema, validateRegisterSchema, validateLoginSchema };
+
+function amazonUrlValidator(value, helpers) {
+	// Regular expression to match Amazon URLs
+	const amazonUrlRegex = /^https?:\/\/(www\.)?amazon\..*$/;
+
+	if (amazonUrlRegex.test(value)) {
+		// If the URL is from Amazon, return the value
+		return value;
+	} else {
+		// If the URL is not from Amazon, throw an error
+		throw new Error('Invalid Amazon URL');
+	}
+};
+
+export {
+	validateProductSchema,
+	updateProductSchema,
+	validateRegisterSchema,
+	validateLoginSchema,
+};
