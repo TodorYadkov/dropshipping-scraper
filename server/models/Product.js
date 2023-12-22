@@ -35,6 +35,10 @@ const productSchema = new Schema({
 		type: Number,
 		default: null,
 	},
+	error: {
+		type: String,
+		default: null
+	},
 	owner: {
 		type: Types.ObjectId,
 		ref: 'User',
