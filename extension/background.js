@@ -4,6 +4,8 @@ import { fetchDataFromServer } from './util/fetchDataFromServer.js';
 import { multiBrowser, tokenName } from './constants/constants.js'
 import { removeData, setData } from './util/storageActions.js';
 
+let productFromServer = {};
+
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
     try {
@@ -16,14 +18,17 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 break;
 
             case 'doneScraping':
-                sendData(message.product);
+                const updatedProduct = { ...productFromServer, ...message.product };
+                sendData(updatedProduct);
+
                 multiBrowser.tabs.remove(sender.tab.id);
                 break;
 
             case 'stop':
-                await setData({ isScriptRunning: false });
                 // Clear the alarm when the script is stopped
                 multiBrowser.alarms.clear('fetchDataAlarm');
+                
+                await setData({ isScriptRunning: false });
                 break;
 
             case 'login':
@@ -42,7 +47,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'logout':
                 multiBrowser.alarms.clear('fetchDataAlarm');
                 await setData({ isScriptRunning: false });
-                
+
                 await logout();
                 await removeData([tokenName]);
                 // Can made this with sendResponse
@@ -60,9 +65,9 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 });
 
 // Listen for the alarm and trigger fetchDataFromServer
-multiBrowser.alarms.onAlarm.addListener((alarm) => {
+multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'fetchDataAlarm') {
-        fetchDataFromServer();
+        productFromServer = await fetchDataFromServer();
     }
 });
 
