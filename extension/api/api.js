@@ -38,5 +38,3 @@ export const api = {
     put: (endpoint, data) => httpRequester('PUT', endpoint, data),
     delete: (endpoint) => httpRequester('DELETE', endpoint)
 };
-
-// https://www.amazon.com/dp/B00NLZUM36
