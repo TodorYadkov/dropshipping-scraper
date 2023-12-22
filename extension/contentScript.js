@@ -2,31 +2,42 @@
 const patternPrice = /(?<currency>[a-zA-Z]+)(?<value>[0-9]+\.?[0-9]+)/g;
 
 try {
-    const image = document.querySelector('.imgTagWrapper img').src;
-
-    const title = document.querySelector('h1#title span#productTitle').textContent;
-
-    const priceWithCurrency = document.querySelector('.a-offscreen').textContent;
-    const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
-    const currency = priceWithCurrency.substring(0, positionOfFirstNumber);
-    const price = priceWithCurrency.substring(positionOfFirstNumber);
-
-    const rating = document.querySelector('#acrPopover > span.a-declarative > a > span').textContent;
+    const name = document.querySelector('h1#title span#productTitle').textContent;
 
     const description = document.querySelector('#feature-bullets > ul').textContent;
 
-    const productInfoRaw = {
-        image,
-        title,
-        currency,
-        price,
-        rating,
-        description
+    // const priceElement = document.querySelector('#corePrice_feature_div > div > div > span.a-price.aok-align-center > span.a-offscreen');
+    const priceElement = document.querySelector('#corePrice_feature_div span.a-offscreen') ?? document.querySelector('#price_inside_buybox');
+
+    let price = '0.00';
+    let currency = 'NO';
+    let availability = false;
+    if (priceElement) {
+        const priceWithCurrency = priceElement.textContent;
+        const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
+
+        price = priceWithCurrency.substring(positionOfFirstNumber);
+        currency = priceWithCurrency.substring(0, positionOfFirstNumber);
+        availability = true;
     }
 
-    const productInfo = Object.fromEntries(Object.entries(productInfoRaw).map(([k, v]) => [k, v.trim()]));
+    const imageURL = document.querySelector('.imgTagWrapper img').src;
 
-    chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfo });
+    const rating = document.querySelector('#acrPopover > span.a-declarative > a > span').textContent;
+
+    const productInfoRaw = {
+        name,
+        description,
+        price,
+        currency,
+        imageURL,
+        availability,
+        rating,
+    }
+
+    const productInfoTrimmed = Object.fromEntries(Object.entries(productInfoRaw).map(([k, v]) => [k, typeof v === 'string' ? v.trim() : v]));
+
+    chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfoTrimmed });
 
 } catch (err) {
     chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message });
