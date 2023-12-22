@@ -1,14 +1,26 @@
 import { Router } from 'express';
-import { getSingleProduct, createProduct, updateProduct, deleteProduct, getAllProducts } from '../services/productService.js';
-import { validateProductSchema } from '../util/validationSchemes.js';
+import {
+    getSingleProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    getAllProducts,
+    getLatestUpdatedProduct,
+    updatedProductFromExtension
+} from '../services/productService.js';
+import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
 import { preload } from '../middlewares/preloader.js';
-import { isOwner } from '../middlewares/guards.js';
+import { isOwner, isUserLogged } from '../middlewares/guards.js';
+import { extractASIN } from '../util/extractASIN.js';
+
 const productController = Router();
 
+// Front - End requests
 // GET
-productController.get('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
+productController.get('/:productId', isUserLogged, preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
-        const product = await getSingleProduct(req.params.productId);
+        const productId = req.params.productId;
+        const product = await getSingleProduct(productId);
 
         res.status(200).json(product);
     } catch (err) {
@@ -17,9 +29,10 @@ productController.get('/:productId', preload(getSingleProduct), isOwner, async (
 });
 
 // GET ALL
-productController.get('/', async (req, res, next) => {
+productController.get('/', isUserLogged, async (req, res, next) => {
     try {
-        const products = await getAllProducts(req.user._id);
+        const userId = req.user._id;
+        const products = await getAllProducts(userId);
 
         res.status(200).json(products);
     } catch (err) {
@@ -28,10 +41,15 @@ productController.get('/', async (req, res, next) => {
 });
 
 // POST 
-productController.post('/', async (req, res, next) => {
+productController.post('/', isUserLogged, async (req, res, next) => {
     try {
-        await validateProductSchema.validateAsync(req.body);
-        const newProduct = await createProduct(req.body, req.user._id);
+        const product = req.body;
+        const userId = req.user._id;
+
+        product.amazonUrl = extractASIN(product.amazonUrl);
+
+        await validateProductSchema.validateAsync(product);
+        const newProduct = await createProduct(product, userId);
 
         res.status(201).json(newProduct);
     } catch (err) {
@@ -40,11 +58,13 @@ productController.post('/', async (req, res, next) => {
 });
 
 // PUT
-productController.put('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
+productController.put('/:productId', isUserLogged, preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
-        await validateProductSchema.validateAsync(req.body);
         const productId = req.params.productId;
-        const editedProduct = await updateProduct(productId, req.body);
+        const product = req.body;
+
+        await updateProductSchema.validateAsync(product);
+        const editedProduct = await updateProduct(product, productId);
 
         res.status(200).json(editedProduct);
     } catch (err) {
@@ -53,12 +73,43 @@ productController.put('/:productId', preload(getSingleProduct), isOwner, async (
 });
 
 // DELETE
-productController.delete('/:productId', preload(getSingleProduct), isOwner, async (req, res, next) => {
+productController.delete('/:productId', isUserLogged, preload(getSingleProduct), isOwner, async (req, res, next) => {
     try {
         const productId = req.params.productId;
         const deletedProduct = await deleteProduct(productId);
 
         res.status(200).json(deletedProduct);
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+// Extension - requests
+// GET - latest updated product
+productController.get('/extension/get-one', isUserLogged, async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const latestUpdatedProduct = await getLatestUpdatedProduct(userId);
+
+        res.status(200).json(latestUpdatedProduct ?? {});
+    } catch (err) {
+        next(err);
+    }
+});
+
+// PUT - update product fom extension
+productController.put('/extension/put-one', isUserLogged, async (req, res, next) => {
+    try {
+        const product = req.body;
+        const productId = req.body._id;
+
+        product.amazonUrl = extractASIN(product.amazonUrl);
+
+        await updateProductSchema.validateAsync(product);
+        const updatedProduct = await updatedProductFromExtension(product, productId);
+
+        res.status(200).json(updatedProduct);
     } catch (err) {
         next(err);
     }
