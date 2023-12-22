@@ -1,4 +1,8 @@
 import { Router } from 'express';
+import { extractASIN } from '../util/extractASIN.js';
+import { preload } from '../middlewares/preloader.js';
+import { isOwner, isUserLogged } from '../middlewares/guards.js';
+import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
 import {
     getSingleProduct,
     createProduct,
@@ -6,12 +10,9 @@ import {
     deleteProduct,
     getAllProducts,
     getLatestUpdatedProduct,
-    updatedProductFromExtension
+    updatedProductFromExtension,
+    updatedProductOnError
 } from '../services/productService.js';
-import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
-import { preload } from '../middlewares/preloader.js';
-import { isOwner, isUserLogged } from '../middlewares/guards.js';
-import { extractASIN } from '../util/extractASIN.js';
 
 const productController = Router();
 
@@ -105,12 +106,20 @@ productController.put('/extension/put-one', isUserLogged, async (req, res, next)
         const productId = req.body._id;
 
         product.amazonUrl = extractASIN(product.amazonUrl);
-
         await updateProductSchema.validateAsync(product);
+        
+        product.error = null;
         const updatedProduct = await updatedProductFromExtension(product, productId);
 
         res.status(200).json(updatedProduct);
     } catch (err) {
+        if (err.isJoi) {
+            // Joi library validation error
+            const productId = req.body._id;
+            const errorMessage = err.details.map(error => error.message).join(', ');
+            await updatedProductOnError(errorMessage, productId)
+        }
+
         next(err);
     }
 });
