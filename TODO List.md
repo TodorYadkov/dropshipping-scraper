@@ -82,3 +82,4 @@ Write back-end RESTful API:
 1. [Deploy back-end info](https://masteringbackend.com/posts/how-to-deploy-your-node-js-backend-project-to-vercel-a-step-by-step-guide)
 
 ## Extension
+  - Can be use to get details for product https://www.amazon.com/dp/B00NLZUM36
