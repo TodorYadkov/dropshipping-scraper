@@ -19,7 +19,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 
             case 'doneScraping':
                 const updatedProduct = { ...productFromServer, ...message.product };
-                sendData(updatedProduct);
+                await sendData(updatedProduct);
 
                 multiBrowser.tabs.remove(sender.tab.id);
                 break;
@@ -27,7 +27,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'stop':
                 // Clear the alarm when the script is stopped
                 multiBrowser.alarms.clear('fetchDataAlarm');
-                
+
                 await setData({ isScriptRunning: false });
                 break;
 
@@ -50,16 +50,20 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 
                 await logout();
                 await removeData([tokenName]);
-                // Can made this with sendResponse
+                // Can made this with sendResponse?
                 multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
                 break;
 
             case 'contentError':
-                // TODO send request to back end with message.contentError 
+                const productWithErrorMessage = { ...productFromServer, error: message.contentError };
+                await sendData(productWithErrorMessage);
+
                 multiBrowser.tabs.remove(sender.tab.id);
                 break;
         }
+
     } catch (err) {
+        multiBrowser.tabs.remove(sender.tab.id);
         console.error(err);
     }
 });
