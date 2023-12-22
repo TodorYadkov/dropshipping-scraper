@@ -17,6 +17,8 @@ const validateProductSchema = joi.object({
 	amazonUrl: joi.string().trim().custom(amazonUrlValidator).required(),
 
 	rating: joi.number().allow(null).optional(),
+
+	error: joi.string().allow(null).trim().optional(),
 });
 
 // Schema for updating a product to skip unknown properties -> exclude the system properties from mongoDB
