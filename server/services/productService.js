@@ -24,6 +24,8 @@ const getLatestUpdatedProduct = (userId) => Product.findOne({ owner: userId }).s
 // UPDATE
 const updatedProductFromExtension = (product, productId) => Product.findByIdAndUpdate(productId, product, { runValidators: true, new: true });
 
+const updatedProductOnError = (error, productId) => Product.findByIdAndUpdate(productId, { $set: { error } }, { runValidators: true, new: true });
+
 export {
     getSingleProduct,
     getAllProducts,
@@ -32,4 +34,5 @@ export {
     deleteProduct,
     getLatestUpdatedProduct,
     updatedProductFromExtension,
+    updatedProductOnError,
 };
