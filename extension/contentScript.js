@@ -33,6 +33,7 @@ try {
         imageURL,
         availability,
         rating,
+        error: null,
     }
 
     const productInfoTrimmed = Object.fromEntries(Object.entries(productInfoRaw).map(([k, v]) => [k, typeof v === 'string' ? v.trim() : v]));
