@@ -22,7 +22,7 @@ const validateProductSchema = joi.object({
 });
 
 // Schema for updating a product to skip unknown properties -> exclude the system properties from mongoDB
-const updateProductSchema = validateProductSchema.options({ stripUnknown: true });;
+const updateProductSchema = validateProductSchema.options({ stripUnknown: true });
 
 const validateRegisterSchema = joi.object({
 	name: joi.string().required().trim().max(50),
