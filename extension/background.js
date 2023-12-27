@@ -14,7 +14,8 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'start':
                 await setData({ isScriptRunning: true });
                 // Set up the alarm to trigger fetchDataFromServer
-                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 }); // TODO: Math.random() + Add this later !!!
+                const time = Number(Math.random().toFixed(1));
+                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: time <= 0.5 ? time + 0.2 : time }); // TODO: Math.random() + Add this later !!!
                 break;
 
             case 'doneScraping':
@@ -45,13 +46,18 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 break;
 
             case 'logout':
-                multiBrowser.alarms.clear('fetchDataAlarm');
-                await setData({ isScriptRunning: false });
+                try {
+                    multiBrowser.alarms.clear('fetchDataAlarm');
+                    await setData({ isScriptRunning: false });
 
-                await logout();
-                await removeData([tokenName]);
-                // Can made this with sendResponse?
-                multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
+                    await logout();
+                    await removeData([tokenName]);
+                    // Can made this with sendResponse?
+                    multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
+                } catch (error) {
+                    await removeData([tokenName]);
+                }
+
                 break;
 
             case 'contentError':
