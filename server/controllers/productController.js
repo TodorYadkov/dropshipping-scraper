@@ -105,10 +105,9 @@ productController.put('/extension/put-one', isUserLogged, async (req, res, next)
         const product = req.body;
         const productId = req.body._id;
 
-        product.amazonUrl = extractASIN(product.amazonUrl);
+        product.amazonUrl = extractASIN(product.amazonUrl); // Only for validation purpose
         await updateProductSchema.validateAsync(product);
         
-        product.error = null;
         const updatedProduct = await updatedProductFromExtension(product, productId);
 
         res.status(200).json(updatedProduct);
