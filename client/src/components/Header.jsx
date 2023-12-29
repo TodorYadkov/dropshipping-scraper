@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { useSidebar } from "../hooks/useSideBar.js";
 import { StateContext } from "../contexts/StateContext.jsx";
 
 export const Header = () => {
