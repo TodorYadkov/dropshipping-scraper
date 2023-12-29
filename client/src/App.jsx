@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { api } from './util/http-requester.js';
-import './App.css';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -11,7 +10,10 @@ function App() {
 
 	return (
 		<>
-			<h1>{heading}</h1>
+			{/* <h1>{heading}</h1> */}
+			<h1 className="text-3xl font-bold underline">
+				Hello world!!!
+			</h1>
 		</>
 	);
 }
