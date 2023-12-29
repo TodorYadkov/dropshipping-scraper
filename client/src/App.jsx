@@ -8,6 +8,7 @@ import { Table2 } from './pages/Table2.jsx';
 import { Table3 } from './pages/Table3.jsx';
 import { Card } from './components/Card.jsx';
 import { Modal } from './components/Modal.jsx';
+import { Header } from './components/Header.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -18,7 +19,7 @@ function App() {
 
 	return (
 		<>
-			<Modal></Modal>
+			<Header></Header>
 		</>
 	);
 }
