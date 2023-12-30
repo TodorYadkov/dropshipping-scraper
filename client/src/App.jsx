@@ -22,6 +22,7 @@ import { ButtonRefresh } from './components/Buttons/ButtonRefresh.jsx';
 import { ButtonDots } from './components/Buttons/ButtonDots.jsx';
 import { Pagination } from './components/Pagination.jsx';
 import { Form1 } from './components/Forms/Form1.jsx';
+import { Form2 } from './components/Forms/Form2.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -35,7 +36,6 @@ function App() {
 			<StateProvider>
 				<Layout>
 					<h2>Test</h2>
-					<Form1></Form1>
 				</Layout>
 			</StateProvider>
 		</>
