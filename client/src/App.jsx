@@ -16,6 +16,7 @@ import { SearchInput } from './components/SearchInput.jsx';
 import { AlertSuccess } from './components/Alerts/AlertSuccess.jsx';
 import { AlertInfo } from './components/Alerts/AlertInfo.jsx';
 import { AlertWarning } from './components/Alerts/AlertWarning.jsx';
+import { AlertError } from './components/Alerts/AlertError.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -29,7 +30,7 @@ function App() {
 			<StateProvider>
 				<Layout>
 					<h2>Test</h2>
-					<AlertWarning></AlertWarning>
+					
 				</Layout>
 			</StateProvider>
 		</>
