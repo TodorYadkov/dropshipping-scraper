@@ -19,6 +19,7 @@ import { AlertWarning } from './components/Alerts/AlertWarning.jsx';
 import { AlertError } from './components/Alerts/AlertError.jsx';
 import { ButtonPrimary } from './components/Buttons/ButtonPrimary.jsx';
 import { ButtonRefresh } from './components/Buttons/ButtonRefresh.jsx';
+import { ButtonDots } from './components/Buttons/ButtonDots.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -32,7 +33,7 @@ function App() {
 			<StateProvider>
 				<Layout>
 					<h2>Test</h2>
-					<ButtonRefresh></ButtonRefresh>
+					<ButtonDots></ButtonDots>
 				</Layout>
 			</StateProvider>
 		</>
