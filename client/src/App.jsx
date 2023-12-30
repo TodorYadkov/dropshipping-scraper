@@ -12,6 +12,8 @@ import { Header } from './components/Header.jsx';
 import { SideBar } from './components/SideBar.jsx';
 import { StateProvider } from './contexts/StateContext.jsx';
 import { Layout } from './components/Layout.jsx';
+import { SearchInput } from './components/SearchInput.jsx';
+import { AlertSuccess } from './components/Alerts/AlertSuccess.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -25,6 +27,7 @@ function App() {
 			<StateProvider>
 				<Layout>
 					<h2>Test</h2>
+					<AlertSuccess></AlertSuccess>
 				</Layout>
 			</StateProvider>
 		</>
