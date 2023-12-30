@@ -15,6 +15,7 @@ import { Layout } from './components/Layout.jsx';
 import { SearchInput } from './components/SearchInput.jsx';
 import { AlertSuccess } from './components/Alerts/AlertSuccess.jsx';
 import { AlertInfo } from './components/Alerts/AlertInfo.jsx';
+import { AlertWarning } from './components/Alerts/AlertWarning.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -28,7 +29,7 @@ function App() {
 			<StateProvider>
 				<Layout>
 					<h2>Test</h2>
-					<AlertInfo></AlertInfo>
+					<AlertWarning></AlertWarning>
 				</Layout>
 			</StateProvider>
 		</>
