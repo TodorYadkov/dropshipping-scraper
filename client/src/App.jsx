@@ -20,6 +20,7 @@ import { AlertError } from './components/Alerts/AlertError.jsx';
 import { ButtonPrimary } from './components/Buttons/ButtonPrimary.jsx';
 import { ButtonRefresh } from './components/Buttons/ButtonRefresh.jsx';
 import { ButtonDots } from './components/Buttons/ButtonDots.jsx';
+import { Pagination } from './components/Pagination.jsx';
 
 function App() {
 	const [heading, setHeading] = useState(null);
@@ -33,7 +34,6 @@ function App() {
 			<StateProvider>
 				<Layout>
 					<h2>Test</h2>
-					<ButtonDots></ButtonDots>
 				</Layout>
 			</StateProvider>
 		</>
