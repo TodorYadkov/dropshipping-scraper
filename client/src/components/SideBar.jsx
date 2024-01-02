@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { NavLink } from 'react-router-dom';
 import { StateContext } from "../contexts/StateContext.jsx";
 
 export const SideBar = () => {
@@ -13,6 +14,14 @@ export const SideBar = () => {
     //   )
 
     const { isOpenSideBar, changeSideBarState } = useContext(StateContext);
+
+
+    function setActiveAndInactiveCss(boolean) {
+        return [
+            'flex items-center px-6 py-2 mt-4 duration-200 border-l-4',
+            boolean ? 'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100' : 'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100'
+        ].join(' ');
+    }
 
     return (
         <>
@@ -55,7 +64,7 @@ export const SideBar = () => {
                     </div>
 
                     <nav className="mt-10">
-                        <a className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/dashboard" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/dashboard" >
                             <svg
                                 className="w-5 h-5"
                                 viewBox="0 0 20 20"
@@ -73,9 +82,9 @@ export const SideBar = () => {
                             </svg>
 
                             <span className="mx-4">Dashboard</span>
-                        </a>
+                        </NavLink>
 
-                        <a className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/ui-elements" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/ui-elements" >
                             <svg
                                 className="w-5 h-5"
                                 viewBox="0 0 20 20"
@@ -101,9 +110,9 @@ export const SideBar = () => {
                             </svg>
 
                             <span className="mx-4">UI Elements</span>
-                        </a>
+                        </NavLink>
 
-                        <a className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/tables" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/tables" >
                             <svg
                                 className="w-5 h-5"
                                 viewBox="0 0 20 20"
@@ -125,9 +134,9 @@ export const SideBar = () => {
                             </svg>
 
                             <span className="mx-4">Tables</span>
-                        </a>
+                        </NavLink>
 
-                        <a className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/forms" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/forms" >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path
                                     d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
@@ -140,19 +149,18 @@ export const SideBar = () => {
                             </svg>
 
                             <span className="mx-4">Forms</span>
-                        </a>
+                        </NavLink>
 
-                        <a
-                            className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/cards" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/cards" >
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
                                 <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
                             </svg>
 
                             <span className="mx-4">Cards</span>
-                        </a>
+                        </NavLink>
 
-                        <a className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/modal" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/modal" >
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
                                 <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
@@ -160,9 +168,9 @@ export const SideBar = () => {
                             </svg>
 
                             <span className="mx-4">Modal</span>
-                        </a>
+                        </NavLink>
 
-                        <a className="flex items-center px-6 py-2 mt-4 duration-200 border-l-4" href="/blank" >
+                        <NavLink className={({ isActive }) => setActiveAndInactiveCss(isActive)} to="/blank" >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path
                                     d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"
@@ -170,7 +178,7 @@ export const SideBar = () => {
                             </svg>
 
                             <span className="mx-4">Blank</span>
-                        </a>
+                        </NavLink>
                     </nav>
                 </div>
             </div>
