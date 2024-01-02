@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
 import { api } from './util/http-requester.js';
+
 import { Login } from './pages/Login.jsx';
 import { Register } from './pages/Register.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
@@ -35,7 +38,16 @@ function App() {
 		<>
 			<StateProvider>
 				<Layout>
-					<h2>Test</h2>
+					<Routes>
+						<Route path='/' element={<Navigate to='/dashboard' />} />
+						<Route path='/dashboard' element={<Dashboard />} />
+						<Route path='/ui-elements' element={<AlertSuccess />} />
+						<Route path='/tables' element={<Table1 />} />
+						<Route path='/forms' element={<Form1 />} />
+						<Route path='/cards' element={<Card />} />
+						<Route path='/modal' element={<Modal />} />
+						<Route path='/blank' element={<h2>Blank Page</h2>} />
+					</Routes>
 				</Layout>
 			</StateProvider>
 		</>
