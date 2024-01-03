@@ -1,6 +1,25 @@
+import { useNavigate } from "react-router-dom";
+
+import { authService } from "../services/authService.js";
+import { CLIENT_PATHS } from "../util/paths.js";
+import { useApi } from "../hooks/useApi.js";
+import { useAuthContext } from "../hooks/useAuthContext.js";
+
 export const Login = () => {
+
+    const { setUserState } = useAuthContext();
+    const { login } = useApi(authService);
+    const navigate = useNavigate();
+
+    async function submitHandler() {
+        const userInfo = await login({ email: 'peter@abv.bg', password: '12345678' });
+        setUserState(userInfo);
+        navigate(CLIENT_PATHS.DASHBOARD);
+    }
+
     return (
         <div className="flex items-center justify-center h-screen px-6 bg-gray-200">
+            <button onClick={submitHandler}>HERE CLICK ME</button>
             <div className="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
                 <div className="flex items-center justify-center">
                     <svg
