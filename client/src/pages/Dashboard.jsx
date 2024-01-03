@@ -1,4 +1,12 @@
+import { useApi } from "../hooks/useApi.js";
+import { productService } from "../services/productService.js";
+
 export const Dashboard = () => {
+
+    const { getProducts } = useApi(productService);
+
+    getProducts().then(result => console.log(result));
+
     return (
         <div>
             <h3 className="text-3xl font-medium text-gray-700">
