@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 
 export const StateContext = createContext();
+StateContext.displayName = 'StateContext';
 
 export const StateProvider = ({ children }) => {
 
