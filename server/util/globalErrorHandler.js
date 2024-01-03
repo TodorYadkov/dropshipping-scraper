@@ -15,7 +15,7 @@ export default (err, req, res, next) => {
             return res.status(400).json({ message: 'Duplicate key error', statusCode: 400 });
         } else {
             // Other Mongoose errors
-            return res.status(409).json({ message: 'Internal database error', error: err, statusCode: 409 });
+            return res.status(400).json({ message: 'MongoDB error', error: err, statusCode: 400 });
         }
     } else if (err.isJoi) {
         // Joi library validation error
