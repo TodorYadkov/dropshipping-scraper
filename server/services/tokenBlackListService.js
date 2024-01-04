@@ -4,4 +4,7 @@ const getTokensBlackList = async () => TokenBlackListSchema.find({}, 'accessToke
 
 const addTokenToBlackList = async (token) => TokenBlackListSchema.create(token);
 
-export { getTokensBlackList, addTokenToBlackList };
+export {
+    getTokensBlackList,
+    addTokenToBlackList
+};
