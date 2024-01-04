@@ -1,5 +1,5 @@
 export default (tokenBlackList) => (req, res, next) => {
-    const userToken = req.headers['X-Authorization'];
+    const userToken = req.headers['x-authorization'];
 
     if (userToken) {
         try {

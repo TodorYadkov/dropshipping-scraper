@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 
 export default () => (req, res, next) => {
-	const userToken = req.headers['X-Authorization'];
-
+	const userToken = req.headers['x-authorization'];
+	
 	if (userToken) {
 		try {
 			const decodedToken = jwt.verify(
