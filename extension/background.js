@@ -2,7 +2,7 @@ import { login, logout } from './services/authService.js';
 import { sendData } from './services/dataService.js';
 import { fetchDataFromServer } from './util/fetchDataFromServer.js';
 import { multiBrowser, tokenName } from './constants/constants.js'
-import { removeData, setData } from './util/storageActions.js';
+import { getData, removeData, setData } from './util/storageActions.js';
 
 let productFromServer = {};
 
@@ -12,24 +12,30 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
         switch (message.message) {
 
             case 'start':
-                await setData({ isScriptRunning: true });
+                await setData({ isScriptRunning: true, activeTabs: [] });
                 // Set up the alarm to trigger fetchDataFromServer
-                const time = Number(Math.random().toFixed(1));
-                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: time <= 0.5 ? time + 0.2 : time }); // TODO: Math.random() + Add this later !!!
+                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 });
                 break;
 
             case 'doneScraping':
                 const updatedProduct = { ...productFromServer, ...message.product };
                 await sendData(updatedProduct);
 
-                multiBrowser.tabs.remove(sender.tab.id);
+                const { activeTabs } = await getData(['activeTabs']);
+                if (activeTabs.includes(sender.tab.id)) {
+                    multiBrowser.tabs.remove(sender.tab.id);
+
+                    activeTabs.splice(activeTabs.indexOf(sender.tab.id), 1);
+                    await setData({ activeTabs });
+                }
+
                 break;
 
             case 'stop':
                 // Clear the alarm when the script is stopped
                 multiBrowser.alarms.clear('fetchDataAlarm');
 
-                await setData({ isScriptRunning: false });
+                await setData({ isScriptRunning: false, activeTabs: [] });
                 break;
 
             case 'login':
@@ -37,7 +43,6 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                     const loggedUserData = await login(message.userData);
                     await setData({ [tokenName]: loggedUserData });
                     // After successful login send the user information to popup so the html can be updated with user information
-                    // sendResponse({ message: 'loginSuccessful', user: loggedUserData });
                     multiBrowser.runtime.sendMessage({ message: 'successfulLogin', userData: loggedUserData });
 
                 } catch (error) {
@@ -48,7 +53,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'logout':
                 try {
                     multiBrowser.alarms.clear('fetchDataAlarm');
-                    await setData({ isScriptRunning: false });
+                    await setData({ isScriptRunning: false, activeTabs: [] });
 
                     await logout();
                     await removeData([tokenName]);
@@ -92,32 +97,4 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
 //       }
 // })
 
-// On change this is the changes object that we receiving
 
-// {
-//     "extensionName": {
-//         "newValue": "browser 2",
-//         "oldValue": "browser 1"
-//     }
-// }
-
-
-
-
-
-// 1. Login
-
-// {
-//     email: 'pesho@abv.bg',
-//     password: '123456',
-//     extensionName: 'browser 1',
-//     isExtension: true
-// }
-
-// 1.1 Server response
-
-// {
-//     email: 'pesho@abv.bg',
-//     extensionName: 'browser 1',
-//     accessToken: '283ehfuihwf3uiheuhfe'
-// }
