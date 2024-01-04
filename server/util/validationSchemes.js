@@ -12,7 +12,7 @@ const validateProductSchema = joi.object({
 
 	imagesURL: joi.string().allow(null).trim().optional(),
 
-	availability: joi.boolean().allow(null).optional(),
+	availability: joi.string().allow(null).optional(),
 
 	amazonUrl: joi.string().trim().custom(amazonUrlValidator).required(),
 
