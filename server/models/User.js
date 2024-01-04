@@ -36,7 +36,8 @@ const userSchema = new Schema({
             message: 'Extension names must be unique!',
         },
         minlength: [5, 'Extension name must be at least 5 characters!'],
-        maxlength: [100, 'Extension name must be less than 100 characters!']
+        maxlength: [100, 'Extension name must be less than 100 characters!'],
+        default: null,
     }]
 
 }, { timestamps: true });
