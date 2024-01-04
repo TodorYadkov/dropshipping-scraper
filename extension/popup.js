@@ -52,6 +52,7 @@ logoutBtn.addEventListener('click', () => sendMessageToBackground({ message: 'lo
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 	try {
 		switch (message.message) {
+			
 			case 'successfulLogin':
 				const { email, extensionName } = message.userData.userDetails;
 

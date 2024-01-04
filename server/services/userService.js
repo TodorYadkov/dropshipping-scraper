@@ -10,10 +10,10 @@ const roundsBcrypt = 10;
 // Register
 async function userRegister({ name, email, password, role }) {  
 
-    // Check if the username or email is already taken
+    // Check if the email is already taken
     const isExisting = await User.findOne({ email });
     if (isExisting) {
-        throw new Error('Email is already used!');
+        throw new Error('Email is already taken!');
     }
 
     // Hash password
@@ -44,16 +44,16 @@ async function userRegister({ name, email, password, role }) {
 
 //  Login
 async function userLogin(userData) {
-    // Check if the user exist
+    // Check if the user with this email exists
     const user = await User.findOne({ email: userData.email });
     if (!user) {
-        throw new Error('Invalid username or password!');
+        throw new Error('Invalid email or password!');
     }
 
     // Validate password
     const matchPassword = await bcrypt.compare(userData.password, user.password);
     if (!matchPassword) {
-        throw new Error('Invalid username or password!');
+        throw new Error('Invalid email or password!');
     }
 
     // Add is extension in accessToken
@@ -63,7 +63,6 @@ async function userLogin(userData) {
     if (userData.isExtension) {
         // Create token for extension
         userToken = await generateToken(user);
-
     } else {
         // Create token for frontend
         userToken = await generateToken(user);
@@ -85,7 +84,7 @@ async function userLogin(userData) {
             name: user.name,
             email: user.email,
             role: user.role,
-            extensionName: 'MOCK_DATA_FROM_LOGIN_USER_SERVICE_88',
+            extensionName: 'MOCK_DATA_FROM_LOGIN_USER_SERVICE_87',
         }
     };
 }
@@ -120,7 +119,7 @@ async function generateToken(user) {
         email: user.email,
         role: user.role,
         isExtension: user.isExtension,
-        extensionName: 'MOCK_DATA_FROM_GENERATE_TOKEN_116',
+        extensionName: 'MOCK_DATA_FROM_GENERATE_TOKEN_122',
     }
 
     try {

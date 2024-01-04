@@ -1,5 +1,5 @@
-import { api } from "../api/api.js";
-import { ENDPOINTS } from "../api/endPoints.js";
+import { api } from '../api/api.js';
+import { ENDPOINTS } from '../api/endPoints.js';
 
 export const getLink = () => api.get(ENDPOINTS.GET_PRODUCT);
 

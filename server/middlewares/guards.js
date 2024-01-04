@@ -32,7 +32,7 @@ function userRole(role) {
 	}
 }
 
-// TODO... another guards
+// TODO... add more guards if needed
 
 export {
 	isUserLogged,

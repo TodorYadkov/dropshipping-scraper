@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { userRegister, userLogin, userLogout, getUserById } from '../services/userService.js'
 import { validateRegisterSchema, validateLoginSchema } from '../util/validationSchemes.js';
 import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
+
 const userController = Router();
 
 //  Register
@@ -24,7 +25,6 @@ userController.post('/login', isUserGuest, async (req, res, next) => {
         const userData = req.body;
 
         await validateLoginSchema.validateAsync(userData);
-
         const user = await userLogin(userData);
 
         res.status(200).json(user);

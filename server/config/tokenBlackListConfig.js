@@ -8,7 +8,7 @@ export default async () => {
         try {
             await getBlackListTokens(blackListState);
         } catch (error) {
-            console.error('Error refreshing token blacklist:', error);
+            console.error('Error refreshing token blacklist: ', error);
         }
 
     }, 1800000);
