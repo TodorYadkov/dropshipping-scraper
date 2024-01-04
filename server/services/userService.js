@@ -8,11 +8,11 @@ const jwtSecret = process.env.JWT_SECRET;
 const roundsBcrypt = 10;
 
 // Register
-async function userRegister({ name, email, password, role }) {  
+async function userRegister({ name, email, password, role, extensionName }) {
 
     // Check if the email is already taken
-    const isExisting = await User.findOne({ email });
-    if (isExisting) {
+    const isEmailExisting = await User.findOne({ email });
+    if (isEmailExisting) {
         throw new Error('Email is already taken!');
     }
 
@@ -24,6 +24,7 @@ async function userRegister({ name, email, password, role }) {
         name,
         email,
         role,
+        extensionName,
         password: hashedPassword
     });
 
@@ -38,6 +39,7 @@ async function userRegister({ name, email, password, role }) {
             name: user.name,
             email: user.email,
             role: user.role,
+            extensionName: user.extensionsName,
         }
     };
 }
@@ -61,20 +63,28 @@ async function userLogin(userData) {
 
     let userToken;
     if (userData.isExtension) {
+        // Check if extension name is exist in DB
+        if (user.extensionsName.includes(userData.extensionName) === false) {
+            throw new Error('The extension does not exist!')
+        }
+
+        // Check if extension is already in use
+        // TODO: Made this with mongo model 
+        // if (checkWorkingExtension.has(userData.extensionName)) {
+        //     throw new Error('Extension is already in use!');
+        // }
+
+        // // Add the current extension that is being used
+        // checkWorkingExtension.add(userData.extensionName);
+
         // Create token for extension
+        user.extensionsName = userData.extensionName;
         userToken = await generateToken(user);
+
     } else {
-        // Create token for frontend
+        // Create token for front-end
         userToken = await generateToken(user);
     }
-
-    // TODO: How to handle extensionName
-    // {
-    //     email: 'pesho@abv.bg',
-    //     password: '123456',
-    //     extensionName: 'browser 1',
-    //     isExtension: true
-    // }
 
     // Return user info
     return {
@@ -84,24 +94,29 @@ async function userLogin(userData) {
             name: user.name,
             email: user.email,
             role: user.role,
-            extensionName: 'MOCK_DATA_FROM_LOGIN_USER_SERVICE_87',
+            extensionName: userData.isExtension ? userData.extensionName : user.extensionsName,
         }
     };
 }
 
 //  Logout
-async function userLogout({ _id, accessToken, extensionName, email }) {
+async function userLogout({ _id, accessToken, isExtension, extensionName, email }) {
     const userLogoutData = {
         email,
         accessToken,
         userId: _id
     };
 
-    if (extensionName) {
-        userLogoutData.extensionName = extensionName;
+    if (isExtension) {
+        // TODO: Made this with mongo model 
+        // checkWorkingExtension.delete(extensionName);
+
+        userLogoutData.extensionName = extensionName[0];
     }
 
-    return addTokenToBlackList(userLogoutData);
+    const blackListToken = await addTokenToBlackList(userLogoutData);
+
+    return blackListToken;
 }
 
 //  Get user 
@@ -119,7 +134,7 @@ async function generateToken(user) {
         email: user.email,
         role: user.role,
         isExtension: user.isExtension,
-        extensionName: 'MOCK_DATA_FROM_GENERATE_TOKEN_122',
+        extensionName: user.extensionsName,
     }
 
     try {
