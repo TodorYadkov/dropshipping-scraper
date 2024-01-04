@@ -1,24 +1,23 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
 export const ProductsContext = createContext();
 ProductsContext.displayName = 'ProductsContext';
 
 export const ProductProvider = ({ children }) => {
+	const [products, setProducts] = useState([]);
 
-    const [products, setProducts] = useState([]);
+	function setProductsHandler(products) {
+		setProducts(products);
+	}
 
-    function setProductsHandler(products) {
-        setProducts(products);
-    }
+	const values = {
+		products,
+		setProductsHandler
+	};
 
-    const values = {
-        products,
-        setProductsHandler
-    };
-
-    return (
-        <ProductsContext.Provider value={values} >
-            {children}
-        </ProductsContext.Provider>
-    );
-}
+	return (
+		<ProductsContext.Provider value={values}>
+			{children}
+		</ProductsContext.Provider>
+	);
+};
