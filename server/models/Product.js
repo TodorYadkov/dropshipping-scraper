@@ -22,8 +22,8 @@ const productSchema = new Schema({
 		default: null,
 		match: [/^https?:\/\//, 'Image URL must start with http or https!']
 	},
-	availability: { // TODO: This property is not included on scrapper make selector for this on scrapper
-		type: Boolean,
+	availability: {
+		type: String,
 		default: null,
 	},
 	amazonUrl: {
@@ -48,6 +48,17 @@ const productSchema = new Schema({
 
 // Create uniqueness product for each user
 productSchema.index({ amazonUrl: 1, owner: 1 }, { unique: true });
+
+// Define a pre-save middleware to modify the updatedAt field
+productSchema.pre('save', function (next) {
+	// Check if the document is newly created
+	if (this.isNew) {
+		// Set updatedAt to default timestamp
+		this.updatedAt = new Date(null);
+	}
+
+	next();
+});
 
 const Product = model('Product', productSchema);
 
