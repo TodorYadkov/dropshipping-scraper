@@ -1,6 +1,3 @@
-// import { multiBrowser } from './constants/constants.js'
-const patternPrice = /(?<currency>[a-zA-Z]+)(?<value>[0-9]+\.?[0-9]+)/g;
-
 try {
     const name = document.querySelector('h1#title span#productTitle').textContent;
 
@@ -11,14 +8,17 @@ try {
 
     let price = '0.00';
     let currency = 'NO';
-    let availability = false;
     if (priceElement) {
         const priceWithCurrency = priceElement.textContent;
         const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
 
         price = priceWithCurrency.substring(positionOfFirstNumber);
         currency = priceWithCurrency.substring(0, positionOfFirstNumber);
-        availability = true;
+    }
+
+    let availability = document.querySelector('#availability > span')?.textContent;
+    if (availability === undefined || availability.trim() === '') {
+        availability = 'Not available';
     }
 
     const imageURL = document.querySelector('.imgTagWrapper img').src;
@@ -44,9 +44,3 @@ try {
     chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message });
     console.error(err);
 }
-
-// const xpathExpression = "//*[@id='title']/span[@id='productTitle']";
-// const titleElement = document.evaluate(xpathExpression, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-// const title = titleElement.textContent;
-
-// This is the alternative way using Xpath to this const title = document.querySelector('h1#title span#productTitle').textContent
