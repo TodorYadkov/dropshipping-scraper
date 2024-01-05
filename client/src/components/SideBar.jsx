@@ -2,7 +2,6 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { StateContext } from '../contexts/StateContext.jsx';
-import { useAuthContext } from '../hooks/useAuthContext.js';
 
 export const SideBar = () => {
 	// this is css for the Links when they are active and inactive
@@ -15,8 +14,6 @@ export const SideBar = () => {
 	//   )
 
 	const { isOpenSideBar, changeSideBarState } = useContext(StateContext);
-
-	const { currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
 		return [
@@ -31,7 +28,7 @@ export const SideBar = () => {
 		<>
 			<div className="flex">
 				{/* <!-- Backdrop --> */}
-				{isOpenSideBar && (
+				{state[REDUCER_TYPES.IS_SIDE_BAR_OPEN] && (
 					<div
 						className="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"
 						onClick={() => changeSideBarState(false)}
@@ -42,7 +39,7 @@ export const SideBar = () => {
 
 				<div
 					className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:${
-						isOpenSideBar
+						state[REDUCER_TYPES.IS_SIDE_BAR_OPEN]
 							? 'translate-x-0 ease-out block'
 							: '-translate-x-full ease-in hidden'
 					} lg:static lg:inset-0 lg:block`}

@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
-import { StateContext } from '../contexts/StateContext.jsx';
+import { AppStateContext } from '../contexts/AppStateContext.jsx';
 
 export const Header = () => {
-	const { changeSideBarState } = useContext(StateContext);
+	const { changeSideBarState } = useContext(AppStateContext);
 	const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
 
 	return (

@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { api } from './api/http-requester.js';
 import { AuthProvider } from './contexts/AuthContext.jsx';
-import { StateProvider } from './contexts/StateContext.jsx';
+import { AppStateProvider } from './contexts/AppStateContext.jsx';
 
 import { Login } from './pages/Auth/Login.jsx';
 import { Register } from './pages/Auth/Register.jsx';
@@ -27,14 +27,12 @@ import { ButtonDots } from './components/Buttons/ButtonDots.jsx';
 import { Pagination } from './components/Pagination.jsx';
 import { Form1 } from './components/Forms/Form1.jsx';
 import { Form2 } from './components/Forms/Form2.jsx';
-import { ProductProvider } from './contexts/ProductsContext.jsx';
 
 function App() {
 
 	return (
 		<AuthProvider>
-			<StateProvider>
-				<ProductProvider>
+			<AppStateProvider>
 					<Layout>
 						<Routes>
 							<Route path='/' element={<Navigate to='/dashboard' />} />
@@ -49,8 +47,7 @@ function App() {
 							<Route path='/register' element={<Register />} />
 						</Routes>
 					</Layout>
-				</ProductProvider>
-			</StateProvider>
+			</AppStateProvider>
 		</AuthProvider>
 	);
 }
