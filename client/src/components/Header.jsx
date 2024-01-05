@@ -1,4 +1,6 @@
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import { AppStateContext } from '../contexts/AppStateContext.jsx';
 
 export const Header = () => {
@@ -114,24 +116,24 @@ export const Header = () => {
                         > */}
 						{avatarDropdownOpen && (
 							<div className="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
-								<a
-									href="#"
+								<Link
+									to="#"
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
 								>
 									Profile
-								</a>
-								<a
-									href="#"
+								</Link>
+								<Link
+									to="#"
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
 								>
 									Products
-								</a>
-								<a
-									href="/"
+								</Link>
+								<Link
+									to="/logout"
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
 								>
 									Log out
-								</a>
+								</Link>
 							</div>
 						)}
 						{/* </transition> */}
