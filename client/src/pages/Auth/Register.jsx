@@ -28,7 +28,7 @@ export const Register = () => {
 		document.title = 'Register';
 	}, []);
 
-	const { values, formErrorMessage, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
+	const { values, formErrors, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
 		onRegister,
 		{
 			[AUTH_FORM_KEYS.name]: '',
@@ -43,8 +43,9 @@ export const Register = () => {
 		try {
 			setIsLoading(true);
 			const userInfo = await register(formData);
+
 			setUserState(userInfo);
-			navigate(CLIENT_PATHS.DASHBOARD);
+			navigate(CLIENT_PATHS.DASHBOARD, { replace: true });
 		} catch (error) {
 			setServerError(error.message);
 		} finally {
@@ -98,7 +99,7 @@ export const Register = () => {
 						value={values[AUTH_FORM_KEYS.name]}
 						onChange={onChange}
 						onBlur={onBlur}
-						error={formErrorMessage[AUTH_FORM_KEYS.name]}
+						error={formErrors[AUTH_FORM_KEYS.name]}
 					/>
 
 					<Input
@@ -108,7 +109,7 @@ export const Register = () => {
 						value={values[AUTH_FORM_KEYS.email]}
 						onChange={onChange}
 						onBlur={onBlur}
-						error={formErrorMessage[AUTH_FORM_KEYS.email]}
+						error={formErrors[AUTH_FORM_KEYS.email]}
 					/>
 
 					<Input
@@ -118,7 +119,7 @@ export const Register = () => {
 						value={values[AUTH_FORM_KEYS.extensionName]}
 						onChange={onChange}
 						onBlur={onBlur}
-						error={formErrorMessage[AUTH_FORM_KEYS.extensionName]}
+						error={formErrors[AUTH_FORM_KEYS.extensionName]}
 					/>
 
 					<div className="relative">
@@ -129,7 +130,7 @@ export const Register = () => {
 							value={values[AUTH_FORM_KEYS.password]}
 							onChange={onChange}
 							onBlur={onBlur}
-							error={formErrorMessage[AUTH_FORM_KEYS.password]}
+							error={formErrors[AUTH_FORM_KEYS.password]}
 						/>
 						<button
 							type="button"
