@@ -24,7 +24,7 @@ async function userRegister({ name, email, password, role, extensionName }) {
         name,
         email,
         role,
-        extensionName,
+        extensionsName: extensionName,
         password: hashedPassword
     });
 
