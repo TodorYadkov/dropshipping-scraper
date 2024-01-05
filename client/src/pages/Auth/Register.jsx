@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AUTH_FORM_KEYS } from '../../util/constants.js';
 import { CLIENT_PATHS } from '../../util/paths.js';
 
-import useForm from '../../hooks/useForm.js';
+import { useForm } from '../../hooks/useForm.js';
 import { useApi } from '../../hooks/useApi.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 
@@ -132,7 +132,6 @@ export const Register = () => {
 							error={formErrorMessage[AUTH_FORM_KEYS.password]}
 						/>
 						<button
-							data-testid="togglePassword"
 							type="button"
 							onClick={togglePasswordVisibility}
 							className="absolute top-8 right-0"
@@ -168,9 +167,9 @@ export const Register = () => {
 							<button
 								type="submit"
 								disabled={isInvalidForm}
-								className={`${isInvalidForm ? 'cursor-not-allowed bg-indigo-300' : 'cursor-pointer hover:bg-indigo-500'} w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none`}
+								className={`${isInvalidForm ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer hover:bg-indigo-500'} w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none`}
 							>
-								Sign in
+								Sign up
 							</button>
 						)}
 					</div>
@@ -182,7 +181,7 @@ export const Register = () => {
 						to="/login"
 						className=" text-sm text-indigo-700 hover:text-indigo-300"
 					>
-						Sign up
+						Sign in
 					</Link>
 				</div>
 			</div>
