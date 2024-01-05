@@ -1,11 +1,12 @@
 import { createContext, useReducer } from 'react';
+
 import { reducer } from './reducer.js';
 import { REDUCER_TYPES } from '../util/constants.js';
 
 const initialState = {
 	[REDUCER_TYPES.IS_SIDE_BAR_OPEN]: false,
-	[REDUCER_TYPES.PRODUCTS]: [],
-}
+	[REDUCER_TYPES.PRODUCTS]: []
+};
 
 export const AppStateContext = createContext();
 AppStateContext.displayName = 'AppStateContext';
@@ -28,6 +29,8 @@ export const AppStateProvider = ({ children }) => {
 	};
 
 	return (
-		<AppStateContext.Provider value={values}>{children}</AppStateContext.Provider>
+		<AppStateContext.Provider value={values}>
+			{children}
+		</AppStateContext.Provider>
 	);
 };
