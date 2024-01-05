@@ -27,14 +27,26 @@ import { ButtonDots } from './components/Buttons/ButtonDots.jsx';
 import { Pagination } from './components/Pagination.jsx';
 import { Form1 } from './components/Forms/Form1.jsx';
 import { Form2 } from './components/Forms/Form2.jsx';
+import { Logout } from './pages/Auth/Logout.jsx';
+import { RouteGuardPublic } from './guards/RouteGuardPublic.jsx';
+import { RoutGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
 
 function App() {
 
 	return (
 		<AuthProvider>
 			<AppStateProvider>
-					<Layout>
-						<Routes>
+				<Layout>
+					<Routes>
+
+						{/* Public routes */}
+						<Route element={<RouteGuardPublic />}>
+							<Route path='/login' element={<Login />} />
+							<Route path='/register' element={<Register />} />
+						</Route>
+
+						{/* Private routes */}
+						<Route element={<RoutGuardAuthenticated />}>
 							<Route path='/' element={<Navigate to='/dashboard' />} />
 							<Route path='/dashboard' element={<Dashboard />} />
 							<Route path='/ui-elements' element={<AlertSuccess />} />
@@ -43,10 +55,11 @@ function App() {
 							<Route path='/cards' element={<Card />} />
 							<Route path='/modal' element={<Modal />} />
 							<Route path='/blank' element={<h2>Blank Page</h2>} />
-							<Route path='/login' element={<Login />} />
-							<Route path='/register' element={<Register />} />
-						</Routes>
-					</Layout>
+							<Route path='/logout' element={<Logout />} />
+						</Route>
+
+					</Routes>
+				</Layout>
 			</AppStateProvider>
 		</AuthProvider>
 	);
