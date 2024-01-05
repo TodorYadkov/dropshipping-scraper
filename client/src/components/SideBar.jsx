@@ -32,11 +32,10 @@ export const SideBar = () => {
 				{/* <!-- End Backdrop --> */}
 
 				<div
-					className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:${
-						state[REDUCER_TYPES.IS_SIDE_BAR_OPEN]
+					className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:${state[REDUCER_TYPES.IS_SIDE_BAR_OPEN]
 							? 'translate-x-0 ease-out block'
 							: '-translate-x-full ease-in hidden'
-					} lg:static lg:inset-0 lg:block`}
+						} lg:static lg:inset-0 lg:block`}
 				>
 					<div className="flex items-center justify-center mt-8">
 						<div className="flex items-center">
@@ -220,39 +219,6 @@ export const SideBar = () => {
 							<span className="mx-4">Modal</span>
 						</NavLink>
 
-						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
-							to="/register"
-						>
-							<svg
-								className="w-5 h-5"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-							</svg>
-
-							<span className="mx-4">Register</span>
-						</NavLink>
-
-						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
-							to="/login"
-						>
-							<svg
-								className="w-5 h-5"
-								fill="currentColor"
-								viewBox="0 0 20 20"
-							>
-								<path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
-							</svg>
-
-							<span className="mx-4">Login</span>
-						</NavLink>
 					</nav>
 				</div>
 			</div>
