@@ -91,7 +91,8 @@ productController.delete('/:productId', isUserLogged, preload(getSingleProduct),
 productController.get('/extension/get-one', isUserLogged, async (req, res, next) => {
     try {
         const userId = req.user._id;
-        const latestUpdatedProduct = await getLatestUpdatedProduct(userId);
+        const extensionName = req.user.extensionName;
+        const latestUpdatedProduct = await getLatestUpdatedProduct(userId, extensionName);
 
         res.status(200).json(latestUpdatedProduct ?? {});
     } catch (err) {
@@ -107,7 +108,7 @@ productController.put('/extension/put-one', isUserLogged, async (req, res, next)
 
         product.amazonUrl = extractASIN(product.amazonUrl); // Only for validation purpose
         await updateProductSchema.validateAsync(product);
-        
+
         const updatedProduct = await updatedProductFromExtension(product, productId);
 
         res.status(200).json(updatedProduct);
