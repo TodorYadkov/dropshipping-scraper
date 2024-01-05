@@ -15,6 +15,7 @@ async function start() {
 	await databaseConfig();
 	await expressConfig(app);
 	routesConfig(app);
+	
 	app.use(globalErrorHandling);
 
 	app.listen(PORT, () => console.log(`Server is listening on port: ${PORT}`));
