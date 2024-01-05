@@ -1,10 +1,18 @@
+import { useEffect } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 import { productService } from '../../services/productService.js';
+import { useAppSateContext } from '../../hooks/useAppStateContext.js';
 
 export const Dashboard = () => {
 	const { getProducts } = useApi(productService);
+	const { setProducts } = useAppSateContext();
 
-	getProducts().then((result) => console.log(result));
+	useEffect(() => {
+		(async function () {
+			const products = await getProducts();
+			setProducts(products);
+		})();
+	}, []);
 
 	return (
 		<div>
