@@ -5,9 +5,9 @@ import { api } from './api/http-requester.js';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { StateProvider } from './contexts/StateContext.jsx';
 
-import { Login } from './pages/Login.jsx';
-import { Register } from './pages/Register.jsx';
-import { Dashboard } from './pages/Dashboard.jsx';
+import { Login } from './pages/Auth/Login.jsx';
+import { Register } from './pages/Auth/Register.jsx';
+import { Dashboard } from './pages/Product/Dashboard.jsx';
 import { Table1 } from './components/Table1.jsx';
 import { Table2 } from './components/Table2.jsx';
 import { Table3 } from './components/Table3.jsx';
