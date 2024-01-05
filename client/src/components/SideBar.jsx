@@ -15,8 +15,9 @@ export const SideBar = () => {
 	//     'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100',
 	//   )
 
-	const { isOpenSideBar, changeSideBarState } = useContext(AppStateContext);
-	const  {currentUserData } = useAuthContext();
+	const { state, changeSideBarState } = useContext(AppStateContext);
+	// TODO: change useContext(AppStateContext) to useAppContext 
+	const { currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
 		return [
