@@ -58,7 +58,7 @@ export const Register = () => {
 	}
 
 	return (
-		<div className="flex items-center justify-center h-screen px-6 bg-gray-200">
+		<div className="flex items-center justify-center mt-20 px-6 bg-gray-200">
 			<div className="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
 				<div className="flex items-center justify-center">
 					<svg
@@ -179,7 +179,7 @@ export const Register = () => {
 				<div className="flex items-center justify-center gap-3 mt-3">
 					<p className="text-sm">Already have an account ?</p>
 					<Link
-						to="/login"
+						to={CLIENT_PATHS.LOGIN}
 						className=" text-sm text-indigo-700 hover:text-indigo-300"
 					>
 						Sign in
