@@ -1,3 +1,6 @@
-export const Loader = ({width = 16, height = 16}) => {
-    return <div className={`block mx-auto my-5 w-${width} h-${height} border-4 border-dashed rounded-full animate-spin dark:border-indigo-600`}></div>
+export const Loader = ({ width, height }) => {
+    const w = width || 12;
+    const h = height || 12;
+
+    return (<div className={`block mx-auto my-5 w-${w} h-${h} border-4 border-dashed rounded-full animate-spin-slow dark:border-indigo-600`}></div>);
 }
