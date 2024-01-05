@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { TOKEN_NAME } from '../util/constants.js';
 
-export default function useLocalStorage() {
+export const useLocalStorage = () => {
     const [currentUserData, setCurrentUserData] = useState(() => {
         try {
             const localStorageData = JSON.parse(localStorage.getItem(TOKEN_NAME));
