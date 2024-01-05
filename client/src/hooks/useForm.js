@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default function useForm(submitHandler, initialValues, validationFunction) {
+export const useForm = (submitHandler, initialValues, validationFunction) => {
 	const [values, setValues] = useState(initialValues);
 	const [formErrorMessage, setFormErrorMessage] = useState({});
 	const [isInvalidForm, setIsInvalidForm] = useState(true);
@@ -16,6 +16,7 @@ export default function useForm(submitHandler, initialValues, validationFunction
 		e.preventDefault();
 		const trimmedValues = Object.fromEntries(Object.entries(values).map(([k, v]) => [k, typeof v === 'string' ? v.trim() : v]));
 		submitHandler(trimmedValues);
+		setValues(initialValues);
 	};
 
 	const onBlur = (e) => {
