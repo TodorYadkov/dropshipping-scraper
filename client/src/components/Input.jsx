@@ -1,4 +1,4 @@
-export const Input = ({ text, type, name, value, error, onChange, onBlur }) => {
+export const Input = ({ text, type, name, value, errorMessage, errorVisibility, onChange, onBlur }) => {
 	return (
 		<label className="block mb-3">
 			<span className="text-sm text-gray-700">{text}</span>
@@ -10,7 +10,7 @@ export const Input = ({ text, type, name, value, error, onChange, onBlur }) => {
 				onBlur={onBlur}
 				className="block indent-2 w-full mt-1 border border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
 			/>
-			{error && <p className="text-xs -mb-4 text-red-600">{error}</p>}
+			{errorVisibility && !!errorMessage && <p className="text-xs -mb-4 text-red-600">{errorMessage}</p>}
 		</label>
 	);
 };
