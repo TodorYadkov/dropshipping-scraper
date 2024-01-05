@@ -1,34 +1,31 @@
 import React from 'react';
 
-// This is the official React ErrorBoundary
-// https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
+import { CLIENT_PATHS } from '../util/paths.js';
+
 export class ErrorBoundary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { hasError: false };
-    }
+	constructor(props) {
+		super(props);
+		this.state = { hasError: false };
+	}
 
-    // eslint-disable-next-line no-unused-vars
-    static getDerivedStateFromError(error) {
+	static getDerivedStateFromError() {
+		return { hasError: true };
+	}
 
-        return { hasError: true };
-    }
+	componentDidCatch(error, info) {
+		console.log('React info for crash: ', info);
+		console.error('React ErrorBoundary message: ', error);
+	}
 
-    componentDidCatch(error, info) {
-        console.log('React info for crash: ', info);
-        console.error('React ErrorBoundary message: ', error);
-    }
-
-    render() {
-        if (this.state.hasError) {
-
-            return (
-                <div className={`${styles['not-found']} max-width`}>
-                    <h2>Oops! An unexpected type error occurred!</h2>
-                    <p>Please try again later or contact support.</p>
-                    <a
-                        href="/dashboard"
-                        className='
+	render() {
+		if (this.state.hasError) {
+			return (
+				<div className="flex gap-3 h-screen flex-col items-center justify-center bg-indigo-200">
+					<h2>Oops! An unexpected error occurred!</h2>
+					<p className='mb-2'>Please try again later or contact support.</p>
+					<a
+						href={CLIENT_PATHS.DASHBOARD}
+						className="
                         px-4
                         py-2
                         font-medium
@@ -43,13 +40,14 @@ export class ErrorBoundary extends React.Component {
                         hover:bg-indigo-500
                         focus:outline-none
                         focus:bg-indigo-500
-                        '>
-                        Back to homepage
-                    </a>
-                </div >
-            );
-        }
+                        "
+					>
+						Go back
+					</a>
+				</div>
+			);
+		}
 
-        return this.props.children;
-    }
+		return this.props.children;
+	}
 }
