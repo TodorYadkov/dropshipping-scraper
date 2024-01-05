@@ -1,22 +1,12 @@
-import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { AppStateContext } from '../contexts/AppStateContext.jsx';
 import { useAuthContext } from '../hooks/useAuthContext.js';
+import { useAppStateContext } from '../hooks/useAppStateContext.js';
+
 import { REDUCER_TYPES } from '../util/constants.js';
 
 export const SideBar = () => {
-	// this is css for the Links when they are active and inactive
-
-	// const activeClass = ref(
-	//     'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100',
-	//   )
-	//   const inactiveClass = ref(
-	//     'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100',
-	//   )
-
-	const { state, changeSideBarState } = useContext(AppStateContext);
-	// TODO: change useContext(AppStateContext) to useAppContext 
+	const { state, changeSideBarState } = useAppStateContext();
 	const { currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
@@ -71,7 +61,8 @@ export const SideBar = () => {
 							</svg>
 
 							<span className="mx-2 text-2xl font-semibold text-white">
-								{currentUserData.userDetails.name}
+								{currentUserData?.userDetails.name ??
+									'Amazon Scraper'}
 							</span>
 						</div>
 					</div>
