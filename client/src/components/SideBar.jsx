@@ -39,11 +39,10 @@ export const SideBar = () => {
 						: '-translate-x-full ease-in hidden'
 						} lg:static lg:inset-0 lg:block`}
 				>
-					<div className="flex items-center justify-center mt-6">
-						<span className="mx-2 text-2xl font-semibold text-white">
+					
+						<span className="block ml-6 mr-2 mt-6 text-2xl font-semibold text-white">
 							{currentUserData?.userDetails.name ?? 'Amazon Scraper'}
 						</span>
-					</div>
 
 					<nav className="mt-10">
 						<NavLink
