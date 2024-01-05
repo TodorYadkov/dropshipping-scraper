@@ -29,7 +29,6 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	};
 
 	const onBlur = (e) => {
-		// const currentErrors = validationFunction(e.target.name, e.target.value.trim());
 		setErrorVisibility((state) => ({ ...state, [e.target.name]: true }));
 	}
 
