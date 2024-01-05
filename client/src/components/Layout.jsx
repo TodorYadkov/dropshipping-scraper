@@ -1,11 +1,16 @@
+import { useAuthContext } from '../hooks/useAuthContext.js';
+
 import { Footer } from './Footer.jsx';
 import { Header } from './Header.jsx';
 import { SideBar } from './SideBar.jsx';
 
 export const Layout = ({ children }) => {
+
+	const { isAuthenticated }= useAuthContext();
+
 	return (
 		<div className="flex h-screen bg-gray-200 font-roboto">
-			<SideBar />
+			{isAuthenticated && <SideBar />}
 
 			<div className="flex-1 flex flex-col overflow-hidden">
 				<Header />
@@ -18,6 +23,7 @@ export const Layout = ({ children }) => {
 
 				<Footer />
 			</div>
+			
 		</div>
 	);
 };
