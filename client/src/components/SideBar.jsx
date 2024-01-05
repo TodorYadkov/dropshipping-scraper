@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { StateContext } from '../contexts/StateContext.jsx';
+import { useAuthContext } from '../hooks/useAuthContext.js';
 
 export const SideBar = () => {
 	// this is css for the Links when they are active and inactive
@@ -14,6 +15,8 @@ export const SideBar = () => {
 	//   )
 
 	const { isOpenSideBar, changeSideBarState } = useContext(StateContext);
+
+	const { currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
 		return [
@@ -67,7 +70,7 @@ export const SideBar = () => {
 							</svg>
 
 							<span className="mx-2 text-2xl font-semibold text-white">
-								V-Dashboard
+								{currentUserData.userDetails.name}
 							</span>
 						</div>
 					</div>
