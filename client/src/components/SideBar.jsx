@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { StateContext } from '../contexts/StateContext.jsx';
+import { StateContext } from '../contexts/AppStateContext.jsx';
+import { useAuthContext } from '../hooks/useAuthContext.js';
+import { REDUCER_TYPES } from '../util/constants.js';
 
 export const SideBar = () => {
 	// this is css for the Links when they are active and inactive
@@ -14,6 +16,7 @@ export const SideBar = () => {
 	//   )
 
 	const { isOpenSideBar, changeSideBarState } = useContext(StateContext);
+	const  {currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
 		return [
