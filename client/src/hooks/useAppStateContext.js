@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { AppStateContext } from '../contexts/AppStateContext.jsx';
 
-export const useAppSateContext = () => {
+export const useAppStateContext = () => {
 	const context = useContext(AppStateContext);
 	return context;
 };
