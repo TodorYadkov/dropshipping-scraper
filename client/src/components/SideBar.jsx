@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { StateContext } from '../contexts/AppStateContext.jsx';
+import { AppStateContext } from '../contexts/AppStateContext.jsx';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 import { REDUCER_TYPES } from '../util/constants.js';
 
@@ -15,7 +15,7 @@ export const SideBar = () => {
 	//     'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100',
 	//   )
 
-	const { isOpenSideBar, changeSideBarState } = useContext(StateContext);
+	const { isOpenSideBar, changeSideBarState } = useContext(AppStateContext);
 	const  {currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
