@@ -31,10 +31,6 @@ const userSchema = new Schema({
     },
     extensionsName: [{
         type: String,
-        validate: {
-            validator: (value) => value.length === new Set(value).size,
-            message: 'Extension names must be unique!',
-        },
         minlength: [5, 'Extension name must be at least 5 characters!'],
         maxlength: [100, 'Extension name must be less than 100 characters!'],
         default: null,
