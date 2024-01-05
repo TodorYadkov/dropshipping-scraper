@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 
 import { User } from '../models/User.js';
 import { addTokenToBlackList } from './tokenBlackListService.js';
+import { ExtensionStatus } from '../models/ExtensionStatus.js';
 
 const jwtSecret = process.env.JWT_SECRET;
 const roundsBcrypt = 10;
@@ -63,19 +64,28 @@ async function userLogin(userData) {
 
     let userToken;
     if (userData.isExtension) {
-        // Check if extension name is exist in DB
+        // Check if extension name is exist in user list
         if (user.extensionsName.includes(userData.extensionName) === false) {
-            throw new Error('The extension does not exist!')
+            throw new Error('The extension does not exist!');
         }
 
         // Check if extension is already in use
-        // TODO: Made this with mongo model 
-        // if (checkWorkingExtension.has(userData.extensionName)) {
-        //     throw new Error('Extension is already in use!');
-        // }
+        const extensionStatus = await ExtensionStatus.findOne({ userId: user._id, extensionName: userData.extensionName });
+        if (extensionStatus) {
+            if (extensionStatus.isLogin) {
+                throw new Error('Extension is already in use!');
+            }
 
-        // // Add the current extension that is being used
-        // checkWorkingExtension.add(userData.extensionName);
+            extensionStatus.isLogin = true;
+            await extensionStatus.save({ timestamps: false });
+
+        } else {
+            await ExtensionStatus.create({
+                userId: user._id,
+                isLogin: true,
+                extensionName: userData.extensionName,
+            })
+        }
 
         // Create token for extension
         user.extensionsName = userData.extensionName;
@@ -108,15 +118,20 @@ async function userLogout({ _id, accessToken, isExtension, extensionName, email 
     };
 
     if (isExtension) {
-        // TODO: Made this with mongo model 
-        // checkWorkingExtension.delete(extensionName);
+        const extensionStatus = await ExtensionStatus.findOne({ userId: _id, extensionName: extensionName[0] });
+        if (extensionStatus) {
+            extensionStatus.isWork = false;
+            extensionStatus.isLogin = false;
+
+            await extensionStatus.save();
+        }
 
         userLogoutData.extensionName = extensionName[0];
     }
 
     const blackListToken = await addTokenToBlackList(userLogoutData);
 
-    return blackListToken;
+    return { message: 'Logout successful!' };
 }
 
 //  Get user 
