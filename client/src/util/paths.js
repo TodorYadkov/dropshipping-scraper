@@ -9,5 +9,7 @@ export const SERVER_PATHS = {
 
 export const CLIENT_PATHS = {
     DASHBOARD: '/dashboard',
-    LOGIN: '/login'
+    LOGIN: '/login',
+    REGISTER: '/register',
+    LOGOUT: '/logout',
 }
