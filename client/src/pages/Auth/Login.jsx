@@ -28,7 +28,7 @@ export const Login = () => {
 		document.title = 'Login';
 	}, []);
 
-	const { values, formErrorMessage, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
+	const { values, formErrorMessage, errorVisibility, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
 		onLogin,
 		{
 			[AUTH_FORM_KEYS.email]: '',
@@ -96,7 +96,8 @@ export const Login = () => {
 						value={values[AUTH_FORM_KEYS.email]}
 						onChange={onChange}
 						onBlur={onBlur}
-						error={formErrorMessage[AUTH_FORM_KEYS.email]}
+						errorMessage={formErrorMessage[AUTH_FORM_KEYS.email]}
+						errorVisibility={errorVisibility[AUTH_FORM_KEYS.email]}
 					/>
 
 					<div className="relative">
@@ -107,7 +108,8 @@ export const Login = () => {
 							value={values[AUTH_FORM_KEYS.password]}
 							onChange={onChange}
 							onBlur={onBlur}
-							error={formErrorMessage[AUTH_FORM_KEYS.password]}
+							errorMessage={formErrorMessage[AUTH_FORM_KEYS.password]}
+							errorVisibility={errorVisibility[AUTH_FORM_KEYS.password]}
 						/>
 						<button
 							type="button"
@@ -156,7 +158,7 @@ export const Login = () => {
 							<button
 								type="submit"
 								disabled={isInvalidForm}
-								className={`${isInvalidForm ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer hover:bg-indigo-500'} w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none`}
+								className={`${isInvalidForm ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer bg-indigo-600 hover:bg-indigo-400'} w-full px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none`}
 							>
 								Sign in
 							</button>
