@@ -167,7 +167,7 @@ export const Register = () => {
 							<button
 								type="submit"
 								disabled={isInvalidForm}
-								className={`${isInvalidForm ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer hover:bg-indigo-500'} w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none`}
+								className={`${isInvalidForm ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer bg-indigo-600 hover:bg-indigo-400'} w-full px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none`}
 							>
 								Sign up
 							</button>
