@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 export const useForm = (submitHandler, initialValues, validationFunction) => {
 	const [values, setValues] = useState(initialValues);
 	const [isInvalidForm, setIsInvalidForm] = useState(true);
-	const [formErrors, setFormErrors] = useState(() => Object.keys(initialValues).reduce((acc, inputFiledName) => (
-		{ ...acc, [inputFiledName]: { isTouched: false, message: '' } }
+	const [formErrors, setFormErrors] = useState(() => Object.keys(initialValues).reduce((acc, inputFieldName) => (
+		{ ...acc, [inputFieldName]: { isTouched: false, message: '' } }
 	), {}));
 
 	useEffect(() => {
