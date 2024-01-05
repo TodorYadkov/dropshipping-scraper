@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 
 export const useForm = (submitHandler, initialValues, validationFunction) => {
 	const [values, setValues] = useState(initialValues);
-	const [formErrorMessage, setFormErrorMessage] = useState({});
-	const [errorVisibility, setErrorVisibility] = useState(() => Object.fromEntries(Object.entries(initialValues).map(([k, v]) => [k, false])));
 	const [isInvalidForm, setIsInvalidForm] = useState(true);
+	const [formErrors, setFormErrors] = useState(() => Object.keys(initialValues).reduce((acc, inputFiledName) => (
+		{ ...acc, [inputFiledName]: { isTouched: false, message: '' } }
+	), {}));
 
 	useEffect(() => {
 		validateForm();
@@ -12,13 +13,22 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	}, [values])
 
 	const onChange = (e) => {
+		const name = e.target.name;
+		const value = e.target.value;
+
 		setValues((state) => ({
 			...state,
-			[e.target.name]: e.target.value
+			[name]: value
 		}));
 
-		const currentErrors = validationFunction(e.target.name, e.target.value.trim());
-		setFormErrorMessage((state) => ({ ...state, ...currentErrors }));
+		const currentError = validationFunction(name, typeof value === 'string' ? value.trim() : value);
+		setFormErrors((state) => ({
+			...state,
+			[name]: {
+				...state[name],
+				message: currentError[name],
+			},
+		}));
 	};
 
 	const onSubmit = (e) => {
@@ -28,21 +38,26 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	};
 
 	const onBlur = (e) => {
-		setErrorVisibility((state) => ({ ...state, [e.target.name]: true }));
+		setFormErrors((state) => ({
+			...state,
+			[e.target.name]: {
+				...state[e.target.name],
+				isTouched: true,
+			},
+		}));
 	}
 
 	function validateForm() {
 		setIsInvalidForm(
 			Object.values(values).some(value => value === '') ||
-			Object.values(formErrorMessage).some(error => error)
+			Object.values(formErrors).some(error => error.message)
 		);
 	}
 
 	return {
 		values,
-		formErrorMessage,
+		formErrors,
 		isInvalidForm,
-		errorVisibility,
 		onChange,
 		onSubmit,
 		onBlur
