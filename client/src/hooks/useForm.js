@@ -16,19 +16,10 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 		const name = e.target.name;
 		const value = e.target.value;
 
-		setValues((state) => ({
-			...state,
-			[name]: value
-		}));
+		setValues((state) => ({ ...state, [name]: value }));
 
 		const currentError = validationFunction(name, typeof value === 'string' ? value.trim() : value);
-		setFormErrors((state) => ({
-			...state,
-			[name]: {
-				...state[name],
-				message: currentError[name],
-			},
-		}));
+		setFormErrors((state) => ({ ...state, [name]: { ...state[name], message: currentError[name] } }));
 	};
 
 	const onSubmit = (e) => {
@@ -38,13 +29,8 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	};
 
 	const onBlur = (e) => {
-		setFormErrors((state) => ({
-			...state,
-			[e.target.name]: {
-				...state[e.target.name],
-				isTouched: true,
-			},
-		}));
+		const name = e.target.name;
+		setFormErrors((state) => ({ ...state, [name]: { ...state[name], isTouched: true } }));
 	}
 
 	function validateForm() {
