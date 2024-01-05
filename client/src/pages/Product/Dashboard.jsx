@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 import { productService } from '../../services/productService.js';
-import { useAppSateContext } from '../../hooks/useAppStateContext.js';
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
 export const Dashboard = () => {
 	const { getProducts } = useApi(productService);
-	const { setProducts } = useAppSateContext();
+	const { setProducts } = useAppStateContext();
 
 	useEffect(() => {
 		(async function () {
