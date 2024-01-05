@@ -10,7 +10,7 @@ export const Input = ({ text, type, name, value, error, onChange, onBlur }) => {
 				onBlur={onBlur}
 				className="block indent-2 w-full mt-1 border border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
 			/>
-			{error.isTouched && !!error.message && <p className="text-xs -mb-4 text-red-600">{error.message}</p>}
+			{(error.isTouched && !!error.message) && <p className="text-xs -mb-4 text-red-600">{error.message}</p>}
 		</label>
 	);
 };
