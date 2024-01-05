@@ -16,21 +16,18 @@ async function httpRequester(method, endpoint, clearUserState, accessToken, data
 		options.headers['X-Authorization'] = accessToken;
 	}
 
-	try {
-		const response = await fetch(url, options);
-		if (response.ok === false) {
-			if (response.status === 403) {
-				clearUserState();
-			}
-
-			const error = await response.json();
-			throw error;
+	const response = await fetch(url, options);
+	if (response.ok === false) {
+		if (response.status === 403) {
+			clearUserState();
 		}
 
-		return response.json();
-	} catch (error) {
-		throw error.message;
+		const error = await response.json();
+		throw error;
 	}
+
+	return response.json();
+	
 }
 
 export const api = (clearUserState, accessToken) => ({
