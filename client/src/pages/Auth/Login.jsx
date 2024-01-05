@@ -28,7 +28,7 @@ export const Login = () => {
 		document.title = 'Login';
 	}, []);
 
-	const { values, formErrorMessage, errorVisibility, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
+	const { values, formErrors, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
 		onLogin,
 		{
 			[AUTH_FORM_KEYS.email]: '',
@@ -41,8 +41,9 @@ export const Login = () => {
 		try {
 			setIsLoading(true);
 			const userInfo = await login(formData);
+
 			setUserState(userInfo);
-			navigate(CLIENT_PATHS.DASHBOARD);
+			navigate(CLIENT_PATHS.DASHBOARD, { replace: true });
 		} catch (error) {
 			setServerError(error.message);
 		} finally {
@@ -96,8 +97,7 @@ export const Login = () => {
 						value={values[AUTH_FORM_KEYS.email]}
 						onChange={onChange}
 						onBlur={onBlur}
-						errorMessage={formErrorMessage[AUTH_FORM_KEYS.email]}
-						errorVisibility={errorVisibility[AUTH_FORM_KEYS.email]}
+						error={formErrors[AUTH_FORM_KEYS.email]}
 					/>
 
 					<div className="relative">
@@ -108,8 +108,7 @@ export const Login = () => {
 							value={values[AUTH_FORM_KEYS.password]}
 							onChange={onChange}
 							onBlur={onBlur}
-							errorMessage={formErrorMessage[AUTH_FORM_KEYS.password]}
-							errorVisibility={errorVisibility[AUTH_FORM_KEYS.password]}
+							error={formErrors[AUTH_FORM_KEYS.password]}
 						/>
 						<button
 							type="button"
@@ -138,17 +137,6 @@ export const Login = () => {
 								</svg>
 							)}
 						</button>
-					</div>
-
-					<div className="flex items-center justify-between mt-4">
-						<div>
-							<a
-								className="block text-sm text-indigo-700 hover:underline"
-								href="#"
-							>
-								Forgot your password?
-							</a>
-						</div>
 					</div>
 
 					<div className="mt-6">
