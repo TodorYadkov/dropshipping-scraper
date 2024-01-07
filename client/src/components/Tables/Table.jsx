@@ -1,4 +1,36 @@
-export const Table2 = () => {
+import { useMemo } from "react";
+
+import { TABLE_BODY_TYPES } from "../../util/constants.js";
+import { TableHeader } from "./TableHeader.jsx";
+import { TableBodyProducts } from "./TableBodyProducts.jsx";
+
+
+export const Table = ({ type, data }) => {
+
+	const TableVariant = useMemo(() => {
+		let Body, Heading;
+
+		switch (type) {
+			case TABLE_BODY_TYPES.PRODUCT:
+				{
+					const headings = ['Product', 'Price', 'Availability', 'Rating', 'Last Updated'];
+					Body = <TableBodyProducts products={data} />;
+					Heading = <TableHeader headings={headings} />;
+				}
+				break;
+			case TABLE_BODY_TYPES.USER:
+				break;
+			case TABLE_BODY_TYPES.EXTENSION:
+
+				break;
+		}
+
+		return { Body, Heading };
+
+	}, [type, data]);
+
+
+
 	return (
 		<div className="mt-8">
 			<div className="flex flex-col mt-3 sm:flex-row">
@@ -60,64 +92,9 @@ export const Table2 = () => {
 			<div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
 				<div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
 					<table className="min-w-full leading-normal">
-						<thead>
-							<tr>
-								<th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
-									User
-								</th>
-								<th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
-									Role
-								</th>
-								<th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
-									Created at
-								</th>
-								<th className="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200">
-									Status
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-									<div className="flex items-center">
-										<div className="flex-shrink-0 w-10 h-10">
-											<img
-												className="w-full h-full rounded-full"
-												src="u.picture"
-												alt="profile pic"
-											/>
-										</div>
+						{TableVariant.Heading}
 
-										<div className="ml-3">
-											<p className="text-gray-900 whitespace-nowrap">
-												{'Name'}
-											</p>
-										</div>
-									</div>
-								</td>
-								<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-									<p className="text-gray-900 whitespace-nowrap">
-										{'Role'}
-									</p>
-								</td>
-								<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-									<p className="text-gray-900 whitespace-nowrap">
-										{'Created'}
-									</p>
-								</td>
-								<td className="px-5 py-5 text-sm bg-white border-b border-gray-200">
-									<span className="relative inline-block px-3 py-1 font-semibold text-black-900 leading-tight">
-										<span
-											aria-hidden
-											className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-										/>
-										<span className="relative">
-											{'Status'}
-										</span>
-									</span>
-								</td>
-							</tr>
-						</tbody>
+						{TableVariant.Body}
 					</table>
 					<div className="flex flex-col items-center px-5 py-5 bg-white border-t xs:flex-row xs:justify-between">
 						<span className="text-xs text-gray-900 xs:text-sm">
