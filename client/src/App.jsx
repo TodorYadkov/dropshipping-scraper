@@ -6,7 +6,6 @@ import { AppStateProvider } from './contexts/AppStateContext.jsx';
 import { Login } from './pages/Auth/Login.jsx';
 import { Register } from './pages/Auth/Register.jsx';
 import { Dashboard } from './pages/Product/Dashboard.jsx';
-import { Table1 } from './components/Table1.jsx';
 import { Card } from './components/Card.jsx';
 import { Modal } from './components/Modal.jsx';
 import { Layout } from './components/Layout.jsx';
@@ -36,7 +35,6 @@ export const App = () => {
 							<Route path='/' element={<Navigate to={CLIENT_PATHS.DASHBOARD} />} />
 							<Route path={CLIENT_PATHS.DASHBOARD} element={<Dashboard />} />
 							<Route path='/ui-elements' element={<AlertSuccess />} />
-							<Route path='/tables' element={<Table1 />} />
 							<Route path='/forms' element={<Form1 />} />
 							<Route path='/cards' element={<Card />} />
 							<Route path='/modal' element={<Modal />} />
