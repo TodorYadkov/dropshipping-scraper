@@ -12,7 +12,7 @@ export const AppStateContext = createContext();
 AppStateContext.displayName = 'AppStateContext';
 
 export const AppStateProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [appState, dispatch] = useReducer(reducer, initialState);
 
 	function changeSideBarState(value) {
 		dispatch({ type: REDUCER_TYPES.IS_SIDE_BAR_OPEN, value });
@@ -23,7 +23,7 @@ export const AppStateProvider = ({ children }) => {
 	}
 
 	const values = {
-		state,
+		appState,
 		changeSideBarState,
 		setProducts
 	};

@@ -8,7 +8,7 @@ import { useAppStateContext } from '../hooks/useAppStateContext.js';
 
 
 export const SideBar = () => {
-	const { state, changeSideBarState } = useAppStateContext();
+	const { appState, changeSideBarState } = useAppStateContext();
 	const { currentUserData } = useAuthContext();
 
 	function setActiveAndInactiveCss(boolean) {
@@ -24,7 +24,7 @@ export const SideBar = () => {
 		<>
 			<div className="flex">
 				{/* <!-- Backdrop --> */}
-				{state[REDUCER_TYPES.IS_SIDE_BAR_OPEN] && (
+				{appState[REDUCER_TYPES.IS_SIDE_BAR_OPEN] && (
 					<div
 						className="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"
 						onClick={() => changeSideBarState(false)}
@@ -34,15 +34,15 @@ export const SideBar = () => {
 				{/* <!-- End Backdrop --> */}
 
 				<div
-					className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:${state[REDUCER_TYPES.IS_SIDE_BAR_OPEN]
+					className={`fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:${appState[REDUCER_TYPES.IS_SIDE_BAR_OPEN]
 						? 'translate-x-0 ease-out block'
 						: '-translate-x-full ease-in hidden'
 						} lg:static lg:inset-0 lg:block`}
 				>
-					
-						<span className="block ml-6 mr-2 mt-6 text-2xl font-semibold text-white">
-							{currentUserData?.userDetails.name ?? 'Amazon Scraper'}
-						</span>
+
+					<span className="block ml-6 mr-2 mt-6 text-2xl font-semibold text-white">
+						{currentUserData?.userDetails.name ?? 'Amazon Scraper'}
+					</span>
 
 					<nav className="mt-10">
 						<NavLink
@@ -103,7 +103,7 @@ export const SideBar = () => {
 							<span className="mx-4">UI Elements</span>
 						</NavLink>
 
-						<NavLink
+						{/* <NavLink
 							className={({ isActive }) =>
 								setActiveAndInactiveCss(isActive)
 							}
@@ -130,7 +130,7 @@ export const SideBar = () => {
 							</svg>
 
 							<span className="mx-4">Tables</span>
-						</NavLink>
+						</NavLink> */}
 
 						<NavLink
 							className={({ isActive }) =>
