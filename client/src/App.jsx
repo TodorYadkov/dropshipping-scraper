@@ -7,7 +7,7 @@ import { Login } from './pages/Auth/Login.jsx';
 import { Register } from './pages/Auth/Register.jsx';
 import { Dashboard } from './pages/Product/Dashboard.jsx';
 import { Card } from './components/Card.jsx';
-import { Modal } from './components/Modal.jsx';
+import { Modal } from './components/Modal/Modal.jsx';
 import { Layout } from './components/Layout.jsx';
 import { AlertSuccess } from './components/Alerts/AlertSuccess.jsx';
 import { Form1 } from './components/Forms/Form1.jsx';
