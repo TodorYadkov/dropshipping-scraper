@@ -6,6 +6,8 @@ export const reducer = (state, action) => {
 			return { ...state, [action.type]: action.value };
 		case REDUCER_TYPES.PRODUCTS:
 			return { ...state, [action.type]: action.value };
+		case REDUCER_TYPES.ADD_PRODUCT:
+			return { ...state, [action.type]: state[action.type].push(action.value) };
 		default:
 			throw new Error('Unrecognized reducer type');
 	}
