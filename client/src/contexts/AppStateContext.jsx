@@ -22,10 +22,15 @@ export const AppStateProvider = ({ children }) => {
 		dispatch({ type: REDUCER_TYPES.PRODUCTS, value });
 	}
 
+	function addProduct(product) {
+		dispatch({ type: REDUCER_TYPES.ADD_PRODUCT, value: product });
+	}
+
 	const values = {
 		appState,
 		changeSideBarState,
-		setProducts
+		setProducts,
+		addProduct
 	};
 
 	return (
