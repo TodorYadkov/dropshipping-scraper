@@ -15,7 +15,7 @@ export const Table = ({ type, data }) => {
 		switch (type) {
 			case TABLE_BODY_TYPES.PRODUCT:
 				{
-					const headings = ['Product', 'Price', 'Availability', 'Rating', 'Last Updated'];
+					const headings = ['Product', 'Price', 'Availability', 'Rating', 'Last Updated', 'Error'];
 					Body = <TableBodyProducts products={data} />;
 					Heading = <TableHeader headings={headings} />;
 				}
