@@ -1,8 +1,8 @@
-import { TokenBlackListSchema } from '../models/TokenBlacklist.js';
+import { TokenBlackList } from '../models/TokenBlacklist.js';
 
-const getTokensBlackList = async () => TokenBlackListSchema.find({}, 'accessToken');
+const getTokensBlackList = async () => TokenBlackList.find({}, 'accessToken');
 
-const addTokenToBlackList = async (token) => TokenBlackListSchema.create(token);
+const addTokenToBlackList = async (token) => TokenBlackList.create(token);
 
 export {
     getTokensBlackList,
