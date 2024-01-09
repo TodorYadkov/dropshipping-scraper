@@ -3,14 +3,17 @@ import { ExtensionStatus } from "../models/ExtensionStatus.js";
 let intervalId;
 
 export function checkWorkingExtension() {
+    const timeToCheck = 3; // Time in minutes
+
+    const intervalTimeToMilliseconds = timeToCheck * 60 * 1000;
     intervalId = setInterval(async () => {
-        const fiveMinutesAgo = new Date();
-        fiveMinutesAgo.setMinutes(fiveMinutesAgo.getMinutes() - 5);
+        const timeMinutesAgo = new Date();
+        timeMinutesAgo.setMinutes(timeMinutesAgo.getMinutes() - timeToCheck);
 
-        // Find and update documents where updatedAt is older than 5 minutes
-        await ExtensionStatus.updateMany({ updatedAt: { $lte: fiveMinutesAgo } }, { $set: { isWork: false } });
+        // Find and update documents where updatedAt is older than timeToCheck
+        await ExtensionStatus.updateMany({ updatedAt: { $lte: timeMinutesAgo } }, { $set: { isWork: false } });
 
-    }, 5 * 60 * 1000); // 5 minutes in milliseconds
+    }, intervalTimeToMilliseconds);
 }
 
 export function stopCheckWorkingExtension() {
