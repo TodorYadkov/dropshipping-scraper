@@ -4,7 +4,9 @@ export const SERVER_PATHS = {
     LOGIN: '/users/login',
     REGISTER: '/users/register',
     LOGOUT: '/users/logout',
-    GET_ALL_PRODUCTS: '/products'
+    GET_ALL_PRODUCTS: '/products',
+    CREATE_PRODUCT: '/products',
+    GET_GENERAL_STATISTICS: '/statistics/general',
 }
 
 export const CLIENT_PATHS = {
