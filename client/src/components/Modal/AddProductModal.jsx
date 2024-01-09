@@ -4,6 +4,6 @@ import { Modal } from "./Modal.jsx";
 export const AddProductModal = ({ toggleModal }) => {
 
     return (
-        <Modal title={'Add Product'} Content={ProductForm} toggleModal={toggleModal} />
+        <Modal title={'Add Product'} Content={ProductForm} toggleModal={toggleModal} backdrop={false} />
     );
 };
