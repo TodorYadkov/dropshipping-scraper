@@ -20,6 +20,6 @@ const tokenBlackListSchema = new Schema({
 
 tokenBlackListSchema.index({ accessToken: 1 });
 
-const TokenBlackListSchema = model('TokenBlackList', tokenBlackListSchema);
+const TokenBlackList = model('TokenBlackList', tokenBlackListSchema);
 
-export { TokenBlackListSchema };
+export { TokenBlackList };
