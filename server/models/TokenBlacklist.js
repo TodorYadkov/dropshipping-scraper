@@ -15,7 +15,6 @@ const tokenBlackListSchema = new Schema({
         required: [true, 'User reference is required!']
     }
 
-
 }, { timestamps: true });
 
 tokenBlackListSchema.index({ accessToken: 1 });
