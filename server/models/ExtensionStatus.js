@@ -1,6 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 
-const extensionStatus = new Schema({
+const extensionStatusSchema = new Schema({
     extensionName: {
         type: String,
         required: [true, 'Extension Name is required!']
@@ -21,6 +21,6 @@ const extensionStatus = new Schema({
 
 }, { timestamps: true });
 
-const ExtensionStatus = model('ExtensionStatus', extensionStatus);
+const ExtensionStatus = model('ExtensionStatus', extensionStatusSchema);
 
 export { ExtensionStatus };
