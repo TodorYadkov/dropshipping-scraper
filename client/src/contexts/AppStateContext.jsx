@@ -5,7 +5,8 @@ import { REDUCER_TYPES } from '../util/constants.js';
 
 const initialState = {
 	[REDUCER_TYPES.IS_SIDE_BAR_OPEN]: false,
-	[REDUCER_TYPES.PRODUCTS]: []
+	[REDUCER_TYPES.PRODUCTS]: [],
+	[REDUCER_TYPES.GENERAL_STATISTIC]: {},
 };
 
 export const AppStateContext = createContext();
@@ -26,11 +27,16 @@ export const AppStateProvider = ({ children }) => {
 		dispatch({ type: REDUCER_TYPES.ADD_PRODUCT, value: product });
 	}
 
+	function setGeneralStatistic(statisticData) {
+		dispatch({ type: REDUCER_TYPES.GENERAL_STATISTIC, value: statisticData });
+	}
+
 	const values = {
 		appState,
 		changeSideBarState,
 		setProducts,
-		addProduct
+		addProduct,
+		setGeneralStatistic,
 	};
 
 	return (
