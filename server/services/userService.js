@@ -110,9 +110,8 @@ async function userLogin(userData) {
 }
 
 //  Logout
-async function userLogout({ _id, accessToken, isExtension, extensionName, email }) {
+async function userLogout({ _id, accessToken, isExtension, extensionName }) {
     const userLogoutData = {
-        email,
         accessToken,
         userId: _id
     };
