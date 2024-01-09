@@ -34,6 +34,15 @@ const userSchema = new Schema({
         minlength: [5, 'Extension name must be at least 5 characters!'],
         maxlength: [100, 'Extension name must be less than 100 characters!'],
         default: null,
+        validator: async function (value) {
+            // Custom validator to check for unique names within the array
+            const user = this.parent(); // Access the parent document (User document)
+            const existingExtensions = user.extensionsName || [];
+
+            // Check if the new name does not already exist in the array
+            return !existingExtensions.includes(value);
+        },
+        message: 'Extension name must be unique within the array!'
     }]
 
 }, { timestamps: true });
