@@ -29,6 +29,8 @@ export const Dashboard = () => {
 	const { appState, setProducts, setGeneralStatistic } = useAppStateContext();
 
 	useEffect(() => {
+		document.title = 'Dashboard';
+
 		async function initialLoading() {
 			setIsLoading(true);
 
