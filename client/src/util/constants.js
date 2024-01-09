@@ -19,6 +19,7 @@ export const REDUCER_TYPES = {
 	IS_SIDE_BAR_OPEN: 'isSideBarOpen',
 	PRODUCTS: 'products',
 	ADD_PRODUCT: 'addProduct',
+	GENERAL_STATISTIC: 'generalStatistic',
 }
 
 export const TABLE_BODY_TYPES = {
