@@ -41,8 +41,6 @@ export const TableBodyProducts = ({ products }) => {
                             </div>
 
                             <div className="ml-3 cursor-pointer">
-                                {/* TODO Chose how to show long text */}
-                                {/* <p title={product.name} className="text-gray-900 whitespace-nowrap max-w-xs overflow-hidden overflow-ellipsis"> */}
                                 <p className="text-gray-900">
                                     {product.name}
                                 </p>
@@ -51,38 +49,42 @@ export const TableBodyProducts = ({ products }) => {
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <Link to={product.amazonUrl} target="_blank" rel="noopener noreferrer">
-                            <p className="text-gray-900 whitespace-wrap text-center relative group hover:text-indigo-500">
-                                {`${product.price} ${product.currency}`}
+                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
+                                {`${product.priceAmazon} ${product.currency}`}
                                 <Tooltip message={'Amazon Product'} />
                             </p>
                         </Link>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <Link to={product.ebayUrl} target="_blank" rel="noopener noreferrer">
-                            <p className="text-gray-900 whitespace-wrap text-center relative group hover:text-indigo-500">
+                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
                                 TODO
                                 <Tooltip message={'eBay Product'} />
                             </p>
                         </Link>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center">
+                        <p className="text-gray-900 whitespace-wrap text-center relative group">
                             TODO
+                            <Tooltip message={'Profit'} />
                         </p>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center">
+                        <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {product.availability}
+                            <Tooltip message={'Availability'} />
                         </p>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center">
+                        <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {product.rating}
+                            <Tooltip message={'Rating'} />
                         </p>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center">
+                        <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {formatDateToTimeAgo(product.updatedAt)}
+                            <Tooltip message={'Last Updated'} />
                         </p>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
