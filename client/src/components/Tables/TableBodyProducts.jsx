@@ -13,7 +13,7 @@ export const TableBodyProducts = ({ products }) => {
         <tbody className="cursor-default">
             {products.length === 0 && (
                 <tr className="text-center bg-white">
-                    <td colSpan={6} className="gap-2 py-5 text-lg border-b border-gray-200">
+                    <td colSpan={9} className="gap-2 py-5 text-lg border-b border-gray-200">
                         <svg className="inline-block w-8 h-8 text-gray-900" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"></path>
                             <path d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z" stroke="currentColor" strokeWidth="2"></path>
@@ -51,7 +51,7 @@ export const TableBodyProducts = ({ products }) => {
                         <Link to={product.amazonUrl} target="_blank" rel="noopener noreferrer">
                             <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
                                 {`${product.priceAmazon} ${product.currency}`}
-                                <Tooltip message={'Amazon Product'} />
+                                <Tooltip message={'Open Amazon Product'} />
                             </p>
                         </Link>
                     </td>
@@ -59,7 +59,7 @@ export const TableBodyProducts = ({ products }) => {
                         <Link to={product.ebayUrl} target="_blank" rel="noopener noreferrer">
                             <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
                                 TODO
-                                <Tooltip message={'eBay Product'} />
+                                <Tooltip message={'Open eBay Product'} />
                             </p>
                         </Link>
                     </td>
