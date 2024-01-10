@@ -8,7 +8,7 @@ export const DashboardSummary = ({
 }) => {
 
     return (
-        <div className="mt-4 cursor-default">
+        <div className="mt-7 mb-20 cursor-default">
             <div className="flex items-center flex-wrap -mx-6">
                 <div className="w-full px-6 sm:w-1/2 xl:w-1/3 text-center sm:text-left">
                     <div className="flex flex-col sm:flex-row items-center justify-center px-5 py-6 bg-white rounded-md shadow-sm">
