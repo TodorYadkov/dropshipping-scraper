@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
-import { REDUCER_TYPES, TABLE_BODY_TYPES } from '../../util/constants.js';
+import { REDUCER_TYPES} from '../../util/constants.js';
 
 import { productService } from '../../services/productService.js';
 import { statisticService } from '../../services/statisticService.js';
@@ -9,9 +9,9 @@ import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 import { useIntervalTimeToReceiveData } from '../../hooks/useIntervalTimeToReceiveData.js';
 
 import { Loader } from '../../components/Loader.jsx';
-import { Table } from '../../components/Tables/Table.jsx';
 import { AlertError } from '../../components/Alerts/AlertError.jsx';
 import { DashboardSummary } from '../../components/DashboardSummary.jsx';
+import { ResponsiveProductsComponent } from '../../components/ResponsiveProductsComponent.jsx';
 
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -71,7 +71,7 @@ export const Dashboard = () => {
 					<>
 						<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
-						{<Table data={appState[REDUCER_TYPES.PRODUCTS]} typeBody={TABLE_BODY_TYPES.PRODUCT} />}
+						<ResponsiveProductsComponent />
 					</>
 				)
 			}
