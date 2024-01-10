@@ -18,7 +18,7 @@ export const SearchInput = () => {
 			</span>
 
 			<input
-				className="w-32 pl-10 pr-4 py-2 text-indigo-600 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+				className="w-32 pl-10 pr-4 py-2 text-gray-700 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
 				type="text"
 				placeholder="Search"
 			/>
