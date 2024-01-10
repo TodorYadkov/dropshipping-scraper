@@ -3,19 +3,19 @@ import { useMemo } from "react";
 import { TABLE_BODY_TYPES } from "../../util/constants.js";
 import { TableHeader } from "./TableHeader.jsx";
 import { TableBodyProducts } from "./TableBodyProducts.jsx";
-import { TableSearch } from "./TableSearch.jsx";
-import { Pagination } from "../Pagination.jsx";
+import { TableOptions } from "./TableOptions.jsx";
+import { Pagination } from "../Pagination/Pagination.jsx";
 
 
-export const Table = ({ type, data }) => {
+export const Table = ({ typeBody, data }) => {
 
 	const TableVariant = useMemo(() => {
 		let Body, Heading;
 
-		switch (type) {
+		switch (typeBody) {
 			case TABLE_BODY_TYPES.PRODUCT:
 				{
-					const headings = ['Product', 'Price', 'Availability', 'Rating', 'Last Updated', 'Error'];
+					const headings = ['Product', 'Price Amazon', 'Price eBay', 'Profit', 'Availability', 'Rating', 'Last Updated', 'Error', 'Actions'];
 					Body = <TableBodyProducts products={data} />;
 					Heading = <TableHeader headings={headings} />;
 				}
@@ -29,14 +29,14 @@ export const Table = ({ type, data }) => {
 
 		return { Body, Heading };
 
-	}, [type, data]);
+	}, [typeBody, data]);
 
 
 
 	return (
 		<div className="mt-8">
 
-			<TableSearch />
+			<TableOptions />
 
 			<div className="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
 				<div className="inline-block min-w-full overflow-hidden rounded-lg shadow">
@@ -45,21 +45,9 @@ export const Table = ({ type, data }) => {
 
 						{TableVariant.Body}
 					</table>
-					<Pagination />
-					{/* <div className="flex flex-col items-center px-5 py-5 bg-white border-t xs:flex-row xs:justify-between">
-						<span className="text-xs text-gray-900 xs:text-sm">
-							Showing 1 to 4 of 50 Entries
-						</span>
 
-						<div className="inline-flex mt-2 xs:mt-0">
-							<button className="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-l hover:bg-gray-400">
-								Prev
-							</button>
-							<button className="px-4 py-2 text-sm font-semibold text-gray-800 bg-gray-300 rounded-r hover:bg-gray-400">
-								Next
-							</button>
-						</div>
-					</div> */}
+					<Pagination />
+
 				</div>
 			</div>
 		</div>
