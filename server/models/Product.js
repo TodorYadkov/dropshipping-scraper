@@ -9,7 +9,7 @@ const productSchema = new Schema({
 		type: String,
 		default: null,
 	},
-	price: {
+	priceAmazon: {
 		type: Number,
 		default: null,
 	},

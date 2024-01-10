@@ -6,7 +6,7 @@ const validateProductSchema = joi.object({
 
 	description: joi.string().allow(null).trim().optional(),
 
-	price: joi.number().allow(null).optional(),
+	priceAmazon: joi.number().allow(null).optional(),
 
 	currency: joi.string().allow(null).trim().optional(),
 

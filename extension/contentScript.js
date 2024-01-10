@@ -6,13 +6,13 @@ try {
     // const priceElement = document.querySelector('#corePrice_feature_div > div > div > span.a-price.aok-align-center > span.a-offscreen');
     const priceElement = document.querySelector('#corePrice_feature_div span.a-offscreen') ?? document.querySelector('#price_inside_buybox');
 
-    let price = '0.00';
+    let priceAmazon = '0.00';
     let currency = 'NO';
     if (priceElement) {
         const priceWithCurrency = priceElement.textContent;
         const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
 
-        price = priceWithCurrency.substring(positionOfFirstNumber);
+        priceAmazon = priceWithCurrency.substring(positionOfFirstNumber);
         currency = priceWithCurrency.substring(0, positionOfFirstNumber);
     }
 
@@ -28,7 +28,7 @@ try {
     const productInfoRaw = {
         name,
         description,
-        price,
+        priceAmazon,
         currency,
         imageURL,
         availability,
