@@ -62,12 +62,37 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'logout':
                 try {
                     multiBrowser.alarms.clear('fetchDataAlarm');
-                    await setData({ isScriptRunning: false, activeTabs: [] });
+                    await setData({ isScriptRunning: false });
 
                     await logout();
                     await removeData([tokenName]);
-                    // Can made this with sendResponse?
+
                     multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
+
+                    // Close all open tabs
+                    const { activeTabs } = await getData(['activeTabs']);
+                    const closeTabPromises = activeTabs.map(tabId => {
+                        return new Promise(async (resolve) => {
+                            try {
+                                // Check if the tab still exists
+                                const tabExists = await multiBrowser.tabs.get(tabId);
+                                if (tabExists) {
+                                    // If the tab exists, remove it
+                                    await multiBrowser.tabs.remove(tabId);
+                                }
+                            } catch (error) {
+                                console.error(`Error checking or closing tab ${tabId}: ${error}`);
+                            } finally {
+                                resolve();
+                            }
+                        });
+                    });
+
+                    // Wait for all tab removal promises to resolve
+                    await Promise.all(closeTabPromises);
+
+                    // Set initial state
+                    await setData({ activeTabs: [] });
                 } catch (error) {
                     await removeData([tokenName]);
                 }
@@ -91,7 +116,7 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
             await sendData(updatedProduct);
 
         } catch (error) {
-            console.error(error);
+            console.error(error.message);
         }
     }
 });
