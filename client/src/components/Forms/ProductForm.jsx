@@ -8,11 +8,6 @@ import { productService } from "../../services/productService.js";
 import { useAppStateContext } from "../../hooks/useAppStateContext.js";
 import { Loader } from "../Loader.jsx";
 
-const initialValues = {
-    [PRODUCT_FORM_KEYS.AMAZON]: '',
-    [PRODUCT_FORM_KEYS.EBAY]: ''
-}
-
 export const ProductForm = ({ toggleModal }) => {
 
     const { values, formErrors, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
