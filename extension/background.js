@@ -1,10 +1,8 @@
-import { login, logout } from './services/authService.js';
 import { sendData } from './services/dataService.js';
-import { fetchDataFromServer } from './util/fetchDataFromServer.js';
-import { multiBrowser, tokenName } from './constants/constants.js'
+import { login, logout } from './services/authService.js';
+import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
 import { getData, removeData, setData } from './util/storageActions.js';
-
-let productFromServer = {};
+import { multiBrowser, timeToFetchProduct, tokenName } from './constants/constants.js'
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
@@ -14,34 +12,45 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
             case 'start':
                 await setData({ isScriptRunning: true, activeTabs: [] });
                 // Set up the alarm to trigger fetchDataFromServer
-                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: 0.2 });
-                break;
-
-            case 'doneScraping':
-                const updatedProduct = { ...productFromServer, ...message.product };
-                await sendData(updatedProduct);
-
-                const { activeTabs } = await getData(['activeTabs']);
-                if (activeTabs.includes(sender.tab.id)) {
-                    multiBrowser.tabs.remove(sender.tab.id);
-
-                    activeTabs.splice(activeTabs.indexOf(sender.tab.id), 1);
-                    await setData({ activeTabs });
-                }
-
+                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: timeToFetchProduct });
                 break;
 
             case 'stop':
                 // Clear the alarm when the script is stopped
                 multiBrowser.alarms.clear('fetchDataAlarm');
 
+                // Close all open tabs
+                const { activeTabs } = await getData(['activeTabs']);
+                const closeTabPromises = activeTabs.map(tabId => {
+                    return new Promise(async (resolve) => {
+                        try {
+                            // Check if the tab still exists
+                            const tabExists = await multiBrowser.tabs.get(tabId);
+                            if (tabExists) {
+                                // If the tab exists, remove it
+                                await multiBrowser.tabs.remove(tabId);
+                            }
+                        } catch (error) {
+                            console.error(`Error checking or closing tab ${tabId}: ${error}`);
+                        } finally {
+                            resolve();
+                        }
+                    });
+                });
+
+                // Wait for all tab removal promises to resolve
+                await Promise.all(closeTabPromises);
+
+                // Set initial state
                 await setData({ isScriptRunning: false, activeTabs: [] });
+
                 break;
 
             case 'login':
                 try {
                     const loggedUserData = await login(message.userData);
                     await setData({ [tokenName]: loggedUserData });
+
                     // After successful login send the user information to popup so the html can be updated with user information
                     multiBrowser.runtime.sendMessage({ message: 'successfulLogin', userData: loggedUserData });
 
@@ -62,27 +71,28 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 } catch (error) {
                     await removeData([tokenName]);
                 }
-
-                break;
-
-            case 'contentError':
-                const productWithErrorMessage = { ...productFromServer, error: message.contentError };
-                await sendData(productWithErrorMessage);
-
-                multiBrowser.tabs.remove(sender.tab.id);
                 break;
         }
 
-    } catch (err) {
+    } catch (error) {
+        console.error(error);
         multiBrowser.tabs.remove(sender.tab.id);
-        console.error(err);
     }
 });
 
-// Listen for the alarm and trigger fetchDataFromServer
+// Listen for alarms
 multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
     if (alarm.name === 'fetchDataAlarm') {
-        productFromServer = await fetchDataFromServer();
+        try {
+            // Fetches product URLs from the server, scrapes data from Amazon and eBay, and return updatedProduct.
+            const updatedProduct = await fetchDataFromServerAndScrape();
+
+            // Send updated product to the server
+            await sendData(updatedProduct);
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 });
 
@@ -96,5 +106,3 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
 //         );
 //       }
 // })
-
-
