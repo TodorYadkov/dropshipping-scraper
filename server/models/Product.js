@@ -13,7 +13,15 @@ const productSchema = new Schema({
 		type: Number,
 		default: null,
 	},
-	currency: {
+	priceEbay: {
+		type: Number,
+		default: null,
+	},
+	currencyAmazon: {
+		type: String,
+		default: null,
+	},
+	currencyEbay: {
 		type: String,
 		default: null,
 	},
@@ -30,6 +38,11 @@ const productSchema = new Schema({
 		type: String,
 		required: [true, 'Amazon URL is required!'],
 		match: [/^https?:\/\//, 'Amazon URL must start with http or https!']
+	},
+	ebayUrl: {
+		type: String,
+		default: null,
+		match: [/^https?:\/\//, 'eBay URL must start with http or https!']
 	},
 	rating: {
 		type: Number,
