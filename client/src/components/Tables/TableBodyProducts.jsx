@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 
 import { useModal } from "../../hooks/useModal.js";
-import { formatDateToTimeAgo } from "../../util/formatDateToTimeAgo.js";
 
-import { AddProductModal } from "../Modal/AddProductModal.jsx";
+import { formatDateToTimeAgo } from "../../util/formatDateToTimeAgo.js";
 import { Tooltip } from "../Tooltip.jsx";
+import { AddProductModal } from "../Modal/AddProductModal.jsx";
+import { AddEbayProductModal } from "../Modal/AddEbayProductModal.jsx";
 
 export const TableBodyProducts = ({ products }) => {
     const [productModal, toggleProductModal] = useModal();
+    const [ebayProductModal, toggleEbayProductModal] = useModal();
 
     return (
         <tbody className="cursor-default">
@@ -30,44 +32,97 @@ export const TableBodyProducts = ({ products }) => {
             {products.length > 0 && products.map(product => (
                 <tr key={product._id} className="bg-white hover:bg-gray-50">
                     <td className="px-5 py-5 text-sm  border-b border-gray-200 w-1/4">
-                        <div className="flex items-center">
+                        {product.name ? (
+                            <Link to={product.amazonUrl} target="_blank" rel="noopener noreferrer">
+                                <div className="flex items-center relative group">
+                                    <div className="flex-shrink-0 w-10 h-10 hover:opacity-70">
+                                        <img
+                                            className="w-full h-full"
+                                            src={product.imageURL}
+                                            alt={product.name}
+                                        />
+                                    </div>
 
-                            <div className="flex-shrink-0 w-10 h-10 hover:opacity-70">
-                                <img
-                                    className="w-full h-full"
-                                    src={product.imageURL}
-                                    alt={product.name}
-                                />
-                            </div>
+                                    <div className="ml-3 cursor-pointer">
+                                        <p className="text-gray-900">
+                                            {product.name}
+                                        </p>
+                                    </div>
+                                    <Tooltip message={'Open Amazon Product'} />
+                                </div>
+                            </Link>
+                        ) : (
+                            <div className="flex items-center">
+                                <div className="flex-shrink-0 w-10 h-10">
+                                    <svg
+                                        className="flex-shrink-0 w-10 h-10"
+                                        fill="#4b5563"
+                                        viewBox="0 0 473.068 473.068"
+                                    >
+                                        <path d="M355.507,181.955c8.793-6.139,29.39-20.519,29.39-55.351v-71.77h9.814c4.49,0,8.17-3.679,8.17-8.169v-38.5
+				                                c0-4.49-3.681-8.165-8.17-8.165H78.351c-4.495,0-8.165,3.675-8.165,8.165v38.5c0,4.491,3.67,8.169,8.165,8.169h9.82v73.071
+				                                c0,34.499,10.502,42.576,29.074,53.89l80.745,49.203v20.984c-20.346,12.23-73.465,44.242-80.434,49.107
+				                                c-8.793,6.135-29.384,20.51-29.384,55.352v61.793h-9.82c-4.495,0-8.165,3.676-8.165,8.166v38.498c0,4.49,3.67,8.17,8.165,8.17
+				                                h316.361c4.49,0,8.17-3.68,8.17-8.17V426.4c0-4.49-3.681-8.166-8.17-8.166h-9.814v-63.104c0-34.493-10.508-42.572-29.069-53.885
+				                                l-80.745-49.202v-20.987C295.417,218.831,348.537,186.822,355.507,181.955z M252.726,272.859l87.802,53.5
+				                                c6.734,4.109,10.333,6.373,12.001,9.002c1.991,3.164,2.963,9.627,2.963,19.768v63.104H117.574v-61.793
+				                                c0-19.507,9.718-26.289,16.81-31.242c5.551-3.865,54.402-33.389,85.878-52.289c4.428-2.658,7.135-7.441,7.135-12.611v-37.563
+				                                c0-5.123-2.671-9.883-7.053-12.55l-87.54-53.339l-0.265-0.165c-6.741-4.105-10.336-6.369-11.998-9.009
+				                                c-1.992-3.156-2.968-9.626-2.968-19.767V54.835h237.918v71.77c0,19.5-9.718,26.288-16.814,31.235
+				                                c-5.546,3.872-54.391,33.395-85.869,52.295c-4.427,2.658-7.134,7.442-7.134,12.601v37.563
+				                                C245.675,265.431,248.346,270.188,252.726,272.859z"/>
+                                        <path d="M331.065,154.234c0,0,5.291-4.619-2.801-3.299c-19.178,3.115-53.079,15.133-92.079,15.133s-57-11-82.507-11.303
+				                                c-5.569-0.066-5.456,3.629,0.937,7.391c6.386,3.758,63.772,35.681,71.671,40.08c7.896,4.389,12.417,4.05,20.786,0
+				                                C259.246,196.334,331.065,154.234,331.065,154.234z"/>
+                                        <path d="M154.311,397.564c-6.748,6.209-9.978,10.713,5.536,10.713c12.656,0,139.332,0,155.442,0
+				                                c16.099,0,9.856-5.453,2.311-12.643c-14.576-13.883-45.416-23.566-82.414-23.566
+				                                C196.432,372.068,169.342,383.723,154.311,397.564z"/>
+                                    </svg>
+                                </div>
 
-                            <div className="ml-3 cursor-pointer">
-                                <p className="text-gray-900">
-                                    {product.name}
-                                </p>
+                                <div className="ml-3">
+                                    <p className="text-gray-900 whitespace-wrap text-center relative group">
+                                        Waiting for a new product to be scraped...
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <Link to={product.amazonUrl} target="_blank" rel="noopener noreferrer">
-                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
-                                {`${product.priceAmazon} ${product.currency}`}
-                                <Tooltip message={'Open Amazon Product'} />
-                            </p>
-                        </Link>
-                    </td>
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <Link to={product.ebayUrl} target="_blank" rel="noopener noreferrer">
-                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
-                                TODO
-                                <Tooltip message={'Open eBay Product'} />
-                            </p>
-                        </Link>
-                    </td>
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            TODO
-                            <Tooltip message={'Profit'} />
+                        <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
+                            {product.priceAmazon && `${product.priceAmazon} ${product.currencyAmazon}`}
+                            <Tooltip message={'Amazon Price'} />
                         </p>
+                    </td>
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                        {product.ebayUrl ? (
+                            <Link to={product.ebayUrl} target="_blank" rel="noopener noreferrer">
+                                <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
+                                    {product.priceEbay && `${product.priceEbay} ${product.currencyEbay}`}
+                                    <Tooltip message={'Open eBay Product'} />
+                                </p>
+                            </Link>
+                        ) : (
+                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={toggleEbayProductModal}>
+                                No Price
+                                <Tooltip message={'Add eBay Product'} />
+                            </p>
+                        )}
+                    </td>
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                        {product.ebayUrl ? (
+                            <p className="text-gray-900 whitespace-wrap text-center relative group">
+                                {/* TODO cast to number and check for currency */}
+                                {(product.priceAmazon && product.priceEbay) && `${product.priceEbay - product.priceAmazon}`}
+                                <Tooltip message={'Profit'} />
+                            </p>
+                        ) : (
+                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={toggleEbayProductModal}>
+                                No Profit
+                                <Tooltip message={'Add eBay Product'} />
+                            </p>
+                        )}
+
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
@@ -83,7 +138,7 @@ export const TableBodyProducts = ({ products }) => {
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {formatDateToTimeAgo(product.updatedAt)}
+                            {(product.updatedAt !== '1970-01-01T00:00:00.000Z') && formatDateToTimeAgo(product.updatedAt)}
                             <Tooltip message={'Last Updated'} />
                         </p>
                     </td>
@@ -131,7 +186,8 @@ export const TableBodyProducts = ({ products }) => {
             ))
             }
 
-            {productModal && <AddProductModal toggleModal={toggleProductModal} />}
+            {productModal && <tr><td><AddProductModal toggleModal={toggleProductModal} /></td></tr>}
+            {ebayProductModal && <tr><td><AddEbayProductModal toggleModal={toggleEbayProductModal} /></td></tr>}
         </tbody >
     );
 };

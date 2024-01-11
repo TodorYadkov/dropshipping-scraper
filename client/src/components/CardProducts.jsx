@@ -6,116 +6,185 @@ import { useModal } from '../hooks/useModal.js';
 
 import { AddProductModal } from './Modal/AddProductModal.jsx';
 import { Tooltip } from './Tooltip.jsx';
+import { AddEbayProductModal } from './Modal/AddEbayProductModal.jsx';
 
 export const CardProducts = ({ data }) => {
 	const [productModal, toggleProductModal] = useModal();
+	const [ebayProductModal, toggleEbayProductModal] = useModal();
 
+	// TODO: ADD Add Product button in this component and decide how to use pagination and search here
 	return (
-		<div className="flex flex-col items-center gap-5">
-			<div className="mt-5">
-				{data.length === 0 && (
-					<div className="flex items-center justify-center p-10 bg-white rounded-md">
-						<svg
-							className="inline-block w-8 h-8 text-gray-900"
-							viewBox="0 0 28 28"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
-								fill="currentColor"
-								stroke="currentColor"
-								strokeWidth="2"
-								strokeLinejoin="round"
-							></path>
-							<path
-								d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z"
-								stroke="currentColor"
-								strokeWidth="2"
-							></path>
-							<text
-								x="50%"
-								y="65%"
-								textAnchor="middle"
-								alignmentBaseline="middle"
-								fontSize="12"
-								fill="#fff"
-								fontWeight="bold"
-							>
-								x
-							</text>
-						</svg>
+		<div className="flex flex-col items-center gap-5 mt-5">
 
-						<p className="inline-block align-middle ml-1 text-2xl font-semibold text-gray-900">
-							No products added yet!
-							<span
-								className="cursor-pointer hover:opacity-70"
-								onClick={toggleProductModal}
-							>
-								{' '}
-								Add from here.
-							</span>
-						</p>
-					</div>
-				)}
-			</div>
+			{data.length === 0 && (
+				<div className="flex items-center justify-center p-10 bg-white rounded-md">
+					<svg
+						className="inline-block w-8 h-8 text-gray-900"
+						viewBox="0 0 28 28"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path
+							d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
+							fill="currentColor"
+							stroke="currentColor"
+							strokeWidth="2"
+							strokeLinejoin="round"
+						></path>
+						<path
+							d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z"
+							stroke="currentColor"
+							strokeWidth="2"
+						></path>
+						<text
+							x="50%"
+							y="65%"
+							textAnchor="middle"
+							alignmentBaseline="middle"
+							fontSize="12"
+							fill="#fff"
+							fontWeight="bold"
+						>
+							x
+						</text>
+					</svg>
+
+					<p className="inline-block align-middle ml-1 text-2xl font-semibold text-gray-900">
+						No products added yet!
+						<span
+							className="cursor-pointer hover:opacity-70"
+							onClick={toggleProductModal}
+						>
+							{' '}
+							Add from here.
+						</span>
+					</p>
+				</div>
+			)}
 
 			{data.length > 0 &&
 				data.map((product) => (
-					<div
-						key={product._id}
-						className="w-full max-w-sm mt-6 lg:max-w-full lg:flex"
-					>
-						<img
-							className="flex-none w-full h-48 overflow-hidden text-center bg-cover rounded-t lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l"
-							src={product.imageURL}
-							alt={product.name}
-						/>
-						<div className="flex flex-col justify-between p-4 leading-normal bg-white border-b border-l border-r border-gray-200 rounded-b lg:border-l-0 lg:border-t lg:border-gray-200 lg:rounded-b-none lg:rounded-r">
+					<div key={product._id} className="w-full max-w-sm mt-6 lg:max-w-full lg:flex">
+						<div className="flex-none w-full h-48 overflow-hidden text-center bg-cover rounded-t lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l">
+							{product.imageURL ? (
+								<Link
+									to={product.amazonUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<img
+										className="block w-full h-full"
+										src={product.imageURL}
+										alt={product.name}
+									/>
+								</Link>
+							) : (
+								<svg
+									className="block w-full h-full bg-white"
+									fill="#4b5563"
+									viewBox="0 0 473.068 473.068"
+								>
+									<path d="M355.507,181.955c8.793-6.139,29.39-20.519,29.39-55.351v-71.77h9.814c4.49,0,8.17-3.679,8.17-8.169v-38.5
+				                                c0-4.49-3.681-8.165-8.17-8.165H78.351c-4.495,0-8.165,3.675-8.165,8.165v38.5c0,4.491,3.67,8.169,8.165,8.169h9.82v73.071
+				                                c0,34.499,10.502,42.576,29.074,53.89l80.745,49.203v20.984c-20.346,12.23-73.465,44.242-80.434,49.107
+				                                c-8.793,6.135-29.384,20.51-29.384,55.352v61.793h-9.82c-4.495,0-8.165,3.676-8.165,8.166v38.498c0,4.49,3.67,8.17,8.165,8.17
+				                                h316.361c4.49,0,8.17-3.68,8.17-8.17V426.4c0-4.49-3.681-8.166-8.17-8.166h-9.814v-63.104c0-34.493-10.508-42.572-29.069-53.885
+				                                l-80.745-49.202v-20.987C295.417,218.831,348.537,186.822,355.507,181.955z M252.726,272.859l87.802,53.5
+				                                c6.734,4.109,10.333,6.373,12.001,9.002c1.991,3.164,2.963,9.627,2.963,19.768v63.104H117.574v-61.793
+				                                c0-19.507,9.718-26.289,16.81-31.242c5.551-3.865,54.402-33.389,85.878-52.289c4.428-2.658,7.135-7.441,7.135-12.611v-37.563
+				                                c0-5.123-2.671-9.883-7.053-12.55l-87.54-53.339l-0.265-0.165c-6.741-4.105-10.336-6.369-11.998-9.009
+				                                c-1.992-3.156-2.968-9.626-2.968-19.767V54.835h237.918v71.77c0,19.5-9.718,26.288-16.814,31.235
+				                                c-5.546,3.872-54.391,33.395-85.869,52.295c-4.427,2.658-7.134,7.442-7.134,12.601v37.563
+				                                C245.675,265.431,248.346,270.188,252.726,272.859z"/>
+									<path d="M331.065,154.234c0,0,5.291-4.619-2.801-3.299c-19.178,3.115-53.079,15.133-92.079,15.133s-57-11-82.507-11.303
+				                                c-5.569-0.066-5.456,3.629,0.937,7.391c6.386,3.758,63.772,35.681,71.671,40.08c7.896,4.389,12.417,4.05,20.786,0
+				                                C259.246,196.334,331.065,154.234,331.065,154.234z"/>
+									<path d="M154.311,397.564c-6.748,6.209-9.978,10.713,5.536,10.713c12.656,0,139.332,0,155.442,0
+				                                c16.099,0,9.856-5.453,2.311-12.643c-14.576-13.883-45.416-23.566-82.414-23.566
+				                                C196.432,372.068,169.342,383.723,154.311,397.564z"/>
+								</svg>
+							)}
+
+						</div>
+						<div className="flex flex-col justify-between p-4 leading-normal bg-white border-b border-l border-r border-gray-200 rounded-b lg:w-full lg:border-l-0 lg:border-t lg:border-gray-200 lg:rounded-b-none lg:rounded-r">
 							<div className="mb-8">
-								<p className="flex items-center text-sm text-gray-600">
-									<svg
-										className="w-4 h-4 mr-2"
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 512 512"
-										fill={
-											product.availability ===
-											'Out of Stock'
-												? 'red'
-												: 'green'
-										}
-									>
-										{product.availability ===
-										'Out of Stock' ? (
-											<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
-										) : (
-											<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" />
-										)}
-									</svg>
-									{product.availability}
+								{product.availability && (
+									<p className="flex items-center text-sm text-gray-600">
+										<svg
+											className="w-4 h-4 mr-2"
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 512 512"
+											fill={
+												product.availability ===
+													'Out of Stock'
+													? 'red'
+													: 'green'
+											}
+										>
+											{product.availability ===
+												'Out of Stock' ? (
+												<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
+											) : (
+												<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" />
+											)}
+										</svg>
+										{product.availability}
+									</p>
+								)}
+
+								<p className="mb-2 text-xl font-bold text-gray-900">
+									{product.name ? (
+										<Link
+											to={product.amazonUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{product.name}
+										</Link>
+									) : 'Waiting for a new product to be scraped...'
+									}
 								</p>
-								<div className="mb-2 text-xl font-bold text-gray-900">
-									{product.name}
-								</div>
+
 								<div className="flex flex-col text-base text-gray-700">
-									<Link
-										to={product.amazonUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										<p>
-											Amazon Price:{' '}
-											{`${product.priceAmazon} ${product.currency}`}
+									<p>
+										Amazon Price:{' '}
+										{product.priceAmazon && `${product.priceAmazon} ${product.currencyAmazon}`}
+									</p>
+
+
+									{product.ebayUrl ? (
+										<Link
+											to={product.ebayUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<p>
+												Ebay Price:{' '}
+												{product.priceEbay && `${product.priceEbay} ${product.currencyEbay}`}
+											</p>
+										</Link>
+									) : (
+										<p className="flex items-center" onClick={toggleEbayProductModal}>
+											eBay Product
+											<svg
+												className="ml-2 w-4 h-4"
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 512 512"
+												fill="#4b5563"
+											>
+												<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+											</svg>
 										</p>
-									</Link>
-									<Link
-										to={product.ebayUrl}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										<p>Ebay Price: TODO</p>
-									</Link>
-									<p>Profit: TODO</p>
+									)}
+
+									{product.ebayUrl ? (
+										<p>
+											{/* TODO cast to number and check for currency */}
+											Profit: {(product.priceAmazon && product.priceEbay) && `${product.priceEbay - product.priceAmazon}`}
+										</p>
+									) : (
+										<p>Need eBay Product</p>
+									)}
 								</div>
 							</div>
 							<div className="flex items-center justify-between">
@@ -125,7 +194,7 @@ export const CardProducts = ({ data }) => {
 									</p>
 									<p className="text-gray-600">
 										Last Updated:{' '}
-										{formatDateToTimeAgo(product.updatedAt)}
+										{(product.updatedAt !== '1970-01-01T00:00:00.000Z') && formatDateToTimeAgo(product.updatedAt)}
 									</p>
 								</div>
 
@@ -173,12 +242,12 @@ export const CardProducts = ({ data }) => {
 								</div>
 							</div>
 						</div>
-					</div>
-				))}
+					</div >
+				))
+			}
 
-			{productModal && (
-				<AddProductModal toggleModal={toggleProductModal} />
-			)}
-		</div>
+			{productModal && (<AddProductModal toggleModal={toggleProductModal} />)}
+			{ebayProductModal && <AddEbayProductModal toggleModal={toggleEbayProductModal} />}
+		</div >
 	);
 };
