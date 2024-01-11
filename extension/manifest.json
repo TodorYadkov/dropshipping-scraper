@@ -11,19 +11,7 @@
 		{
 			"matches": [
 				"*://*.amazon.com/*",
-				"*://*.amazon.co.jp/*",
-				"*://*.amazon.co.uk/*",
-				"*://*.amazon.de/*",
-				"*://*.amazon.fr/*",
-				"*://*.amazon.ca/*",
-				"*://*.amazon.es/*",
-				"*://*.amazon.it/*",
-				"*://*.amazon.com.be/*",
-				"*://*.amazon.nl/*",
-				"*://*.amazon.pl/*",
-				"*://*.amazon.se/*",
-				"*://*.amazon.com.mx/*",
-				"*://*.amazon.com.br/*"
+				"*://*.ebay.com/*"
 			],
 			"js": [
 				"contentScript.js"
