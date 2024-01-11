@@ -3,7 +3,7 @@ import { ExtensionStatus } from '../models/ExtensionStatus.js';
 
 // Front-end requests
 // GET ALL
-const getAllProducts = async (userId) => Product.find({ owner: userId });
+const getAllProducts = async (userId) => Product.find({ owner: userId }).sort({ createdAt: -1 });
 
 // GET ONE
 const getSingleProduct = async (productId) => Product.findById(productId);
