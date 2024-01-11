@@ -1,5 +1,7 @@
 import { Router } from 'express';
+
 import { extractASIN } from '../util/extractASIN.js';
+import { extractItemIdEbay } from '../util/extractItemIdEbay.js';
 import { preload } from '../middlewares/preloader.js';
 import { isOwner, isUserLogged } from '../middlewares/guards.js';
 import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
@@ -48,6 +50,7 @@ productController.post('/', isUserLogged, async (req, res, next) => {
         const userId = req.user._id;
 
         product.amazonUrl = extractASIN(product.amazonUrl);
+        product.ebayUrl = extractItemIdEbay(product.ebayUrl);
 
         await validateProductSchema.validateAsync(product);
         const newProduct = await createProduct(product, userId);
