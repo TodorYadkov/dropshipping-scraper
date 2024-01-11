@@ -1,46 +1,74 @@
 try {
-    const name = document.querySelector('h1#title span#productTitle').textContent;
+    // Get the current URL from the browser
+    const currentUrl = window.location.href.toLowerCase();
 
-    const description = document.querySelector('#feature-bullets > ul').textContent;
+    // Check if the URL includes "amazon"
+    const isAmazonPage = currentUrl.includes('amazon');
 
-    // const priceElement = document.querySelector('#corePrice_feature_div > div > div > span.a-price.aok-align-center > span.a-offscreen');
-    const priceElement = document.querySelector('#corePrice_feature_div span.a-offscreen') ?? document.querySelector('#price_inside_buybox');
+    // Check if the URL includes "ebay"
+    const isEbayPage = currentUrl.includes('ebay');
 
-    let priceAmazon = '0.00';
-    let currencyAmazon = 'NO';
-    if (priceElement) {
-        const priceWithCurrency = priceElement.textContent;
-        const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
+    let productInfoRaw = {};
 
-        priceAmazon = priceWithCurrency.substring(positionOfFirstNumber);
-        currencyAmazon = priceWithCurrency.substring(0, positionOfFirstNumber);
-    }
+    if (isAmazonPage) {
+        // Scraping from Amazon
 
-    let availability = document.querySelector('#availability > span')?.textContent;
-    if (availability === undefined || availability.trim() === '') {
-        availability = 'Not available';
-    }
+        // const priceElement = document.querySelector('#corePrice_feature_div > div > div > span.a-price.aok-align-center > span.a-offscreen');
+        const priceElement = document.querySelector('#corePrice_feature_div span.a-offscreen') ?? document.querySelector('#price_inside_buybox');
 
-    const imageURL = document.querySelector('.imgTagWrapper img').src;
+        let priceAmazon = '0.00';
+        let currencyAmazon = 'NO';
+        if (priceElement) {
+            const priceWithCurrency = priceElement.textContent;
+            const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
 
-    const rating = document.querySelector('#acrPopover > span.a-declarative > a > span').textContent;
+            priceAmazon = priceWithCurrency.substring(positionOfFirstNumber).split(',').join('');
+            currencyAmazon = priceWithCurrency.substring(0, positionOfFirstNumber);
+        }
 
-    const productInfoRaw = {
-        name,
-        description,
-        priceAmazon,
-        currencyAmazon,
-        imageURL,
-        availability,
-        rating,
-        error: null,
+        let availability = document.querySelector('#availability > span')?.textContent;
+        if (availability === undefined || availability.trim() === '') {
+            availability = 'Not available';
+        }
+
+        productInfoRaw = {
+            availability,
+            priceAmazon,
+            currencyAmazon,
+            name: document.querySelector('h1#title span#productTitle').textContent,
+            description: document.querySelector('#feature-bullets > ul').textContent,
+            imageURL: document.querySelector('.imgTagWrapper img').src,
+            rating: document.querySelector('#acrPopover > span.a-declarative > a > span')?.textContent,
+        };
+
+    } else if (isEbayPage) {
+        // Scraping from eBay
+
+        const priceElement = document.querySelector('#mainContent > div > div.vim.x-price-section.mar-t-20 > div > div > div.x-price-primary > span');
+
+        let priceEbay = '0.00';
+        let currencyEbay = 'NO';
+        if (priceElement) {
+            const priceWithCurrency = priceElement.textContent;
+            const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
+
+            priceEbay = priceWithCurrency.substring(positionOfFirstNumber).split(',').join('');
+            currencyEbay = priceWithCurrency.substring(0, positionOfFirstNumber);
+            currencyEbay = currencyEbay.includes('US') ? currencyEbay.split('US ')[1] : currencyEbay;
+        }
+
+
+        productInfoRaw = {
+            priceEbay,
+            currencyEbay,
+        };
     }
 
     const productInfoTrimmed = Object.fromEntries(Object.entries(productInfoRaw).map(([k, v]) => [k, typeof v === 'string' ? v.trim() : v]));
 
     chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfoTrimmed });
 
-} catch (err) {
-    chrome.runtime.sendMessage({ message: 'contentError', contentError: err.message });
-    console.error(err);
+} catch (error) {
+    chrome.runtime.sendMessage({ message: 'contentError', contentError: error.message });
+    console.error(error);
 }
