@@ -15,7 +15,7 @@ export function fetchDataFromServerAndScrape() {
 				multiBrowser.alarms.clear('fetchDataAlarm');
 				await setData({ isScriptRunning: false, activeTabs: [] });
 
-				reject('Invalid product from server - Amazon URL is missing!');
+				reject({ message: 'Invalid product from server - Amazon URL is missing!' });
 				return;
 			}
 
@@ -122,8 +122,8 @@ export function fetchDataFromServerAndScrape() {
 			resolve(dataToSendOnServer);
 
 		} catch (error) {
-			console.error('Error fetching data from server: ', error);
-			reject(error);
+			console.error('Error fetching data from server: ', error.message);
+			reject({ message: error.message });
 		}
 	});
 }
