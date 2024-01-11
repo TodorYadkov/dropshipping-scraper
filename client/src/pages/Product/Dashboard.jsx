@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
-import { REDUCER_TYPES} from '../../util/constants.js';
+import { REDUCER_TYPES } from '../../util/constants.js';
 
 import { productService } from '../../services/productService.js';
 import { statisticService } from '../../services/statisticService.js';
