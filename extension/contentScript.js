@@ -7,13 +7,13 @@ try {
     const priceElement = document.querySelector('#corePrice_feature_div span.a-offscreen') ?? document.querySelector('#price_inside_buybox');
 
     let priceAmazon = '0.00';
-    let currency = 'NO';
+    let currencyAmazon = 'NO';
     if (priceElement) {
         const priceWithCurrency = priceElement.textContent;
         const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
 
         priceAmazon = priceWithCurrency.substring(positionOfFirstNumber);
-        currency = priceWithCurrency.substring(0, positionOfFirstNumber);
+        currencyAmazon = priceWithCurrency.substring(0, positionOfFirstNumber);
     }
 
     let availability = document.querySelector('#availability > span')?.textContent;
@@ -29,7 +29,7 @@ try {
         name,
         description,
         priceAmazon,
-        currency,
+        currencyAmazon,
         imageURL,
         availability,
         rating,
