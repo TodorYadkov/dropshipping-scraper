@@ -8,13 +8,19 @@ const validateProductSchema = joi.object({
 
 	priceAmazon: joi.number().allow(null).optional(),
 
-	currency: joi.string().allow(null).trim().optional(),
+	priceEbay: joi.number().allow(null).optional(),
+
+	currencyAmazon: joi.string().allow(null).trim().optional(),
+
+	currencyEbay: joi.string().allow(null).trim().optional(),
 
 	imagesURL: joi.string().allow(null).trim().optional(),
 
-	availability: joi.string().allow(null).optional(),
+	availability: joi.string().allow(null).trim().optional(),
 
 	amazonUrl: joi.string().trim().custom(amazonUrlValidator).required(),
+
+	ebayUrl: joi.string().allow(null).trim().custom(ebayUrlValidator).optional(),
 
 	rating: joi.number().allow(null).optional(),
 
@@ -53,7 +59,7 @@ const validateLoginSchema = joi.object({
 });
 
 
-function amazonUrlValidator(value, helpers) {
+function amazonUrlValidator(value) {
 	// Regular expression to match Amazon URLs
 	const amazonUrlRegex = /^https?:\/\/(www\.)?amazon\..*$/;
 
@@ -63,6 +69,19 @@ function amazonUrlValidator(value, helpers) {
 	} else {
 		// If the URL is not from Amazon, throw an error
 		throw new Error('Invalid Amazon URL');
+	}
+};
+
+function ebayUrlValidator(value) {
+	// Regular expression to match eBay URLs
+	const ebayUrlRegex = /^https?:\/\/(www\.)?ebay\..*$/;
+
+	if (ebayUrlRegex.test(value)) {
+		// If the URL is from eBay, return the value
+		return value;
+	} else {
+		// If the URL is not from eBay, throw an error
+		throw new Error('Invalid eBay URL');
 	}
 };
 
