@@ -34,8 +34,8 @@ export const TableBodyProducts = ({ products }) => {
                     <td className="px-5 py-5 text-sm  border-b border-gray-200 w-1/4">
                         {product.name ? (
                             <Link to={product.amazonUrl} target="_blank" rel="noopener noreferrer">
-                                <div className="flex items-center relative group">
-                                    <div className="flex-shrink-0 w-10 h-10 hover:opacity-70">
+                                <div className="flex items-center relative group hover:opacity-80">
+                                    <div className="flex-shrink-0 w-10 h-10">
                                         <img
                                             className="w-full h-full"
                                             src={product.imageURL}
@@ -118,7 +118,7 @@ export const TableBodyProducts = ({ products }) => {
                             </p>
                         ) : (
                             <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={toggleEbayProductModal}>
-                                No Profit
+                                Need eBay Product
                                 <Tooltip message={'Add eBay Product'} />
                             </p>
                         )}
