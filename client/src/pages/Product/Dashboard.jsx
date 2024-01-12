@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
 import { REDUCER_TYPES } from '../../util/constants.js';
+import { calculateProfit } from '../../util/calculateProfit.js';
 
 import { productService } from '../../services/productService.js';
 import { statisticService } from '../../services/statisticService.js';
@@ -48,7 +49,10 @@ export const Dashboard = () => {
 				getGeneralStatistic()
 			]);
 
-			setProducts(products);
+			// Calculate profit
+			const productsWithProfit = await calculateProfit(products);
+
+			setProducts(productsWithProfit);
 			setGeneralStatistic(generalStatistic);
 
 			return products;
