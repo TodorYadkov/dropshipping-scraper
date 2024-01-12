@@ -1,4 +1,22 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
 export const SearchInput = () => {
+
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchInputState, setSearchInputState] = useState(() => searchParams.get('search') || '');
+
+	useEffect(() => {
+		setSearchParams((params) => {
+			const paramsObject = Object.fromEntries(params.entries());
+			return { ...paramsObject, search: searchInputState }
+		})
+	}, [searchInputState]);
+
+	function searchInputStateHandler(e) {
+		setSearchInputState(e.target.value);
+	}
+
 	return (
 		<div className="relative mx-4 lg:mx-0">
 			<span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -21,6 +39,8 @@ export const SearchInput = () => {
 				className="w-32 pl-10 pr-4 py-2 text-gray-700 border-gray-200 rounded-md sm:w-64 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
 				type="text"
 				placeholder="Search"
+				value={searchInputState}
+				onInput={searchInputStateHandler}
 			/>
 		</div>
 	);
