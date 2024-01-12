@@ -69,9 +69,11 @@ export function fetchDataFromServerAndScrape() {
 										// Handle content error
 										if (productFromServer.error === null) {
 											productFromServer.error = `Error scraping ${platform}: ${message.contentError}`;
+										} else {
+											// Concatenate errors for all platforms 
+											productFromServer.error += ` Error scraping ${platform}: ${message.contentError}`;
 										}
 
-										productFromServer.error += ` Error scraping ${platform}: ${message.contentError}`;
 
 										// Close tab
 										const { activeTabs } = await getData(['activeTabs']);

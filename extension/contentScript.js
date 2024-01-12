@@ -35,8 +35,8 @@ try {
             availability,
             priceAmazon,
             currencyAmazon,
-            name: document.querySelector('h1#title span#productTitle').textContent,
-            description: document.querySelector('#feature-bullets > ul').textContent,
+            name: document.querySelector('h1#title span#productTitle')?.textContent ?? 'We couldn\'t find name property',
+            description: document.querySelector('#feature-bullets > ul')?.textContent ?? 'We couldn\'t find description property',
             imageURL: document.querySelector('.imgTagWrapper img').src,
             rating: document.querySelector('#acrPopover > span.a-declarative > a > span')?.textContent,
         };

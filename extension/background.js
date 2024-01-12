@@ -19,6 +19,9 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 // Clear the alarm when the script is stopped
                 multiBrowser.alarms.clear('fetchDataAlarm');
 
+                // Change button state
+                await setData({ isScriptRunning: false });
+
                 // Close all open tabs
                 const { activeTabs } = await getData(['activeTabs']);
                 const closeTabPromises = activeTabs.map(tabId => {
@@ -41,8 +44,8 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 // Wait for all tab removal promises to resolve
                 await Promise.all(closeTabPromises);
 
-                // Set initial state
-                await setData({ isScriptRunning: false, activeTabs: [] });
+                // Set initial state for active tabs
+                await setData({ activeTabs: [] });
 
                 break;
 
