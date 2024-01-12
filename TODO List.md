@@ -89,3 +89,4 @@ Write back-end RESTful API:
 ## Front-end
 
 - When make login and register do not forget to add property isExtension = false; !!!
+- For currency convert https://github.com/fawazahmed0/currency-api?tab=readme-ov-file
