@@ -1,10 +1,40 @@
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+const baseValue = 5;
+
 export const ProductOffsetSelector = () => {
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [offset, setOffset] = useState(() => {
+        const offsetParam = searchParams.get('offset');
+        if (offsetParam) return Number(offsetParam);
+
+        return baseValue;
+    })
+
+    useEffect(() => {
+        setSearchParams((params) => {
+            const paramsObject = Object.fromEntries(params.entries());
+            return { ...paramsObject, offset: offset }
+        });
+    }, [offset]);
+
+    const handleSelectChange = (e) => {
+        const newOffset = Number(e.target.value);
+        setOffset(newOffset);
+    };
+
     return (
         <div className="relative">
-            <select className="block w-full h-full px-4 py-2 pr-8 leading-tight text-gray-700 bg-white rounded-md appearance-none border-gray-200 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500">
-                <option>5</option>
-                <option>10</option>
-                <option>20</option>
+            <select
+                className="block w-full h-full px-4 py-2 pr-8 leading-tight text-gray-700 bg-white rounded-md appearance-none border-gray-200 focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                value={offset}
+                onChange={handleSelectChange}
+            >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
