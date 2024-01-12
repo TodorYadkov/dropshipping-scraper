@@ -90,15 +90,15 @@ export const TableBodyProducts = ({ products }) => {
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
-                            {product.priceAmazon && `${product.priceAmazon} ${product.currencyAmazon}`}
+                            {product.priceAmazon && `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}`}
                             <Tooltip message={'Amazon Price'} />
                         </p>
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        {product.ebayUrl ? (
+                        {product.priceEbay ? (
                             <Link to={product.ebayUrl} target="_blank" rel="noopener noreferrer">
                                 <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
-                                    {product.priceEbay && `${product.priceEbay} ${product.currencyEbay}`}
+                                    {product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
                                     <Tooltip message={'Open eBay Product'} />
                                 </p>
                             </Link>
@@ -110,11 +110,19 @@ export const TableBodyProducts = ({ products }) => {
                         )}
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        {product.ebayUrl ? (
-                            <p className="text-gray-900 whitespace-wrap text-center relative group">
-                                {/* TODO cast to number and check for currency */}
-                                {(product.priceAmazon && product.priceEbay) && `${product.priceEbay - product.priceAmazon}`}
-                                <Tooltip message={'Profit'} />
+                        {product?.profit ? (
+                            <p className={`${product.profit > 0 ? 'text-gray-900' : 'fill-red-500 text-red-500 flex gap-1 justify-center items-center '} whitespace-wrap text-center relative group`}>
+                                {product.profit && `${product.profit} ${product.currencyAmazon}`}
+                                {product.profit < 0 && (
+                                    <svg
+                                        className="w-4 h-4"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                    >
+                                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+                                    </svg>
+                                )}
+                                {product.profit > 0 ? <Tooltip message={'Profit'} /> : <Tooltip message={'The product is sold at a loss!'} customTailwindClass="bg-red-500" />}
                             </p>
                         ) : (
                             <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={toggleEbayProductModal}>

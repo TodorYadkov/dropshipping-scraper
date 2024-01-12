@@ -148,11 +148,10 @@ export const CardProducts = ({ data }) => {
 								<div className="flex flex-col text-base text-gray-700">
 									<p>
 										Amazon Price:{' '}
-										{product.priceAmazon && `${product.priceAmazon} ${product.currencyAmazon}`}
+										{product.priceAmazon && `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}`}
 									</p>
 
-
-									{product.ebayUrl ? (
+									{product.priceEbay ? (
 										<Link
 											to={product.ebayUrl}
 											target="_blank"
@@ -160,7 +159,7 @@ export const CardProducts = ({ data }) => {
 										>
 											<p>
 												Ebay Price:{' '}
-												{product.priceEbay && `${product.priceEbay} ${product.currencyEbay}`}
+												{product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
 											</p>
 										</Link>
 									) : (
@@ -177,10 +176,20 @@ export const CardProducts = ({ data }) => {
 										</p>
 									)}
 
-									{product.ebayUrl ? (
+									{product?.profit ? (
 										<p>
-											{/* TODO cast to number and check for currency */}
-											Profit: {(product.priceAmazon && product.priceEbay) && `${product.priceEbay - product.priceAmazon}`}
+											Profit: <span className={`${product.profit < 0 && 'fill-red-500 text-red-500 inline-flex items-center gap-1'}`}>
+												{product.profit && `${product.profit} ${product.currencyAmazon}`}
+												{product.profit < 0 && (
+													<svg
+														className="w-4 h-4"
+														xmlns="http://www.w3.org/2000/svg"
+														viewBox="0 0 512 512"
+													>
+														<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
+													</svg>
+												)}
+											</span>
 										</p>
 									) : (
 										<p>Need eBay Product</p>
