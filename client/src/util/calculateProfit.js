@@ -19,11 +19,15 @@ const calculateProfitForProduct = async (product) => {
         const exchangeRate = course[baseCurrency];
         const priceInBaseCurrency = exchangeRate * product.priceEbay;
 
+        product.priceEbayOriginal = product.priceEbay;
+        product.currencyEbayOriginal = product.currencyEbay;
+
         product.priceEbay = priceInBaseCurrency;
         product.currencyEbay = product.currencyAmazon;
 
         const profitInBaseCurrency = priceInBaseCurrency - product.priceAmazon;
         return parseFloat(profitInBaseCurrency.toFixed(2));
+        
     } catch (error) {
         return null;
     }
