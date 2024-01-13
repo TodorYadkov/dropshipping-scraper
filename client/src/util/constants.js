@@ -19,6 +19,8 @@ export const REDUCER_TYPES = {
 	IS_SIDE_BAR_OPEN: 'isSideBarOpen',
 	PRODUCTS: 'products',
 	ADD_PRODUCT: 'addProduct',
+	UPDATE_PRODUCT: 'updateProduct',
+	DELETE_PRODUCT: 'deleteProduct',
 	GENERAL_STATISTIC: 'generalStatistic',
 }
 
