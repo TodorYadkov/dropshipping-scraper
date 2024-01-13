@@ -27,6 +27,14 @@ export const AppStateProvider = ({ children }) => {
 		dispatch({ type: REDUCER_TYPES.ADD_PRODUCT, value: product });
 	}
 
+	function editProduct(product) {
+		dispatch({ type: REDUCER_TYPES.UPDATE_PRODUCT, value: product });
+	}
+
+	function removeProduct(product) {
+		dispatch({ type: REDUCER_TYPES.DELETE_PRODUCT, value: product });
+	}
+
 	function setGeneralStatistic(statisticData) {
 		dispatch({ type: REDUCER_TYPES.GENERAL_STATISTIC, value: statisticData });
 	}
@@ -36,6 +44,8 @@ export const AppStateProvider = ({ children }) => {
 		changeSideBarState,
 		setProducts,
 		addProduct,
+		editProduct,
+		removeProduct,
 		setGeneralStatistic,
 	};
 
