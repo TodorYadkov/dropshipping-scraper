@@ -15,7 +15,7 @@ export function fetchDataFromServerAndScrape() {
 				multiBrowser.alarms.clear('fetchDataAlarm');
 				await setData({ isScriptRunning: false, activeTabs: [] });
 
-				reject({ message: 'Invalid product from server - Amazon URL is missing!' });
+				reject({ message: 'No added products for scraping' });
 				return;
 			}
 
