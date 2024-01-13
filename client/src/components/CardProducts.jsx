@@ -13,6 +13,7 @@ export const CardProducts = ({ data }) => {
 	const [ebayProductModal, toggleEbayProductModal] = useModal();
 
 	// TODO: ADD Add Product button in this component and decide how to use pagination and search here
+	// TODO: ADD Additional functionality to optional ebayUrl and delete
 	return (
 		<div className="flex flex-col items-center gap-5 mt-5">
 
@@ -160,6 +161,7 @@ export const CardProducts = ({ data }) => {
 											<p>
 												Ebay Price:{' '}
 												{product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
+												{product?.currencyEbayOriginal && <sup className='ml-1 italic'>({`${product.priceEbayOriginal.toFixed(2)} ${product.currencyEbayOriginal}`})</sup>}
 											</p>
 										</Link>
 									) : (
