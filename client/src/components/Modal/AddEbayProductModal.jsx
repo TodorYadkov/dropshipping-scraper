@@ -1,9 +1,9 @@
-import { EbayUrlForm } from "../Forms/EbayUrlForm.jsx";
+import { AddEbayUrlForm } from "../Forms/AddEbayUrlForm.jsx";
 import { Modal } from "./Modal.jsx";
 
-export const AddEbayProductModal = ({ toggleModal }) => {
+export const AddEbayProductModal = ({ toggleModal, product }) => {
 
     return (
-        <Modal title={'Add eBay URL'} Content={EbayUrlForm} toggleModal={toggleModal} backdrop={false} />
+        <Modal title={'Add eBay URL'} Content={() => <AddEbayUrlForm product={product} toggleModal={toggleModal} />} toggleModal={toggleModal} backdrop={false} />
     );
 };
