@@ -12,6 +12,7 @@ const userInfo = document.querySelector('.user-info');
 const form = document.querySelector('.form');
 
 const serverError = form.querySelector('.server-error');
+const serverErrorProduct = userInfo.querySelector('.server-error-product');
 
 // Depending on the background state show the initial state
 backgroundState();
@@ -76,6 +77,12 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 			case 'errorServerLogin':
 				serverError.textContent = message.error;
 				serverError.style.display = 'block';
+				break;
+
+			case 'errorServerProduct':
+				serverErrorProduct.textContent = message.error;
+				serverErrorProduct.style.display = 'block';
+				backgroundState();
 				break;
 		}
 
