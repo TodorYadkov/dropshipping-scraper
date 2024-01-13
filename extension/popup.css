@@ -157,6 +157,7 @@ a:hover {
 }
 
 .server-error,
+.server-error-product,
 .error {
     display: none;
     color: red;
@@ -168,4 +169,8 @@ a:hover {
 
 .server-error {
     margin: -0.8rem 0 -0.5rem 0;
+}
+
+.server-error-product {
+    margin: -0.85rem 0 -0.78rem 0;
 }
