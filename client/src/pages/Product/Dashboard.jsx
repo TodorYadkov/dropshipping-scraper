@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
 import { REDUCER_TYPES } from '../../util/constants.js';
-import { calculateProfit } from '../../util/calculateProfit.js';
 
 import { productService } from '../../services/productService.js';
 import { statisticService } from '../../services/statisticService.js';
@@ -17,12 +16,11 @@ import { DashboardSummary } from '../../components/DashboardSummary.jsx';
 import { ResponsiveProductsComponent } from '../../components/ResponsiveProductsComponent.jsx';
 import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
 
-
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [alert, setAlert] = useState('');
-
-	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler);
+	// TODO: change interval!!!
+	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler, 1);
 
 	const { getProducts } = useApi(productService);
 	const { getGeneralStatistic } = useApi(statisticService);
