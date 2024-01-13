@@ -24,6 +24,7 @@ try {
 
             priceAmazon = priceWithCurrency.substring(positionOfFirstNumber).split(',').join('');
             currencyAmazon = priceWithCurrency.substring(0, positionOfFirstNumber);
+            currencyAmazon = getCurrencyCode(currencyAmazon);
         }
 
         let availability = document.querySelector('#availability > span')?.textContent;
@@ -55,6 +56,7 @@ try {
             priceEbay = priceWithCurrency.substring(positionOfFirstNumber).split(',').join('');
             currencyEbay = priceWithCurrency.substring(0, positionOfFirstNumber);
             currencyEbay = currencyEbay.includes('US') ? currencyEbay.split('US ')[1] : currencyEbay;
+            currencyEbay = getCurrencyCode(currencyEbay);
         }
 
 
@@ -67,6 +69,23 @@ try {
     const productInfoTrimmed = Object.fromEntries(Object.entries(productInfoRaw).map(([k, v]) => [k, typeof v === 'string' ? v.trim() : v]));
 
     chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfoTrimmed });
+
+    function getCurrencyCode(currencySymbol) {
+        switch (currencySymbol) {
+            case '$':
+                return 'USD';
+            case '€':
+                return 'EUR';
+            case '£':
+                return 'GBP';
+            case '¥':
+                return 'JPY';
+            case 'A$':
+                return 'AUD';
+            default:
+                return currencySymbol;
+        }
+    }
 
 } catch (error) {
     chrome.runtime.sendMessage({ message: 'contentError', contentError: error.message });
