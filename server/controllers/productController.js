@@ -67,6 +67,9 @@ productController.put('/:productId', isUserLogged, preload(getSingleProduct), is
         const productId = req.params.productId;
         const product = req.body;
 
+        product.amazonUrl = extractASIN(product.amazonUrl);
+        product.ebayUrl = extractItemIdEbay(product.ebayUrl);
+
         await updateProductSchema.validateAsync(product);
         const editedProduct = await updateProduct(product, productId);
 
