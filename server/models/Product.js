@@ -73,6 +73,12 @@ productSchema.pre('save', function (next) {
 	next();
 });
 
+productSchema.pre('updateOne', function (next) {
+	// Set updatedAt to default timestamp
+	this._update.$set.updatedAt = new Date(null);
+	next();
+});
+
 const Product = model('Product', productSchema);
 
 export { Product };
