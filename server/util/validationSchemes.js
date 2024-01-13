@@ -73,16 +73,20 @@ function amazonUrlValidator(value) {
 };
 
 function ebayUrlValidator(value) {
-	// Regular expression to match eBay URLs
-	const ebayUrlRegex = /^https?:\/\/(www\.)?ebay\..*$/;
+	if (value) {
+		// Regular expression to match eBay URLs
+		const ebayUrlRegex = /^https?:\/\/(www\.)?ebay\..*$/;
 
-	if (ebayUrlRegex.test(value)) {
-		// If the URL is from eBay, return the value
-		return value;
-	} else {
-		// If the URL is not from eBay, throw an error
-		throw new Error('Invalid eBay URL');
+		if (ebayUrlRegex.test(value)) {
+			// If the URL is from eBay, return the value
+			return value;
+		} else {
+			// If the URL is not from eBay, throw an error
+			throw new Error('Invalid eBay URL');
+		}
 	}
+
+	return value;
 };
 
 export {
