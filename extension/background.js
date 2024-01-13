@@ -119,6 +119,7 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
             await sendData(updatedProduct);
 
         } catch (error) {
+            multiBrowser.runtime.sendMessage({ message: 'errorServerProduct', error: error.message });
             console.error(error.message);
         }
     }
