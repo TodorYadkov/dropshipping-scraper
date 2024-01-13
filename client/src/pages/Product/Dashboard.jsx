@@ -15,11 +15,12 @@ import { Loader } from '../../components/Loader.jsx';
 import { AlertError } from '../../components/Alerts/AlertError.jsx';
 import { DashboardSummary } from '../../components/DashboardSummary.jsx';
 import { ResponsiveProductsComponent } from '../../components/ResponsiveProductsComponent.jsx';
-import { useSearchParams } from 'react-router-dom';
+import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
+
 
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [serverError, setServerError] = useState('');
+	const [alert, setAlert] = useState('');
 
 	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler);
 
@@ -27,10 +28,7 @@ export const Dashboard = () => {
 	const { getGeneralStatistic } = useApi(statisticService);
 
 	const { appState, setProducts, setGeneralStatistic } = useAppStateContext();
-	const [localProducts, setLocalProducts] = useState([]);
-	const [localFilteredProducts, setLocalFilteredProducts] = useState([]);
-
-	const [searchParams, setSearchParams] = useSearchParams();
+	const { localFilteredProducts, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage);
 
 
 	// Initial
@@ -47,69 +45,17 @@ export const Dashboard = () => {
 		initialLoading();
 
 		// On load set up currency on local products
-		setLocalProductsWithSameCurrency();
+		setLocalProductsWithSameCurrencyAndProfit();
 	}, []);
 
-	// Set currency to local products
-	useEffect(() => {
-		// Calculate profit
-		setLocalProductsWithSameCurrency();
-	}, [appState[REDUCER_TYPES.PRODUCTS]]);
-
-
-	// On search filter filter the products
-	useEffect(() => {
-		filterProductsHandler();
-	}, [searchParams]);
-
-
-	// Filter the products;
-	function filterProductsHandler(products = localProducts) {
-
-		let productsToFilter = [...products];
-
-		searchHandler();
-		offsetHandler();
-
-		// Search
-		function searchHandler() {
-			const search = searchParams.get('search');
-			const searchRegexPattern = new RegExp(search, 'i');
-			if (search) {
-				productsToFilter = productsToFilter.filter(product => searchRegexPattern.test(product.name));
-			} else {
-				productsToFilter = [...products];
-			}
-		};
-
-		function offsetHandler() {
-			// Offset
-			const offset = Number(searchParams.get('offset')) || 5;
-			
-			if (offset <= localFilteredProducts.length) {
-				productsToFilter = productsToFilter.slice(0, offset);
-			} else {
-				searchHandler();
-				productsToFilter = productsToFilter.slice(0, offset);
-			}
-		}
-
-		setLocalFilteredProducts(productsToFilter);
-
+	function addAlertMessage(error) {
+		setAlert(error);
 	}
 
-	// It set the local products with amazon currency;
-	function setLocalProductsWithSameCurrency() {
-		calculateProfit(appState[REDUCER_TYPES.PRODUCTS])
-			.then(result => {
-				setLocalProducts(result);
-				filterProductsHandler(result)
-			})
-			.catch(err => {
-				setServerError(err.message);
-				console.error(err);
-			})
+	function onCloseAlert() {
+		setAlert('');
 	}
+
 
 	// Fetch products from server
 	async function fetchProductsHandler() {
@@ -119,9 +65,6 @@ export const Dashboard = () => {
 				getGeneralStatistic()
 			]);
 
-			// // Calculate profit
-			// const productsWithProfit = await calculateProfit(products);
-
 			setProducts(products);
 			setGeneralStatistic(generalStatistic);
 
@@ -129,18 +72,16 @@ export const Dashboard = () => {
 
 		} catch (error) {
 			console.error(error);
-			setServerError(error.message);
+			addAlertMessage(error.message);
 		}
 	}
 
-	function onCloseAlert() {
-		setServerError('');
-	}
+
 
 	return (
 		<div>
 			{/* TODO: Check for better position to display */}
-			{serverError && <div className="flex justify-center my-2"><AlertError message={serverError} close={onCloseAlert} /></div>}
+			{alert && <div className="flex justify-center my-2"><AlertError message={alert} close={onCloseAlert} /></div>}
 
 			{isLoading
 				? <Loader />
