@@ -6,6 +6,8 @@ export const SERVER_PATHS = {
     LOGOUT: '/users/logout',
     GET_ALL_PRODUCTS: '/products',
     CREATE_PRODUCT: '/products',
+    UPDATE_PRODUCT: (productId) => `/products/${productId}`,
+    DELETE_PRODUCT: (productId) => `/products/${productId}`,
     GET_GENERAL_STATISTICS: '/statistics/general',
 };
 
