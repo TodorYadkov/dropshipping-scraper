@@ -17,7 +17,7 @@ try {
         const priceElement = document.querySelector('#corePrice_feature_div span.a-offscreen') ?? document.querySelector('#price_inside_buybox');
 
         let priceAmazon = '0.00';
-        let currencyAmazon = 'NO';
+        let currencyAmazon = 'USD';
         if (priceElement) {
             const priceWithCurrency = priceElement.textContent;
             const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
@@ -48,7 +48,7 @@ try {
         const priceElement = document.querySelector('#mainContent > div > div.vim.x-price-section.mar-t-20 > div > div > div.x-price-primary > span');
 
         let priceEbay = '0.00';
-        let currencyEbay = 'NO';
+        let currencyEbay = 'USD';
         if (priceElement) {
             const priceWithCurrency = priceElement.textContent;
             const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
