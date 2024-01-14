@@ -132,10 +132,14 @@ export const TableBodyProducts = ({ products }) => {
                                 )}
                             </>
                         ) : (
-                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => ebayModalHandler(product)}>
-                                No Price
-                                <Tooltip message={'Add eBay Product'} />
-                            </p>
+                            <>
+                                {!product.ebayUrl && (
+                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => ebayModalHandler(product)}>
+                                        No Price
+                                        <Tooltip message={'Add eBay Product'} />
+                                    </p>
+                                )}
+                            </>
                         )}
                     </td>
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
@@ -154,10 +158,14 @@ export const TableBodyProducts = ({ products }) => {
                                 {product.profit > 0 ? <Tooltip message={'Profit'} /> : <Tooltip message={'The product is sold at a loss!'} customTailwindClass="bg-red-500" />}
                             </p>
                         ) : (
-                            <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={toggleEbayProductModal}>
-                                Need eBay Product
-                                <Tooltip message={'Add eBay Product'} />
-                            </p>
+                            <>
+                                {!product.ebayUrl && (
+                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => ebayModalHandler(product)}>
+                                        Need eBay Product
+                                        <Tooltip message={'Add eBay Product'} />
+                                    </p>
+                                )}
+                            </>
                         )}
 
                     </td>
