@@ -89,6 +89,8 @@ export const Dashboard = () => {
 					<>
 						<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
+						{alert && <div className="flex justify-center -mt-16 -mb-7"><AlertError message={alert} close={onCloseAlert} /></div>}
+
 						<ResponsiveProductsComponent products={localFilteredProducts} filteredProductsCount={filteredProductsCount} />
 					</>
 				)
