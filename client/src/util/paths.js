@@ -20,4 +20,6 @@ export const CLIENT_PATHS = {
 
 export const EXTERNAL_API_PATHS = {
     CURRENCY_COURSE: (baseCurrency, targetCurrency) => `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${baseCurrency}/${targetCurrency}.json`,
+    CURRENCY_COURSE_TO_AMAZON_CURRENCY: (baseCurrency) => `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${baseCurrency}.json`,
+    CURRENCY_COURSE_ALL: 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json',
 };
