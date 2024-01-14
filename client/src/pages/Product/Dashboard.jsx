@@ -26,7 +26,7 @@ export const Dashboard = () => {
 	const { getGeneralStatistic } = useApi(statisticService);
 
 	const { appState, setProducts, setGeneralStatistic } = useAppStateContext();
-	const { localFilteredProducts, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage);
+	const { localFilteredProducts, filteredProductsCount, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage);
 
 
 	// Initial
@@ -87,7 +87,7 @@ export const Dashboard = () => {
 					<>
 						<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
-						<ResponsiveProductsComponent products={localFilteredProducts} />
+						<ResponsiveProductsComponent products={localFilteredProducts} filteredProductsCount={filteredProductsCount} />
 					</>
 				)
 			}
