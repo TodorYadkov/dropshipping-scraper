@@ -7,10 +7,17 @@ export const SearchInput = () => {
 	const [searchInputState, setSearchInputState] = useState(() => searchParams.get('search') || '');
 
 	useEffect(() => {
+
 		setSearchParams((params) => {
 			const paramsObject = Object.fromEntries(params.entries());
-			return { ...paramsObject, search: searchInputState }
+			if (searchInputState === '') {
+				const { search, ...paramsWithoutSearchProperty } = paramsObject;
+				return { ...paramsWithoutSearchProperty }
+			} else {
+				return { ...paramsObject, search: searchInputState }
+			}
 		})
+
 	}, [searchInputState]);
 
 	function searchInputStateHandler(e) {
