@@ -1,6 +1,6 @@
 export const AlertError = ({ message, close }) => {
 	return (
-		<div className="flex w-full max-w-sm ml-3 overflow-hidden bg-white rounded-lg shadow-md">
+		<div className="flex w-full max-w-screen-sm ml-3 overflow-hidden bg-white rounded-lg shadow-md">
 			<div className="flex items-center justify-center w-12 bg-red-500">
 				<svg
 					className="w-6 h-6 text-white fill-current"
