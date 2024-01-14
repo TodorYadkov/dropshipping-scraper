@@ -8,6 +8,7 @@ import { AddProductModal } from "../Modal/AddProductModal.jsx";
 import { AddEbayProductModal } from "../Modal/AddEbayProductModal.jsx";
 import { useState } from "react";
 import { DeleteProductModal } from "../Modal/DeleteProductModal.jsx";
+import { EditProductModal } from "../Modal/EditProductModal.jsx";
 
 export const TableBodyProducts = ({ products }) => {
     const [currentProduct, setCurrentProduct] = useState({});
@@ -15,6 +16,7 @@ export const TableBodyProducts = ({ products }) => {
     const [productModal, toggleProductModal] = useModal();
     const [ebayProductModal, toggleEbayProductModal] = useModal();
     const [deleteProductModal, toggleDeleteProductModal] = useModal();
+    const [editProductModal, toggleEditProductModal] = useModal();
 
     const ebayModalHandler = (product) => {
         setCurrentProduct(product);
@@ -24,6 +26,11 @@ export const TableBodyProducts = ({ products }) => {
     const deleteModalHandler = (product) => {
         setCurrentProduct(product);
         toggleDeleteProductModal();
+    };
+
+    const editModalHandler = (product) => {
+        setCurrentProduct(product);
+        toggleEditProductModal();
     };
 
     return (
@@ -193,8 +200,10 @@ export const TableBodyProducts = ({ products }) => {
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <div className="flex justify-center gap-2">
                             <div className="relative group">
-                                <svg className="block w-6 h-6 fill-indigo-600 cursor-pointer p-1 hover:opacity-70"
+                                <svg
+                                    className="block w-6 h-6 fill-indigo-600 cursor-pointer p-1 hover:opacity-70"
                                     viewBox="0 0 512 512"
+                                    onClick={() => editModalHandler(product)}
                                 >
                                     <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                                 </svg>
@@ -220,6 +229,7 @@ export const TableBodyProducts = ({ products }) => {
             {productModal && <tr><td><AddProductModal toggleModal={toggleProductModal} /></td></tr>}
             {ebayProductModal && <tr><td><AddEbayProductModal toggleModal={toggleEbayProductModal} product={currentProduct} /></td></tr>}
             {deleteProductModal && <tr><td><DeleteProductModal toggleModal={toggleDeleteProductModal} product={currentProduct} /></td></tr>}
+            {editProductModal && <tr><td><EditProductModal toggleModal={toggleEditProductModal} product={currentProduct} /></td></tr>}
         </tbody >
     );
 };

@@ -37,8 +37,8 @@ export const AddProductForm = ({ toggleModal }) => {
             addProduct(product);
             toggleModal();
 
-        } catch (err) {
-            setServerError(err.message);
+        } catch (error) {
+            setServerError(error.message);
         } finally {
             setIsLoading(false);
         }

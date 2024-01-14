@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { PRODUCT_FORM_KEYS } from "../../util/constants.js";
+
 import { useApi } from "../../hooks/useApi.js";
 import { useAppStateContext } from "../../hooks/useAppStateContext.js";
 
@@ -25,8 +27,8 @@ export const DeleteProductForm = ({ toggleModal, product }) => {
             removeProduct(product);
             toggleModal();
 
-        } catch (err) {
-            setServerError(err.message);
+        } catch (error) {
+            setServerError(error.message);
         } finally {
             setIsLoading(false);
         }
@@ -51,7 +53,7 @@ export const DeleteProductForm = ({ toggleModal, product }) => {
 
                         <input
                             type="text"
-                            value={product.amazonUrl}
+                            value={product[PRODUCT_FORM_KEYS.AMAZON]}
                             disabled
                             className="w-full px-14 py-2 border-transparent rounded-md appearance-none focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                         />
@@ -73,7 +75,7 @@ export const DeleteProductForm = ({ toggleModal, product }) => {
 
                         <input
                             type="text"
-                            value={product.ebayUrl ?? ''}
+                            value={product[PRODUCT_FORM_KEYS.EBAY] ?? ''}
                             disabled
                             className="w-full px-14 py-2 border-transparent rounded-md appearance-none focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
                         />
