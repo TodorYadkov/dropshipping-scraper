@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi.js';
 
 import { REDUCER_TYPES } from '../../util/constants.js';
+import { memoizedCalculateCurrencyCourses } from '../../util/calculateProfit.js';
 
 import { productService } from '../../services/productService.js';
 import { statisticService } from '../../services/statisticService.js';
@@ -19,6 +20,8 @@ import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [alert, setAlert] = useState('');
+	const [productExchangeCourse, setProductExchangeCourse] = useState({});
+
 	// TODO: change interval!!!
 	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler, 1);
 
@@ -26,8 +29,7 @@ export const Dashboard = () => {
 	const { getGeneralStatistic } = useApi(statisticService);
 
 	const { appState, setProducts, setGeneralStatistic } = useAppStateContext();
-	const { localFilteredProducts, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage);
-
+	const { localFilteredProducts, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage, productExchangeCourse);
 
 	// Initial
 	useEffect(() => {
@@ -46,15 +48,6 @@ export const Dashboard = () => {
 		setLocalProductsWithSameCurrencyAndProfit();
 	}, []);
 
-	function addAlertMessage(error) {
-		setAlert(error);
-	}
-
-	function onCloseAlert() {
-		setAlert('');
-	}
-
-
 	// Fetch products from server
 	async function fetchProductsHandler() {
 		try {
@@ -62,6 +55,8 @@ export const Dashboard = () => {
 				getProducts(),
 				getGeneralStatistic()
 			]);
+
+			await memoizedCalculateCurrencyCourses(products, productExchangeCourse, setProductExchangeCourseHandler, addAlertMessage);
 
 			setProducts(products);
 			setGeneralStatistic(generalStatistic);
@@ -74,18 +69,27 @@ export const Dashboard = () => {
 		}
 	}
 
+	function addAlertMessage(error) {
+		setAlert(error);
+	}
 
+	function onCloseAlert() {
+		setAlert('');
+	}
+
+	function setProductExchangeCourseHandler(coursesData) {
+		setProductExchangeCourse(coursesData);
+	}
 
 	return (
 		<div>
-			{/* TODO: Check for better position to display */}
-			{alert && <div className="flex justify-center my-2"><AlertError message={alert} close={onCloseAlert} /></div>}
-
 			{isLoading
 				? <Loader />
 				: (
 					<>
 						<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
+
+						{alert && <div className="flex justify-center -mt-16 -mb-7"><AlertError message={alert} close={onCloseAlert} /></div>}
 
 						<ResponsiveProductsComponent products={localFilteredProducts} />
 					</>
