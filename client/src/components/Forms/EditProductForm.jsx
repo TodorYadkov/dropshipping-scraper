@@ -22,17 +22,19 @@ export const EditProductForm = ({ toggleModal, product }) => {
         submitFunction,
         {
             [PRODUCT_FORM_KEYS.AMAZON]: product[PRODUCT_FORM_KEYS.AMAZON],
-            [PRODUCT_FORM_KEYS.EBAY]: product[PRODUCT_FORM_KEYS.EBAY]
+            [PRODUCT_FORM_KEYS.EBAY]: product[PRODUCT_FORM_KEYS.EBAY] || ''
         },
         validationProductInput);
 
     async function submitFunction(formData) {
         try {
             const productId = product._id;
-            const productDataForServer = formData;
+            if (formData[PRODUCT_FORM_KEYS.EBAY] === '') {
+                formData[PRODUCT_FORM_KEYS.EBAY] = null;
+            }
 
             setIsLoading(true);
-            const updatedProduct = await updateProduct(productDataForServer, productId);
+            const updatedProduct = await updateProduct(formData, productId);
             editProduct(updatedProduct);
             toggleModal();
         } catch (error) {
