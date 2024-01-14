@@ -10,6 +10,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     const [localProducts, setLocalProducts] = useState([]);
     const [localFilteredProducts, setLocalFilteredProducts] = useState([]);
     const [searchParams] = useSearchParams();
+    const [filteredProductsCount, setFilteredProductsCount] = useState(localProducts.length);
 
     // Set currency to local products
     useEffect(() => {
@@ -38,8 +39,10 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     function filterProductsHandler(products = localProducts) {
         let productsToFilter = [...products];
 
-        searchHandler();
-        offsetHandler();
+        searchHandler(); // Apply search filter
+        setFilteredProductsCount(productsToFilter.length); // Store the count of the products (for pagination purpose like last page)
+        pageHandler();  // Slice the products so it contains only products for that page
+
 
         // Search
         function searchHandler() {
@@ -52,24 +55,23 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
             }
         }
 
-        function offsetHandler() {
-            // Offset
+        // Slice products for page products 
+        function pageHandler() {
             const offset = Number(searchParams.get('offset')) || 5;
+            const page = Number(searchParams.get('page')) || 1;
 
-            if (offset <= localFilteredProducts.length) {
-                productsToFilter = productsToFilter.slice(0, offset);
-            } else {
-                searchHandler();
-                productsToFilter = productsToFilter.slice(0, offset);
-            }
+            const startIndex = (page - 1) * offset;
+            const endIndex = startIndex + offset;
+
+            productsToFilter = productsToFilter.slice(startIndex, endIndex);
         }
 
         setLocalFilteredProducts(productsToFilter);
-
     }
 
     return {
         localFilteredProducts,
+        filteredProductsCount,
         setLocalProductsWithSameCurrencyAndProfit
     }
 }

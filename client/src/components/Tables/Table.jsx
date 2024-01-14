@@ -7,7 +7,7 @@ import { TableOptions } from "./TableOptions.jsx";
 import { Pagination } from "../Pagination/Pagination.jsx";
 
 
-export const Table = ({ typeBody, data }) => {
+export const Table = ({ typeBody, data, filteredProductsCount }) => {
 
 	const TableVariant = useMemo(() => {
 		let Body, Heading;
@@ -29,7 +29,7 @@ export const Table = ({ typeBody, data }) => {
 
 		return { Body, Heading };
 
-	}, [typeBody, data]);
+	}, [typeBody, data, filteredProductsCount]);
 
 
 
@@ -46,7 +46,7 @@ export const Table = ({ typeBody, data }) => {
 						{TableVariant.Body}
 					</table>
 
-					<Pagination />
+					<Pagination filteredProductsCount={filteredProductsCount} />
 
 				</div>
 			</div>
