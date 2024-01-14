@@ -5,7 +5,7 @@ import { calculateProfit } from "../util/calculateProfit.js";
 import { useAppStateContext } from "./useAppStateContext.js";
 import { REDUCER_TYPES } from "../util/constants.js";
 
-export const useLocalProductState = (addAlertMessage) => {
+export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     const { appState } = useAppStateContext();
     const [localProducts, setLocalProducts] = useState([]);
     const [localFilteredProducts, setLocalFilteredProducts] = useState([]);
@@ -25,7 +25,7 @@ export const useLocalProductState = (addAlertMessage) => {
     // It set the local products with amazon currency;
     async function setLocalProductsWithSameCurrencyAndProfit() {
         try {
-            const productsWithCalculatedCurrencyAndProfit = await calculateProfit(appState[REDUCER_TYPES.PRODUCTS]);
+            const productsWithCalculatedCurrencyAndProfit = await calculateProfit(appState[REDUCER_TYPES.PRODUCTS], exchangeRates);
             setLocalProducts(productsWithCalculatedCurrencyAndProfit);
             filterProductsHandler(productsWithCalculatedCurrencyAndProfit);
         } catch (err) {
@@ -67,8 +67,6 @@ export const useLocalProductState = (addAlertMessage) => {
         setLocalFilteredProducts(productsToFilter);
 
     }
-
-
 
     return {
         localFilteredProducts,
