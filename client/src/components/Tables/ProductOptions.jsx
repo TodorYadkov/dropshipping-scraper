@@ -7,12 +7,12 @@ import { ProductOffsetSelector } from "../Pagination/ProductOffsetSelector.jsx";
 import { SearchInput } from "../SearchInput.jsx";
 import { DropdownSorts } from "../Sorts/DropdownSorts.jsx";
 
-export const TableOptions = () => {
+export const ProductOptions = () => {
     const [productModal, toggleProductModal] = useModal();
 
     return (
-        <div className="flex justify-between">
-            <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:gap-2 gap-5 justify-between items-center">
+            <div className="flex flex-col-reverse sm:flex-row sm:gap-2 gap-5 items-center sm:mb-0">
                 <SearchInput />
 
                 <ButtonPrimary title="Add Product" toggle={toggleProductModal} />
