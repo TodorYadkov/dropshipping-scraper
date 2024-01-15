@@ -1,37 +1,9 @@
 import { Link } from "react-router-dom";
 
-import { useModal } from "../../hooks/useModal.js";
-
 import { formatDateToTimeAgo } from "../../util/formatDateToTimeAgo.js";
 import { Tooltip } from "../Tooltip.jsx";
-import { AddProductModal } from "../Modal/AddProductModal.jsx";
-import { AddEbayProductModal } from "../Modal/AddEbayProductModal.jsx";
-import { useState } from "react";
-import { DeleteProductModal } from "../Modal/DeleteProductModal.jsx";
-import { EditProductModal } from "../Modal/EditProductModal.jsx";
 
-export const TableBodyProducts = ({ products }) => {
-    const [currentProduct, setCurrentProduct] = useState({});
-
-    const [productModal, toggleProductModal] = useModal();
-    const [ebayProductModal, toggleEbayProductModal] = useModal();
-    const [deleteProductModal, toggleDeleteProductModal] = useModal();
-    const [editProductModal, toggleEditProductModal] = useModal();
-
-    const ebayModalHandler = (product) => {
-        setCurrentProduct(product);
-        toggleEbayProductModal();
-    };
-
-    const deleteModalHandler = (product) => {
-        setCurrentProduct(product);
-        toggleDeleteProductModal();
-    };
-
-    const editModalHandler = (product) => {
-        setCurrentProduct(product);
-        toggleEditProductModal();
-    };
+export const TableBodyProducts = ({ products, onModalClick }) => {
 
     return (
         <tbody className="cursor-default">
@@ -45,7 +17,7 @@ export const TableBodyProducts = ({ products }) => {
                         </svg>
 
                         <p className="inline-block align-middle ml-1 text-2xl font-semibold text-gray-900">No products added yet!
-                            <span className="cursor-pointer hover:opacity-70" onClick={toggleProductModal}> Add from here.</span>
+                            <span className="cursor-pointer hover:opacity-70" onClick={() => onModalClick('AddProductModal')}> Add from here.</span>
                         </p>
                     </td>
                 </tr>
@@ -134,7 +106,7 @@ export const TableBodyProducts = ({ products }) => {
                         ) : (
                             <>
                                 {!product.ebayUrl && (
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => ebayModalHandler(product)}>
+                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
                                         No Price
                                         <Tooltip message={'Add eBay Product'} />
                                     </p>
@@ -160,7 +132,7 @@ export const TableBodyProducts = ({ products }) => {
                         ) : (
                             <>
                                 {!product.ebayUrl && (
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => ebayModalHandler(product)}>
+                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
                                         Need eBay Product
                                         <Tooltip message={'Add eBay Product'} />
                                     </p>
@@ -211,7 +183,7 @@ export const TableBodyProducts = ({ products }) => {
                                 <svg
                                     className="block w-6 h-6 fill-indigo-600 cursor-pointer p-1 hover:opacity-70"
                                     viewBox="0 0 512 512"
-                                    onClick={() => editModalHandler(product)}
+                                    onClick={() => onModalClick('EditProductModal', { ...product })}
                                 >
                                     <path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
                                 </svg>
@@ -222,7 +194,7 @@ export const TableBodyProducts = ({ products }) => {
                                 <svg
                                     className="block w-6 h-6 fill-red-600 cursor-pointer p-1 hover:opacity-70"
                                     viewBox="0 0 448 512"
-                                    onClick={() => deleteModalHandler(product)}
+                                    onClick={() => onModalClick('DeleteProductModal', { ...product })}
                                 >
                                     <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
                                 </svg>
@@ -234,10 +206,6 @@ export const TableBodyProducts = ({ products }) => {
             ))
             }
 
-            {productModal && <tr><td><AddProductModal toggleModal={toggleProductModal} /></td></tr>}
-            {ebayProductModal && <tr><td><AddEbayProductModal toggleModal={toggleEbayProductModal} product={currentProduct} /></td></tr>}
-            {deleteProductModal && <tr><td><DeleteProductModal toggleModal={toggleDeleteProductModal} product={currentProduct} /></td></tr>}
-            {editProductModal && <tr><td><EditProductModal toggleModal={toggleEditProductModal} product={currentProduct} /></td></tr>}
         </tbody >
     );
 };
