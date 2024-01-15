@@ -1,46 +1,16 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { formatDateToTimeAgo } from '../util/formatDateToTimeAgo.js';
 
-import { useModal } from '../hooks/useModal.js';
-
-import { AddProductModal } from './Modal/AddProductModal.jsx';
 import { Tooltip } from './Tooltip.jsx';
-import { AddEbayProductModal } from './Modal/AddEbayProductModal.jsx';
-import { DeleteProductModal } from './Modal/DeleteProductModal.jsx';
-import { EditProductModal } from './Modal/EditProductModal.jsx';
 
-export const CardProducts = ({ data }) => {
-	const [currentProduct, setCurrentProduct] = useState({});
-
-	const [productModal, toggleProductModal] = useModal();
-	const [ebayProductModal, toggleEbayProductModal] = useModal();
-
-	const [deleteProductModal, toggleDeleteProductModal] = useModal();
-	const [editProductModal, toggleEditProductModal] = useModal();
-
-	const ebayModalHandler = (product) => {
-		setCurrentProduct(product);
-		toggleEbayProductModal();
-	};
-
-	const deleteModalHandler = (product) => {
-		setCurrentProduct(product);
-		toggleDeleteProductModal();
-	};
-
-	const editModalHandler = (product) => {
-		setCurrentProduct(product);
-		toggleEditProductModal();
-	};
+export const CardProducts = ({ products, onModalClick }) => {
 
 	// TODO: ADD Add Product button in this component and decide how to use pagination and search here
 	return (
-		<div className="flex flex-col items-center gap-5 mt-5">
-
-			{data.length === 0 && (
-				<div className="flex items-center justify-center p-10 bg-white rounded-md">
+		<div className="flex flex-col">
+			{products.length === 0 && (
+				<div className="flex items-center justify-center p-10 mt-4 bg-white rounded-md">
 					<svg
 						className="inline-block w-8 h-8 text-gray-900"
 						viewBox="0 0 28 28"
@@ -76,7 +46,7 @@ export const CardProducts = ({ data }) => {
 						No products added yet!
 						<span
 							className="cursor-pointer hover:opacity-70"
-							onClick={toggleProductModal}
+							onClick={() => onModalClick('AddProductModal')}
 						>
 							{' '}
 							Add from here.
@@ -85,9 +55,9 @@ export const CardProducts = ({ data }) => {
 				</div>
 			)}
 
-			{data.length > 0 &&
-				data.map((product) => (
-					<div key={product._id} className="w-full max-w-sm mt-6 lg:max-w-full lg:flex">
+			{products.length > 0 &&
+				products.map((product) => (
+					<div key={product._id} className="w-full max-w-sm mt-4 lg:max-w-full lg:flex rounded-lg overflow-hidden">
 						<div className="flex-none w-full h-48 overflow-hidden text-center bg-cover rounded-t lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l">
 							{product.imageURL ? (
 								<Link
@@ -189,7 +159,7 @@ export const CardProducts = ({ data }) => {
 									) : (
 										<>
 											{!product.ebayUrl ? (
-												<p className="flex items-center" onClick={() => ebayModalHandler(product)}>
+												<p className="flex items-center" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
 													eBay Product
 													<svg
 														className="ml-2 w-4 h-4"
@@ -269,7 +239,7 @@ export const CardProducts = ({ data }) => {
 										<svg
 											className="block w-6 h-6 fill-indigo-600 cursor-pointer p-1 hover:opacity-70"
 											viewBox="0 0 512 512"
-											onClick={() => editModalHandler(product)}
+											onClick={() => onModalClick('EditProductModal', { ...product })}
 										>
 											<path d="M362.7 19.3L314.3 67.7 444.3 197.7l48.4-48.4c25-25 25-65.5 0-90.5L453.3 19.3c-25-25-65.5-25-90.5 0zm-71 71L58.6 323.5c-10.4 10.4-18 23.3-22.2 37.4L1 481.2C-1.5 489.7 .8 498.8 7 505s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L421.7 220.3 291.7 90.3z" />
 										</svg>
@@ -280,7 +250,7 @@ export const CardProducts = ({ data }) => {
 										<svg
 											className="block w-6 h-6 fill-red-600 cursor-pointer p-1 hover:opacity-70"
 											viewBox="0 0 448 512"
-											onClick={() => deleteModalHandler(product)}
+											onClick={() => onModalClick('DeleteProductModal', { ...product })}
 										>
 											<path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
 										</svg>
@@ -289,14 +259,10 @@ export const CardProducts = ({ data }) => {
 								</div>
 							</div>
 						</div>
-					</div >
+					</div>
 				))
 			}
 
-			{productModal && (<AddProductModal toggleModal={toggleProductModal} />)}
-			{ebayProductModal && <AddEbayProductModal toggleModal={toggleEbayProductModal} product={currentProduct} />}
-			{deleteProductModal && <DeleteProductModal toggleModal={toggleDeleteProductModal} product={currentProduct} />}
-			{editProductModal && <EditProductModal toggleModal={toggleEditProductModal} product={currentProduct} />}
-		</div >
+		</div>
 	);
 };
