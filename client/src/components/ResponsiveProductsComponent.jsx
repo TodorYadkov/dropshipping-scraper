@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { TABLE_BODY_TYPES } from '../util/constants.js';
 
 import { CardProducts } from './CardProducts.jsx';
 import { Table } from './Tables/Table.jsx';
+import { ModalManager } from './Modal/ModalManager.jsx';
+import { Pagination } from './Pagination/Pagination.jsx';
+import { ProductOptions } from './Tables/ProductOptions.jsx';
 
 export const ResponsiveProductsComponent = ({ products, filteredProductsCount }) => {
 	const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1360);
+	const [modalState, setModalState] = useState({ modalName: '', product: {} });
+	const [toggleModal, setToggleModal] = useState(false);
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -20,17 +25,41 @@ export const ResponsiveProductsComponent = ({ products, filteredProductsCount })
 		};
 	}, []);
 
+	const modalHandler = useCallback((modalName, product) => {
+		setModalState({ modalName, product: { ...product } });
+		setToggleModal(true);
+
+	}, [setToggleModal]);
+
+	const closeModal = useCallback(() => {
+		setToggleModal(false);
+
+	}, [setToggleModal]);
+
 	return (
 		<div>
+			<ProductOptions />
+
 			{isDesktop ? (
 				<Table
 					data={products}
 					typeBody={TABLE_BODY_TYPES.PRODUCT}
-					filteredProductsCount={filteredProductsCount}
+					onModalClick={modalHandler}
 				/>
 			) : (
-				<CardProducts data={products} />
+				<CardProducts
+					products={products}
+					onModalClick={modalHandler}
+				/>
 			)}
+
+			<Pagination filteredProductsCount={filteredProductsCount} />
+
+			{toggleModal && (<ModalManager
+				useModal={modalState.modalName}
+				data={modalState.product}
+				closeModal={closeModal}
+			/>)}
 		</div>
 	);
 };
