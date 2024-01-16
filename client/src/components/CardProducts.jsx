@@ -6,9 +6,8 @@ import { Tooltip } from './Tooltip.jsx';
 
 export const CardProducts = ({ products, onModalClick }) => {
 
-	// TODO: ADD Add Product button in this component and decide how to use pagination and search here
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col items-center">
 			{products.length === 0 && (
 				<div className="flex items-center justify-center p-10 mt-4 bg-white rounded-md">
 					<svg
