@@ -8,15 +8,14 @@ export const ProductOffsetSelector = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [offset, setOffset] = useState(() => {
         const offsetParam = searchParams.get('offset');
-        if (offsetParam) return Number(offsetParam);
-
-        return baseValue;
-    })
+        return offsetParam ? Number(offsetParam) : baseValue;
+    });
 
     useEffect(() => {
         setSearchParams((params) => {
             const paramsObject = Object.fromEntries(params.entries());
-            return { ...paramsObject, offset: offset }
+
+            return !paramsObject.hasOwnProperty('page') ? { page: 1, offset: offset } : { ...paramsObject, offset: offset }
         });
     }, [offset]);
 
@@ -35,6 +34,9 @@ export const ProductOffsetSelector = () => {
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
