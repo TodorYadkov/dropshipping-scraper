@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-export const Pagination = ({ filteredProductsCount }) => {
+export const Pagination = ({ localFilteredState }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [currentPage, setCurrentPage] = useState(() => Number(searchParams.get('page')) || 1);
 	const [totalPageCount, setTotalPageCount] = useState(calculateNumberOfPages);
@@ -9,14 +9,20 @@ export const Pagination = ({ filteredProductsCount }) => {
 	useEffect(() => {
 		setSearchParams((params) => {
 			const paramsObject = Object.fromEntries(params.entries());
-			return { ...paramsObject, page: currentPage }
+
+			return !paramsObject.hasOwnProperty('offset') ? { page: currentPage, offset: 5 } : { ...paramsObject, page: currentPage }
 		})
 	}, [currentPage]);
 
 	useEffect(() => {
 		const pages = calculateNumberOfPages();
 		setTotalPageCount(pages);
-	}, [filteredProductsCount]);
+
+	}, [localFilteredState]);
+
+	useEffect(() => {
+		setCurrentPage(1);
+	}, [searchParams.get('offset'), searchParams.get('search')]);
 
 	function setFirstPage() {
 		setCurrentPage(1);
@@ -35,11 +41,11 @@ export const Pagination = ({ filteredProductsCount }) => {
 	}
 
 	function calculateNumberOfPages() {
-		const offset = Number(searchParams.get('offset'));
-		let pages = Math.max(Math.floor(filteredProductsCount / offset), 1); // In case of 0 set it to 1
+		//TODO.. in case of string
+		const offset = Number(searchParams.get('offset')) || 5;
+		const productCount = localFilteredState.totalProductCount;
 
-		if (filteredProductsCount % offset != 0) pages++;
-
+		const pages = Math.max(Math.ceil(productCount / offset), 1); // In case of 0 set it to 1
 		return pages;
 	}
 
