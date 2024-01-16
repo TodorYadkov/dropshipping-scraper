@@ -29,7 +29,7 @@ export const Dashboard = () => {
 	const { getGeneralStatistic } = useApi(statisticService);
 
 	const { appState, setProducts, setGeneralStatistic } = useAppStateContext();
-	const { localFilteredProducts, filteredProductsCount, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage, productExchangeCourse);
+	const { localFilteredState, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage, productExchangeCourse);
 
 	// Initial
 	useEffect(() => {
@@ -91,7 +91,7 @@ export const Dashboard = () => {
 
 						{alert && <div className="flex justify-center -mt-16 -mb-7"><AlertError message={alert} close={onCloseAlert} /></div>}
 
-						<ResponsiveProductsComponent products={localFilteredProducts} filteredProductsCount={filteredProductsCount} />
+						<ResponsiveProductsComponent localFilteredState={localFilteredState} />
 					</>
 				)
 			}

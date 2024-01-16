@@ -4,7 +4,7 @@ import { TABLE_BODY_TYPES } from "../../util/constants.js";
 import { TableHeader } from "./TableHeader.jsx";
 import { TableBodyProducts } from "./TableBodyProducts.jsx";
 
-export const Table = ({ typeBody, data, filteredProductsCount, onModalClick }) => {
+export const Table = ({ typeBody, data, onModalClick }) => {
 
 	const TableVariant = useMemo(() => {
 		let Body, Heading;
@@ -26,7 +26,7 @@ export const Table = ({ typeBody, data, filteredProductsCount, onModalClick }) =
 
 		return { Body, Heading };
 
-	}, [typeBody, data, filteredProductsCount]);
+	}, [typeBody, data]);
 
 	return (
 		<div className="-mb-2">

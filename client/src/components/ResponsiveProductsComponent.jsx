@@ -8,7 +8,7 @@ import { ModalManager } from './Modal/ModalManager.jsx';
 import { Pagination } from './Pagination/Pagination.jsx';
 import { ProductOptions } from './Tables/ProductOptions.jsx';
 
-export const ResponsiveProductsComponent = ({ products, filteredProductsCount }) => {
+export const ResponsiveProductsComponent = ({ localFilteredState }) => {
 	const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1360);
 	const [modalState, setModalState] = useState({ modalName: '', product: {} });
 	const [toggleModal, setToggleModal] = useState(false);
@@ -42,18 +42,18 @@ export const ResponsiveProductsComponent = ({ products, filteredProductsCount })
 
 			{isDesktop ? (
 				<Table
-					data={products}
+					data={localFilteredState.products}
 					typeBody={TABLE_BODY_TYPES.PRODUCT}
 					onModalClick={modalHandler}
 				/>
 			) : (
 				<CardProducts
-					products={products}
+					products={localFilteredState.products}
 					onModalClick={modalHandler}
 				/>
 			)}
 
-			<Pagination filteredProductsCount={filteredProductsCount} />
+			<Pagination localFilteredState={localFilteredState} />
 
 			{toggleModal && (<ModalManager
 				useModal={modalState.modalName}
