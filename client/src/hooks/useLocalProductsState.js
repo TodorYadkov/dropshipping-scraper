@@ -8,9 +8,11 @@ import { REDUCER_TYPES } from "../util/constants.js";
 export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     const { appState } = useAppStateContext();
     const [localProducts, setLocalProducts] = useState([]);
-    const [localFilteredProducts, setLocalFilteredProducts] = useState([]);
+    const [localFilteredState, setLocalFilteredState] = useState({
+        products: [],
+        totalProductCount: 0
+    });
     const [searchParams] = useSearchParams();
-    const [filteredProductsCount, setFilteredProductsCount] = useState(localProducts.length);
 
     // Set currency to local products
     useEffect(() => {
@@ -38,21 +40,23 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     // Filter the products;
     function filterProductsHandler(products = localProducts) {
         let productsToFilter = [...products];
+        let totalProductCount = productsToFilter.length;
 
         searchHandler(); // Apply search filter
-        setFilteredProductsCount(productsToFilter.length); // Store the count of the products (for pagination purpose like last page)
         pageHandler();  // Slice the products so it contains only products for that page
 
 
         // Search
         function searchHandler() {
             const search = searchParams.get('search');
-            const searchRegexPattern = new RegExp(search, 'i');
+            const searchRegexPattern = new RegExp(search, 'gi');
             if (search) {
                 productsToFilter = productsToFilter.filter(product => searchRegexPattern.test(product.name));
             } else {
                 productsToFilter = [...products];
             }
+
+            totalProductCount = productsToFilter.length;
         }
 
         // Slice products for page products 
@@ -66,12 +70,11 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
             productsToFilter = productsToFilter.slice(startIndex, endIndex);
         }
 
-        setLocalFilteredProducts(productsToFilter);
+        setLocalFilteredState({ totalProductCount, products: productsToFilter });
     }
 
     return {
-        localFilteredProducts,
-        filteredProductsCount,
+        localFilteredState,
         setLocalProductsWithSameCurrencyAndProfit
     }
 }
