@@ -34,9 +34,6 @@ export const ProductOffsetSelector = () => {
                 <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
