@@ -1,8 +1,8 @@
+import logRequests from '../middlewares/displayRequest.js';
 import { homeController } from '../controllers/homeController.js';
 import { productController } from '../controllers/productController.js';
-import { statisticController } from '../controllers/statisticController.js';
 import { userController } from '../controllers/userController.js';
-import logRequests from '../middlewares/displayRequest.js';
+import { statisticController } from '../controllers/statisticController.js';
 
 export default (app) => {
 	app.use(logRequests()); // Logging every request

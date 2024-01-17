@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useApi } from '../../hooks/useApi.js';
 
 import { REDUCER_TYPES } from '../../util/constants.js';
 import { memoizedCalculateCurrencyCourses } from '../../util/calculateProfit.js';
 
-import { productService } from '../../services/productService.js';
-import { statisticService } from '../../services/statisticService.js';
+import { useApi } from '../../hooks/useApi.js';
+import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
 import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 import { useIntervalTimeToReceiveData } from '../../hooks/useIntervalTimeToReceiveData.js';
 
+import { productService } from '../../services/productService.js';
+import { statisticService } from '../../services/statisticService.js';
+
 import { Loader } from '../../components/Loader.jsx';
+import { PageTitle } from '../../components/PageTitle.jsx';
 import { AlertError } from '../../components/Alerts/AlertError.jsx';
 import { DashboardSummary } from '../../components/DashboardSummary.jsx';
 import { ResponsiveProductsComponent } from '../../components/ResponsiveProductsComponent.jsx';
-import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
-import { PageTitle } from '../../components/PageTitle.jsx';
 
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +90,11 @@ export const Dashboard = () => {
 						<>
 							<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
-							{alert && <div className="flex justify-center -mt-16 -mb-7"><AlertError message={alert} close={onCloseAlert} /></div>}
+							{alert && (
+							<div className="flex justify-center -mt-16 -mb-7">
+								<AlertError message={alert} close={onCloseAlert} />
+							</div>
+							)}
 
 							<ResponsiveProductsComponent localFilteredState={localFilteredState} />
 						</>

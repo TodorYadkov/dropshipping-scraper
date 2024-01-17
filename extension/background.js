@@ -2,7 +2,7 @@ import { sendData } from './services/dataService.js';
 import { login, logout } from './services/authService.js';
 import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
 import { getData, removeData, setData } from './util/storageActions.js';
-import { multiBrowser, timeToFetchProduct, tokenName } from './constants/constants.js'
+import { multiBrowser, timeToFetchProduct, tokenName } from './constants/constants.js';
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
@@ -54,7 +54,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                     const loggedUserData = await login(message.userData);
                     await setData({ [tokenName]: loggedUserData });
 
-                    // After successful login send the user information to popup so the html can be updated with user information
+                    // After successful login send the user information to popup so the HTML can be updated with user information
                     multiBrowser.runtime.sendMessage({ message: 'successfulLogin', userData: loggedUserData });
 
                 } catch (error) {

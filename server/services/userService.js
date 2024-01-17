@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { User } from '../models/User.js';
 import { addTokenToBlackList } from './tokenBlackListService.js';
+import { User } from '../models/User.js';
 import { ExtensionStatus } from '../models/ExtensionStatus.js';
 
 const jwtSecret = process.env.JWT_SECRET;

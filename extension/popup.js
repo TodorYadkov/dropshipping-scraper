@@ -1,6 +1,6 @@
 import { getData } from './util/storageActions.js';
-import { multiBrowser, tokenName } from './constants/constants.js'
 import { checkUserInput } from './util/validateUserInput.js';
+import { multiBrowser, tokenName } from './constants/constants.js';
 
 // Get reference to DOM elements
 const mainContainer = document.querySelector('.container');

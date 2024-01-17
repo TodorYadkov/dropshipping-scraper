@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react';
 
-import { reducer } from './reducer.js';
 import { REDUCER_TYPES } from '../util/constants.js';
+import { reducer } from './reducer.js';
 
 const initialState = {
 	[REDUCER_TYPES.IS_SIDE_BAR_OPEN]: false,

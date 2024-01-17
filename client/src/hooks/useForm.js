@@ -31,7 +31,7 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	const onBlur = (e) => {
 		const name = e.target.name;
 		setFormErrors((state) => ({ ...state, [name]: { ...state[name], isTouched: true } }));
-	}
+	};
 
 	function validateForm() {
 		setIsInvalidForm(

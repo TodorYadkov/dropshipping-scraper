@@ -23,7 +23,8 @@ export const formatDateToTimeAgo = (isoDateString) => {                         
 
     } else if (seconds > 0) {
         return `${seconds} second${seconds === 1 ? '' : 's'}`;
+        
     } else {
-        return 'Not updated yet'
+        return 'Not updated yet';
     }
-}
+};

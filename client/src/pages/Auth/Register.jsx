@@ -63,7 +63,6 @@ export const Register = () => {
 							className="w-10 h-10"
 							viewBox="0 0 512 512"
 							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
 						>
 							<path
 								d="M364.61 390.213C304.625 450.196 207.37 450.196 147.386 390.213C117.394 360.22 102.398 320.911 102.398 281.6C102.398 242.291 117.394 202.981 147.386 172.989C147.386 230.4 153.6 281.6 230.4 307.2C230.4 256 256 102.4 294.4 76.7999C320 128 334.618 142.997 364.608 172.989C394.601 202.981 409.597 242.291 409.597 281.6C409.597 320.911 394.601 360.22 364.61 390.213Z"
@@ -139,7 +138,6 @@ export const Register = () => {
 									<svg
 										className="pr-3"
 										fill="#4f46e5"
-										xmlns="http://www.w3.org/2000/svg"
 										height="1.1em"
 										viewBox="0 0 640 512"
 									>
@@ -149,7 +147,6 @@ export const Register = () => {
 									<svg
 										className="pr-3"
 										fill="#4f46e5ad"
-										xmlns="http://www.w3.org/2000/svg"
 										height="1.1em"
 										viewBox="0 0 576 512"
 									>
@@ -178,7 +175,7 @@ export const Register = () => {
 						<p className="text-sm">Already have an account ?</p>
 						<Link
 							to={CLIENT_PATHS.LOGIN}
-							className=" text-sm text-indigo-700 hover:text-indigo-300"
+							className="text-sm text-indigo-700 hover:text-indigo-300"
 						>
 							Sign in
 						</Link>

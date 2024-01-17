@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
-import { TABLE_BODY_TYPES } from "../../util/constants.js";
-import { TableHeader } from "./TableHeader.jsx";
-import { TableBodyProducts } from "./TableBodyProducts.jsx";
+import { TABLE_BODY_TYPES } from '../../util/constants.js';
+
+import { TableHeader } from './TableHeader.jsx';
+import { TableBodyProducts } from './TableBodyProducts.jsx';
 
 export const Table = ({ typeBody, data, onModalClick }) => {
 
@@ -20,7 +21,6 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 			case TABLE_BODY_TYPES.USER:
 				break;
 			case TABLE_BODY_TYPES.EXTENSION:
-
 				break;
 		}
 
@@ -34,7 +34,6 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 				<div className="inline-block min-w-full overflow-hidden rounded-lg rounded-b-none">
 					<table className="min-w-full leading-normal">
 						{TableVariant.Heading}
-
 						{TableVariant.Body}
 					</table>
 				</div>

@@ -1,5 +1,4 @@
 export const TableHeader = ({ headings }) => {
-
     return (
         <thead>
             <tr>

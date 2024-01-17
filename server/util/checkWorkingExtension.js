@@ -1,4 +1,4 @@
-import { ExtensionStatus } from "../models/ExtensionStatus.js";
+import { ExtensionStatus } from '../models/ExtensionStatus.js';
 
 let intervalId;
 

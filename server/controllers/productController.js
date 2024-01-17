@@ -2,9 +2,9 @@ import { Router } from 'express';
 
 import { extractASIN } from '../util/extractASIN.js';
 import { extractItemIdEbay } from '../util/extractItemIdEbay.js';
+import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
 import { preload } from '../middlewares/preloader.js';
 import { isOwner, isUserLogged } from '../middlewares/guards.js';
-import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
 import {
     getSingleProduct,
     createProduct,

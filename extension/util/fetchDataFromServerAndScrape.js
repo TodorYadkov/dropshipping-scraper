@@ -118,7 +118,7 @@ export function fetchDataFromServerAndScrape() {
 			const combinedResults = scrapedDataArray.reduce((combined, result) => ({ ...combined, ...result }), {});
 
 			// Combine combinedResults with productFromServer and updated needed values
-			const dataToSendOnServer = { ...productFromServer, ...combinedResults['amazon'], ...combinedResults['ebay'] }
+			const dataToSendOnServer = { ...productFromServer, ...combinedResults['amazon'], ...combinedResults['ebay'] };
 
 			// Resolve promise with updated product details
 			resolve(dataToSendOnServer);

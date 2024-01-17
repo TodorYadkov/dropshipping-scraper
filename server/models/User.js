@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+
 import { USER_ROLES } from '../environments/userRoles.js';
 
 const userSchema = new Schema({

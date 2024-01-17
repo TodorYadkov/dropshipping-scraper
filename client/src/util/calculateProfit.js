@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-import { EXTERNAL_API_PATHS } from "./paths.js";
+import { EXTERNAL_API_PATHS } from './paths.js';
 
 const calculateProfitForProduct = (product, currentExchangeRate) => {
     if (product.priceAmazon === null || product.priceEbay === null) {
@@ -41,7 +41,7 @@ export const calculateProfit = async (products, exchangeRates) => {
     });
 
     return productsWithProfit;
-}
+};
 
 // Memoized function for currencyCourses calculation
 export const memoizedCalculateCurrencyCourses = async (
@@ -52,9 +52,7 @@ export const memoizedCalculateCurrencyCourses = async (
 ) => {
     try {
         // Determine main currencies from products
-        const mainCurrencies = new Set(
-            products.map((p) => p.currencyEbay ? p.currencyEbay.toLocaleLowerCase() : 'usd')
-        );
+        const mainCurrencies = new Set(products.map((p) => p.currencyEbay ? p.currencyEbay.toLocaleLowerCase() : 'usd'));
 
         // Initialize an object to store all available currencies
         let allAvailableCurrencies = {};
@@ -73,8 +71,7 @@ export const memoizedCalculateCurrencyCourses = async (
 
         for (const currency of mainCurrencies) {
             if (!(currency in productExchangeCourse)) {
-                const currencyExists = allAvailableCurrencies[currency] ||
-                    (productExchangeCourse['allAvailableCurrencies'] && productExchangeCourse['allAvailableCurrencies'][currency]);
+                const currencyExists = allAvailableCurrencies[currency] || (productExchangeCourse['allAvailableCurrencies'] && productExchangeCourse['allAvailableCurrencies'][currency]);
 
                 if (currencyExists) {
                     // Fetch and state currency course if not available

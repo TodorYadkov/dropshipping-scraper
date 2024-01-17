@@ -55,7 +55,7 @@ const productSchema = new Schema({
 	owner: {
 		type: Types.ObjectId,
 		ref: 'User',
-		required: [true, 'Owner is required']
+		required: [true, 'Owner is required!']
 	}
 }, { timestamps: true });
 

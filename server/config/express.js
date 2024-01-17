@@ -1,8 +1,9 @@
 import { json, urlencoded } from 'express';
+
 import cors from '../middlewares/cors.js';
 import userSession from '../middlewares/userSession.js';
-import tokenBlackListConfig from './tokenBlackListConfig.js';
 import tokenBlackListMiddleware from '../middlewares/tokenBlackListMiddleware.js';
+import tokenBlackListConfig from './tokenBlackListConfig.js';
 import { checkWorkingExtension, stopCheckWorkingExtension } from '../util/checkWorkingExtension.js';
 
 export default async (app) => {
