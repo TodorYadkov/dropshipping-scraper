@@ -53,7 +53,7 @@ export const ResponsiveProductsComponent = ({ localFilteredState }) => {
 				/>
 			)}
 
-			<Pagination localFilteredState={localFilteredState} />
+			{localFilteredState.totalProductCount !== 0 && <Pagination localFilteredState={localFilteredState} /> }
 
 			{toggleModal && (
 			<ModalManager
