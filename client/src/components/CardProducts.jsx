@@ -44,10 +44,10 @@ export const CardProducts = ({ products, onModalClick }) => {
 					<p className="inline-block align-middle ml-1 text-2xl font-semibold text-gray-900">
 						No products added yet!
 						<span
-							className="cursor-pointer hover:opacity-70"
+							className="cursor-pointer hover:text-red-500"
 							onClick={() => onModalClick('AddProductModal')}
 						>
-							Add from here.
+							{' '}Add from here.
 						</span>
 					</p>
 				</div>
