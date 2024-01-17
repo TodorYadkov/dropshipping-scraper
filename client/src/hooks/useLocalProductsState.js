@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { calculateProfit } from "../util/calculateProfit.js";
 import { useAppStateContext } from "./useAppStateContext.js";
 import { REDUCER_TYPES } from "../util/constants.js";
+import { sortingProducts } from "../util/sortingProducts.js";
 
 export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     const { appState } = useAppStateContext();
@@ -23,6 +24,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
     // On search filter filter the products
     useEffect(() => {
         filterProductsHandler();
+        console.log('run');
     }, [searchParams]);
 
     // It set the local products with amazon currency;
@@ -43,13 +45,14 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
         let totalProductCount = productsToFilter.length;
 
         searchHandler(); // Apply search filter
+        sortHandler();
         pageHandler();  // Slice the products so it contains only products for that page
 
 
         // Search
         function searchHandler() {
             const search = searchParams.get('search');
-            const searchRegexPattern = new RegExp(search, 'gi');
+            const searchRegexPattern = new RegExp(search, 'i');
             if (search) {
                 productsToFilter = productsToFilter.filter(product => searchRegexPattern.test(product.name));
             } else {
@@ -70,6 +73,12 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
             productsToFilter = productsToFilter.slice(startIndex, endIndex);
         }
 
+        // Sorting the products
+        function sortHandler() {
+            const sortBy = searchParams.get('sort') || 'Ascending by Name';
+            sortingProducts(sortBy, productsToFilter);
+        }
+       
         setLocalFilteredState({ totalProductCount, products: productsToFilter });
     }
 
