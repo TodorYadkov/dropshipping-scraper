@@ -10,7 +10,7 @@ export const Pagination = ({ localFilteredState }) => {
 		setSearchParams((params) => {
 			const paramsObject = Object.fromEntries(params.entries());
 
-			return !paramsObject.hasOwnProperty('offset') ? { page: currentPage, offset: 5 } : { ...paramsObject, page: currentPage }
+			return 'offset' in paramsObject === false ? { page: currentPage, offset: 5 } : { ...paramsObject, page: currentPage }
 		})
 	}, [currentPage]);
 

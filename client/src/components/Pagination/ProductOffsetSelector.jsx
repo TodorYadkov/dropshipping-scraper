@@ -15,7 +15,7 @@ export const ProductOffsetSelector = () => {
         setSearchParams((params) => {
             const paramsObject = Object.fromEntries(params.entries());
 
-            return !paramsObject.hasOwnProperty('page') ? { page: 1, offset: offset } : { ...paramsObject, offset: offset }
+            return 'page' in paramsObject === false ? { page: 1, offset: offset } : { ...paramsObject, offset: offset }
         });
     }, [offset]);
 

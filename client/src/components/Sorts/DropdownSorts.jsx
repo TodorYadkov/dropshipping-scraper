@@ -15,7 +15,7 @@ export const DropdownSorts = () => {
         setSearchParams((params) => {
             const paramsObject = Object.fromEntries(params.entries());
 
-            return !paramsObject.hasOwnProperty('sort') ? { page: 1, offset: 5, sort: baseValue } : { ...paramsObject, sort: sort }
+            return 'sort' in paramsObject === false ? { page: 1, offset: 5, sort: baseValue } : { ...paramsObject, sort: sort }
         });
     }, [sort]);
 
