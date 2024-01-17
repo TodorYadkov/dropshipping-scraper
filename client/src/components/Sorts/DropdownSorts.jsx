@@ -30,14 +30,16 @@ export const DropdownSorts = () => {
                 value={sort}
                 onChange={handleSelectChange}
             >
-                <option value={'Ascending by Name'}>Ascending by Name</option>
-                <option value={'Descending by Name'}>Descending by Name</option>
-                <option value={'Ascending by Amazon price'}>Ascending by Amazon price</option>
-                <option value={'Descending by Amazon price'}>Descending by Amazon price</option>
-                <option value={'Ascending by Profit'}>Ascending by Profit</option>
-                <option value={'Descending by Profit'}>Descending by Profit</option>
-                <option value={'Ascending by Last Updated'}>Ascending by Last Updated</option>
-                <option value={'Descending by Last Updated'}>Descending by Last Updated</option>
+                <option value={'Ascending by Name'}>Name &#x2191;</option>
+                <option value={'Descending by Name'}>Name &#x2193;</option>
+                <option value={'Ascending by Amazon price'}>Amazon price &#x2191;</option>
+                <option value={'Descending by Amazon price'}>Amazon price &#x2193;</option>
+                <option value={'Ascending by Ebay price'}>Ebay price &#x2191;</option>
+                <option value={'Descending by Ebay price'}>Ebay price &#x2193;</option>
+                <option value={'Ascending by Profit'}>Profit &#x2191;</option>
+                <option value={'Descending by Profit'}>Profit &#x2193;</option>
+                <option value={'Ascending by Last Updated'}>Last Updated &#x2191;</option>
+                <option value={'Descending by Last Updated'}>Last Updated &#x2193;</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
