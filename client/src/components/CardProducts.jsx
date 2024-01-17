@@ -7,7 +7,7 @@ import { Tooltip } from './Tooltip.jsx';
 export const CardProducts = ({ products, onModalClick }) => {
 
 	return (
-		<div className="flex flex-col items-center">
+		<div className="flex flex-col items-center cursor-default">
 
 			{products.length === 0 && (
 				<div className="flex items-center justify-center p-10 mt-4 bg-white rounded-md">
@@ -130,7 +130,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 								<div className="flex flex-col text-base text-gray-700">
 									<p>
-										Amazon Price: {product.priceAmazon && `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}`}
+										Amazon Price: {product.priceAmazon !== 0 ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
 									</p>
 
 									{product.priceEbay ? (
@@ -140,7 +140,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 											rel="noopener noreferrer"
 										>
 											<p>
-												Ebay Price:
+												Ebay Price: {' '} 
 												{product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
 												{product?.currencyEbayOriginal && <sup className='ml-1 italic'>({`${product.priceEbayOriginal.toFixed(2)} ${product.currencyEbayOriginal}`})</sup>}
 											</p>
@@ -149,7 +149,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 										<>
 											{!product.ebayUrl ? (
 												<p className="flex items-center" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
-													eBay Product
+													Add eBay product
 													<svg
 														className="ml-2 w-4 h-4"
 														viewBox="0 0 512 512"
@@ -163,7 +163,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 											)}
 										</>
 									)}
-
+									
 									{product?.profit ? (
 										<p>
 											Profit: <span className={`${product.profit < 0 && 'fill-red-500 text-red-500 inline-flex items-center gap-1'}`}>
@@ -180,8 +180,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 										</p>
 									) : (
 										<>
-											{!product.ebayUrl ? <p>Need eBay Product</p> : <p>Profit:</p>
-										}
+											{!product.ebayUrl ? <p className='text-white'>-</p> : <p>Profit: <em>Calculating...</em></p>}
 										</>
 									)}
 								</div>
