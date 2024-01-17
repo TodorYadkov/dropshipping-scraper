@@ -3,11 +3,13 @@ import { Product } from '../models/Product.js';
 import { User } from '../models/User.js';
 
 const getGeneralStatistic = async (userId) => {
-	const [userDetails, userExtensions, userProducts] = await Promise.all([
+	const [userDetails, extensionStatusResults, userProducts] = await Promise.allSettled([
 		User.findById(userId),
 		ExtensionStatus.find({ userId }),
 		Product.find({ owner: userId })
 	]);
+
+	const userExtensions = extensionStatusResults.status === 'fulfilled' ? extensionStatusResults.value : [];
 
 	const generalStatistic = {
 		extensionsCount: userDetails.extensionsName.length,
