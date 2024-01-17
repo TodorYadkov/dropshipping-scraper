@@ -16,6 +16,7 @@ import { AlertError } from '../../components/Alerts/AlertError.jsx';
 import { DashboardSummary } from '../../components/DashboardSummary.jsx';
 import { ResponsiveProductsComponent } from '../../components/ResponsiveProductsComponent.jsx';
 import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
+import { PageTitle } from '../../components/PageTitle.jsx';
 
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -33,8 +34,6 @@ export const Dashboard = () => {
 
 	// Initial
 	useEffect(() => {
-		document.title = 'Dashboard';
-
 		async function initialLoading() {
 			setIsLoading(true);
 
@@ -82,19 +81,21 @@ export const Dashboard = () => {
 	}
 
 	return (
-		<div>
-			{isLoading
-				? <Loader />
-				: (
-					<>
-						<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
+		<PageTitle title={'Dashboard'}>
+			<div>
+				{isLoading
+					? <Loader />
+					: (
+						<>
+							<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
-						{alert && <div className="flex justify-center -mt-16 -mb-7"><AlertError message={alert} close={onCloseAlert} /></div>}
+							{alert && <div className="flex justify-center -mt-16 -mb-7"><AlertError message={alert} close={onCloseAlert} /></div>}
 
-						<ResponsiveProductsComponent localFilteredState={localFilteredState} />
-					</>
-				)
-			}
-		</div>
+							<ResponsiveProductsComponent localFilteredState={localFilteredState} />
+						</>
+					)
+				}
+			</div>
+		</PageTitle>
 	);
 };
