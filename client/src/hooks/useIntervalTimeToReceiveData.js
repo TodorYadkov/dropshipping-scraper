@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const useIntervalTimeToReceiveData = (requestHandler, intervalInMinutes = 2) => {
+export const useIntervalTimeToReceiveData = (requestHandler, intervalInMinutes = 1) => {
     const [data, setData] = useState(null);
 
     const intervalTimeToMilliseconds = intervalInMinutes * 60 * 1000;
