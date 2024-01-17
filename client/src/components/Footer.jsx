@@ -1,4 +1,6 @@
-export const Footer = () => {
+import { memo } from "react";
+
+export const Footer = memo(() => {
     const currentYear = new Date().getFullYear();
 
     return (
@@ -19,4 +21,6 @@ export const Footer = () => {
             </div>
         </footer>
     );
-};
+});
+
+Footer.displayName = 'Footer';
