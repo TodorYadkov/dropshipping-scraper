@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-const baseValue = 'Ascending by Name';
+const baseValue = 'last_updated_desc';
 
 export const DropdownSorts = () => {
 
@@ -30,16 +30,16 @@ export const DropdownSorts = () => {
                 value={sort}
                 onChange={handleSelectChange}
             >
-                <option value={'Ascending by Name'}>Name &#x2191;</option>
-                <option value={'Descending by Name'}>Name &#x2193;</option>
-                <option value={'Ascending by Amazon price'}>Amazon price &#x2191;</option>
-                <option value={'Descending by Amazon price'}>Amazon price &#x2193;</option>
-                <option value={'Ascending by Ebay price'}>Ebay price &#x2191;</option>
-                <option value={'Descending by Ebay price'}>Ebay price &#x2193;</option>
-                <option value={'Ascending by Profit'}>Profit &#x2191;</option>
-                <option value={'Descending by Profit'}>Profit &#x2193;</option>
-                <option value={'Ascending by Last Updated'}>Last Updated &#x2191;</option>
-                <option value={'Descending by Last Updated'}>Last Updated &#x2193;</option>
+                <option value={'name_asc'}>Name &#x1F805; </option>
+                <option value={'name_desc'}>Name &#x1F807;</option>
+                <option value={'amazon_price_asc'}>Amazon price &#x1F805;</option>
+                <option value={'amazon_price_desc'}>Amazon price &#x1F807;</option>
+                <option value={'ebay_price_asc'}>Ebay price &#x1F805;</option>
+                <option value={'ebay_price_desc'}>Ebay price &#x1F807;</option>
+                <option value={'profit_asc'}>Profit &#x1F805;</option>
+                <option value={'profit_desc'}>Profit &#x1F807;</option>
+                <option value={'last_updated_asc'}>Last Updated &#x1F805;</option>
+                <option value={'last_updated_desc'}>Last Updated &#x1F807;</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
