@@ -24,8 +24,7 @@ export const Dashboard = () => {
 	const [alert, setAlert] = useState('');
 	const [productExchangeCourse, setProductExchangeCourse] = useState({});
 
-	// TODO: change interval!!!
-	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler, 1);
+	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler);
 
 	const { getProducts } = useApi(productService);
 	const { getGeneralStatistic } = useApi(statisticService);
@@ -83,7 +82,7 @@ export const Dashboard = () => {
 
 	return (
 		<PageTitle title={'Dashboard'}>
-			<div>
+			<div className='relative'>
 				{isLoading
 					? <Loader />
 					: (
@@ -91,7 +90,7 @@ export const Dashboard = () => {
 							<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
 							{alert && (
-							<div className="flex justify-center -mt-16 -mb-7">
+							<div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5">
 								<AlertError message={alert} close={onCloseAlert} />
 							</div>
 							)}
