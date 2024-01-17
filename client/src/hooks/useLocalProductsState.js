@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { calculateProfit } from '../util/calculateProfit.js';
-import { REDUCER_TYPES } from '../util/constants.js';
-
-import { useAppStateContext } from './useAppStateContext.js';
+import { calculateProfit } from "../util/calculateProfit.js";
+import { useAppStateContext } from "./useAppStateContext.js";
+import { REDUCER_TYPES } from "../util/constants.js";
+import { sortingProducts } from "../util/sortingProducts.js";
 
 export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 	const { appState } = useAppStateContext();
@@ -44,22 +44,21 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 		let productsToFilter = [...products];
 		let totalProductCount = productsToFilter.length;
 
-		searchHandler(); // Apply search filter
-		pageHandler(); // Slice the products so it contains only products for that page
+        searchHandler(); // Apply search filter
+        sortHandler();
+        pageHandler();  // Slice the products so it contains only products for that page
 
-		// Search
-		function searchHandler() {
-			const search = searchParams.get('search');
-			const searchRegexPattern = new RegExp(search, 'gi');
-			if (search) {
-				productsToFilter = productsToFilter.filter((product) => searchRegexPattern.test(product.name));
-			} else {
-				productsToFilter = [...products];
-			}
-
-			totalProductCount = productsToFilter.length;
+        // Search
+        function searchHandler() {
+            const search = searchParams.get('search');
+            const searchRegexPattern = new RegExp(search, 'i');
+            if (search) {
+                productsToFilter = productsToFilter.filter(product => searchRegexPattern.test(product.name));
+            } else {
+                productsToFilter = [...products];
+            }
 		}
-
+		
 		// Slice products for page products
 		function pageHandler() {
 			const offset = Number(searchParams.get('offset')) || 5;
@@ -71,14 +70,17 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 			productsToFilter = productsToFilter.slice(startIndex, endIndex);
 		}
 
-		setLocalFilteredState({
-			totalProductCount,
-			products: productsToFilter
-		});
-	}
+        // Sorting the products
+        function sortHandler() {
+            const sortBy = searchParams.get('sort') || 'Ascending by Name';
+            sortingProducts(sortBy, productsToFilter);
+        }
+       
+        setLocalFilteredState({ totalProductCount, products: productsToFilter });
+    }
 
 	return {
 		localFilteredState,
 		setLocalProductsWithSameCurrencyAndProfit
 	};
-};
+}
