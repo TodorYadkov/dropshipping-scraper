@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-const baseValue = 'last_updated_desc';
-
 export const DropdownSorts = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [sort, setSort] = useState(() => {
-        const sortParams = searchParams.get('sort');
-        return sortParams ? sortParams : baseValue;
-    });
+    const [sort, setSort] = useState(() => searchParams.get('sort') || '');
 
     useEffect(() => {
         setSearchParams((params) => {
             const paramsObject = Object.fromEntries(params.entries());
-
-            return 'sort' in paramsObject === false ? { page: 1, offset: 5, sort: baseValue } : { ...paramsObject, sort: sort }
+            if (sort === '') {
+                const { sort, ...paramsWithoutSortProperty } = paramsObject;
+                return {...paramsWithoutSortProperty}
+            } else {
+                return 'sort' in paramsObject === false ? { page: 1, offset: 5, sort: sort } : { ...paramsObject, sort: sort }
+            }
         });
     }, [sort]);
 
@@ -30,7 +29,8 @@ export const DropdownSorts = () => {
                 value={sort}
                 onChange={handleSelectChange}
             >
-                <option value={'name_asc'}>Name &#x1F805; </option>
+                <option value={''}>Select</option>
+                <option value={'name_asc'}>Name &#x1F805;</option>
                 <option value={'name_desc'}>Name &#x1F807;</option>
                 <option value={'amazon_price_asc'}>Amazon price &#x1F805;</option>
                 <option value={'amazon_price_desc'}>Amazon price &#x1F807;</option>
