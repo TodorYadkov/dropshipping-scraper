@@ -5,15 +5,18 @@ import { AppStateProvider } from './contexts/AppStateContext.jsx';
 
 import { Login } from './pages/Auth/Login.jsx';
 import { Register } from './pages/Auth/Register.jsx';
+import { Logout } from './pages/Auth/Logout.jsx';
 import { Dashboard } from './pages/Product/Dashboard.jsx';
+
 import { Card } from './components/Card.jsx';
 import { Modal } from './components/Modal/Modal.jsx';
 import { Layout } from './components/Layout.jsx';
 import { AlertSuccess } from './components/Alerts/AlertSuccess.jsx';
 import { Form1 } from './components/Forms/Form1.jsx';
-import { Logout } from './pages/Auth/Logout.jsx';
+
 import { RouteGuardPublic } from './guards/RouteGuardPublic.jsx';
-import { RoutGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
+import { RouteGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
+
 import { CLIENT_PATHS } from './util/paths.js';
 
 export const App = () => {
@@ -31,7 +34,7 @@ export const App = () => {
 						</Route>
 
 						{/* Private routes */}
-						<Route element={<RoutGuardAuthenticated />}>
+						<Route element={<RouteGuardAuthenticated />}>
 							<Route path='/' element={<Navigate to={CLIENT_PATHS.DASHBOARD} />} />
 							<Route path={CLIENT_PATHS.DASHBOARD} element={<Dashboard />} />
 							<Route path='/ui-elements' element={<AlertSuccess />} />

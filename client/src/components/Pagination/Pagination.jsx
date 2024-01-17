@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export const Pagination = ({ localFilteredState }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -24,24 +24,23 @@ export const Pagination = ({ localFilteredState }) => {
 		setCurrentPage(1);
 	}, [searchParams.get('offset'), searchParams.get('search')]);
 
-	function setFirstPage() {
+	const setFirstPage = () => {
 		setCurrentPage(1);
 	}
 
-	function previousPage() {
+	const previousPage = () => {
 		setCurrentPage((page) => Math.max(page - 1, 1));
 	}
 
-	function nextPage() {
+	const nextPage = () => {
 		setCurrentPage(page => Math.min(page + 1, totalPageCount));
 	}
 
-	function setLastPage() {
+	const setLastPage = () => {
 		setCurrentPage(totalPageCount);
 	}
 
 	function calculateNumberOfPages() {
-		//TODO.. in case of string
 		const offset = Number(searchParams.get('offset')) || 5;
 		const productCount = localFilteredState.totalProductCount;
 

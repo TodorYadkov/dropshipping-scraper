@@ -5,11 +5,11 @@ import { Header } from './Header.jsx';
 import { SideBar } from './SideBar.jsx';
 
 export const Layout = ({ children }) => {
-
 	const { isAuthenticated }= useAuthContext();
 
 	return (
 		<div className="flex h-screen bg-gray-200 font-roboto">
+			
 			{isAuthenticated && <SideBar />}
 
 			<div className="flex-1 flex flex-col overflow-hidden">

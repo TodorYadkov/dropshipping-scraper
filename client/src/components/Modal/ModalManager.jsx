@@ -1,7 +1,7 @@
-import { AddEbayProductModal } from "./AddEbayProductModal.jsx";
-import { AddProductModal } from "./AddProductModal.jsx";
-import { DeleteProductModal } from "./DeleteProductModal.jsx";
-import { EditProductModal } from "./EditProductModal.jsx";
+import { AddEbayProductModal } from './AddEbayProductModal.jsx';
+import { AddProductModal } from './AddProductModal.jsx';
+import { DeleteProductModal } from './DeleteProductModal.jsx';
+import { EditProductModal } from './EditProductModal.jsx';
 
 export const ModalManager = ({ useModal, data, closeModal }) => {
 

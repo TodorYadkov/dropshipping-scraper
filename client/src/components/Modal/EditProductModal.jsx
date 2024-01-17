@@ -1,12 +1,17 @@
-import { memo } from "react";
+import { memo } from 'react';
 
-import { EditProductForm } from "../Forms/EditProductForm.jsx";
-import { Modal } from "./Modal.jsx";
+import { EditProductForm } from '../Forms/EditProductForm.jsx';
+import { Modal } from './Modal.jsx';
 
 export const EditProductModal = memo(({ toggleModal, product }) => {
-    return (
-        <Modal title={'Edit product'} Content={() => <EditProductForm product={product} toggleModal={toggleModal} />} toggleModal={toggleModal} backdrop={false} />
-    );
+	return (
+		<Modal
+			title={'Edit product'}
+			toggleModal={toggleModal}
+			backdrop={false}
+			Content={() => <EditProductForm product={product} toggleModal={toggleModal} />}
+		/>
+	);
 });
 
 EditProductModal.displayName = 'EditProductModal';

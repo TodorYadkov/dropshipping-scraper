@@ -30,7 +30,6 @@ export const SideBar = () => {
 						onClick={() => changeSideBarState(false)}
 					/>
 				)}
-
 				{/* <!-- End Backdrop --> */}
 
 				<div
@@ -46,16 +45,13 @@ export const SideBar = () => {
 
 					<nav className="mt-10">
 						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
+							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to={CLIENT_PATHS.DASHBOARD}
 						>
 							<svg
 								className="w-5 h-5"
 								viewBox="0 0 20 20"
 								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
 							>
 								<path
 									d="M2 10C2 5.58172 5.58172 2 10 2V10H18C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10Z"
@@ -71,16 +67,13 @@ export const SideBar = () => {
 						</NavLink>
 
 						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
+							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to="/ui-elements"
 						>
 							<svg
 								className="w-5 h-5"
 								viewBox="0 0 20 20"
 								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
 							>
 								<path
 									d="M5 3C3.89543 3 3 3.89543 3 5V7C3 8.10457 3.89543 9 5 9H7C8.10457 9 9 8.10457 9 7V5C9 3.89543 8.10457 3 7 3H5Z"
@@ -104,16 +97,13 @@ export const SideBar = () => {
 						</NavLink>
 
 						{/* <NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
+							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to="/tables"
 						>
 							<svg
 								className="w-5 h-5"
 								viewBox="0 0 20 20"
 								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
 							>
 								<path
 									d="M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H13C13.5523 5 14 4.55228 14 4C14 3.44772 13.5523 3 13 3H7Z"
@@ -133,9 +123,7 @@ export const SideBar = () => {
 						</NavLink> */}
 
 						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
+							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to="/forms"
 						>
 							<svg
@@ -155,13 +143,10 @@ export const SideBar = () => {
 						</NavLink>
 
 						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
+							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to="/cards"
 						>
 							<svg
-								xmlns="http://www.w3.org/2000/svg"
 								className="w-5 h-5"
 								viewBox="0 0 20 20"
 								fill="currentColor"
@@ -178,13 +163,10 @@ export const SideBar = () => {
 						</NavLink>
 
 						<NavLink
-							className={({ isActive }) =>
-								setActiveAndInactiveCss(isActive)
-							}
+							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to="/modal"
 						>
 							<svg
-								xmlns="http://www.w3.org/2000/svg"
 								className="w-5 h-5"
 								viewBox="0 0 20 20"
 								fill="currentColor"

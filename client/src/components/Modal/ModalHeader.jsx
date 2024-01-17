@@ -2,10 +2,11 @@ export const ModalHeader = ({ title, toggleModal }) => {
     return (
         <div className="flex items-center justify-between px-6 py-3">
             <p className="text-2xl font-bold">{title}</p>
-            <div className="z-50 cursor-pointer modal-close hover:opacity-70" onClick={toggleModal}>
+            <div 
+            className="z-50 cursor-pointer modal-close hover:opacity-70" 
+            onClick={toggleModal}>
                 <svg
                     className="text-black fill-current"
-                    xmlns="http://www.w3.org/2000/svg"
                     width="25"
                     height="25"
                     viewBox="0 0 18 18"

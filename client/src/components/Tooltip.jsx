@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 // To use this component: On parent element add this tailwind styles:  relative group
 export const Tooltip = ({ message, direction = 'center', customTailwindClass }) => {
     const [currentDirection] = useState(() => {
         switch (direction) {
-            case 'left':
-                return 'bottom-full right-0'
             case 'center':
-                return 'bottom-full left-1/2 -translate-x-1/2'
+                return 'bottom-full left-1/2 -translate-x-1/2';
+            case 'left':
+                return 'bottom-full right-0';
             case 'right':
-                return 'bottom-full left-full'
+                return 'bottom-full left-full';
             case 'bottom':
-                return 'top-full left-1/2 -translate-x-1/2'
+                return 'top-full left-1/2 -translate-x-1/2';
         }
     });
 

@@ -1,4 +1,4 @@
-import { PRODUCT_FORM_KEYS } from "../../util/constants.js";
+import { PRODUCT_FORM_KEYS } from '../../util/constants.js';
 
 export const validationProductInput = (inputName, inputValue) => {
     if (inputName === PRODUCT_FORM_KEYS.AMAZON) {
@@ -14,7 +14,7 @@ export const validationProductInput = (inputName, inputValue) => {
         }
 
         if (inputValue.length <= 10 && asinRegex.test(inputValue) === false) {
-            return { [inputName]: 'Invalid Amazon ASIN!' };
+            return { [inputName]: 'Invalid Amazon ASIN' };
         }
 
         if ((amazonUrlRegex.test(inputValue) === false) && !asinRegex.test(inputValue)) {
@@ -37,7 +37,7 @@ export const validationProductInput = (inputName, inputValue) => {
         }
 
         if (inputValue.length <= 12 && itemIDRegex.test(inputValue) === false) {
-            return { [inputName]: 'Invalid eBay item!' };
+            return { [inputName]: 'Invalid eBay item' };
         }
 
         if ((ebayUrlRegex.test(inputValue) === false) && !itemIDRegex.test(inputValue)) {

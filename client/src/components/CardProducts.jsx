@@ -8,13 +8,13 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 	return (
 		<div className="flex flex-col items-center">
+
 			{products.length === 0 && (
 				<div className="flex items-center justify-center p-10 mt-4 bg-white rounded-md">
 					<svg
 						className="inline-block w-8 h-8 text-gray-900"
 						viewBox="0 0 28 28"
 						fill="none"
-						xmlns="http://www.w3.org/2000/svg"
 					>
 						<path
 							d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z"
@@ -47,7 +47,6 @@ export const CardProducts = ({ products, onModalClick }) => {
 							className="cursor-pointer hover:opacity-70"
 							onClick={() => onModalClick('AddProductModal')}
 						>
-							{' '}
 							Add from here.
 						</span>
 					</p>
@@ -61,7 +60,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 							{product.imageURL ? (
 								<Link
 									to={product.amazonUrl}
-									target="_blank"
+									target="blank"
 									rel="noopener noreferrer"
 								>
 									<img
@@ -96,7 +95,6 @@ export const CardProducts = ({ products, onModalClick }) => {
 				                                C196.432,372.068,169.342,383.723,154.311,397.564z"/>
 								</svg>
 							)}
-
 						</div>
 						<div className="flex flex-col justify-between p-4 leading-normal bg-white border-b border-l border-r border-gray-200 rounded-b lg:w-full lg:border-l-0 lg:border-t lg:border-gray-200 lg:rounded-b-none lg:rounded-r">
 							<div className="mb-8">
@@ -104,17 +102,10 @@ export const CardProducts = ({ products, onModalClick }) => {
 									<p className="flex items-center text-sm text-gray-600">
 										<svg
 											className="w-4 h-4 mr-2"
-											xmlns="http://www.w3.org/2000/svg"
 											viewBox="0 0 512 512"
-											fill={
-												product.availability ===
-													'Out of Stock'
-													? 'red'
-													: 'green'
-											}
+											fill={product.availability === 'Out of Stock' ? 'red' : 'green'}
 										>
-											{product.availability ===
-												'Out of Stock' ? (
+											{product.availability === 'Out of Stock' ? (
 												<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z" />
 											) : (
 												<path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" />
@@ -128,7 +119,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 									{product.name ? (
 										<Link
 											to={product.amazonUrl}
-											target="_blank"
+											target="blank"
 											rel="noopener noreferrer"
 										>
 											{product.name}
@@ -139,18 +130,17 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 								<div className="flex flex-col text-base text-gray-700">
 									<p>
-										Amazon Price:{' '}
-										{product.priceAmazon && `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}`}
+										Amazon Price: {product.priceAmazon && `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}`}
 									</p>
 
 									{product.priceEbay ? (
 										<Link
 											to={product.ebayUrl}
-											target="_blank"
+											target="blank"
 											rel="noopener noreferrer"
 										>
 											<p>
-												Ebay Price:{' '}
+												Ebay Price:
 												{product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
 												{product?.currencyEbayOriginal && <sup className='ml-1 italic'>({`${product.priceEbayOriginal.toFixed(2)} ${product.currencyEbayOriginal}`})</sup>}
 											</p>
@@ -162,7 +152,6 @@ export const CardProducts = ({ products, onModalClick }) => {
 													eBay Product
 													<svg
 														className="ml-2 w-4 h-4"
-														xmlns="http://www.w3.org/2000/svg"
 														viewBox="0 0 512 512"
 														fill="#4b5563"
 													>
@@ -182,7 +171,6 @@ export const CardProducts = ({ products, onModalClick }) => {
 												{product.profit < 0 && (
 													<svg
 														className="w-4 h-4"
-														xmlns="http://www.w3.org/2000/svg"
 														viewBox="0 0 512 512"
 													>
 														<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
@@ -192,11 +180,8 @@ export const CardProducts = ({ products, onModalClick }) => {
 										</p>
 									) : (
 										<>
-											{!product.ebayUrl ? (
-												<p>Need eBay Product</p>
-											) : (
-												<p>Profit:</p>
-											)}
+											{!product.ebayUrl ? <p>Need eBay Product</p> : <p>Profit:</p>
+										}
 										</>
 									)}
 								</div>
@@ -207,8 +192,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 										Rating: {product.rating}
 									</p>
 									<p className="text-gray-600">
-										Last Updated:{' '}
-										{(product.updatedAt !== '1970-01-01T00:00:00.000Z') && formatDateToTimeAgo(product.updatedAt)}
+										Last Updated: {(product.updatedAt !== '1970-01-01T00:00:00.000Z') && formatDateToTimeAgo(product.updatedAt)}
 									</p>
 								</div>
 
@@ -217,7 +201,6 @@ export const CardProducts = ({ products, onModalClick }) => {
 										{product.error && (
 											<div className="relative group">
 												<svg
-													xmlns="http://www.w3.org/2000/svg"
 													className="fill-red-600 group-hover:text-gray-900"
 													height="24"
 													width="24"

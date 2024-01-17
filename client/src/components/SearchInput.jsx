@@ -1,28 +1,25 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export const SearchInput = () => {
-
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [searchInputState, setSearchInputState] = useState(() => searchParams.get('search') || '');
+	const [searchInputState, setSearchInputState] = useState(() => searchParams.get('search') || '' );
 
 	useEffect(() => {
-
 		setSearchParams((params) => {
 			const paramsObject = Object.fromEntries(params.entries());
 			if (searchInputState === '') {
 				const { search, ...paramsWithoutSearchProperty } = paramsObject;
-				return { ...paramsWithoutSearchProperty }
+				return { ...paramsWithoutSearchProperty };
 			} else {
-				return { ...paramsObject, search: searchInputState }
+				return { ...paramsObject, search: searchInputState };
 			}
-		})
-
+		});
 	}, [searchInputState]);
 
-	function searchInputStateHandler(e) {
+	const searchInputStateHandler = (e) => {
 		setSearchInputState(e.target.value);
-	}
+	};
 
 	return (
 		<div className="relative mx-4 lg:mx-0">

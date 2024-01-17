@@ -3,7 +3,6 @@ export const ButtonDots = () => {
 		<button className="relative z-10 block p-2 transition-colors duration-200 transform bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">
 			<svg
 				className="w-6 h-6 text-white"
-				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"
 				stroke="currentColor"

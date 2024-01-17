@@ -7,4 +7,4 @@ export const Loader = ({ width, height, margin }) => {
             <div className={`w-${w} h-${h} border-4 border-dashed rounded-full animate-spin-slow dark:border-indigo-600`}></div>
         </div>
     );
-}
+};

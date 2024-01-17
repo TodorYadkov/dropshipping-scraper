@@ -1,4 +1,4 @@
-export const Input = ({ text, type, name, value, error, onChange, onBlur }) => {
+export const Input = ({ text, type, name, value, onChange, onBlur, error }) => {
 	return (
 		<label className="block mb-3">
 			<span className="text-sm text-gray-700">{text}</span>

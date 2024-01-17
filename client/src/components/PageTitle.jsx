@@ -1,15 +1,9 @@
-import { useDocumentTitle } from "../hooks/useDocumentTitle.js";
-
+import { useDocumentTitle } from '../hooks/useDocumentTitle.js';
 
 export const PageTitle = ({ title, children }) => {
+	const titlePrefix = 'Amazon Scraper | ';
 
-    const titlePrefix = 'Amazon Scraper | '
+	useDocumentTitle(`${titlePrefix}${title}`);
 
-    useDocumentTitle(`${titlePrefix}${title}`);
-
-    return (
-        <>
-            {children}
-        </>
-    );
+	return <>{children}</>;
 };

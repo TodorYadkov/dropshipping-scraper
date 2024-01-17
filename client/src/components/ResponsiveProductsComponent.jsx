@@ -2,8 +2,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { TABLE_BODY_TYPES } from '../util/constants.js';
 
-import { CardProducts } from './CardProducts.jsx';
 import { Table } from './Tables/Table.jsx';
+import { CardProducts } from './CardProducts.jsx';
 import { ModalManager } from './Modal/ModalManager.jsx';
 import { Pagination } from './Pagination/Pagination.jsx';
 import { ProductOptions } from './Tables/ProductOptions.jsx';
@@ -55,11 +55,13 @@ export const ResponsiveProductsComponent = ({ localFilteredState }) => {
 
 			<Pagination localFilteredState={localFilteredState} />
 
-			{toggleModal && (<ModalManager
+			{toggleModal && (
+			<ModalManager
 				useModal={modalState.modalName}
 				data={modalState.product}
 				closeModal={closeModal}
-			/>)}
+			/>
+			)}
 		</div>
 	);
 };
