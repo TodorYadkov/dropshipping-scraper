@@ -3,22 +3,22 @@ import { useSearchParams } from 'react-router-dom';
 
 export const SearchInput = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [searchInputState, setSearchInputState] = useState(() => searchParams.get('search') || '' );
+	const [search, setSearch] = useState(() => searchParams.get('search') || '' );
 
 	useEffect(() => {
 		setSearchParams((params) => {
 			const paramsObject = Object.fromEntries(params.entries());
-			if (searchInputState === '') {
+			if (search === '') {
 				const { search, ...paramsWithoutSearchProperty } = paramsObject;
 				return { ...paramsWithoutSearchProperty };
 			} else {
-				return { ...paramsObject, search: searchInputState };
+				return { ...paramsObject, search: search };
 			}
 		});
-	}, [searchInputState]);
+	}, [search]);
 
-	const searchInputStateHandler = (e) => {
-		setSearchInputState(e.target.value);
+	const handleSearchChange = (e) => {
+		setSearch(e.target.value);
 	};
 
 	return (
@@ -43,8 +43,8 @@ export const SearchInput = () => {
 				className="w-full sm:w-64 pl-10 pr-4 py-2 text-gray-700 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
 				type="text"
 				placeholder="Search"
-				value={searchInputState}
-				onInput={searchInputStateHandler}
+				value={search}
+				onInput={handleSearchChange}
 			/>
 		</div>
 	);

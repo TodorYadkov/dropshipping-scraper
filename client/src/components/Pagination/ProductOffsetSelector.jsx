@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const baseValue = 5;
 
 export const ProductOffsetSelector = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [offset, setOffset] = useState(() => {
-        const offsetParam = searchParams.get('offset');
-        return offsetParam ? Number(offsetParam) : baseValue;
-    });
+    const [offset, setOffset] = useState(() => Number(searchParams.get('offset')) || baseValue);
 
     useEffect(() => {
         setSearchParams((params) => {
