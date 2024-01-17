@@ -73,8 +73,8 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 
         // Sorting the products
         function sortHandler() {
-            const sortBy = searchParams.get('sort') || 'last_updated_desc';
-            sortingProducts(sortBy, productsToFilter);
+            const sortBy = searchParams.get('sort');
+            sortBy && sortingProducts(sortBy, productsToFilter);
         }
        
         setLocalFilteredState({ totalProductCount, products: productsToFilter });
