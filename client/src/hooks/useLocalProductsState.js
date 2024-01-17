@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { calculateProfit } from "../util/calculateProfit.js";
-import { useAppStateContext } from "./useAppStateContext.js";
-import { REDUCER_TYPES } from "../util/constants.js";
-import { sortingProducts } from "../util/sortingProducts.js";
+import { calculateProfit } from '../util/calculateProfit.js';
+import { REDUCER_TYPES } from '../util/constants.js';
+import { sortingProducts } from '../util/sortingProducts.js';
+
+import { useAppStateContext } from './useAppStateContext.js';
 
 export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 	const { appState } = useAppStateContext();
@@ -72,7 +73,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 
         // Sorting the products
         function sortHandler() {
-            const sortBy = searchParams.get('sort') || 'Ascending by Name';
+            const sortBy = searchParams.get('sort') || 'last_updated_desc';
             sortingProducts(sortBy, productsToFilter);
         }
        
