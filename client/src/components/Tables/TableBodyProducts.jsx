@@ -87,8 +87,8 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
-                            {product.priceAmazon && `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}`}
+                        <p className="text-gray-900 whitespace-wrap text-center relative group">
+                            {product.priceAmazon !== 0 ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
                             <Tooltip message={'Amazon Price'} />
                         </p>
                     </td>
@@ -112,7 +112,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                             <>
                                 {!product.ebayUrl && (
                                     <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
-                                        No Price
+                                        Add eBay product
                                         <Tooltip message={'Add eBay Product'} />
                                     </p>
                                 )}
@@ -123,7 +123,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         {product?.profit ? (
                             <p className={`${product.profit > 0 ? 'text-gray-900' : 'fill-red-500 text-red-500 flex gap-1 justify-center items-center '} whitespace-wrap text-center relative group`}>
-                                {product.profit && `${product.profit} ${product.currencyAmazon}`}
+                                {product.profit !== 0 ? `${product.profit} ${product.currencyAmazon}` : '-'}
                                 {product.profit < 0 && (
                                     <svg
                                         className="w-4 h-4"
@@ -136,10 +136,15 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                             </p>
                         ) : (
                             <>
-                                {!product.ebayUrl && (
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
-                                        Need eBay Product
-                                        <Tooltip message={'Add eBay Product'} />
+                                {!product.ebayUrl ? (
+                                    <p className="text-gray-900 whitespace-wrap text-center relative group">
+                                        -
+                                        <Tooltip message={'No eBay product'} />
+                                    </p>
+                                    ) : (
+                                    <p className="text-gray-900 whitespace-wrap text-center relative group">
+                                        Calculating...
+                                        <Tooltip message={'Waiting scraping'} />
                                     </p>
                                 )}
                             </>
@@ -156,14 +161,14 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {product.rating}
+                            {product.rating || '-'}
                             <Tooltip message={'Rating'} />
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {(product.updatedAt !== '1970-01-01T00:00:00.000Z') && formatDateToTimeAgo(product.updatedAt)}
+                            {product.updatedAt !== '1970-01-01T00:00:00.000Z' ? formatDateToTimeAgo(product.updatedAt) : "-"}
                             <Tooltip message={'Last Updated'} />
                         </p>
                     </td>
