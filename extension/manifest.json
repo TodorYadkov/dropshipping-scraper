@@ -10,8 +10,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"*://*.amazon.com/*",
-				"*://*.ebay.com/*"
+				"<all_urls>"
 			],
 			"js": [
 				"contentScript.js"
@@ -35,6 +34,43 @@
 		"alarms"
 	],
 	"host_permissions": [
-		"<all_urls>"
+		"*://*.amazon.com/*",
+		"*://*.amazon.co.jp/*",
+		"*://*.amazon.co.uk/*",
+		"*://*.amazon.de/*",
+		"*://*.amazon.fr/*",
+		"*://*.amazon.ca/*",
+		"*://*.amazon.es/*",
+		"*://*.amazon.it/*",
+		"*://*.amazon.com.be/*",
+		"*://*.amazon.nl/*",
+		"*://*.amazon.pl/*",
+		"*://*.amazon.se/*",
+		"*://*.amazon.com.mx/*",
+		"*://*.amazon.com.br/*",
+		"*://*.ebay.com/*",
+		"*://*.ebay.co.uk/*",
+		"*://*.ebay.de/*",
+		"*://*.ebay.fr/*",
+		"*://*.ebay.it/*",
+		"*://*.ebay.es/*",
+		"*://*.ebay.ca/*",
+		"*://*.ebay.com.au/*",
+		"*://*.ebay.in/*",
+		"*://*.ebay.at/*",
+		"*://*.ebay.be/*",
+		"*://*.ebay.ch/*",
+		"*://*.ebay.ie/*",
+		"*://*.ebay.nl/*",
+		"*://*.ebay.pl/*",
+		"*://*.ebay.com.hk/*",
+		"*://*.ebay.com.my/*",
+		"*://*.ebay.com.sg/*",
+		"*://*.ebay.com.ph/*",
+		"*://*.ebay.com.tw/*",
+		"*://*.ebay.com.vn/*",
+		"*://*.ebay.com.tr/*",
+		"*://*.ebay.com.mx/*",
+		"*://*.ebay.com.br/*"
 	]
 }
