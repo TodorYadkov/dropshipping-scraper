@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAppStateContext } from "../hooks/useAppStateContext.js";
+import { useAppStateContext } from "../../hooks/useAppStateContext.js";
 
-import { Tooltip } from "./Tooltip.jsx";
+import { Tooltip } from "../Tooltip.jsx";
 
 export const ErrorNotifierDropdown = () => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);

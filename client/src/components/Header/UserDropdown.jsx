@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { CLIENT_PATHS } from '../util/paths.js';
+import { CLIENT_PATHS } from '../../util/paths.js';
 
 export const UserDropdown = () => {
     const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
