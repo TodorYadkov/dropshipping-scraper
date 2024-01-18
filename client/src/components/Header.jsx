@@ -2,6 +2,7 @@ import { useAppStateContext } from '../hooks/useAppStateContext.js';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 
 import { UserDropdown } from './UserDropdown.jsx';
+import { ErrorNotifierDropdown } from './ErrorNotifierDropdown.jsx';
 
 export const Header = () => {
 	const { changeSideBarState } = useAppStateContext();
@@ -61,7 +62,13 @@ export const Header = () => {
 				</div>
 			</div>
 
-			{isAuthenticated && <UserDropdown />}
+			{isAuthenticated && (
+				<div className="flex items-center">
+					<ErrorNotifierDropdown />
+					<UserDropdown />
+				</div>
+			)}
+
 		</header>
 	);
 };
