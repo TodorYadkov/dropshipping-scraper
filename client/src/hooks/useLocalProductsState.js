@@ -31,7 +31,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 	async function setLocalProductsWithSameCurrencyAndProfit() {
 		try {
 			const productsWithCalculatedCurrencyAndProfit =
-			await calculateProfit(appState[REDUCER_TYPES.PRODUCTS], exchangeRates);
+				await calculateProfit(appState[REDUCER_TYPES.PRODUCTS], exchangeRates);
 			setLocalProducts(productsWithCalculatedCurrencyAndProfit);
 			filterProductsHandler(productsWithCalculatedCurrencyAndProfit);
 		} catch (err) {
@@ -45,21 +45,22 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 		let productsToFilter = [...products];
 		let totalProductCount = productsToFilter.length;
 
-        searchHandler(); // Apply search filter
-        sortHandler();
-        pageHandler();  // Slice the products so it contains only products for that page
+		searchHandler(); // Apply search filter
+		sortHandler();
+		pageHandler();  // Slice the products so it contains only products for that page
 
-        // Search
-        function searchHandler() {
-            const search = searchParams.get('search');
-            const searchRegexPattern = new RegExp(search, 'i');
-            if (search) {
-                productsToFilter = productsToFilter.filter(product => searchRegexPattern.test(product.name));
-            } else {
-                productsToFilter = [...products];
-            }
+		// Search
+		function searchHandler() {
+			const search = searchParams.get('search');
+			const searchRegexPattern = new RegExp(search, 'i');
+			if (search) {
+				productsToFilter = productsToFilter.filter(product => searchRegexPattern.test(product.name));
+				totalProductCount = productsToFilter.length;
+			} else {
+				productsToFilter = [...products];
+			}
 		}
-		
+
 		// Slice products for page products
 		function pageHandler() {
 			const offset = Number(searchParams.get('offset')) || 5;
@@ -71,14 +72,14 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 			productsToFilter = productsToFilter.slice(startIndex, endIndex);
 		}
 
-        // Sorting the products
-        function sortHandler() {
-            const sortBy = searchParams.get('sort');
-            sortBy && sortingProducts(sortBy, productsToFilter);
-        }
-       
-        setLocalFilteredState({ totalProductCount, products: productsToFilter });
-    }
+		// Sorting the products
+		function sortHandler() {
+			const sortBy = searchParams.get('sort');
+			sortBy && sortingProducts(sortBy, productsToFilter);
+		}
+
+		setLocalFilteredState({ totalProductCount, products: productsToFilter });
+	}
 
 	return {
 		localFilteredState,
