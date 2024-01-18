@@ -13,7 +13,7 @@ export const Pagination = ({ localFilteredState }) => {
 		setSearchParams((params) => {
 			const paramsObject = Object.fromEntries(params.entries());
 
-			return 'offset' in paramsObject === false ? { page: currentPage, offset: 5 } : { ...paramsObject, page: currentPage }
+			return 'offset' in paramsObject === false ? { page: currentPage, offset: 10 } : { ...paramsObject, page: currentPage }
 		})
 	}, [currentPage]);
 
@@ -76,7 +76,7 @@ export const Pagination = ({ localFilteredState }) => {
 	}
 
 	function calculateNumberOfPages() {
-		const offset = Number(searchParams.get('offset')) || 5;
+		const offset = Number(searchParams.get('offset')) || 10;
 		const productCount = localFilteredState.totalProductCount;
 		const pages = Math.max(Math.ceil(productCount / offset), 1); // In case of 0 set it to 1
 		return pages;
