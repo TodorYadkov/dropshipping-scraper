@@ -43,54 +43,45 @@ export const calculateProfit = async (products, exchangeRates) => {
     return productsWithProfit;
 };
 
-// Memoized function for currencyCourses calculation
-export const memoizedCalculateCurrencyCourses = async (
+// Load currencies
+export const loadCurrencyCourses = async (
     products,
     productExchangeCourse,
-    setProductExchangeCourseHandler,
-    addAlertMessage
+    setProductExchangeCourseHandler
 ) => {
-    try {
-        // Determine main currencies from products
-        const mainCurrencies = new Set(products.map((p) => p.currencyEbay ? p.currencyEbay.toLocaleLowerCase() : 'usd'));
+    // Determine main currencies from products
+    const mainCurrencies = new Set(products.map((p) => p.currencyEbay ? p.currencyEbay.toLocaleLowerCase() : 'usd'));
 
-        // Initialize an object to store all available currencies
-        let allAvailableCurrencies = {};
+    // Initialize an object to store all available currencies
+    let allAvailableCurrencies = {};
 
-        // Fetch all available currencies if not already in the state
-        if (!productExchangeCourse['allAvailableCurrencies']) {
-            const response = await fetch(EXTERNAL_API_PATHS.CURRENCY_COURSE_ALL);
-            allAvailableCurrencies = await response.json();
+    // Fetch all available currencies if not already in the state
+    if (!productExchangeCourse['allAvailableCurrencies']) {
+        const response = await fetch(EXTERNAL_API_PATHS.CURRENCY_COURSE_ALL);
+        allAvailableCurrencies = await response.json();
 
-            // Update the productExchangeCourse state with all available currencies
-            setProductExchangeCourseHandler({ ...productExchangeCourse, allAvailableCurrencies });
-        }
+        // Update the productExchangeCourse state with all available currencies
+        setProductExchangeCourseHandler({ ...productExchangeCourse, allAvailableCurrencies });
+    }
 
-        // Check and fetch currency courses for main currencies not in the state
-        const newCurrencyCourses = {};
+    // Check and fetch currency courses for main currencies not in the state
+    const newCurrencyCourses = {};
 
-        for (const currency of mainCurrencies) {
-            if (!(currency in productExchangeCourse)) {
-                const currencyExists = allAvailableCurrencies[currency] || (productExchangeCourse['allAvailableCurrencies'] && productExchangeCourse['allAvailableCurrencies'][currency]);
+    for (const currency of mainCurrencies) {
+        if (!(currency in productExchangeCourse)) {
+            const currencyExists = allAvailableCurrencies[currency] || (productExchangeCourse['allAvailableCurrencies'] && productExchangeCourse['allAvailableCurrencies'][currency]);
 
-                if (currencyExists) {
-                    // Fetch and state currency course if not available
-                    const response = await fetch(EXTERNAL_API_PATHS.CURRENCY_COURSE_TO_AMAZON_CURRENCY(currency));
-                    const currentExchangeRates = await response.json();
+            if (currencyExists) {
+                // Fetch and state currency course if not available
+                const response = await fetch(EXTERNAL_API_PATHS.CURRENCY_COURSE_TO_AMAZON_CURRENCY(currency));
+                const currentExchangeRates = await response.json();
 
-                    // Cache the result
-                    newCurrencyCourses[currency] = currentExchangeRates;
+                // Cache the result
+                newCurrencyCourses[currency] = currentExchangeRates;
 
-                    // Update the productExchangeCourse state with the new state values
-                    setProductExchangeCourseHandler({ ...productExchangeCourse, ...newCurrencyCourses });
-                }
+                // Update the productExchangeCourse state with the new state values
+                setProductExchangeCourseHandler({ ...productExchangeCourse, ...newCurrencyCourses });
             }
         }
-
-    } catch (error) {
-        console.error(error);
-        addAlertMessage(error.message);
     }
 };
-
-
