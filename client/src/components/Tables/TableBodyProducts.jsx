@@ -88,7 +88,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {product.priceAmazon !== 0 ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
+                            {product.priceAmazon ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
                             <Tooltip message={'Amazon Price'} />
                         </p>
                     </td>
@@ -124,7 +124,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         {product?.profit ? (
                             <p className={`${product.profit > 0 ? 'text-gray-900' : 'fill-red-500 text-red-500 flex gap-1 justify-center items-center '} whitespace-wrap text-center relative group`}>
                                 {product.profit !== 0 ? `${product.profit} ${product.currencyAmazon}` : '-'}
-                                {product.profit < 0 && (
+                                {product.profit <= 0 && (
                                     <svg
                                         className="w-4 h-4"
                                         viewBox="0 0 512 512"
@@ -132,7 +132,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                                         <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
                                     </svg>
                                 )}
-                                {product.profit > 0 ? <Tooltip message={'Profit'} /> : <Tooltip message={'The product is sold at a loss!'} customTailwindClass="bg-red-500" />}
+                                {product.profit >= 0 ? <Tooltip message={'Profit'} /> : <Tooltip message={'The product is sold at a loss!'} customTailwindClass="bg-red-500" />}
                             </p>
                         ) : (
                             <>
@@ -141,7 +141,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                                         -
                                         <Tooltip message={'No eBay product'} />
                                     </p>
-                                    ) : (
+                                ) : (
                                     <p className="text-gray-900 whitespace-wrap text-center relative group">
                                         Calculating...
                                         <Tooltip message={'Waiting scraping'} />
@@ -154,40 +154,42 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {product.availability}
-                            <Tooltip message={'Availability'} />
+                            {product.availability || '-'}
+                            {product.availability && <Tooltip message={'Availability'} />}
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {product.rating || '-'}
-                            <Tooltip message={'Rating'} />
+                            {product.rating && <Tooltip message={'Rating'} />}
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {product.updatedAt !== '1970-01-01T00:00:00.000Z' ? formatDateToTimeAgo(product.updatedAt) : "-"}
-                            <Tooltip message={'Last Updated'} />
+                            {product.updatedAt !== '1970-01-01T00:00:00.000Z' && <Tooltip message={'Last Updated'} />}
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap flex items-center justify-center">
+                        <p className="text-gray-900 whitespace-wrap flex items-center justify-center relative group">
                             {product.error
-                                ? <div className="relative group">
-                                    <svg 
-                                        className="fill-red-600 group-hover:text-gray-900"
-                                        height="24"
-                                        width="24"
-                                        viewBox="0 0 512 512">
-                                        <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
-                                    </svg>
-                                    <Tooltip message={product.error} direction="left" customTailwindClass="mb-1" />
-                                </div>
-                                : '-'
-                            }
+                                ? (
+                                    <>
+                                        <svg
+                                            className="fill-red-600 group-hover:text-gray-900"
+                                            height="24"
+                                            width="24"
+                                            viewBox="0 0 512 512">
+                                            <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
+                                        </svg>
+                                        <Tooltip message={product.error} direction="left" customTailwindClass="mb-1" />
+                                    </>
+                                ) : (
+                                    '-'
+                                )}
                         </p>
                     </td>
 
@@ -216,7 +218,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                             </div>
                         </div>
                     </td>
-                    
+
                 </tr>
             ))
             }
