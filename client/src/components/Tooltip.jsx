@@ -12,6 +12,8 @@ export const Tooltip = ({ message, direction = 'center', customTailwindClass }) 
                 return 'bottom-full left-full';
             case 'bottom':
                 return 'top-full left-1/2 -translate-x-1/2';
+            case 'bottom-left':
+                return 'top-full -translate-x-1/2';
         }
     });
 
