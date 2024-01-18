@@ -3,6 +3,7 @@ import { login, logout } from './services/authService.js';
 import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
 import { getData, removeData, setData } from './util/storageActions.js';
 import { multiBrowser, timeToFetchProduct, tokenName } from './constants/constants.js';
+import { closeAllOpenTabs } from './util/autoCloseTabs.js';
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
 
@@ -22,30 +23,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 // Change button state
                 await setData({ isScriptRunning: false });
 
-                // Close all open tabs
-                const { activeTabs } = await getData(['activeTabs']);
-                const closeTabPromises = activeTabs.map(tabId => {
-                    return new Promise(async (resolve) => {
-                        try {
-                            // Check if the tab still exists
-                            const tabExists = await multiBrowser.tabs.get(tabId);
-                            if (tabExists) {
-                                // If the tab exists, remove it
-                                await multiBrowser.tabs.remove(tabId);
-                            }
-                        } catch (error) {
-                            console.error(`Error checking or closing tab ${tabId}: ${error}`);
-                        } finally {
-                            resolve();
-                        }
-                    });
-                });
-
-                // Wait for all tab removal promises to resolve
-                await Promise.all(closeTabPromises);
-
-                // Set initial state for active tabs
-                await setData({ activeTabs: [] });
+                await closeAllOpenTabs();
 
                 break;
 
@@ -72,30 +50,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 
                     multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
 
-                    // Close all open tabs
-                    const { activeTabs } = await getData(['activeTabs']);
-                    const closeTabPromises = activeTabs.map(tabId => {
-                        return new Promise(async (resolve) => {
-                            try {
-                                // Check if the tab still exists
-                                const tabExists = await multiBrowser.tabs.get(tabId);
-                                if (tabExists) {
-                                    // If the tab exists, remove it
-                                    await multiBrowser.tabs.remove(tabId);
-                                }
-                            } catch (error) {
-                                console.error(`Error checking or closing tab ${tabId}: ${error}`);
-                            } finally {
-                                resolve();
-                            }
-                        });
-                    });
-
-                    // Wait for all tab removal promises to resolve
-                    await Promise.all(closeTabPromises);
-
-                    // Set initial state
-                    await setData({ activeTabs: [] });
+                    await closeAllOpenTabs();
                 } catch (error) {
                     await removeData([tokenName]);
                 }
@@ -121,6 +76,8 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
         } catch (error) {
             multiBrowser.runtime.sendMessage({ message: 'errorServerProduct', error: error.message });
             console.error(error.message);
+        } finally {
+            await closeAllOpenTabs();
         }
     }
 });
