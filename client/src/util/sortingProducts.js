@@ -1,5 +1,5 @@
 export const sortingProducts = (sortBy, products) => {
-    let sortFunction = {
+    const sortFunctions = {
         'name_asc': (a, b) => a.name.localeCompare(b.name),
         'name_desc': (a, b) => b.name.localeCompare(a.name),
         'amazon_price_asc': (a, b) => a.priceAmazon - b.priceAmazon,
@@ -12,5 +12,5 @@ export const sortingProducts = (sortBy, products) => {
         'last_updated_desc': (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt)
     };
 
-    products.sort(sortFunction[sortBy] || ((a, b) => a - b));
+    products.sort(sortFunctions[sortBy] || ((a, b) => a - b));
 }
