@@ -18,6 +18,7 @@ import { RouteGuardPublic } from './guards/RouteGuardPublic.jsx';
 import { RouteGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
 
 import { CLIENT_PATHS } from './util/paths.js';
+import { NotFound404 } from './pages/NotFound404.jsx';
 
 export const App = () => {
 
@@ -45,6 +46,7 @@ export const App = () => {
 							<Route path={CLIENT_PATHS.LOGOUT} element={<Logout />} />
 						</Route>
 
+						<Route path='*' element={<NotFound404 />} />
 					</Routes>
 				</Layout>
 			</AppStateProvider>
