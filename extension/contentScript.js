@@ -38,8 +38,8 @@ try {
             currencyAmazon,
             name: document.querySelector('h1#title span#productTitle')?.textContent ?? 'We couldn\'t find name property',
             description: document.querySelector('#feature-bullets > ul')?.textContent ?? 'We couldn\'t find description property',
-            imageURL: document.querySelector('.imgTagWrapper img').src,
-            rating: document.querySelector('#acrPopover > span.a-declarative > a > span')?.textContent,
+            imageURL: document.querySelector('.imgTagWrapper img')?.src ?? 'We couldn\'t find image url',
+            rating: document.querySelector('#acrPopover > span.a-declarative > a > span')?.textContent ?? 'We couldn\'t find rating property',
         };
 
     } else if (isEbayPage) {
