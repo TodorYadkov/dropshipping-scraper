@@ -13,7 +13,7 @@ export const DropdownSorts = () => {
                 const { sort, ...paramsWithoutSortProperty } = paramsObject;
                 return {...paramsWithoutSortProperty}
             } else {
-                return 'sort' in paramsObject === false ? { page: 1, offset: 5, sort: sort } : { ...paramsObject, sort: sort }
+                return 'sort' in paramsObject === false ? { page: 1, offset: 10, sort: sort } : { ...paramsObject, sort: sort }
             }
         });
     }, [sort]);
