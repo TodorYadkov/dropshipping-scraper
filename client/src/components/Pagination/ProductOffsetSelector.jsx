@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-const baseValue = 5;
+const baseValue = 10;
 
 export const ProductOffsetSelector = () => {
 
