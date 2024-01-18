@@ -109,11 +109,11 @@ export const CardProducts = ({ products, onModalClick }) => {
 											)}
 
 											{product.availability === 'In Stock' && (
-												<path fill='green' d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+												<path fill='green' d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
 											)}
 
 											{(product.availability !== 'Out of Stock') && (product.availability !== 'In Stock') && (
-												<path fill='darkblue' d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
+												<path fill='darkblue' d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
 											)}
 										</svg>
 										{product.availability}
@@ -135,7 +135,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 								<div className="flex flex-col text-base text-gray-700">
 									<p>
-										Amazon Price: {product.priceAmazon !== 0 ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
+										Amazon Price: {product.priceAmazon ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
 									</p>
 
 									{product.priceEbay ? (
@@ -145,7 +145,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 											rel="noopener noreferrer"
 										>
 											<p>
-												Ebay Price: {' '} 
+												Ebay Price: {' '}
 												{product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
 												{product?.currencyEbayOriginal && <sup className='ml-1 italic'>({`${product.priceEbayOriginal.toFixed(2)} ${product.currencyEbayOriginal}`})</sup>}
 											</p>
@@ -168,7 +168,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 											)}
 										</>
 									)}
-									
+
 									{product?.profit ? (
 										<p>
 											Profit: <span className={`${product.profit < 0 && 'fill-red-500 text-red-500 inline-flex items-center gap-1'}`}>
