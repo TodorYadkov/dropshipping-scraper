@@ -15,7 +15,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 		totalProductCount: 0
 	});
 	const [searchParams] = useSearchParams();
-
+	
 	// Set currency to local products
 	useEffect(() => {
 		// Calculate profit
@@ -30,8 +30,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 	// It set the local products with amazon currency;
 	async function setLocalProductsWithSameCurrencyAndProfit() {
 		try {
-			const productsWithCalculatedCurrencyAndProfit =
-				await calculateProfit(appState[REDUCER_TYPES.PRODUCTS], exchangeRates);
+			const productsWithCalculatedCurrencyAndProfit = await calculateProfit(appState[REDUCER_TYPES.PRODUCTS], exchangeRates);
 			setLocalProducts(productsWithCalculatedCurrencyAndProfit);
 			filterProductsHandler(productsWithCalculatedCurrencyAndProfit);
 		} catch (err) {
@@ -63,7 +62,7 @@ export const useLocalProductState = (addAlertMessage, exchangeRates) => {
 
 		// Slice products for page products
 		function pageHandler() {
-			const offset = Number(searchParams.get('offset')) || 5;
+			const offset = Number(searchParams.get('offset')) || 10;
 			const page = Number(searchParams.get('page')) || 1;
 
 			const startIndex = (page - 1) * offset;
