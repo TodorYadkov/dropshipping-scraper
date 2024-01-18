@@ -24,7 +24,6 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
                 await setData({ isScriptRunning: false });
 
                 await closeAllOpenTabs();
-
                 break;
 
             case 'login':
@@ -83,7 +82,6 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
 });
 
 // TODO: maybe send message to popup on storage.locals change
-
 // multiBrowser.storage.onChanged.addListener((changes, namespace) => {
 //     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
 //         console.log(
