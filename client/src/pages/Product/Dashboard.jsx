@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { REDUCER_TYPES } from '../../util/constants.js';
-import { memoizedCalculateCurrencyCourses } from '../../util/calculateProfit.js';
+import { loadCurrencyCourses } from '../../util/calculateProfit.js';
 
 import { useApi } from '../../hooks/useApi.js';
 import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
@@ -55,7 +55,7 @@ export const Dashboard = () => {
 				getGeneralStatistic()
 			]);
 
-			await memoizedCalculateCurrencyCourses(products, productExchangeCourse, setProductExchangeCourseHandler, addAlertMessage);
+			await loadCurrencyCourses(products, productExchangeCourse, setProductExchangeCourseHandler);
 
 			setProducts(products);
 			setGeneralStatistic(generalStatistic);
@@ -80,6 +80,10 @@ export const Dashboard = () => {
 		setProductExchangeCourse(coursesData);
 	}
 
+	async function onRefreshClick() {
+		return fetchProductsHandler();
+	}
+
 	return (
 		<PageTitle title={'Dashboard'}>
 			<div className='relative'>
@@ -95,7 +99,7 @@ export const Dashboard = () => {
 								</div>
 							)}
 
-							<ResponsiveProductsComponent localFilteredState={localFilteredState} />
+							<ResponsiveProductsComponent localFilteredState={localFilteredState} onRefresh={onRefreshClick} />
 						</>
 					)
 				}
