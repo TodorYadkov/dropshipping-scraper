@@ -6,7 +6,7 @@ const baseValue = 5;
 export const ProductOffsetSelector = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [offset, setOffset] = useState(() => Number(searchParams.get('offset')) || baseValue);
+    const [offset, setOffset] = useState(() => Math.abs(Number(searchParams.get('offset'))) || baseValue);
 
     useEffect(() => {
         setSearchParams((params) => {
@@ -28,9 +28,10 @@ export const ProductOffsetSelector = () => {
                 value={offset}
                 onChange={handleSelectChange}
             >
-                <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
