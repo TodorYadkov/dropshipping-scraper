@@ -19,7 +19,7 @@ export const CLIENT_PATHS = {
     LOGOUT: '/logout',
     PROFILE: '/profile',
     FORGOT_PASSWORD: '/forgot-password',
-    RESET_PASSWORD: '/reset-password/:tokenId', // TODO
+    RESET_PASSWORD: '/reset-password/:tokenId',
     DASHBOARD: '/dashboard',
     EXTENSIONS: '/extensions',
 };
