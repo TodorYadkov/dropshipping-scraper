@@ -15,9 +15,13 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	const onChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-
-		setValues((state) => ({ ...state, [name]: value }));
-
+	
+		if (e.target.files) {
+			setValues((state) => ({ ...state, [name]: e.target.files[0] }));
+		} else {
+			setValues((state) => ({ ...state, [name]: value }));
+		}
+		
 		const currentError = validationFunction(name, typeof value === 'string' ? value.trim() : value);
 		setFormErrors((state) => ({ ...state, [name]: { ...state[name], message: currentError[name] } }));
 	};
