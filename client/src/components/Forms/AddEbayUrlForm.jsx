@@ -47,7 +47,7 @@ export const AddEbayUrlForm = ({ toggleModal, product }) => {
             <form onSubmit={onSubmit} className="w-full bg-gray-100 py-2">
 
                 <div className="px-5 pb-6 text-gray-700">
-                    <label className="text-xs">Ebay URL</label>
+                    <label className="text-xs">Ebay URL or Product item</label>
 
                     <div className="relative mt-2 rounded-md shadow-sm">
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-600">
