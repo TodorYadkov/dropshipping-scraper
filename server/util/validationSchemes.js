@@ -59,6 +59,12 @@ const validateLoginSchema = joi.object({
 	isExtension: joi.boolean().optional()
 });
 
+const validateResetPasswordSchema = joi.object({
+	password: joi.string().required().trim().min(8).max(20),
+	// TODO: Same as above if we want complex password validation
+
+	resetToken: joi.string().required().trim()
+});
 
 function amazonUrlValidator(value) {
 	// Regular expression to match Amazon URLs
@@ -95,4 +101,5 @@ export {
 	updateProductSchema,
 	validateRegisterSchema,
 	validateLoginSchema,
+	validateResetPasswordSchema,
 };
