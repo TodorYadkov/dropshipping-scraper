@@ -45,7 +45,7 @@ const validateRegisterSchema = joi.object({
 	// Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
 	// /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
-	role: joi.any().valid(...Object.values(USER_ROLES))
+	// role: joi.any().valid(...Object.values(USER_ROLES))
 });
 
 const validateLoginSchema = joi.object({

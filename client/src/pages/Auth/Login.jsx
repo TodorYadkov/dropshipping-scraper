@@ -48,7 +48,7 @@ export const Login = () => {
 		}
 	}
 
-	function togglePasswordVisibility() {
+	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
 	}
 

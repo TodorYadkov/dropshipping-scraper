@@ -1,4 +1,3 @@
-/* eslint-disable no-prototype-builtins */
 import { EXTERNAL_API_PATHS } from './paths.js';
 
 const calculateProfitForProduct = (product, currentExchangeRate) => {
