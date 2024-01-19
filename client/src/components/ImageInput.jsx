@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const ImageInput = ({ text, type, name, value, onChange, onBlur, error, isEditable = true }) => {
+export const ImageInput = ({ type, name, value, onChange, onBlur, error, isEditable = true }) => {
 
     const [previewImage, setPreviewImage] = useState(null);
 
@@ -28,7 +28,7 @@ export const ImageInput = ({ text, type, name, value, onChange, onBlur, error, i
         <div className="flex-col items-center justify-center">
 
             <div className="w-36 h-w-36 overflow-hidden rounded-full shadow p-5 mb-2 mx-auto">
-                <img src={previewImage ? previewImage : "https://res.cloudinary.com/framevibe/image/upload/v1705613842/nl9lfvifhh4kb718wbnf.png"} alt="User Image" />
+                <img src={previewImage ? previewImage : value !== ' ' ? value : "https://res.cloudinary.com/framevibe/image/upload/v1705613842/nl9lfvifhh4kb718wbnf.png"} alt="User Image" />
             </div>
 
 
