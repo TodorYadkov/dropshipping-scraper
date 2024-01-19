@@ -12,10 +12,12 @@ export const SERVER_PATHS = {
 };
 
 export const CLIENT_PATHS = {
-    DASHBOARD: '/dashboard',
     LOGIN: '/login',
     REGISTER: '/register',
     LOGOUT: '/logout',
+    PROFILE: '/profile',
+    DASHBOARD: '/dashboard',
+    EXTENSIONS: '/extensions',
 };
 
 export const EXTERNAL_API_PATHS = {
