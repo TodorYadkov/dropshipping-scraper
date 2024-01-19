@@ -15,13 +15,13 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 	const onChange = (e) => {
 		const name = e.target.name;
 		const value = e.target.value;
-	
+
 		if (e.target.files) {
 			setValues((state) => ({ ...state, [name]: e.target.files[0] }));
 		} else {
 			setValues((state) => ({ ...state, [name]: value }));
 		}
-		
+
 		const currentError = validationFunction(name, typeof value === 'string' ? value.trim() : value);
 		setFormErrors((state) => ({ ...state, [name]: { ...state[name], message: currentError[name] } }));
 	};
@@ -37,6 +37,10 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 		setFormErrors((state) => ({ ...state, [name]: { ...state[name], isTouched: true } }));
 	};
 
+	const formReset = () => {
+		setValues(initialValues);
+	};
+
 	function validateForm() {
 		setIsInvalidForm(
 			Object.values(values).some(value => value === '') ||
@@ -50,6 +54,7 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 		isInvalidForm,
 		onChange,
 		onSubmit,
-		onBlur
+		onBlur,
+		formReset,
 	};
 }
