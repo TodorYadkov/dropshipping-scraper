@@ -1,8 +1,11 @@
 import { Router } from 'express';
+import { upload } from '../config/multer.js'
 
-import { userRegister, userLogin, userLogout, getUserById, createResetLink } from '../services/userService.js'
-import { validateRegisterSchema, validateLoginSchema, validateResetPasswordSchema } from '../util/validationSchemes.js';
+import { userRegister, userLogin, userLogout, getUserById, createResetLink, updateUser } from '../services/userService.js'
+import { validateRegisterSchema, validateLoginSchema, validateResetPasswordSchema, validateUpdateProfileSchema } from '../util/validationSchemes.js';
 import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
+import { imageUpload } from '../util/imageUpload.js';
+import { imageDelete } from '../util/imageDelete.js.js';
 
 const userController = Router();
 
@@ -58,12 +61,50 @@ userController.get('/profile', isUserLogged, async (req, res, next) => {
     }
 });
 
+// Update Profile
+userController.put('/profile', isUserLogged, upload.single('uploadAvatar'), async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+
+        // Getting the file  
+        const file = req.file;
+
+        // Getting the data and file using multer
+        const userData = { name: req.body.name, email: req.body.email };
+
+        // Validating the fields
+        await validateUpdateProfileSchema.validateAsync({ ...userData, uploadAvatar: file });
+
+        // If we have file add it to the user data object
+        if (file) {
+            const result = await imageUpload(file);
+
+            userData.avatarURL = result.secure_url;
+            userData.avatarId = result.public_id;
+
+            // If there is old avatar delete it 
+            const user = await getUserById(userId);
+
+            // Deleting the old avatar
+            if (user.avatarURL && user.avatarId) {
+                await imageDelete(user.avatarId);
+            }
+        }
+
+        const updatedUserData = await updateUser(userId, userData);
+
+        res.status(200).json(updatedUserData);
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Forgot password
 userController.post('/forgot-password', isUserGuest, async (req, res, next) => {
     try {
         const userData = req.body;
         const origin = req.get('Origin');
-        
+
         const resetLink = await createResetLink({ ...userData, resetAddress: origin });
 
         res.status(200).json(resetLink);
