@@ -4,6 +4,7 @@ export const SERVER_PATHS = {
     LOGIN: '/users/login',
     REGISTER: '/users/register',
     LOGOUT: '/users/logout',
+    UPDATE_PROFILE: '/users/profile',
     FORGOT_PASSWORD: '/users/forgot-password',
     RESET_PASSWORD: '/users/reset-password',
     GET_ALL_PRODUCTS: '/products',
