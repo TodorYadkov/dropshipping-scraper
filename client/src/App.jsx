@@ -17,6 +17,7 @@ import { Logout } from './pages/Auth/Logout.jsx';
 import { Profile } from './pages/Auth/Profile.jsx';
 import { Dashboard } from './pages/Product/Dashboard.jsx';
 import { NotFound404 } from './pages/NotFound404.jsx';
+import { ForgotPassword } from './pages/Auth/ForgotPassword.jsx';
 
 export const App = () => {
 
@@ -30,6 +31,8 @@ export const App = () => {
 						<Route element={<RouteGuardPublic />}>
 							<Route path={CLIENT_PATHS.LOGIN} element={<Login />} />
 							<Route path={CLIENT_PATHS.REGISTER} element={<Register />} />
+							<Route path={CLIENT_PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
+							<Route path={CLIENT_PATHS.RESET_PASSWORD} element={<h1>Reset Password</h1>} />
 						</Route>
 
 						{/* Private routes */}
