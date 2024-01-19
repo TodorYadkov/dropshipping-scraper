@@ -1,16 +1,15 @@
 import { useState } from "react";
 
+import { useAuthContext } from "../../hooks/useAuthContext.js";
+import { useApi } from "../../hooks/useApi.js";
+import { useForm } from "../../hooks/useForm.js";
+import { authService } from "../../services/authService.js";
+import { validationUserInput } from "./validationUserInput.js";
+import { AUTH_FORM_KEYS } from "../../util/constants.js";
+
 import { Input } from "../../components/Input.jsx";
 import { Loader } from "../../components/Loader.jsx";
 import { PageTitle } from "../../components/PageTitle.jsx";
-import { useAuthContext } from "../../hooks/useAuthContext.js";
-import { useApi } from "../../hooks/useApi.js";
-import { authService } from "../../services/authService.js";
-import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "../../hooks/useForm.js";
-import { AUTH_FORM_KEYS } from "../../util/constants.js";
-import { validationUserInput } from "./validationUserInput.js";
-import { CLIENT_PATHS } from "../../util/paths.js";
 import { ImageInput } from "../../components/ImageInput.jsx";
 
 export const Profile = () => {
@@ -19,38 +18,39 @@ export const Profile = () => {
     const [serverError, setServerError] = useState('');
 
     const { currentUserData, setUserState } = useAuthContext();
-    const { register } = useApi(authService);
-    const navigate = useNavigate();
+    const { profileUpdate } = useApi(authService);
 
     const { values, formErrors, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
         onUpdate,
         {
             [AUTH_FORM_KEYS.name]: currentUserData.userDetails[AUTH_FORM_KEYS.name],
             [AUTH_FORM_KEYS.email]: currentUserData.userDetails[AUTH_FORM_KEYS.email],
-            [AUTH_FORM_KEYS.imageUrl]: currentUserData.userDetails[AUTH_FORM_KEYS.imageUrl] || ' ',
+            [AUTH_FORM_KEYS.uploadAvatar]: currentUserData.userDetails.avatarURL || ' ',
         },
         validationUserInput
     );
 
-    // console.log(currentUserData.userDetails);
-
     async function onUpdate(formData) {
-
         try {
-            if (formData[AUTH_FORM_KEYS.imageUrl] === '') {
-                formData[AUTH_FORM_KEYS.imageUrl] = null;
+            setIsLoading(true);
+
+            if (formData[AUTH_FORM_KEYS.uploadAvatar] === '') {
+                formData[AUTH_FORM_KEYS.uploadAvatar] = null;
             }
 
-            console.log(formData);
-            setIsLoading(true);
-            const userInfo = await register(formData);
+            const dataForServer = new FormData();
+            dataForServer.append([AUTH_FORM_KEYS.name], formData[AUTH_FORM_KEYS.name]);
+            dataForServer.append([AUTH_FORM_KEYS.email], formData[AUTH_FORM_KEYS.email]);
+            dataForServer.append([AUTH_FORM_KEYS.uploadAvatar], formData[AUTH_FORM_KEYS.uploadAvatar]);
+
+            const userInfo = await profileUpdate(dataForServer);
 
             setUserState(userInfo);
-            navigate(CLIENT_PATHS.DASHBOARD, { replace: true });
         } catch (error) {
             setServerError(error.message);
         } finally {
             setIsLoading(false);
+            setIsEditable(false);
         }
     }
 
@@ -78,15 +78,15 @@ export const Profile = () => {
                                 </p>
                             )}
 
-                            <form className="mt-4" onSubmit={onSubmit}>
-
+                            <form className="mt-4" onSubmit={onSubmit} encType="multipart/form-data">
+                                {/* <form className="mt-4" onSubmit={onSubmit} encType={values[AUTH_FORM_KEYS.uploadAvatar] ? "multipart/form-data" : undefined}> */}
                                 <ImageInput
                                     type="file"
-                                    name={AUTH_FORM_KEYS.imageUrl}
-                                    value={values[AUTH_FORM_KEYS.imageUrl]}
+                                    name={AUTH_FORM_KEYS.uploadAvatar}
+                                    value={values[AUTH_FORM_KEYS.uploadAvatar]}
                                     onChange={onChange}
                                     onBlur={onBlur}
-                                    error={formErrors[AUTH_FORM_KEYS.imageUrl]}
+                                    error={formErrors[AUTH_FORM_KEYS.uploadAvatar]}
                                     isEditable={isEditable}
                                 />
 
