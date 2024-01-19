@@ -4,7 +4,8 @@ export const AUTH_FORM_KEYS = {
 	email: 'email',
 	name: 'name',
 	password: 'password',
-	extensionName: 'extensionName'
+	extensionName: 'extensionName',
+	imageUrl: 'imageUrl'
 };
 
 export const PRODUCT_FORM_KEYS = {
