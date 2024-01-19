@@ -6,6 +6,10 @@ const calculateProfitForProduct = (product, currentExchangeRate) => {
         return null;
     }
 
+    if (product.priceAmazon === 0 || product.priceEbay === 0) {
+        return null;
+    }
+
     if (product.currencyAmazon === product.currencyEbay) {
         return (parseFloat(product.priceEbay) - parseFloat(product.priceAmazon)).toFixed(2);
     }
@@ -21,7 +25,7 @@ const calculateProfitForProduct = (product, currentExchangeRate) => {
 
     const profitInBaseCurrency = priceInBaseCurrency - product.priceAmazon;
 
-    return parseFloat(profitInBaseCurrency.toFixed(2));
+    return parseFloat(profitInBaseCurrency).toFixed(2);
 }
 
 export const calculateProfit = async (products, exchangeRates) => {
