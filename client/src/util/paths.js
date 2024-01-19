@@ -4,6 +4,8 @@ export const SERVER_PATHS = {
     LOGIN: '/users/login',
     REGISTER: '/users/register',
     LOGOUT: '/users/logout',
+    FORGOT_PASSWORD: '/users/forgot-password',
+    RESET_PASSWORD: '/users/reset-password',
     GET_ALL_PRODUCTS: '/products',
     CREATE_PRODUCT: '/products',
     UPDATE_PRODUCT: (productId) => `/products/${productId}`,
@@ -16,6 +18,8 @@ export const CLIENT_PATHS = {
     REGISTER: '/register',
     LOGOUT: '/logout',
     PROFILE: '/profile',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password/:tokenId', // TODO
     DASHBOARD: '/dashboard',
     EXTENSIONS: '/extensions',
 };
