@@ -48,13 +48,13 @@ export const Login = () => {
 		}
 	}
 
-	const togglePasswordVisibility = () => {
+	const togglePasswordVisibilityHandler = () => {
 		setShowPassword(!showPassword);
 	}
 
 	return (
 		<PageTitle title={'Login'}>
-			<div className="flex items-center justify-center mt-20 px-6 bg-gray-200">
+			<div className="flex items-center justify-center mt-20 px-6 bg-gray-200 cursor-default">
 				<div className="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
 					<div className="flex items-center justify-center">
 						<svg
@@ -109,7 +109,7 @@ export const Login = () => {
 							/>
 							<button
 								type="button"
-								onClick={togglePasswordVisibility}
+								onClick={togglePasswordVisibilityHandler}
 								className="absolute top-8 right-0"
 							>
 								{showPassword ? (
@@ -149,8 +149,18 @@ export const Login = () => {
 						</div>
 					</form>
 
+					<div className="flex items-center justify-center text-sm cursor-pointer mt-3">
+						<Link
+							to={CLIENT_PATHS.FORGOT_PASSWORD}
+							className="text-sm text-indigo-700 hover:text-indigo-300"
+						>
+							Forgot your password?
+						</Link>
+					</div>
+
 					<div className="flex items-center justify-center gap-3 mt-3">
 						<p className="text-sm">Don&apos;t have an account ?</p>
+
 						<Link
 							to={CLIENT_PATHS.REGISTER}
 							className="text-sm text-indigo-700 hover:text-indigo-300"
