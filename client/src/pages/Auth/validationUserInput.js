@@ -56,4 +56,9 @@ export const validationUserInput = (inputName, inputValue) => {
 
 		return { [inputName]: '' };
 	}
+
+	if (inputName == AUTH_FORM_KEYS.imageUrl) {
+		//TODO validations for image
+		return { [inputName]: '' };
+	}
 };
