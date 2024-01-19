@@ -14,7 +14,6 @@ export default async (app) => {
 	app.use(urlencoded({ extended: true }));
 	app.use(tokenBlackListMiddleware(tokenBlackList));
 	app.use(userSession());
-	// app.use(cookieParser()); 				//	TODO.. add if needed
 
 	// Run the scheduled task
 	checkWorkingExtension();
