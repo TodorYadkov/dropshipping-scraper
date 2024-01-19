@@ -1,6 +1,6 @@
-export const AlertSuccess = () => {
+export const AlertSuccess = ({ message, close }) => {
 	return (
-		<div className="inline-flex w-full max-w-sm ml-3 overflow-hidden bg-white rounded-lg shadow-md">
+		<div className="inline-flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md">
 			<div className="flex items-center justify-center w-12 bg-green-500">
 				<svg
 					className="w-6 h-6 text-white fill-current"
@@ -16,12 +16,12 @@ export const AlertSuccess = () => {
 						Success
 					</span>
 					<p className="text-sm text-gray-600">
-						Your account was registered!
+						{message}
 					</p>
 				</div>
 			</div>
 
-			<div className="cursor-pointer ml-auto mr-2 mt-2" >
+			<div className="cursor-pointer ml-auto mr-2 mt-2" onClick={close}>
 				<svg
 					className="text-black fill-current"
 					width="18"
