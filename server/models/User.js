@@ -17,6 +17,15 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required!']
     },
+    avatarURL: {
+        type: String,
+        match: [/^https?:\/\//, 'Image URL must start with http or https!'],
+        default: null
+    },
+    avatarId: {
+        type: String,
+        default: null
+    },
     role: {
         type: String,
         required: [true, 'Role is required!'],
