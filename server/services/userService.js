@@ -46,6 +46,7 @@ async function userRegister({ name, email, password, role, extensionName }) {
             email: user.email,
             role: user.role,
             extensionName: user.extensionsName,
+            avatarURL: user.avatarURL
         }
     };
 }
@@ -110,6 +111,7 @@ async function userLogin(userData) {
             email: user.email,
             role: user.role,
             extensionName: userData.isExtension ? userData.extensionName : user.extensionsName,
+            avatarURL: user.avatarURL
         }
     };
 }
@@ -201,12 +203,32 @@ async function resetUserPassword({ password, resetToken }) {
             email: userWithNewPassword.email,
             role: userWithNewPassword.role,
             extensionName: userWithNewPassword.extensionsName,
+            avatarURL: userWithNewPassword.avatarURL
         }
     };
 }
 
 //  Get user 
-const getUserById = (userId) => User.findById(userId).select('-password'); // Select all without password (-password)
+const getUserById = async (userId) => User.findById(userId).select('-password'); // Select all without password (-password)
+
+// Find and Update 
+const updateUser = async (userId, userData) => {
+    const updatedUser = await User.findByIdAndUpdate(userId, userData, { runValidators: true, new: true });
+    const userToken = await generateUserToken(updatedUser);
+
+    return {
+        accessToken: userToken,
+        userDetails: {
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            role: updatedUser.role,
+            extensionName: updatedUser.extensionsName,
+            avatarURL: updatedUser.avatarURL
+        }
+    };
+};
+
 
 // Generating user token
 async function generateUserToken(user) {
@@ -234,23 +256,5 @@ export {
     getUserById,
     createResetLink,
     resetUserPassword,
+    updateUser,
 };
-
-
-
-
-
-
-        //     html: `
-        //     <div>
-        //       <h2 style="color:red">Password Reset</h2>
-        //       <p>
-        //         Hello,<br> 
-        //         To securely reset your password, please open this link within the next hour.
-        //       </p>
-        //       <a href="${resetLink}">Reset Your Password</a>
-        //       <p>
-        //         If you did not request this password reset, you can safely ignore this message.
-        //       </p>
-        //     </div>
-        //   `,

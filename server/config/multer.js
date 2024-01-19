@@ -2,7 +2,7 @@ import * as multerConfig from 'multer';
 
 const storage = multerConfig.memoryStorage();
 
-export const multer = multerConfig.default({
+export const upload = multerConfig.default({
     storage: storage,                           // set the storage (in this case in memory and when the request finishes garbage collector will clear it)
     fileFilter: multerFilter,                   // set to accept only jpeg or png 
     limits: {                                   // limit the size to 3mb and only 1 file
@@ -21,4 +21,4 @@ function multerFilter(req, file, cb) {
     }
 }
 
-//When encountering an error, Multer will delegate the error to Express
+// When encountering an error, Multer will delegate the error to Express

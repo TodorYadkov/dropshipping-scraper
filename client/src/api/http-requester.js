@@ -7,7 +7,9 @@ async function httpRequester(method, endpoint, clearUserState, accessToken, data
 		headers: {}
 	};
 
-	if (data) {
+	if (data instanceof FormData) {
+		options.body = data;
+	} else if (data != undefined) {
 		options.headers['Content-Type'] = 'application/json';
 		options.body = JSON.stringify(data);
 	}
@@ -27,7 +29,7 @@ async function httpRequester(method, endpoint, clearUserState, accessToken, data
 	}
 
 	return response.json();
-	
+
 }
 
 export const api = (clearUserState, accessToken) => ({

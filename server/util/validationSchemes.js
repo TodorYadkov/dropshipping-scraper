@@ -66,6 +66,14 @@ const validateResetPasswordSchema = joi.object({
 	resetToken: joi.string().required().trim()
 });
 
+const validateUpdateProfileSchema = joi.object({
+	name: joi.string().required().trim().max(50),
+
+	email: joi.string().required().trim().email().lowercase(),
+
+	uploadAvatar: joi.allow(null).optional()
+});
+
 function amazonUrlValidator(value) {
 	// Regular expression to match Amazon URLs
 	const amazonUrlRegex = /^https?:\/\/(www\.)?amazon\..*$/;
@@ -102,4 +110,5 @@ export {
 	validateRegisterSchema,
 	validateLoginSchema,
 	validateResetPasswordSchema,
+	validateUpdateProfileSchema,
 };

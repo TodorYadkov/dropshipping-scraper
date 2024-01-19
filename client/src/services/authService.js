@@ -11,6 +11,7 @@ export const authService = (api) => {
 	const forgotPassword = async (data) => api.post(SERVER_PATHS.FORGOT_PASSWORD, data);
 
 	const resetPassword = async (data) => api.post(SERVER_PATHS.RESET_PASSWORD, data);
+	const profileUpdate = async (data) => api.put(SERVER_PATHS.UPDATE_PROFILE, data);
 
 	return {
 		login,
@@ -18,5 +19,6 @@ export const authService = (api) => {
 		logout,
 		forgotPassword,
 		resetPassword,
+		profileUpdate,
 	};
 };
