@@ -32,7 +32,7 @@ export const App = () => {
 							<Route path={CLIENT_PATHS.LOGIN} element={<Login />} />
 							<Route path={CLIENT_PATHS.REGISTER} element={<Register />} />
 							<Route path={CLIENT_PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
-							<Route path={CLIENT_PATHS.RESET_PASSWORD} element={<h1>Reset Password</h1>} />
+							<Route path={CLIENT_PATHS.RESET_PASSWORD} element={<h1>TODO Reset Password</h1>} />
 						</Route>
 
 						{/* Private routes */}
