@@ -62,11 +62,11 @@ userController.get('/profile', isUserLogged, async (req, res, next) => {
 userController.post('/forgot-password', isUserGuest, async (req, res, next) => {
     try {
         const userData = req.body;
-        const origin = req.get('Origin');
-        
-        const resetLink = await createResetLink({ ...userData, resetAddress: origin });
+        const origin = req.get('origin');
 
-        res.status(200).json(resetLink);
+        await createResetLink({ ...userData, origin });
+
+        res.status(200).json({ message: 'Your reset token is send successfully!' });
     } catch (error) {
         next(error);
     }
