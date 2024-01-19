@@ -5,7 +5,7 @@ export const AUTH_FORM_KEYS = {
 	name: 'name',
 	password: 'password',
 	extensionName: 'extensionName',
-	imageUrl: 'imageUrl'
+	uploadAvatar: 'uploadAvatar'
 };
 
 export const PRODUCT_FORM_KEYS = {
