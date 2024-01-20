@@ -18,6 +18,7 @@ import { Profile } from './pages/Auth/Profile.jsx';
 import { Dashboard } from './pages/Product/Dashboard.jsx';
 import { NotFound404 } from './pages/NotFound404.jsx';
 import { ForgotPassword } from './pages/Auth/ForgotPassword.jsx';
+import { ResetPassword } from './pages/Auth/ResetPassword.jsx';
 
 export const App = () => {
 
@@ -32,7 +33,7 @@ export const App = () => {
 							<Route path={CLIENT_PATHS.LOGIN} element={<Login />} />
 							<Route path={CLIENT_PATHS.REGISTER} element={<Register />} />
 							<Route path={CLIENT_PATHS.FORGOT_PASSWORD} element={<ForgotPassword />} />
-							<Route path={CLIENT_PATHS.RESET_PASSWORD} element={<h1>TODO Reset Password</h1>} />
+							<Route path={CLIENT_PATHS.RESET_PASSWORD} element={<ResetPassword />} />
 						</Route>
 
 						{/* Private routes */}
