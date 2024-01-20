@@ -1,17 +1,17 @@
 import path from 'path';
 import { promises as fsPromises } from 'fs';
 
+import base64url from 'base64url';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 
+import { User } from '../models/User.js';
+import { TokenBlackList } from '../models/TokenBlacklist.js';
+import { ExtensionStatus } from '../models/ExtensionStatus.js';
 
 import { addTokenToBlackList } from './tokenBlackListService.js';
-import { User } from '../models/User.js';
-import { ExtensionStatus } from '../models/ExtensionStatus.js';
 import { signJwtToken } from '../util/signJwtToken.js';
 import { verifyJwtToken } from '../util/verifyJwtToken.js';
-
-const roundsBcrypt = 10;
 
 // Register
 async function userRegister({ name, email, password, role, extensionName }) {
@@ -23,6 +23,7 @@ async function userRegister({ name, email, password, role, extensionName }) {
     }
 
     // Hash password
+    const roundsBcrypt = Number(process.env.ROUNDS_BCRYPT);
     const hashedPassword = await bcrypt.hash(password, roundsBcrypt);
 
     // Create and save new user
@@ -38,17 +39,9 @@ async function userRegister({ name, email, password, role, extensionName }) {
     const userToken = await generateUserToken(user);
 
     // Return user info
-    return {
-        accessToken: userToken,
-        userDetails: {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            extensionName: user.extensionsName,
-            avatarURL: user.avatarURL
-        }
-    };
+    const responseObject = createResponseObject(userToken, user);
+
+    return responseObject;
 }
 
 //  Login
@@ -103,17 +96,9 @@ async function userLogin(userData) {
     }
 
     // Return user info
-    return {
-        accessToken: userToken,
-        userDetails: {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            role: user.role,
-            extensionName: userData.isExtension ? userData.extensionName : user.extensionsName,
-            avatarURL: user.avatarURL
-        }
-    };
+    const responseObject = createResponseObject(userToken, user);
+
+    return responseObject;
 }
 
 //  Logout
@@ -135,7 +120,7 @@ async function userLogout({ _id, accessToken, isExtension, extensionName }) {
         userLogoutData.extensionName = extensionName[0];
     }
 
-    const blackListToken = await addTokenToBlackList(userLogoutData);
+    await addTokenToBlackList(userLogoutData);
 
     return { message: 'Logout successful!' };
 }
@@ -148,9 +133,9 @@ async function createResetLink({ email, origin }) {
         throw new Error('Invalid email!');
     }
 
-    const temporaryToken = await signJwtToken({ _id: user._id }, { expiresIn: '1h' });
+    const temporaryToken = await signJwtToken({ _id: user._id }, { expiresIn: '10m' });
 
-    const encodedToken = encodeURIComponent(temporaryToken);
+    const encodedToken = base64url(temporaryToken);
 
     const resetLink = `${origin}/reset-password/${encodedToken}`;
 
@@ -174,7 +159,7 @@ async function createResetLink({ email, origin }) {
         from: `"Dropshipping Scraper" ${process.env.GMAIL_USER}`,
         to: user.email,
         subject: 'DO NOT REPLY: Dropshipping Scraper - Password Reset',
-        text: 'To reset your password, please follow the link. The link is active for 1 hour.',
+        text: 'To reset your password, please follow the link. The link is active for 10 minutes.',
         html: formattedHtml
     });
 
@@ -183,29 +168,30 @@ async function createResetLink({ email, origin }) {
 
 // Reset password
 async function resetUserPassword({ password, resetToken }) {
-    const decodedToken = decodeURIComponent(resetToken);
-    const verifiedToken= verifyJwtToken(decodedToken);
+    const decodedToken = base64url.decode(resetToken);
+    const userDetails = verifyJwtToken(decodedToken);
+
+    // Check if the current token is already used
+    const isTokenUsed = await TokenBlackList.findOne({ accessToken: decodedToken, userId: userDetails._id });
+    if (isTokenUsed) {
+        throw new Error('The token is already used!');
+    }
 
     // Hash password
+    const roundsBcrypt = Number(process.env.ROUNDS_BCRYPT);
     const hashedPassword = await bcrypt.hash(password, roundsBcrypt);
 
-    const userWithNewPassword = await User.findByIdAndUpdate(verifiedToken._id, { password: hashedPassword }, { runValidators: true, new: true });
+    const userWithNewPassword = await User.findByIdAndUpdate(userDetails._id, { password: hashedPassword }, { runValidators: true, new: true });
 
     // Create token
     const userToken = await generateUserToken(userWithNewPassword);
 
     // Return user info
-    return {
-        accessToken: userToken,
-        userDetails: {
-            _id: userWithNewPassword._id,
-            name: userWithNewPassword.name,
-            email: userWithNewPassword.email,
-            role: userWithNewPassword.role,
-            extensionName: userWithNewPassword.extensionsName,
-            avatarURL: userWithNewPassword.avatarURL
-        }
-    };
+    const responseObject = createResponseObject(userToken, userWithNewPassword);
+
+    await addTokenToBlackList({ accessToken: decodedToken, userId: userDetails._id });
+
+    return responseObject;
 }
 
 //  Get user 
@@ -216,19 +202,10 @@ const updateUser = async (userId, userData) => {
     const updatedUser = await User.findByIdAndUpdate(userId, userData, { runValidators: true, new: true });
     const userToken = await generateUserToken(updatedUser);
 
-    return {
-        accessToken: userToken,
-        userDetails: {
-            _id: updatedUser._id,
-            name: updatedUser.name,
-            email: updatedUser.email,
-            role: updatedUser.role,
-            extensionName: updatedUser.extensionsName,
-            avatarURL: updatedUser.avatarURL
-        }
-    };
-};
+    const responseObject = createResponseObject(userToken, updatedUser);
 
+    return responseObject;
+};
 
 // Generating user token
 async function generateUserToken(user) {
@@ -247,6 +224,21 @@ async function generateUserToken(user) {
 
     const signedToken = await signJwtToken(payload, options);
     return signedToken;
+}
+
+// Data to return to front-end
+function createResponseObject(userToken, user) {
+    return {
+        accessToken: userToken,
+        userDetails: {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            extensionName: user.extensionsName,
+            avatarURL: user.avatarURL
+        }
+    };
 }
 
 export {
