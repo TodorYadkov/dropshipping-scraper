@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { upload } from '../config/multer.js'
 
-import { userRegister, userLogin, userLogout, getUserById, createResetLink, updateUser } from '../services/userService.js'
+import { userRegister, userLogin, userLogout, getUserById, createResetLink, updateUser, resetUserPassword } from '../services/userService.js'
 import { validateRegisterSchema, validateLoginSchema, validateResetPasswordSchema, validateUpdateProfileSchema } from '../util/validationSchemes.js';
 import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
 import { imageUpload } from '../util/imageUpload.js';
@@ -114,14 +114,14 @@ userController.post('/forgot-password', isUserGuest, async (req, res, next) => {
 });
 
 // Reset password
-userController.post('/reset-password', isUserGuest, async (req, res, next) => {
+userController.put('/reset-password', isUserGuest, async (req, res, next) => {
     try {
         const userData = req.body;
 
         await validateResetPasswordSchema.validateAsync(userData);
-        const resetLink = await (userData);
+        const user = await resetUserPassword(userData);
 
-        res.status(200).json(resetLink);
+        res.status(200).json(user);
     } catch (error) {
         next(error);
     }
