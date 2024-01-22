@@ -37,7 +37,6 @@ export const ResetPassword = () => {
 
 	async function onLogin(formData) {
 		try {
-			console.log(resetToken)
 			if (!resetToken || resetToken.length < 20) {
 				navigate(CLIENT_PATHS.LOGIN, { replace: true });
 				return;
