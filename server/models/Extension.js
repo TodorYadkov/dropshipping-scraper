@@ -1,6 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 
-const extensionStatusSchema = new Schema({
+const extensionSchema = new Schema({
     extensionName: {
         type: String,
         required: [true, 'Extension Name is required!']
@@ -13,7 +13,7 @@ const extensionStatusSchema = new Schema({
         type: Boolean,
         default: false
     },
-    userId: {
+    owner: {
         type: Types.ObjectId,
         ref: 'User',
         required: [true, 'User reference is required!']
@@ -21,6 +21,9 @@ const extensionStatusSchema = new Schema({
 
 }, { timestamps: true });
 
-const ExtensionStatus = model('ExtensionStatus', extensionStatusSchema);
+// Create uniqueness product for each user
+extensionSchema.index({ extensionName: 1, owner: 1 }, { unique: true });
 
-export { ExtensionStatus };
+const Extension = model('Extension', extensionSchema);
+
+export { Extension };
