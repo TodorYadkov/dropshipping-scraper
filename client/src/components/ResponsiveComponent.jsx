@@ -1,16 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { TABLE_BODY_TYPES } from '../util/constants.js';
-
 import { Table } from './Tables/Table.jsx';
-import { CardProducts } from './CardProducts.jsx';
+import { Card } from './Cards/Card.jsx';
 import { ModalManager } from './Modal/ModalManager.jsx';
 import { Pagination } from './Pagination/Pagination.jsx';
-import { ProductOptions } from './Tables/ProductOptions.jsx';
+import { OptionsData } from './Options/OptionsData.jsx';
 
-export const ResponsiveProductsComponent = ({ localFilteredState, onRefresh }) => {
+export const ResponsiveComponent = ({ dataType, localFilteredState, onRefresh }) => {
 	const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1360);
-	const [modalState, setModalState] = useState({ modalName: '', product: {} });
+	const [modalState, setModalState] = useState({ modalName: '', data: {} });
 	const [toggleModal, setToggleModal] = useState(false);
 
 	useEffect(() => {
@@ -25,8 +23,8 @@ export const ResponsiveProductsComponent = ({ localFilteredState, onRefresh }) =
 		};
 	}, []);
 
-	const modalHandler = useCallback((modalName, product) => {
-		setModalState({ modalName, product: { ...product } });
+	const modalHandler = useCallback((modalName, data) => {
+		setModalState({ modalName, data: { ...data } });
 		setToggleModal(true);
 
 	}, [setToggleModal]);
@@ -38,27 +36,28 @@ export const ResponsiveProductsComponent = ({ localFilteredState, onRefresh }) =
 
 	return (
 		<div>
-			<ProductOptions onRefresh={onRefresh} />
+			<OptionsData dataTypes={dataType} onRefresh={onRefresh} />
 
 			{isDesktop ? (
 				<Table
-					data={localFilteredState.products}
-					typeBody={TABLE_BODY_TYPES.PRODUCT}
+					data={localFilteredState.data}
+					typeBody={dataType}
 					onModalClick={modalHandler}
 				/>
 			) : (
-				<CardProducts
-					products={localFilteredState.products}
+				<Card
+					data={localFilteredState.data}
+					dataTypes={dataType}
 					onModalClick={modalHandler}
 				/>
 			)}
 
-			{localFilteredState.totalProductCount !== 0 && <Pagination localFilteredState={localFilteredState} />}
+			{localFilteredState.totalDataCount !== 0 && <Pagination localFilteredState={localFilteredState} />}
 
 			{toggleModal && (
 				<ModalManager
 					useModal={modalState.modalName}
-					data={modalState.product}
+					data={modalState.data}
 					closeModal={closeModal}
 				/>
 			)}
