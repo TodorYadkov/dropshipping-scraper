@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 import { User } from '../models/User.js';
+import { ExtensionStatus } from '../models/ExtensionStatus.js';
 
 const getGeneralStatistic = async (userId) => {
 
@@ -89,4 +90,9 @@ const getGeneralStatistic = async (userId) => {
 	return generalStatistic;
 };
 
-export { getGeneralStatistic };
+const getExtensionsStatistic = async (userId) => ExtensionStatus.find({ userId });
+
+export {
+	getGeneralStatistic,
+	getExtensionsStatistic,
+};
