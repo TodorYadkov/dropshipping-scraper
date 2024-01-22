@@ -1,7 +1,7 @@
 import { sendData } from './services/dataService.js';
 import { login, logout } from './services/authService.js';
 import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
-import { getData, removeData, setData } from './util/storageActions.js';
+import { removeData, setData } from './util/storageActions.js';
 import { multiBrowser, timeToFetchProduct, tokenName } from './constants/constants.js';
 import { closeAllOpenTabs } from './util/autoCloseTabs.js';
 
