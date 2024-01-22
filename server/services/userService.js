@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 
 import { User } from '../models/User.js';
 import { TokenBlackList } from '../models/TokenBlacklist.js';
-import { ExtensionStatus } from '../models/ExtensionStatus.js';
+import { Extension } from '../models/Extension.js';
 
 import { addTokenToBlackList } from './tokenBlackListService.js';
 import { signJwtToken } from '../util/signJwtToken.js';
@@ -29,8 +29,14 @@ async function userRegister({ name, email, password, role, extensionName }) {
         name,
         email,
         role,
-        extensionsName: extensionName,
         password: hashedPassword
+    });
+
+    // Create extension
+    const extension = await Extension.create({
+        extensionName,
+        owner: user._id,
+        isLogin: true,
     });
 
     // Create token
@@ -43,55 +49,39 @@ async function userRegister({ name, email, password, role, extensionName }) {
 }
 
 //  Login
-async function userLogin(userData) {
+async function userLogin({ email, password, isExtension, extensionName }) {
     // Check if the user with this email exists
-    const user = await User.findOne({ email: userData.email });
+    const user = await User.findOne({ email });
     if (!user) {
         throw new Error('Invalid email or password!');
     }
 
     // Validate password
-    const matchPassword = await bcrypt.compare(userData.password, user.password);
+    const matchPassword = await bcrypt.compare(password, user.password);
     if (!matchPassword) {
         throw new Error('Invalid email or password!');
     }
 
-    // Add is extension in accessToken
-    user.isExtension = userData.isExtension;
-
-    let userToken;
-    if (userData.isExtension) {
-        // Check if extension name is exist in user list
-        if (user.extensionsName.includes(userData.extensionName) === false) {
+    if (isExtension) {
+        // Check if extension is already in use
+        const extension = await Extension.findOne({ extensionName, owner: user._id });
+        if (!extension) {
             throw new Error('The extension does not exist!');
         }
 
-        // Check if extension is already in use
-        const extensionStatus = await ExtensionStatus.findOne({ userId: user._id, extensionName: userData.extensionName });
-        if (extensionStatus) {
-            if (extensionStatus.isLogin) {
-                throw new Error('Extension is already in use!');
-            }
-
-            extensionStatus.isLogin = true;
-            await extensionStatus.save({ timestamps: false });
-
-        } else {
-            await ExtensionStatus.create({
-                userId: user._id,
-                isLogin: true,
-                extensionName: userData.extensionName,
-            })
+        if (extension.isLogin) {
+            throw new Error('Extension is already in use!');
         }
 
-        // Create token for extension
-        user.extensionsName = userData.extensionName;
-        userToken = await generateUserToken(user);
+        extension.isLogin = true;
+        await extension.save();
 
-    } else {
-        // Create token for front-end
-        userToken = await generateUserToken(user);
+        user.isExtension = isExtension;
+        user.extensionName = extensionName;
     }
+
+    // Create token
+    const userToken = await generateUserToken(user);
 
     // Return user info
     const responseObject = createResponseObject(userToken, user);
@@ -107,15 +97,15 @@ async function userLogout({ _id, accessToken, isExtension, extensionName }) {
     };
 
     if (isExtension) {
-        const extensionStatus = await ExtensionStatus.findOne({ userId: _id, extensionName: extensionName[0] });
-        if (extensionStatus) {
-            extensionStatus.isWork = false;
-            extensionStatus.isLogin = false;
+        const extension = await Extension.findOne({ extensionName, owner: _id });
+        if (extension) {
+            extension.isWork = false;
+            extension.isLogin = false;
 
-            await extensionStatus.save();
+            await extension.save();
         }
 
-        userLogoutData.extensionName = extensionName[0];
+        userLogoutData.extensionName = extensionName;
     }
 
     await addTokenToBlackList(userLogoutData);
@@ -136,7 +126,6 @@ async function createResetLink({ email, origin }) {
     const encodedToken = base64url(temporaryToken);
 
     const resetLink = `${origin}/reset-password/${encodedToken}`;
-
 
     // Send an email with the reset link
     const transporter = nodemailer.createTransport({
@@ -181,10 +170,10 @@ async function resetUserPassword({ password, resetToken }) {
     // Create token
     const userToken = await generateUserToken(userWithNewPassword);
 
+    await addTokenToBlackList({ accessToken: decodedToken, userId: userDetails._id });
+
     // Return user info
     const responseObject = createResponseObject(userToken, userWithNewPassword);
-
-    await addTokenToBlackList({ accessToken: decodedToken, userId: userDetails._id });
 
     return responseObject;
 }
@@ -214,7 +203,7 @@ async function generateUserToken(user) {
         email: user.email,
         role: user.role,
         isExtension: user.isExtension,
-        extensionName: user.extensionsName,
+        extensionName: user?.extensionName ? user.extensionName : 'React Client',
     }
 
     const signedToken = await signJwtToken(payload, options);
@@ -230,8 +219,8 @@ function createResponseObject(userToken, user) {
             name: user.name,
             email: user.email,
             role: user.role,
-            extensionName: user.extensionsName,
-            avatarURL: user.avatarURL
+            avatarURL: user.avatarURL,
+            extensionName: user?.extensionName ? user.extensionName : 'React Client',
         }
     };
 }
