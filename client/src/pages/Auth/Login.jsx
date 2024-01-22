@@ -54,7 +54,7 @@ export const Login = () => {
 
 	return (
 		<PageTitle title={'Login'}>
-			<div className="flex items-center justify-center mt-20 px-6 bg-gray-200 cursor-default">
+			<div className="flex items-center justify-center mt-20 px-6 bg-gray-200">
 				<div className="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
 					<div className="flex items-center justify-center">
 						<svg
