@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
-import { REDUCER_TYPES } from '../../util/constants.js';
+import { DATA_TYPES, REDUCER_TYPES } from '../../util/constants.js';
 import { loadCurrencyCourses } from '../../util/calculateProfit.js';
 
 import { useApi } from '../../hooks/useApi.js';
@@ -17,7 +17,7 @@ import { Loader } from '../../components/Loader.jsx';
 import { PageTitle } from '../../components/PageTitle.jsx';
 import { AlertError } from '../../components/Alerts/AlertError.jsx';
 import { DashboardSummary } from '../../components/DashboardSummary.jsx';
-import { ResponsiveProductsComponent } from '../../components/ResponsiveProductsComponent.jsx';
+import { ResponsiveComponent } from '../../components/ResponsiveComponent.jsx';
 
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);
@@ -99,7 +99,7 @@ export const Dashboard = () => {
 								</div>
 							)}
 
-							<ResponsiveProductsComponent localFilteredState={localFilteredState} onRefresh={onRefreshClick} />
+							<ResponsiveComponent dataType={DATA_TYPES.PRODUCT} localFilteredState={localFilteredState} onRefresh={onRefreshClick} />
 						</>
 					)
 				}
