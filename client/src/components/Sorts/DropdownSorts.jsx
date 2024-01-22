@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
+import { SORTING_KEYS } from '../../util/constants.js';
 
 export const DropdownSorts = () => {
 
@@ -11,7 +14,7 @@ export const DropdownSorts = () => {
             const paramsObject = Object.fromEntries(params.entries());
             if (sort === '') {
                 const { sort, ...paramsWithoutSortProperty } = paramsObject;
-                return {...paramsWithoutSortProperty}
+                return { ...paramsWithoutSortProperty }
             } else {
                 return 'sort' in paramsObject === false ? { page: 1, offset: 10, sort: sort } : { ...paramsObject, sort: sort }
             }
@@ -30,16 +33,16 @@ export const DropdownSorts = () => {
                 onChange={handleSelectChange}
             >
                 <option value={''}>Select</option>
-                <option value={'name_asc'}>Name &#x1F805;</option>
-                <option value={'name_desc'}>Name &#x1F807;</option>
-                <option value={'amazon_price_asc'}>Amazon price &#x1F805;</option>
-                <option value={'amazon_price_desc'}>Amazon price &#x1F807;</option>
-                <option value={'ebay_price_asc'}>Ebay price &#x1F805;</option>
-                <option value={'ebay_price_desc'}>Ebay price &#x1F807;</option>
-                <option value={'profit_asc'}>Profit &#x1F805;</option>
-                <option value={'profit_desc'}>Profit &#x1F807;</option>
-                <option value={'last_updated_asc'}>Last Updated &#x1F805;</option>
-                <option value={'last_updated_desc'}>Last Updated &#x1F807;</option>
+                <option value={[SORTING_KEYS.PRODUCT_NAME_ASC]}>Name &#x1F805;</option>
+                <option value={[SORTING_KEYS.PRODUCT_NAME_DESC]}>Name &#x1F807;</option>
+                <option value={[SORTING_KEYS.PRODUCT_AMAZON_PRICE_ASC]}>Amazon price &#x1F805;</option>
+                <option value={[SORTING_KEYS.PRODUCT_AMAZON_PRICE_DESC]}>Amazon price &#x1F807;</option>
+                <option value={[SORTING_KEYS.PRODUCT_EBAY_PRICE_ASC]}>Ebay price &#x1F805;</option>
+                <option value={[SORTING_KEYS.PRODUCT_EBAY_PRICE_DESC]}>Ebay price &#x1F807;</option>
+                <option value={[SORTING_KEYS.PRODUCT_PROFIT_ASC]}>Profit &#x1F805;</option>
+                <option value={[SORTING_KEYS.PRODUCT_PROFIT_DESC]}>Profit &#x1F807;</option>
+                <option value={[SORTING_KEYS.PRODUCT_LAST_UPDATED_ASC]}>Last Updated &#x1F805;</option>
+                <option value={[SORTING_KEYS.PRODUCT_LAST_UPDATED_DESC]}>Last Updated &#x1F807;</option>
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
