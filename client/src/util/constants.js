@@ -24,8 +24,21 @@ export const REDUCER_TYPES = {
 	GENERAL_STATISTIC: 'generalStatistic',
 };
 
-export const TABLE_BODY_TYPES = {
+export const DATA_TYPES = {
 	PRODUCT: 'product',
 	EXTENSION: 'extension',
 	USER: 'user'
+};
+
+export const SORTING_KEYS = {
+	PRODUCT_NAME_ASC: 'name_asc',
+	PRODUCT_NAME_DESC: 'name_desc',
+	PRODUCT_AMAZON_PRICE_ASC: 'amazon_price_asc',
+	PRODUCT_AMAZON_PRICE_DESC: 'amazon_price_desc',
+	PRODUCT_EBAY_PRICE_ASC: 'ebay_price_asc',
+	PRODUCT_EBAY_PRICE_DESC: 'ebay_price_desc',
+	PRODUCT_PROFIT_ASC: 'profit_asc',
+	PRODUCT_PROFIT_DESC: 'profit_desc',
+	PRODUCT_LAST_UPDATED_ASC: 'last_updated_asc',
+	PRODUCT_LAST_UPDATED_DESC: 'last_updated_desc',
 };
