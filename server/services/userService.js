@@ -137,6 +137,7 @@ async function createResetLink({ email, origin }) {
 
     const resetLink = `${origin}/reset-password/${encodedToken}`;
 
+
     // Send an email with the reset link
     const transporter = nodemailer.createTransport({
         // Configure email provider
@@ -149,7 +150,7 @@ async function createResetLink({ email, origin }) {
 
     const htmlTemplate = passwordResetTemplate(resetLink);
 
-    transporter.sendMail({
+    await transporter.sendMail({
         from: `"Dropshipping Scraper" ${process.env.GMAIL_USER}`,
         to: user.email,
         subject: 'DO NOT REPLY: Dropshipping Scraper - Password Reset',
