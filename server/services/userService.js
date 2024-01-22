@@ -169,7 +169,7 @@ async function resetUserPassword({ password, resetToken }) {
     // Check if the current token is already used
     const isTokenUsed = await TokenBlackList.findOne({ accessToken: decodedToken, userId: userDetails._id });
     if (isTokenUsed) {
-        throw new Error('The token is already used!');
+        throw new Error('Reset link is already used!');
     }
 
     // Hash password
