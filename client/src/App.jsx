@@ -9,7 +9,6 @@ import { RouteGuardPublic } from './guards/RouteGuardPublic.jsx';
 import { RouteGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
 
 import { Layout } from './components/Layout.jsx';
-import { AlertSuccess } from './components/Alerts/AlertSuccess.jsx';
 
 import { Login } from './pages/Auth/Login.jsx';
 import { Register } from './pages/Auth/Register.jsx';
@@ -19,6 +18,7 @@ import { Dashboard } from './pages/Product/Dashboard.jsx';
 import { NotFound404 } from './pages/NotFound404.jsx';
 import { ForgotPassword } from './pages/Auth/ForgotPassword.jsx';
 import { ResetPassword } from './pages/Auth/ResetPassword.jsx';
+import { Extensions } from './pages/Extensions.jsx';
 
 export const App = () => {
 
@@ -40,9 +40,9 @@ export const App = () => {
 						<Route element={<RouteGuardAuthenticated />}>
 							<Route path='/' element={<Navigate to={CLIENT_PATHS.DASHBOARD} />} />
 							<Route path={CLIENT_PATHS.DASHBOARD} element={<Dashboard />} />
-							<Route path={CLIENT_PATHS.EXTENSIONS} element={<AlertSuccess />} />
 							<Route path={CLIENT_PATHS.LOGOUT} element={<Logout />} />
 							<Route path={CLIENT_PATHS.PROFILE} element={<Profile />} />
+							<Route path={CLIENT_PATHS.EXTENSIONS} element={<Extensions />} />
 						</Route>
 
 						<Route path='*' element={<NotFound404 />} />
