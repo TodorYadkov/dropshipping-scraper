@@ -4,6 +4,7 @@ import { DATA_TYPES } from '../../util/constants.js';
 
 import { TableHeader } from './TableHeader.jsx';
 import { TableBodyProducts } from './TableBodyProducts.jsx';
+import { TableExtensionsData } from './TableExtensionsData.jsx';
 
 export const Table = ({ typeBody, data, onModalClick }) => {
 
@@ -19,8 +20,15 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 					Heading = <TableHeader headings={headings} />;
 				}
 				break;
+
 			case DATA_TYPES.EXTENSION:
+				{
+					const headings = ['Extension', 'Logged', 'Working', 'Created', 'Last Seen', 'Actions'];
+					Body = <TableExtensionsData extensionsData={data} onModalClick={onModalClick} />;
+					Heading = <TableHeader headings={headings} />;
+				}
 				break;
+
 			case DATA_TYPES.USER:
 				break;
 		}
