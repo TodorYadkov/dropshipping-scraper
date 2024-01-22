@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { useApi } from "../hooks/useApi.js";
+import { useFilterData } from "../hooks/useFilterData.js";
 import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
 
 import { DATA_TYPES } from "../util/constants.js";
@@ -18,8 +19,8 @@ import { ResponsiveComponent } from "../components/ResponsiveComponent.jsx";
 export const Extensions = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [alert, setAlert] = useState('');
-	const [extensionsStatisticData, setExtensionsStatisticData] = useState([]);
 
+	const [extensionsData, setExtensionsData] = useFilterData();
 	const [_] = useIntervalTimeToReceiveData(fetchExtensionsStatisticData);
 
 	const { getExtensionsStatistic } = useApi(statisticService);
@@ -42,7 +43,7 @@ export const Extensions = () => {
 		try {
 			const extensionsData = await getExtensionsStatistic();
 
-			setExtensionsStatisticData(extensionsData);
+			setExtensionsData(extensionsData);
 		} catch (error) {
 			console.error(error);
 			addAlertMessage(error.message);
@@ -75,7 +76,7 @@ export const Extensions = () => {
 								</div>
 							)}
 
-							<ResponsiveComponent dataType={DATA_TYPES.EXTENSION} localFilteredState={extensionsStatisticData} onRefresh={onRefreshClick} />
+							<ResponsiveComponent dataType={DATA_TYPES.EXTENSION} localFilteredState={extensionsData} onRefresh={onRefreshClick} />
 						</>
 					)
 				}
