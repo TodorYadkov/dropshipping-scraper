@@ -42,7 +42,6 @@ export const Pagination = ({ localFilteredState }) => {
 		setCurrentOffset(offsetParam);
 		setCurrentSearch(searchParam);
 
-
 	}, [searchParams.get('offset'), searchParams.get('search')]);
 
 	const setFirstPage = () => {
@@ -77,7 +76,7 @@ export const Pagination = ({ localFilteredState }) => {
 
 	function calculateNumberOfPages() {
 		const offset = Number(searchParams.get('offset')) || 10;
-		const productCount = localFilteredState.totalProductCount;
+		const productCount = localFilteredState.totalDataCount;
 		const pages = Math.max(Math.ceil(productCount / offset), 1); // In case of 0 set it to 1
 		return pages;
 	}
