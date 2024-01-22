@@ -40,14 +40,14 @@ export const ResponsiveComponent = ({ dataType, localFilteredState, onRefresh })
 
 			{isDesktop ? (
 				<Table
-					data={localFilteredState.data}
 					typeBody={dataType}
+					data={localFilteredState.data}
 					onModalClick={modalHandler}
 				/>
 			) : (
 				<Card
-					data={localFilteredState.data}
 					dataTypes={dataType}
+					data={localFilteredState.data}
 					onModalClick={modalHandler}
 				/>
 			)}
