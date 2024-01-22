@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
 import { User } from '../models/User.js';
-import { ExtensionStatus } from '../models/ExtensionStatus.js';
+import { Extension } from '../models/Extension.js';
 
 const getGeneralStatistic = async (userId) => {
-
 	const aggregationPipeline = [
 		{
 			$match: {
@@ -16,9 +15,9 @@ const getGeneralStatistic = async (userId) => {
 		},
 		{
 			$lookup: {
-				from: 'extensionstatuses',
+				from: 'extensions',
 				localField: '_id',
-				foreignField: 'userId',
+				foreignField: 'owner',
 				as: 'extensionStatus',
 			},
 		},
@@ -44,15 +43,10 @@ const getGeneralStatistic = async (userId) => {
 			},
 		},
 		{
-			$addFields: {
-				extensionsCount: '$userDetails.extensionsName',
-			},
-		},
-		{
 			$project: {
 				_id: 0,
 				userDetails: 1,
-				extensionsCount: { $size: '$extensionsCount' },
+				extensionsCount: 1,
 				extensionsIsWork: 1,
 				extensionsIsLogin: 1,
 				extensionsNotWorked: 1,
@@ -90,7 +84,7 @@ const getGeneralStatistic = async (userId) => {
 	return generalStatistic;
 };
 
-const getExtensionsStatistic = async (userId) => ExtensionStatus.find({ userId });
+const getExtensionsStatistic = async (userId) => Extension.find({ owner: userId });
 
 export {
 	getGeneralStatistic,

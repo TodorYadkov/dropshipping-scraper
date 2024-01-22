@@ -1,5 +1,5 @@
 import { Product } from '../models/Product.js';
-import { ExtensionStatus } from '../models/ExtensionStatus.js';
+import { Extension } from '../models/Extension.js';
 
 // Front-end requests
 // GET ALL
@@ -27,8 +27,8 @@ const deleteProduct = async (productId) => Product.findByIdAndDelete(productId, 
 // GET ONE(LATEST) product for current user
 const getLatestUpdatedProduct = async (userId, extensionName) => {
     const product = await Product.findOne({ owner: userId }).sort({ updatedAt: 1 });
-    const updatedExtensionStatus = await ExtensionStatus.findOneAndUpdate(
-        { userId, extensionName },
+    const updatedExtensionStatus = await Extension.findOneAndUpdate(
+        { extensionName, owner: userId },
         { isWork: true },
         { new: true }
     );
