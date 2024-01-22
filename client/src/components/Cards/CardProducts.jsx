@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import { formatDateToTimeAgo } from '../util/formatDateToTimeAgo.js';
+import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
 
-import { Tooltip } from './Tooltip.jsx';
+import { Tooltip } from '../Tooltip.jsx';
 
 export const CardProducts = ({ products, onModalClick }) => {
 

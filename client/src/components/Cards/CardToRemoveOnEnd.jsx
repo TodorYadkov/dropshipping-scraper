@@ -1,4 +1,4 @@
-export const Card = () => {
+export const CardEXAMPLES = () => {
 
 	// TODO REMOVE WHEN READY
 
