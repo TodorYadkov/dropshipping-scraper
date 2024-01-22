@@ -1,6 +1,3 @@
-import path from 'path';
-import { promises as fsPromises } from 'fs';
-
 import base64url from 'base64url';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
@@ -12,6 +9,7 @@ import { ExtensionStatus } from '../models/ExtensionStatus.js';
 import { addTokenToBlackList } from './tokenBlackListService.js';
 import { signJwtToken } from '../util/signJwtToken.js';
 import { verifyJwtToken } from '../util/verifyJwtToken.js';
+import { passwordResetTemplate } from '../util/passwordResetTemplate.js';
 
 // Register
 async function userRegister({ name, email, password, role, extensionName }) {
@@ -149,18 +147,14 @@ async function createResetLink({ email, origin }) {
         },
     });
 
-    // Construct the file path
-    const templatePath = path.join('html_templates', 'passwordResetTemplate.html');
-    const htmlTemplate = await fsPromises.readFile(templatePath, 'utf8');
-
-    const formattedHtml = htmlTemplate.replace('{{resetLink}}', resetLink);
+    const htmlTemplate = passwordResetTemplate(resetLink);
 
     transporter.sendMail({
         from: `"Dropshipping Scraper" ${process.env.GMAIL_USER}`,
         to: user.email,
         subject: 'DO NOT REPLY: Dropshipping Scraper - Password Reset',
         text: 'To reset your password, please follow the link. The link is active for 10 minutes.',
-        html: formattedHtml
+        html: htmlTemplate
     });
 
     return { resetLink };

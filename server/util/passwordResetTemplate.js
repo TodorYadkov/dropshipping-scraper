@@ -1,4 +1,7 @@
-<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
+export const passwordResetTemplate = (resetLink) => {
+    return (
+        `
+        <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
 <head>
     <title></title>
@@ -220,7 +223,7 @@
                                                         style="height:20px;line-height:20px;font-size:1px"> </div>
 
                                                     <div style="display:flex;justify-content: center;">
-                                                        <a href="{{resetLink}}" target="_blank"
+                                                        <a href=${resetLink} target="_blank"
                                                             style="text-decoration:none;display:inline-block;color:#3f4d75;background-color:#ffffff;border-radius:10px;width:auto;border-top:2px solid #3F4D75;font-weight:undefined;border-right:2px solid #3F4D75;border-bottom:2px solid #3F4D75;border-left:2px solid #3F4D75;padding-top:10px;padding-bottom:10px;font-family:Roboto Slab, Arial, Helvetica Neue, Helvetica, sans-serif;font-size:18px;text-align:center;mso-border-alt:none;word-break:keep-all;"><span
                                                                 style="padding-left:25px;padding-right:25px;font-size:18px;display:inline-block;letter-spacing:normal;">
                                                                 <span style="word-break:break-word;">
@@ -312,3 +315,6 @@
 </body>
 
 </html>
+        `
+    );
+};
