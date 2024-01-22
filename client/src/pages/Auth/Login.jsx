@@ -158,8 +158,8 @@ export const Login = () => {
 						</Link>
 					</div>
 
-					<div className="flex items-center justify-center gap-3 mt-3">
-						<p className="text-sm">Don&apos;t have an account ?</p>
+					<div className="flex items-center justify-center gap-1 mt-3">
+						<p className="text-sm">Don&apos;t have an account?</p>
 
 						<Link
 							to={CLIENT_PATHS.REGISTER}

@@ -171,8 +171,8 @@ export const Register = () => {
 						</div>
 					</form>
 
-					<div className="flex items-center justify-center gap-3 mt-3">
-						<p className="text-sm">Already have an account ?</p>
+					<div className="flex items-center justify-center gap-1 mt-3">
+						<p className="text-sm">Already have an account?</p>
 						<Link
 							to={CLIENT_PATHS.LOGIN}
 							className="text-sm text-indigo-700 hover:text-indigo-300"
