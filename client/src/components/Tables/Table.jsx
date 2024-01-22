@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { TABLE_BODY_TYPES } from '../../util/constants.js';
+import { DATA_TYPES } from '../../util/constants.js';
 
 import { TableHeader } from './TableHeader.jsx';
 import { TableBodyProducts } from './TableBodyProducts.jsx';
@@ -8,25 +8,26 @@ import { TableBodyProducts } from './TableBodyProducts.jsx';
 export const Table = ({ typeBody, data, onModalClick }) => {
 
 	const TableVariant = useMemo(() => {
-		let Body, Heading;
+		let Body = null;
+		let Heading = null;
 
 		switch (typeBody) {
-			case TABLE_BODY_TYPES.PRODUCT:
+			case DATA_TYPES.PRODUCT:
 				{
 					const headings = ['Product', 'Price Amazon', 'Price eBay', 'Profit', 'Availability', 'Rating', 'Last Updated', 'Error', 'Actions'];
 					Body = <TableBodyProducts products={data} onModalClick={onModalClick} />;
 					Heading = <TableHeader headings={headings} />;
 				}
 				break;
-			case TABLE_BODY_TYPES.USER:
+			case DATA_TYPES.EXTENSION:
 				break;
-			case TABLE_BODY_TYPES.EXTENSION:
+			case DATA_TYPES.USER:
 				break;
 		}
 
 		return { Body, Heading };
 
-	}, [typeBody, data]);
+	}, [typeBody, data, onModalClick]);
 
 	return (
 		<div className="-mb-2">
