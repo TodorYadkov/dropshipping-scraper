@@ -8,7 +8,7 @@ export const Layout = ({ children }) => {
 	const { isAuthenticated } = useAuthContext();
 
 	return (
-		<div className="flex h-screen bg-gray-200 font-roboto">
+		<div className="flex h-screen bg-gray-200 font-roboto cursor-default">
 
 			{isAuthenticated && <SideBar />}
 
