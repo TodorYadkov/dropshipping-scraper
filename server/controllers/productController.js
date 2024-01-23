@@ -17,7 +17,7 @@ const productController = Router();
 
 // Front - End requests
 // GET
-productController.get('/:productId', isUserLogged, preload(getSingleProduct), isOwner, async (req, res, next) => {
+productController.get('/:productId', isUserLogged, preload(getSingleProduct, 'product'), isOwner, async (req, res, next) => {
     try {
         const productId = req.params.productId;
         const product = await getSingleProduct(productId);
@@ -59,7 +59,7 @@ productController.post('/', isUserLogged, async (req, res, next) => {
 });
 
 // PUT
-productController.put('/:productId', isUserLogged, preload(getSingleProduct), isOwner, async (req, res, next) => {
+productController.put('/:productId', isUserLogged, preload(getSingleProduct, 'product'), isOwner, async (req, res, next) => {
     try {
         const productId = req.params.productId;
         const product = req.body;
@@ -77,7 +77,7 @@ productController.put('/:productId', isUserLogged, preload(getSingleProduct), is
 });
 
 // DELETE
-productController.delete('/:productId', isUserLogged, preload(getSingleProduct), isOwner, async (req, res, next) => {
+productController.delete('/:productId', isUserLogged, preload(getSingleProduct, 'product'), isOwner, async (req, res, next) => {
     try {
         const productId = req.params.productId;
         const deletedProduct = await deleteProduct(productId);
