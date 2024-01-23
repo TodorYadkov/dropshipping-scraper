@@ -79,7 +79,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 				serverError.style.display = 'block';
 				break;
 
-			case 'errorServerProduct':
+			case 'errorServer':
 				serverErrorProduct.textContent = message.error;
 				serverErrorProduct.style.display = 'block';
 				backgroundState();
