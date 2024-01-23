@@ -17,14 +17,18 @@ const extensionSchema = new Schema({
         type: Boolean,
         default: false
     },
-    owner: {
-        type: Types.ObjectId,
-        ref: 'User',
-        required: [true, 'User reference is required!']
+    accessToken: {
+        type: String,
+        default: null
     },
     error: {
         type: String,
         default: null
+    },
+    owner: {
+        type: Types.ObjectId,
+        ref: 'User',
+        required: [true, 'User reference is required!']
     },
 
 }, { timestamps: true });
