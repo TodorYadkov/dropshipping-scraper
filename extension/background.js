@@ -1,59 +1,23 @@
-import { sendData } from './services/dataService.js';
-import { login, logout } from './services/authService.js';
+import { sendData, statusExtension } from './services/dataService.js';
+
 import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
-import { removeData, setData } from './util/storageActions.js';
-import { multiBrowser, timeToFetchProduct, tokenName } from './constants/constants.js';
 import { closeAllOpenTabs } from './util/autoCloseTabs.js';
+import { userLogin, userLogout } from './util/userControl.js';
+import { reactExtensionControl } from './util/reactExtensionControl.js';
+import { startExtension, stopExtension } from './util/extensionControl.js';
+
+import { multiBrowser } from './constants/constants.js';
 
 multiBrowser.runtime.onMessage.addListener(async function (message, sender, sendResponse) {
-
     try {
         switch (message.message) {
+            case 'start': await startExtension(); break;
 
-            case 'start':
-                await setData({ isScriptRunning: true, activeTabs: [] });
-                // Set up the alarm to trigger fetchDataFromServer
-                multiBrowser.alarms.create('fetchDataAlarm', { periodInMinutes: timeToFetchProduct });
-                break;
+            case 'stop': await stopExtension(); break;
 
-            case 'stop':
-                // Clear the alarm when the script is stopped
-                multiBrowser.alarms.clear('fetchDataAlarm');
+            case 'login': await userLogin(message.userData); break;
 
-                // Change button state
-                await setData({ isScriptRunning: false });
-
-                await closeAllOpenTabs();
-                break;
-
-            case 'login':
-                try {
-                    const loggedUserData = await login(message.userData);
-                    await setData({ [tokenName]: loggedUserData });
-
-                    // After successful login send the user information to popup so the HTML can be updated with user information
-                    multiBrowser.runtime.sendMessage({ message: 'successfulLogin', userData: loggedUserData });
-
-                } catch (error) {
-                    multiBrowser.runtime.sendMessage({ message: 'errorServerLogin', error: error.message });
-                }
-                break;
-
-            case 'logout':
-                try {
-                    multiBrowser.alarms.clear('fetchDataAlarm');
-                    await setData({ isScriptRunning: false });
-
-                    await logout();
-                    await removeData([tokenName]);
-
-                    multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
-
-                    await closeAllOpenTabs();
-                } catch (error) {
-                    await removeData([tokenName]);
-                }
-                break;
+            case 'logout': await userLogout(); break;
         }
 
     } catch (error) {
@@ -64,20 +28,35 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 
 // Listen for alarms
 multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
-    if (alarm.name === 'fetchDataAlarm') {
-        try {
+    try {
+        if (alarm.name === 'fetchDataAlarm') {
             // Fetches product URLs from the server, scrapes data from Amazon and eBay, and return updatedProduct.
             const updatedProduct = await fetchDataFromServerAndScrape();
 
             // Send updated product to the server
             await sendData(updatedProduct);
-
-        } catch (error) {
-            multiBrowser.runtime.sendMessage({ message: 'errorServerProduct', error: error.message });
-            console.error(error.message);
-        } finally {
-            await closeAllOpenTabs();
         }
+    } catch (error) {
+        multiBrowser.runtime.sendMessage({ message: 'errorServer', error: error.message });
+        console.error(error.message);
+    } finally {
+        await closeAllOpenTabs();
+    }
+});
+
+multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
+    try {
+        if (alarm.name === 'extensionStatusAlarm') {
+            // Fetch extension data from server
+            const extensionStatus = await statusExtension();
+
+            // Start stop extension from React
+            await reactExtensionControl(extensionStatus);
+        }
+
+    } catch (error) {
+        multiBrowser.runtime.sendMessage({ message: 'errorServer', error: error.message });
+        console.error(error.message);
     }
 });
 
