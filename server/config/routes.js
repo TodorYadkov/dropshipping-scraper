@@ -3,11 +3,13 @@ import { homeController } from '../controllers/homeController.js';
 import { productController } from '../controllers/productController.js';
 import { userController } from '../controllers/userController.js';
 import { statisticController } from '../controllers/statisticController.js';
+import { extensionController } from '../controllers/extensionController.js';
 
 export default (app) => {
 	app.use(logRequests()); // Logging every request
 	app.use('/', homeController);
 	app.use('/products', productController);
+	app.use('/extensions', extensionController);
 	app.use('/users', userController);
 	app.use('/statistics', statisticController);
 	app.all('*', (req, res, next) => {
