@@ -10,10 +10,7 @@ import {
     createProduct,
     updateProduct,
     deleteProduct,
-    getAllProducts,
-    getLatestUpdatedProduct,
-    updatedProductFromExtension,
-    updatedProductOnError
+    getAllProducts
 } from '../services/productService.js';
 
 const productController = Router();
@@ -87,45 +84,6 @@ productController.delete('/:productId', isUserLogged, preload(getSingleProduct),
 
         res.status(200).json(deletedProduct);
     } catch (err) {
-        next(err);
-    }
-});
-
-
-// Extension - requests
-// GET - latest updated product
-productController.get('/extension/get-one', isUserLogged, async (req, res, next) => {
-    try {
-        const userId = req.user._id;
-        const extensionName = req.user.extensionName;
-        const latestUpdatedProduct = await getLatestUpdatedProduct(userId, extensionName);
-
-        res.status(200).json(latestUpdatedProduct ?? {});
-    } catch (err) {
-        next(err);
-    }
-});
-
-// PUT - update product fom extension
-productController.put('/extension/put-one', isUserLogged, async (req, res, next) => {
-    try {
-        const product = req.body;
-        const productId = req.body._id;
-
-        product.amazonUrl = extractASIN(product.amazonUrl); // Only for validation purpose
-        await updateProductSchema.validateAsync(product);
-
-        const updatedProduct = await updatedProductFromExtension(product, productId);
-
-        res.status(200).json(updatedProduct);
-    } catch (err) {
-        if (err.isJoi) {
-            // Joi library validation error
-            const productId = req.body._id;
-            const errorMessage = err.details.map(error => error.message).join(', ');
-            await updatedProductOnError(errorMessage, productId)
-        }
-
         next(err);
     }
 });
