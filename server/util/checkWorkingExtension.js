@@ -11,7 +11,7 @@ export function checkWorkingExtension() {
         timeMinutesAgo.setMinutes(timeMinutesAgo.getMinutes() - timeToCheck);
 
         // Find and update documents where updatedAt is older than timeToCheck
-        await Extension.updateMany({ updatedAt: { $lte: timeMinutesAgo } }, { $set: { isWork: false } });
+        await Extension.updateMany({ updatedAt: { $lte: timeMinutesAgo } }, { $set: { isWork: false, isWorkBrowser: false } });
 
     }, intervalTimeToMilliseconds);
 }
