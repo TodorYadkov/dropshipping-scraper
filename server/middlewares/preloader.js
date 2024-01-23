@@ -1,17 +1,28 @@
-const preload = (api, id = 'productId') => async (req, res, next) => {
-		try {
-			const paramsId = req.params[id];
-			const currentState = await api(paramsId);
+const preload = (api, option) => async (req, res, next) => {
+	try {
+		let params;
+		let errorMessage;
+		if (option === 'extension') {
+			params = [req.body._id];
+			errorMessage = 'The extension you are looking for does not exist!';
 
-			if (currentState) {
-				res.locals.preload = currentState;
-				next();
-			} else {
-				throw new Error(`Entered ID - ${id} is invalid`, 404);
-			}
-		} catch (error) {
-			next(error);
+		} else if (option === 'product') {
+			params = [req.params.productId];
+			errorMessage = 'The product you are looking for does not exist!';
 		}
-	};
+
+		const currentState = await api(...params);
+
+		if (currentState) {
+			res.locals.preload = currentState;
+			next();
+		} else {
+			throw new Error(errorMessage);
+		}
+
+	} catch (error) {
+		next(error);
+	}
+};
 
 export { preload };
