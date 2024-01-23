@@ -13,11 +13,19 @@ const extensionSchema = new Schema({
         type: Boolean,
         default: false
     },
+    isWorkBrowser: {
+        type: Boolean,
+        default: false
+    },
     owner: {
         type: Types.ObjectId,
         ref: 'User',
         required: [true, 'User reference is required!']
-    }
+    },
+    error: {
+        type: String,
+        default: null
+    },
 
 }, { timestamps: true });
 
