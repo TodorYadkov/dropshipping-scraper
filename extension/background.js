@@ -36,6 +36,7 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
             // Send updated product to the server
             await sendData(updatedProduct);
         }
+        
     } catch (error) {
         multiBrowser.runtime.sendMessage({ message: 'errorServer', error: error.message });
         console.error(error.message);
