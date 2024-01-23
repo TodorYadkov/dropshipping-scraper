@@ -5,3 +5,5 @@ export const patternEmail = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+
 export const tokenName = 'eb65c84cf39a8830de7a90c373361a84d7e5e496';
 
 export const timeToFetchProduct = 0.3;
+
+export const timeToFetchExtensionStatus = 0.3;
