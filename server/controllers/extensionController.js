@@ -2,7 +2,8 @@ import { Router } from 'express';
 
 import { extractASIN } from '../util/extractASIN.js';
 import { updateProductSchema } from '../util/validationSchemes.js';
-import { isUserLogged } from '../middlewares/guards.js';
+import { isOwner, isUserLogged } from '../middlewares/guards.js';
+import { preload } from '../middlewares/preloader.js';
 import {
     getLatestUpdatedProduct,
     updatedProductFromExtension,
@@ -10,11 +11,31 @@ import {
     checkExtensionDataInDB,
     stopExtension,
     errorExtension,
-    startExtension
+    startExtension,
+    logoutExtensionFromReact,
+    getOneExtension,
 } from '../services/extensionService.js';
 
 const extensionController = Router();
 
+// EXTENSION REACT request ---------------------
+
+// Logout extension from React
+extensionController.put('/logout', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const extensionData = req.body;
+
+        const updatedExtensionData = await logoutExtensionFromReact(userId, extensionData._id);
+
+        res.status(200).json(updatedExtensionData);
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+// EXTENSION SPECIFIC request ---------------------
 // GET - latest updated product
 extensionController.get('/get-one', isUserLogged, async (req, res, next) => {
     try {
@@ -52,7 +73,7 @@ extensionController.put('/put-one', isUserLogged, async (req, res, next) => {
     }
 });
 
-// Check if the browser is working
+// Check extension status on server
 extensionController.get('/status', isUserLogged, async (req, res, next) => {
     try {
         const userId = req.user._id;
@@ -65,7 +86,7 @@ extensionController.get('/status', isUserLogged, async (req, res, next) => {
     }
 });
 
-// Set extension property isWork to true
+// Set extension property isWork to true/false
 extensionController.put('/start', isUserLogged, async (req, res, next) => {
     try {
         const userId = req.user._id;
@@ -73,7 +94,7 @@ extensionController.put('/start', isUserLogged, async (req, res, next) => {
 
         const extensionData = await startExtension(userId, extensionName);
 
-        res.status(200).json({ message: `Extension ${extensionName} is successfully stopped.` });
+        res.status(200).json({ message: `Extension ${extensionName} is successfully started.` });
     } catch (err) {
         next(err);
     }
