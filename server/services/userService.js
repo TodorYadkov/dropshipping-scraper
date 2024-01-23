@@ -62,6 +62,7 @@ async function userLogin({ email, password, isExtension, extensionName }) {
         throw new Error('Invalid email or password!');
     }
 
+    let userToken;
     if (isExtension) {
         // Check if extension is already in use
         const extension = await Extension.findOne({ extensionName, owner: user._id });
@@ -73,15 +74,19 @@ async function userLogin({ email, password, isExtension, extensionName }) {
             throw new Error('Extension is already in use!');
         }
 
-        extension.isLogin = true;
-        await extension.save();
-
+        // Create token to be used on extension
         user.isExtension = isExtension;
         user.extensionName = extensionName;
-    }
+        userToken = await generateUserToken(user);
 
-    // Create token
-    const userToken = await generateUserToken(user);
+        // Save extension details
+        extension.isLogin = true;
+        extension.accessToken = userToken;
+        await extension.save();
+    } else {
+        // Create token to be used with React
+        userToken = await generateUserToken(user);
+    }
 
     // Return user info
     const responseObject = createResponseObject(userToken, user);
@@ -101,6 +106,7 @@ async function userLogout({ _id, accessToken, isExtension, extensionName }) {
         if (extension) {
             extension.isWork = false;
             extension.isLogin = false;
+            extension.accessToken = null;
 
             await extension.save();
         }
