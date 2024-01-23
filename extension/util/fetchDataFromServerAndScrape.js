@@ -1,5 +1,5 @@
-import { multiBrowser } from '../constants/constants.js';
-import { getLink } from '../services/dataService.js';
+import { multiBrowser, timeToFetchProduct } from '../constants/constants.js';
+import { errorExtension, getLink } from '../services/dataService.js';
 import { getData, setData } from './storageActions.js';
 
 export function fetchDataFromServerAndScrape() {
@@ -14,6 +14,11 @@ export function fetchDataFromServerAndScrape() {
 				// Clear the alarm when the product doesn't have the amazonUrl property
 				multiBrowser.alarms.clear('fetchDataAlarm');
 				await setData({ isScriptRunning: false, activeTabs: [] });
+
+				await errorExtension({ error: 'No added products for scraping' });
+
+				// Start alarm after stop to get status on current extension
+				multiBrowser.alarms.create('extensionStatusAlarm', { periodInMinutes: timeToFetchProduct });
 
 				reject({ message: 'No added products for scraping' });
 				return;
