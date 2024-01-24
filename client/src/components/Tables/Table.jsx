@@ -23,7 +23,7 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 
 			case DATA_TYPES.EXTENSION:
 				{
-					const headings = ['Extension', 'Logged', 'Working', 'Created', 'Last Seen', 'Actions'];
+					const headings = ['Extension', 'Logged', 'Working', 'Last Seen', 'Error', 'Controls', 'Actions'];
 					Body = <TableExtensionsData extensionsData={data} onModalClick={onModalClick} />;
 					Heading = <TableHeader headings={headings} />;
 				}
