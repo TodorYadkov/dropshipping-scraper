@@ -12,7 +12,7 @@ export const SERVER_PATHS = {
     UPDATE_PRODUCT: (productId) => `/products/${productId}`,
     DELETE_PRODUCT: (productId) => `/products/${productId}`,
     GET_GENERAL_STATISTICS: '/statistics/general',
-    GET_EXTENSIONS_STATISTICS: '/statistics/extensions',
+    GET_ALL_EXTENSIONS: '/extensions',
 };
 
 export const CLIENT_PATHS = {
