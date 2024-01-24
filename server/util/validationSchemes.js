@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-import { USER_ROLES } from '../environments/userRoles.js';
+// import { USER_ROLES } from '../environments/userRoles.js';
 
 const validateProductSchema = joi.object({
 	name: joi.string().allow(null).trim().max(500).optional(),
@@ -38,7 +38,7 @@ const validateRegisterSchema = joi.object({
 
 	password: joi.string().required().trim().min(8).max(20),
 
-	extensionName: joi.string().trim().min(5).max(100).optional(),
+	extensionName: joi.string().required().trim().max(100),
 
 	// This doesn't work - password: joi.string().required().trim().min(8).max(20).lowercase(1).uppercase(1),
 	// TODO: If we want to add more complex password validation without any other library, we can use this regex
@@ -54,7 +54,7 @@ const validateLoginSchema = joi.object({
 	password: joi.string().required().trim().min(8).max(20),
 	// TODO: Same as above if we want complex password validation
 
-	extensionName: joi.string().trim().min(5).max(100).optional(),
+	extensionName: joi.string().allow(null).trim().max(100).optional(),
 
 	isExtension: joi.boolean().optional()
 });
@@ -73,6 +73,11 @@ const validateUpdateProfileSchema = joi.object({
 
 	uploadAvatar: joi.allow(null).optional()
 });
+
+const validateExtensionSchema = joi.object({
+	extensionName: joi.string().required().trim().max(100),
+});
+
 
 function amazonUrlValidator(value) {
 	// Regular expression to match Amazon URLs
@@ -111,4 +116,5 @@ export {
 	validateLoginSchema,
 	validateResetPasswordSchema,
 	validateUpdateProfileSchema,
+	validateExtensionSchema
 };
