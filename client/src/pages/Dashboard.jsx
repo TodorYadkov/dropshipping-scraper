@@ -2,22 +2,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
-import { DATA_TYPES, REDUCER_TYPES } from '../../util/constants.js';
-import { loadCurrencyCourses } from '../../util/calculateProfit.js';
+import { DATA_TYPES, REDUCER_TYPES } from '../util/constants.js';
+import { loadCurrencyCourses } from '../util/calculateProfit.js';
 
-import { useApi } from '../../hooks/useApi.js';
-import { useLocalProductState } from '../../hooks/useLocalProductsState.js';
-import { useAppStateContext } from '../../hooks/useAppStateContext.js';
-import { useIntervalTimeToReceiveData } from '../../hooks/useIntervalTimeToReceiveData.js';
+import { useApi } from '../hooks/useApi.js';
+import { useLocalProductState } from '../hooks/useLocalProductsState.js';
+import { useAppStateContext } from '../hooks/useAppStateContext.js';
+import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
 
-import { productService } from '../../services/productService.js';
-import { statisticService } from '../../services/statisticService.js';
+import { productService } from '../services/productService.js';
+import { statisticService } from '../services/statisticService.js';
 
-import { Loader } from '../../components/Loader.jsx';
-import { PageTitle } from '../../components/PageTitle.jsx';
-import { AlertError } from '../../components/Alerts/AlertError.jsx';
-import { DashboardSummary } from '../../components/DashboardSummary.jsx';
-import { ResponsiveComponent } from '../../components/ResponsiveComponent.jsx';
+import { Loader } from '../components/Loader.jsx';
+import { PageTitle } from '../components/PageTitle.jsx';
+import { AlertError } from '../components/Alerts/AlertError.jsx';
+import { DashboardSummary } from '../components/DashboardSummary.jsx';
+import { ResponsiveComponent } from '../components/ResponsiveComponent.jsx';
 
 export const Dashboard = () => {
 	const [isLoading, setIsLoading] = useState(false);

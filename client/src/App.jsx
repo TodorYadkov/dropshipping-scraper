@@ -14,7 +14,7 @@ import { Login } from './pages/Auth/Login.jsx';
 import { Register } from './pages/Auth/Register.jsx';
 import { Logout } from './pages/Auth/Logout.jsx';
 import { Profile } from './pages/Auth/Profile.jsx';
-import { Dashboard } from './pages/Product/Dashboard.jsx';
+import { Dashboard } from './pages/Dashboard.jsx';
 import { NotFound404 } from './pages/NotFound404.jsx';
 import { ForgotPassword } from './pages/Auth/ForgotPassword.jsx';
 import { ResetPassword } from './pages/Auth/ResetPassword.jsx';
