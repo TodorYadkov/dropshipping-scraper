@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const baseValue = 10;
 
-export const ProductOffsetSelector = () => {
+export const OffsetSelector = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [offset, setOffset] = useState(() => Math.abs(Number(searchParams.get('offset'))) || baseValue);
