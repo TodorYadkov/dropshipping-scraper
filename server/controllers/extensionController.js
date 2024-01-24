@@ -12,12 +12,15 @@ import {
     stopExtension,
     errorExtension,
     startExtension,
-    logoutExtensionFromReact,
+    logoutExtension,
     getOneExtension,
     getAllExtension,
     createExtension,
     updateExtension,
     deleteExtension,
+    resetErrorExtension,
+    reactStartExtension,
+    reactStopExtension,
 } from '../services/extensionService.js';
 
 const extensionController = Router();
@@ -79,13 +82,52 @@ extensionController.delete('/:extensionId', isUserLogged, preload(getOneExtensio
     }
 });
 
+// PUT request to reset error on extension
+extensionController.put('/reset-error', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+    try {
+        const { _id } = req.body;
+
+        const extensionWithoutError = await resetErrorExtension(_id);
+
+        res.status(200).json(extensionWithoutError);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// PUT request to start extension from React
+extensionController.put('/react-start', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+    try {
+        const { _id } = req.body;
+
+        const startedExtension = await reactStartExtension(_id);
+
+        res.status(200).json(startedExtension);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// PUT request to stop extension from React
+extensionController.put('/react-stop', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+    try {
+        const { _id } = req.body;
+
+        const stoppedExtension = await reactStopExtension(_id);
+
+        res.status(200).json(stoppedExtension);
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Logout extension from React
 extensionController.put('/logout', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
     try {
+        const { _id } = req.body;
         const userId = req.user._id;
-        const extension = req.body;
 
-        const updatedExtension = await logoutExtensionFromReact(userId, extension._id);
+        const updatedExtension = await logoutExtension(userId, _id);
 
         res.status(200).json(updatedExtension);
     } catch (err) {
@@ -95,6 +137,7 @@ extensionController.put('/logout', isUserLogged, preload(getOneExtension, 'exten
 
 
 // EXTENSION SPECIFIC request ---------------------
+
 // GET - latest updated product
 extensionController.get('/get-one', isUserLogged, async (req, res, next) => {
     try {
