@@ -17,7 +17,7 @@ multiBrowser.runtime.onMessage.addListener(async function (message, sender, send
 
             case 'login': await userLogin(message.userData); break;
 
-            case 'logout': await userLogout(); break;
+            case 'logout': await userLogout(true); break;
         }
 
     } catch (error) {
@@ -36,7 +36,7 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
             // Send updated product to the server
             await sendData(updatedProduct);
         }
-        
+
     } catch (error) {
         multiBrowser.runtime.sendMessage({ message: 'errorServer', error: error.message });
         console.error(error.message);

@@ -1,6 +1,5 @@
 import { multiBrowser, timeToFetchExtensionStatus, tokenName } from "../constants/constants.js";
 import { login, logout } from "../services/authService.js";
-import { serverStopExtension } from "../services/dataService.js";
 import { closeAllOpenTabs } from "./autoCloseTabs.js";
 import { removeData, setData } from "./storageActions.js";
 
@@ -22,7 +21,7 @@ export const userLogin = async (userData) => {
 };
 
 // Logout function
-export const userLogout = async () => {
+export const userLogout = async (isExtensionLogout) => {
     try {
         // Clear all alarms
         multiBrowser.alarms.clear('fetchDataAlarm');
@@ -30,13 +29,17 @@ export const userLogout = async () => {
 
         await setData({ isScriptRunning: false });
 
-        await Promise.allSettled([logout(), serverStopExtension()]);
+        await logout();
 
         await removeData([tokenName]);
 
-        multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
-
         await closeAllOpenTabs();
+
+        // Only if the logout is from extension to send message to popup
+        if (isExtensionLogout) {
+            multiBrowser.runtime.sendMessage({ message: 'successfulLogout' });
+        }
+
     } catch (error) {
         await removeData([tokenName]);
     }
