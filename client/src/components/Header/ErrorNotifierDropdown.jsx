@@ -7,12 +7,16 @@ import { extensionService } from "../../services/extensionService.js";
 import { productService } from "../../services/productService.js";
 
 import { Tooltip } from "../Tooltip.jsx";
+import { useModal } from "../../hooks/useModal.js";
+import { ResetErrorExtensionModal } from "../Modal/ResetErrorExtensionModal.jsx";
 
 export const ErrorNotifierDropdown = memo(() => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);
     const [errors, setErrors] = useState({ productErrors: [], extensionErrors: [] });
     const [countErrors, setCountErrors] = useState(0);
     const [allData, setAllData] = useState({ products: [], extensions: [] });
+
+    const [isShownResetModal, toggleResetModal] = useModal();
 
     const { getProducts } = useApi(productService);
     const { getExtensions } = useApi(extensionService);
@@ -26,7 +30,7 @@ export const ErrorNotifierDropdown = memo(() => {
         const intervalId = setInterval(async () => {
             await requestHandler();
 
-        }, 180000);
+        }, 120000);
 
         return () => clearInterval(intervalId);
 
@@ -75,19 +79,23 @@ export const ErrorNotifierDropdown = memo(() => {
         if (errors?.extensionErrors?.length > 0) {
             jsxErrors.push(
                 ...errors.extensionErrors.map(e => (
-                    <div key={e._id} className="py-1 px-2 text-xs text-gray-700 hover:bg-indigo-600 hover:text-white relative group">
-                        <p className="truncate w-11/12"><span className="font-bold">Extension: </span>{e.extensionName}
-                            <svg
-                                className="absolute top-1 right-2 w-3 h-3 fill-white cursor-pointer"
-                                viewBox="0 0 384 512"
-                            >
-                                <title>Remove error</title>
-                                <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                            </svg>
-                        </p>
+                    <div key={e._id}>
+                        <div className="py-1 px-2 text-xs text-gray-700 hover:bg-indigo-600 hover:text-white relative group">
+                            <p className="truncate w-11/12"><span className="font-bold">Extension: </span>{e.extensionName}
+                                <svg
+                                    className="absolute top-1 right-2 w-3 h-3 fill-white cursor-pointer"
+                                    viewBox="0 0 384 512"
+                                    onClick={toggleResetModal}
+                                >
+                                    <title>Remove error</title>
+                                    <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+                                </svg>
+                            </p>
 
-                        <p className="truncate w-full">Error: {e.error}</p>
-                        <Tooltip message={e.error} direction="bottom-left" customTailwindClass="whitespace-pre-wrap w-full h-auto" />
+                            <p className="truncate w-full">Error: {e.error}</p>
+                            <Tooltip message={e.error} direction="bottom-left" customTailwindClass="whitespace-pre-wrap w-full h-auto" />
+                        </div>
+                        {isShownResetModal && <ResetErrorExtensionModal toggleModal={toggleResetModal} extension={e} />}
                     </div>
                 ))
             );
