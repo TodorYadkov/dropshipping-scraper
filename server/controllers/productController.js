@@ -16,18 +16,6 @@ import {
 const productController = Router();
 
 // Front - End requests
-// GET
-productController.get('/:productId', isUserLogged, preload(getSingleProduct, 'product'), isOwner, async (req, res, next) => {
-    try {
-        const productId = req.params.productId;
-        const product = await getSingleProduct(productId);
-
-        res.status(200).json(product);
-    } catch (err) {
-        next(err);
-    }
-});
-
 // GET ALL
 productController.get('/', isUserLogged, async (req, res, next) => {
     try {
@@ -35,6 +23,18 @@ productController.get('/', isUserLogged, async (req, res, next) => {
         const products = await getAllProducts(userId);
 
         res.status(200).json(products);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// GET
+productController.get('/:productId', isUserLogged, preload(getSingleProduct, 'product'), isOwner, async (req, res, next) => {
+    try {
+        const productId = req.params.productId;
+        const product = await getSingleProduct(productId);
+
+        res.status(200).json(product);
     } catch (err) {
         next(err);
     }
