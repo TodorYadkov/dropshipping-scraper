@@ -4,8 +4,9 @@ import dotenv from 'dotenv';
 import databaseConfig from './config/database.js';
 import expressConfig from './config/express.js';
 import routesConfig from './config/routes.js';
+import cloudinaryConfig from './config/cloudinary.js';
+
 import globalErrorHandling from './util/globalErrorHandler.js';
-import { cloudinaryConfig } from './config/cloudinary.js';
 
 const PORT = process.env.PORT;
 dotenv.config();
