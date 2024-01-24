@@ -17,8 +17,17 @@ const updateExtension = async (extensionName, extensionId) => Extension.findById
 // DELETE 
 const deleteExtension = async (extensionId) => Extension.findByIdAndDelete(extensionId, { returnDocument: true }).select('-accessToken');
 
-// LOGOUT extension from React
-const logoutExtensionFromReact = async (userId, extensionId) => {
+// Reset error
+const resetErrorExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { error: null }, { runValidators: true, new: true }).select('-accessToken');
+
+// React start extension
+const reactStartExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { isWork: true }, { runValidators: true, new: true }).select('-accessToken');
+
+// React stop extension
+const reactStopExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { isWork: false }, { runValidators: true, new: true }).select('-accessToken');
+
+// React logout extension
+const logoutExtension = async (userId, extensionId) => {
     const extension = await Extension.findById(extensionId);
     if (!extension) {
         throw new Error('The extension does not exist.')
@@ -116,7 +125,10 @@ export {
     createExtension,
     updateExtension,
     deleteExtension,
-    logoutExtensionFromReact,
+    resetErrorExtension,
+    reactStartExtension,
+    reactStopExtension,
+    logoutExtension,
     getLatestUpdatedProduct,
     updatedProductFromExtension,
     updatedProductOnError,
