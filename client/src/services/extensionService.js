@@ -9,10 +9,22 @@ export const extensionService = (api) => {
 
 	const deleteExtension = async (extensionId) => api.delete(SERVER_PATHS.DELETE_EXTENSION(extensionId));
 
+	const resetErrorExtension = async (data) => api.put(SERVER_PATHS.RESET_ERROR_EXTENSION, data);
+
+	const startExtension = async (data) => api.put(SERVER_PATHS.REACT_START_EXTENSION, data);
+
+	const stopExtension = async (data) => api.put(SERVER_PATHS.REACT_STOP_EXTENSION, data);
+
+	const logoutExtension = async (data) => api.put(SERVER_PATHS.LOGOUT_EXTENSION, data);
+
 	return {
 		getExtensions,
 		createExtension,
 		updateExtension,
 		deleteExtension,
+		resetErrorExtension,
+		startExtension,
+		stopExtension,
+		logoutExtension,
 	};
 };
