@@ -58,7 +58,7 @@ export const useFilterData = () => {
         setLocalFilteredState({ totalDataCount, data: dataToFilter });
     }
 
-    const setLocalDataHandler = (data) => {
+    const setLocalDataHandler = (data = []) => {
         setLocalData(data);
         filterData(data);
     };
