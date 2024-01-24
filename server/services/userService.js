@@ -106,6 +106,7 @@ async function userLogout({ _id, accessToken, isExtension, extensionName }) {
         if (extension) {
             extension.isWork = false;
             extension.isLogin = false;
+            extension.isWorkBrowser = false;
             extension.accessToken = null;
 
             await extension.save();
