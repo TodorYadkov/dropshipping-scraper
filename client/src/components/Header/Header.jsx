@@ -1,10 +1,12 @@
+import { memo } from 'react';
+
 import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 
 import { UserDropdown } from './UserDropdown.jsx';
 import { ErrorNotifierDropdown } from './ErrorNotifierDropdown.jsx';
 
-export const Header = () => {
+export const Header = memo(() => {
 	const { changeSideBarState } = useAppStateContext();
 	const { isAuthenticated } = useAuthContext();
 
@@ -71,4 +73,6 @@ export const Header = () => {
 
 		</header>
 	);
-};
+});
+
+Header.displayName = 'Header';

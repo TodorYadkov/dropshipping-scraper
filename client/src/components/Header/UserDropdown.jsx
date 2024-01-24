@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 import { CLIENT_PATHS } from '../../util/paths.js';
 
-export const UserDropdown = () => {
+export const UserDropdown = memo(() => {
     const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
     const { currentUserData } = useAuthContext();
 
@@ -52,4 +52,6 @@ export const UserDropdown = () => {
             )}
         </div>
     );
-};
+});
+
+UserDropdown.displayName = 'UserDropdown';

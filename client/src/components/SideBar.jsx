@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { REDUCER_TYPES } from '../util/constants.js';
@@ -7,7 +8,7 @@ import { useAuthContext } from '../hooks/useAuthContext.js';
 import { useAppStateContext } from '../hooks/useAppStateContext.js';
 
 
-export const SideBar = () => {
+export const SideBar = memo(() => {
 	const { appState, changeSideBarState } = useAppStateContext();
 	const { currentUserData } = useAuthContext();
 
@@ -88,4 +89,6 @@ export const SideBar = () => {
 			</div>
 		</>
 	);
-};
+});
+
+SideBar.displayName = 'SideBar';
