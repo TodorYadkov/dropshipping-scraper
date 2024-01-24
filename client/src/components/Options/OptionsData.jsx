@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import { DATA_TYPES } from '../../util/constants.js';
 import { ProductOptions } from './ProductOptions.jsx';
+import { ExtensionOptions } from './ExtensionOptions.jsx';
 
 export const OptionsData = ({ dataTypes, onRefresh }) => {
 
@@ -13,6 +14,7 @@ export const OptionsData = ({ dataTypes, onRefresh }) => {
 				OptionsComponent = <ProductOptions onRefresh={onRefresh} />
 				break;
 			case DATA_TYPES.EXTENSION:
+				OptionsComponent = <ExtensionOptions onRefresh={onRefresh} />
 				break;
 			case DATA_TYPES.USER:
 				break;
