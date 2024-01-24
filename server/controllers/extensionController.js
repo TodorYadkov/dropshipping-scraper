@@ -14,11 +14,25 @@ import {
     startExtension,
     logoutExtensionFromReact,
     getOneExtension,
+    getAllExtension,
 } from '../services/extensionService.js';
 
 const extensionController = Router();
 
 // EXTENSION REACT request ---------------------
+
+// Get all extensions 
+extensionController.get('/', isUserLogged, async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+
+        const extensionData = await getAllExtension(userId);
+
+        res.status(200).json(extensionData);
+    } catch (err) {
+        next(err);
+    }
+});
 
 // Logout extension from React
 extensionController.put('/logout', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
