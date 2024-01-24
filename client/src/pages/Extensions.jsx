@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 
 import { useApi } from "../hooks/useApi.js";
 import { useFilterData } from "../hooks/useFilterData.js";
+import { useAppStateContext } from "../hooks/useAppStateContext.js";
 import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
 
 import { DATA_TYPES } from "../util/constants.js";
 
-import { statisticService } from "../services/statisticService.js";
+import { extensionService } from "../services/extensionService.js";
 
 import { PageTitle } from "../components/PageTitle.jsx";
 import { Loader } from "../components/Loader.jsx";
@@ -23,7 +24,9 @@ export const Extensions = () => {
 	const [extensionsData, setExtensionsData] = useFilterData();
 	const [_] = useIntervalTimeToReceiveData(fetchExtensionsStatisticData);
 
-	const { getExtensionsStatistic } = useApi(statisticService);
+	const { getAllExtensions } = useApi(extensionService);
+
+	const { setExtensions } = useAppStateContext();
 
 	// Initial
 	useEffect(() => {
@@ -41,9 +44,10 @@ export const Extensions = () => {
 	// Fetch extension statistic data from server
 	async function fetchExtensionsStatisticData() {
 		try {
-			const extensionsData = await getExtensionsStatistic();
+			const extensionsData = await getAllExtensions();
 
 			setExtensionsData(extensionsData);
+			setExtensions(extensionsData);
 		} catch (error) {
 			console.error(error);
 			addAlertMessage(error.message);
