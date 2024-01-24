@@ -15,7 +15,7 @@ export const ErrorNotifierDropdown = memo(() => {
     const [allData, setAllData] = useState({ products: [], extensions: [] });
 
     const { getProducts } = useApi(productService);
-    const { getAllExtensions } = useApi(extensionService);
+    const { getExtensions } = useApi(extensionService);
 
     useEffect(() => {
         // Initial Load error
@@ -104,7 +104,7 @@ export const ErrorNotifierDropdown = memo(() => {
         try {
             const [products, extensions] = await Promise.all([
                 getProducts(),
-                getAllExtensions()
+                getExtensions()
             ]);
 
             setAllData({ products, extensions });

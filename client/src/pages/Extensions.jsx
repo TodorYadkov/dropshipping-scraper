@@ -7,7 +7,7 @@ import { useFilterData } from "../hooks/useFilterData.js";
 import { useAppStateContext } from "../hooks/useAppStateContext.js";
 import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
 
-import { DATA_TYPES } from "../util/constants.js";
+import { DATA_TYPES, REDUCER_TYPES } from "../util/constants.js";
 
 import { extensionService } from "../services/extensionService.js";
 
@@ -21,19 +21,18 @@ export const Extensions = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [alert, setAlert] = useState('');
 
-	const [extensionsData, setExtensionsData] = useFilterData();
-	const [_] = useIntervalTimeToReceiveData(fetchExtensionsStatisticData);
+	const [extensionsData, setExtensionsLocalStateData] = useFilterData();
+	const [_] = useIntervalTimeToReceiveData(fetchExtensionsData);
 
-	const { getAllExtensions } = useApi(extensionService);
-
-	const { setExtensions } = useAppStateContext();
+	const { getExtensions } = useApi(extensionService);
+	const { appState, setExtensions: setExtensionGlobalStateData } = useAppStateContext();
 
 	// Initial
 	useEffect(() => {
 		async function initialLoading() {
 			setIsLoading(true);
 
-			await fetchExtensionsStatisticData();
+			await fetchExtensionsData();
 			setIsLoading(false);
 		}
 
@@ -41,13 +40,18 @@ export const Extensions = () => {
 
 	}, []);
 
-	// Fetch extension statistic data from server
-	async function fetchExtensionsStatisticData() {
-		try {
-			const extensionsData = await getAllExtensions();
+	// Handle change on global state
+	useEffect(() => {
+		setExtensionsLocalStateData(appState[REDUCER_TYPES.EXTENSIONS]);
+	}, [appState[REDUCER_TYPES.EXTENSIONS]]);
 
-			setExtensionsData(extensionsData);
-			setExtensions(extensionsData);
+	// Fetch extension statistic data from server
+	async function fetchExtensionsData() {
+		try {
+			const extensionsData = await getExtensions();
+
+			setExtensionsLocalStateData(extensionsData);
+			setExtensionGlobalStateData(extensionsData);
 		} catch (error) {
 			console.error(error);
 			addAlertMessage(error.message);
@@ -63,7 +67,7 @@ export const Extensions = () => {
 	}
 
 	async function onRefreshClick() {
-		return fetchExtensionsStatisticData();
+		return fetchExtensionsData();
 	}
 
 	return (
