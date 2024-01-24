@@ -2,9 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { SORTING_KEYS } from '../../util/constants.js';
-
-export const DropdownSorts = () => {
+export const DropdownSorts = ({ sortingCriteria }) => {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(() => searchParams.get('sort') || '');
@@ -33,16 +31,8 @@ export const DropdownSorts = () => {
                 onChange={handleSelectChange}
             >
                 <option value={''}>Select</option>
-                <option value={[SORTING_KEYS.PRODUCT_NAME_ASC]}>Name &#x1F805;</option>
-                <option value={[SORTING_KEYS.PRODUCT_NAME_DESC]}>Name &#x1F807;</option>
-                <option value={[SORTING_KEYS.PRODUCT_AMAZON_PRICE_ASC]}>Amazon price &#x1F805;</option>
-                <option value={[SORTING_KEYS.PRODUCT_AMAZON_PRICE_DESC]}>Amazon price &#x1F807;</option>
-                <option value={[SORTING_KEYS.PRODUCT_EBAY_PRICE_ASC]}>Ebay price &#x1F805;</option>
-                <option value={[SORTING_KEYS.PRODUCT_EBAY_PRICE_DESC]}>Ebay price &#x1F807;</option>
-                <option value={[SORTING_KEYS.PRODUCT_PROFIT_ASC]}>Profit &#x1F805;</option>
-                <option value={[SORTING_KEYS.PRODUCT_PROFIT_DESC]}>Profit &#x1F807;</option>
-                <option value={[SORTING_KEYS.PRODUCT_LAST_UPDATED_ASC]}>Last Updated &#x1F805;</option>
-                <option value={[SORTING_KEYS.PRODUCT_LAST_UPDATED_DESC]}>Last Updated &#x1F807;</option>
+                {Object.entries(sortingCriteria).map(([sorting_key, name], index) => (<option key={index} value={sorting_key}>{name}</option>))}
+
             </select>
 
             <div className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
