@@ -21,6 +21,10 @@ export const REDUCER_TYPES = {
 	ADD_PRODUCT: 'addProduct',
 	UPDATE_PRODUCT: 'updateProduct',
 	DELETE_PRODUCT: 'deleteProduct',
+	EXTENSIONS: 'extensions',
+	ADD_EXTENSION: 'addExtension',
+	UPDATE_EXTENSION: 'updateExtension',
+	DELETE_EXTENSION: 'deleteExtension',
 	GENERAL_STATISTIC: 'generalStatistic',
 };
 
@@ -41,4 +45,12 @@ export const SORTING_KEYS = {
 	PRODUCT_PROFIT_DESC: 'profit_desc',
 	PRODUCT_LAST_UPDATED_ASC: 'last_updated_asc',
 	PRODUCT_LAST_UPDATED_DESC: 'last_updated_desc',
+	EXTENSION_NAME_ASC: 'extension_name_asc',
+	EXTENSION_NAME_DESC: 'extension_name_desc',
+	EXTENSION_LOGGED_ASC: 'extension_logged_asc',
+	EXTENSION_LOGGED_DESC: 'extension_logged_desc',
+	EXTENSION_WORKING_ASC: 'extension_working_asc',
+	EXTENSION_WORKING_DESC: 'extension_working_desc',
+	EXTENSION_LAST_SEEN_ASC: 'extension_last_seen_asc',
+	EXTENSION_LAST_SEEN_DESC: 'extension_last_seen_desc',
 };

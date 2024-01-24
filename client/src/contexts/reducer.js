@@ -17,6 +17,18 @@ export const reducer = (state, action) => {
 		case REDUCER_TYPES.DELETE_PRODUCT:
 			return { ...state, [REDUCER_TYPES.PRODUCTS]: state[REDUCER_TYPES.PRODUCTS].filter(p => p._id !== action.value._id) };
 
+		case REDUCER_TYPES.EXTENSIONS:
+			return { ...state, [action.type]: action.value };
+
+		case REDUCER_TYPES.ADD_EXTENSION:
+			return { ...state, [REDUCER_TYPES.EXTENSIONS]: [action.value, ...state[REDUCER_TYPES.EXTENSIONS]] };
+
+		case REDUCER_TYPES.UPDATE_EXTENSION:
+			return { ...state, [REDUCER_TYPES.EXTENSIONS]: state[REDUCER_TYPES.EXTENSIONS].map(e => e._id === action.value._id ? action.value : e) };
+
+		case REDUCER_TYPES.DELETE_EXTENSION:
+			return { ...state, [REDUCER_TYPES.EXTENSIONS]: state[REDUCER_TYPES.EXTENSIONS].filter(e => e._id !== action.value._id) };
+
 		case REDUCER_TYPES.GENERAL_STATISTIC:
 			return { ...state, [action.type]: { ...state[action.type], ...action.value } };
 

@@ -15,29 +15,28 @@ AppStateContext.displayName = 'AppStateContext';
 export const AppStateProvider = ({ children }) => {
 	const [appState, dispatch] = useReducer(reducer, initialState);
 
-	function changeSideBarState(value) {
-		dispatch({ type: REDUCER_TYPES.IS_SIDE_BAR_OPEN, value });
-	}
+	const changeSideBarState = (value) => dispatch({ type: REDUCER_TYPES.IS_SIDE_BAR_OPEN, value });
 
-	function setProducts(value) {
-		dispatch({ type: REDUCER_TYPES.PRODUCTS, value });
-	}
+	// Products
+	const setProducts = (value) => dispatch({ type: REDUCER_TYPES.PRODUCTS, value });
 
-	function addProduct(product) {
-		dispatch({ type: REDUCER_TYPES.ADD_PRODUCT, value: product });
-	}
+	const addProduct = (product) => dispatch({ type: REDUCER_TYPES.ADD_PRODUCT, value: product });
 
-	function editProduct(product) {
-		dispatch({ type: REDUCER_TYPES.UPDATE_PRODUCT, value: product });
-	}
+	const editProduct = (product) => dispatch({ type: REDUCER_TYPES.UPDATE_PRODUCT, value: product });
 
-	function removeProduct(product) {
-		dispatch({ type: REDUCER_TYPES.DELETE_PRODUCT, value: product });
-	}
+	const removeProduct = (product) => dispatch({ type: REDUCER_TYPES.DELETE_PRODUCT, value: product });
 
-	function setGeneralStatistic(statisticData) {
-		dispatch({ type: REDUCER_TYPES.GENERAL_STATISTIC, value: statisticData });
-	}
+	// Extension
+	const setExtensions = (value) => dispatch({ type: REDUCER_TYPES.EXTENSIONS, value });
+
+	const addExtension = (extension) => dispatch({ type: REDUCER_TYPES.ADD_EXTENSION, value: extension });
+
+	const editExtension = (extension) => dispatch({ type: REDUCER_TYPES.UPDATE_EXTENSION, value: extension });
+
+	const removeExtension = (extension) => dispatch({ type: REDUCER_TYPES.DELETE_EXTENSION, value: extension });
+
+	// Statistic
+	const setGeneralStatistic = (statisticData) => dispatch({ type: REDUCER_TYPES.GENERAL_STATISTIC, value: statisticData });
 
 	const values = {
 		appState,
@@ -46,6 +45,10 @@ export const AppStateProvider = ({ children }) => {
 		addProduct,
 		editProduct,
 		removeProduct,
+		setExtensions,
+		addExtension,
+		editExtension,
+		removeExtension,
 		setGeneralStatistic,
 	};
 
