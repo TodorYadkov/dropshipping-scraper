@@ -75,28 +75,36 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <div className="flex justify-center gap-2">
+                        <div className="flex justify-center gap-3">
                             <div className="relative group">
                                 <svg
-                                    className="w-8 h-8"
-                                    viewBox="0 0 576 512"
-                                    fill="green"
+                                    viewBox="0 0 30.143 30.143"
+                                    className={`w-6 h-6 cursor-pointer ${extension.isWork ? 'fill-green-600' : 'fill-red-600'} ${!extension.isWorkBrowser && 'opacity-20'}`}
                                 >
-                                    <path d="M96 0C78.3 0 64 14.3 64 32v96h64V32c0-17.7-14.3-32-32-32zM288 0c-17.7 0-32 14.3-32 32v96h64V32c0-17.7-14.3-32-32-32zM32 160c-17.7 0-32 14.3-32 32s14.3 32 32 32v32c0 77.4 55 142 128 156.8V480c0 17.7 14.3 32 32 32s32-14.3 32-32V412.8c12.3-2.5 24.1-6.4 35.1-11.5c-2.1-10.8-3.1-21.9-3.1-33.3c0-80.3 53.8-148 127.3-169.2c.5-2.2 .7-4.5 .7-6.8c0-17.7-14.3-32-32-32H32zM576 368a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L416 385.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z" />
+                                    <path d="M20.034,2.357v3.824c3.482,1.798,5.869,5.427,5.869,9.619c0,5.98-4.848,10.83-10.828,10.83 c-5.982,0-10.832-4.85-10.832-10.83c0-3.844,2.012-7.215,5.029-9.136V2.689C4.245,4.918,0.731,9.945,0.731,15.801 c0,7.921,6.42,14.342,14.34,14.342c7.924,0,14.342-6.421,14.342-14.342C29.412,9.624,25.501,4.379,20.034,2.357z" />
+                                    <path d="M14.795,17.652c1.576,0,1.736-0.931,1.736-2.076V2.08c0-1.148-0.16-2.08-1.736-2.08 c-1.57,0-1.732,0.932-1.732,2.08v13.496C13.062,16.722,13.225,17.652,14.795,17.652z" />
                                 </svg>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                                <Tooltip message="Start" />
+
+                                {extension.isWorkBrowser
+                                    ? (<Tooltip message={`${extension.isWork ? 'Stop' : 'Start'}`} customTailwindClass="mb-[1px]" />)
+                                    : (<Tooltip message="To use control, please login in extension" customTailwindClass="mb-[1px]" />)
+                                }
                             </div>
 
                             <div className="relative group">
                                 <svg
-                                    className="block w-6 h-6 fill-red-600 cursor-pointer p-1 hover:opacity-70"
-                                    viewBox="0 0 448 512"
-                                    onClick={() => onModalClick('DeleteProductModal', { ...extension })}
+                                    viewBox="0 0 1024 1024"
+                                    className={`icon w-6 h-6 cursor-pointer fill-indigo-600 ${!extension.isWorkBrowser && 'opacity-20'}`}
+                                    stroke="#4f46e5"
+                                    strokeWidth="50"
                                 >
-                                    <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                    <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z" />
                                 </svg>
-                                <Tooltip message="Logout" />
+
+                                {extension.isWorkBrowser
+                                    ? (<Tooltip message="Logout" customTailwindClass="mb-[2px]" />)
+                                    : (<Tooltip message="To use control, please login in extension" customTailwindClass="mb-[2px]" />)
+                                }
                             </div>
                         </div>
                     </td>
