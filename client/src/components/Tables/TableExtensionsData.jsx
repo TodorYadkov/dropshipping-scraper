@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
 
 import { Tooltip } from '../Tooltip.jsx';
@@ -7,7 +5,7 @@ import { Tooltip } from '../Tooltip.jsx';
 export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
     // TODO
     return (
-        <tbody className="cursor-default">
+        <tbody>
 
             {extensionsData.length === 0 && (
                 <tr className="text-center bg-white">
@@ -28,7 +26,7 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
             {extensionsData.length > 0 && extensionsData.map(extension => (
                 <tr key={extension._id} className="bg-white hover:bg-gray-50">
 
-                    <td className="px-5 py-5 text-sm  border-b border-gray-200 w-1/4">
+                    <td className="px-5 py-5 text-sm  border-b border-gray-200 w-2/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {extension.extensionName}
                             <Tooltip message={'Extension Name'} />
@@ -37,97 +35,22 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {extension.priceAmazon ? `${extension.priceAmazon.toFixed(2)} ${extension.currencyAmazon}` : 'No price'}
-                            <Tooltip message={'Is Logged'} />
-                        </p>
-                    </td>
-
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        {extension.priceEbay ? (
-                            <>
-                                <Link to={extension.ebayUrl} target="blank" rel="noopener noreferrer">
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
-                                        {extension.priceEbay && `${extension.priceEbay.toFixed(2)} ${extension.currencyEbay}`}
-                                        <Tooltip message={'Open eBay Product'} />
-                                    </p>
-                                </Link>
-                                {extension?.currencyEbayOriginal && (
-                                    <p className='italic text-xs text-center cursor-default relative group'>({`${extension.priceEbayOriginal.toFixed(2)} ${extension.currencyEbayOriginal}`})
-                                        <Tooltip message={'Original eBay Price'} direction="bottom" customTailwindClass="not-italic" />
-                                    </p>
-                                )}
-                            </>
-                        ) : (
-                            <>
-                                {!extension.ebayUrl && (
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...extension })}>
-                                        Add eBay product
-                                        <Tooltip message={'Add eBay Product'} />
-                                    </p>
-                                )}
-                            </>
-                        )}
-                    </td>
-
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-
-                        {extension?.profit ? (
-                            <p className={`${extension.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} flex gap-1 justify-center items-center whitespace-wrap text-center relative group`}>
-                                {extension.profit !== 0 ? `${extension.profit} ${extension.currencyAmazon}` : '-'}
-                                {extension.profit <= 0 ? (
-                                    <svg
-                                        className="w-4 h-4"
-                                        viewBox="0 0 512 512"
-                                    >
-                                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
-                                        {/* <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" /> */}
-                                    </svg>
-                                ) : (
-                                    <svg
-                                        className="w-4 h-4"
-                                        viewBox="0 0 512 512"
-                                    >
-                                        <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
-                                    </svg>
-                                )}
-                                {extension.profit >= 0 ? <Tooltip message={'Profit'} /> : <Tooltip message={'The product is sold at a loss!'} customTailwindClass="bg-red-500" />}
-                            </p>
-                        ) : (
-                            <>
-                                {!extension.ebayUrl ? (
-                                    <p className="text-gray-900 whitespace-wrap text-center relative group">
-                                        -
-                                        <Tooltip message={'No eBay product'} />
-                                    </p>
-                                ) : (
-                                    <p className="text-gray-900 whitespace-wrap text-center relative group">
-                                        Calculating...
-                                        <Tooltip message={'Waiting scraping'} />
-                                    </p>
-                                )}
-                            </>
-                        )}
-
-                    </td>
-
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {extension.availability || '-'}
-                            {extension.availability && <Tooltip message={'Availability'} />}
+                            {extension.isLogin ? 'Logged in' : 'Not logged in'}
+                            <Tooltip message={'Extension Status'} />
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {extension.rating || '-'}
-                            {extension.rating && <Tooltip message={'Rating'} />}
+                            {extension.isWork ? 'Working' : 'Not working'}
+                            <Tooltip message={'Extension Status'} />
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {extension.updatedAt !== '1970-01-01T00:00:00.000Z' ? formatDateToTimeAgo(extension.updatedAt) : "-"}
-                            {extension.updatedAt !== '1970-01-01T00:00:00.000Z' && <Tooltip message={'Last Updated'} />}
+                            {extension.updatedAt !== '1970-01-01T00:00:00.000Z' && <Tooltip message={'Last Seen'} />}
                         </p>
                     </td>
 
@@ -149,6 +72,33 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                                     '-'
                                 )}
                         </p>
+                    </td>
+
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                        <div className="flex justify-center gap-2">
+                            <div className="relative group">
+                                <svg
+                                    className="w-8 h-8"
+                                    viewBox="0 0 576 512"
+                                    fill="green"
+                                >
+                                    <path d="M96 0C78.3 0 64 14.3 64 32v96h64V32c0-17.7-14.3-32-32-32zM288 0c-17.7 0-32 14.3-32 32v96h64V32c0-17.7-14.3-32-32-32zM32 160c-17.7 0-32 14.3-32 32s14.3 32 32 32v32c0 77.4 55 142 128 156.8V480c0 17.7 14.3 32 32 32s32-14.3 32-32V412.8c12.3-2.5 24.1-6.4 35.1-11.5c-2.1-10.8-3.1-21.9-3.1-33.3c0-80.3 53.8-148 127.3-169.2c.5-2.2 .7-4.5 .7-6.8c0-17.7-14.3-32-32-32H32zM576 368a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L416 385.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+                                <Tooltip message="Start" />
+                            </div>
+
+                            <div className="relative group">
+                                <svg
+                                    className="block w-6 h-6 fill-red-600 cursor-pointer p-1 hover:opacity-70"
+                                    viewBox="0 0 448 512"
+                                    onClick={() => onModalClick('DeleteProductModal', { ...extension })}
+                                >
+                                    <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" />
+                                </svg>
+                                <Tooltip message="Logout" />
+                            </div>
+                        </div>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
