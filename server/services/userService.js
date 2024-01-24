@@ -3,13 +3,14 @@ import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 
 import { User } from '../models/User.js';
-import { TokenBlackList } from '../models/TokenBlacklist.js';
 import { Extension } from '../models/Extension.js';
+import { TokenBlackList } from '../models/TokenBlacklist.js';
 
-import { addTokenToBlackList } from './tokenBlackListService.js';
 import { signJwtToken } from '../util/signJwtToken.js';
 import { verifyJwtToken } from '../util/verifyJwtToken.js';
 import { passwordResetTemplate } from '../util/passwordResetTemplate.js';
+
+import { addTokenToBlackList } from './tokenBlackListService.js';
 
 // Register
 async function userRegister({ name, email, password, role, extensionName }) {
@@ -36,7 +37,6 @@ async function userRegister({ name, email, password, role, extensionName }) {
     const extension = await Extension.create({
         extensionName,
         owner: user._id,
-        isLogin: true,
     });
 
     // Create token
