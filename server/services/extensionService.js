@@ -97,7 +97,7 @@ const stopExtension = async (userId, extensionName) => {
     return extension;
 };
 
-// STOP working extension
+// STOP working extension and set error
 const errorExtension = async (userId, extensionName, error) => {
     const extension = await Extension.findOneAndUpdate(
         { extensionName, owner: userId },
