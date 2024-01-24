@@ -16,6 +16,10 @@ export const SERVER_PATHS = {
     CREATE_EXTENSION: '/extensions',
     UPDATE_EXTENSION: '/extensions',
     DELETE_EXTENSION: (extensionId) => `/extensions/${extensionId}`,
+    RESET_ERROR_EXTENSION: '/extensions/reset-error',
+    REACT_START_EXTENSION: '/extensions/react-start',
+    REACT_STOP_EXTENSION: '/extensions/react-stop',
+    LOGOUT_EXTENSION: '/extensions/logout',
 };
 
 export const CLIENT_PATHS = {
