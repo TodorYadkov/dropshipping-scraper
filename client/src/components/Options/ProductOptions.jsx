@@ -1,15 +1,33 @@
+import { useMemo } from 'react';
 import { useModal } from '../../hooks/useModal.js';
+
+import { SORTING_KEYS } from '../../util/constants.js';
 
 import { ButtonPrimary } from '../Buttons/ButtonPrimary.jsx';
 import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
 import { AddProductModal } from '../Modal/AddProductModal.jsx';
 
-import { ProductOffsetSelector } from '../Pagination/ProductOffsetSelector.jsx';
+import { OffsetSelector } from '../Pagination/OffsetSelector.jsx';
 import { SearchInput } from '../SearchInput.jsx';
 import { DropdownSorts } from '../Sorts/DropdownSorts.jsx';
 
 export const ProductOptions = ({ onRefresh }) => {
 	const [productModal, toggleProductModal] = useModal();
+
+	const sortingCriteria = useMemo(() => {
+		return ({
+			[SORTING_KEYS.PRODUCT_NAME_ASC]: 'Name 🠅',
+			[SORTING_KEYS.PRODUCT_NAME_DESC]: 'Name 🠇',
+			[SORTING_KEYS.PRODUCT_AMAZON_PRICE_ASC]: 'Amazon price 🠅',
+			[SORTING_KEYS.PRODUCT_AMAZON_PRICE_DESC]: 'Amazon price 🠇',
+			[SORTING_KEYS.PRODUCT_EBAY_PRICE_ASC]: 'Ebay price 🠅',
+			[SORTING_KEYS.PRODUCT_EBAY_PRICE_DESC]: 'Ebay price 🠇',
+			[SORTING_KEYS.PRODUCT_PROFIT_ASC]: 'Profit 🠅',
+			[SORTING_KEYS.PRODUCT_PROFIT_DESC]: 'Profit 🠇',
+			[SORTING_KEYS.PRODUCT_LAST_UPDATED_ASC]: 'Last Updated 🠅',
+			[SORTING_KEYS.PRODUCT_LAST_UPDATED_DESC]: 'Last Updated 🠇',
+		});
+	}, []);
 
 	return (
 		<div className="flex flex-col sm:flex-row sm:gap-2 gap-5 justify-between items-center">
@@ -33,9 +51,9 @@ export const ProductOptions = ({ onRefresh }) => {
 			</div>
 
 			<div className="flex gap-2">
-				<DropdownSorts />
+				<DropdownSorts sortingCriteria={sortingCriteria} />
 
-				<ProductOffsetSelector />
+				<OffsetSelector />
 			</div>
 		</div>
 	);
