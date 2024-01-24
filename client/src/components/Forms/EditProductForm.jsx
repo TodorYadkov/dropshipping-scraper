@@ -16,8 +16,8 @@ export const EditProductForm = ({ toggleModal, product }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState('');
 
-    const { updateProduct } = useApi(productService);
     const { editProduct } = useAppStateContext();
+    const { updateProduct } = useApi(productService);
 
     const { values, formErrors, onChange, onSubmit, onBlur } = useForm(
         submitFunction,

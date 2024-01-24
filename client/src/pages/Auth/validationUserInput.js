@@ -46,10 +46,6 @@ export const validationUserInput = (inputName, inputValue) => {
 			return { [inputName]: 'Extension name is required' };
 		}
 
-		if (inputValue.length < 5) {
-			return { [inputName]: 'Extension name must be at least 5 characters' };
-		}
-
 		if (inputValue.length > 100) {
 			return { [inputName]: 'Extension name must be less than 100 characters' };
 		}

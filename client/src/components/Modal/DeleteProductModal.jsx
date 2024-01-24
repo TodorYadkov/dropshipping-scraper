@@ -6,7 +6,7 @@ import { Modal } from './Modal.jsx';
 export const DeleteProductModal = memo(({ toggleModal, product }) => {
 	return (
 		<Modal
-			title={'Delete product'}
+			title={'Delete Product'}
             toggleModal={toggleModal}
 			Content={() => (
 				<DeleteProductForm

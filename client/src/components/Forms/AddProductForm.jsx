@@ -129,7 +129,6 @@ export const AddProductForm = ({ toggleModal }) => {
                         </p>
                     )}
 
-
                     {isLoading ? (
                         <Loader width={6} height={6} margin="mr-6" />
                     ) :

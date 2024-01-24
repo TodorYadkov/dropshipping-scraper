@@ -3,7 +3,7 @@ import { useModal } from '../../hooks/useModal.js';
 
 import { ButtonPrimary } from '../Buttons/ButtonPrimary.jsx';
 import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
-import { AddProductModal } from '../Modal/AddProductModal.jsx';
+import { AddExtensionModal } from '../Modal/AddExtensionModal.jsx';
 
 import { OffsetSelector } from '../Pagination/OffsetSelector.jsx';
 import { SearchInput } from '../SearchInput.jsx';
@@ -43,7 +43,7 @@ export const ExtensionOptions = ({ onRefresh }) => {
 					</svg>
 				</ButtonPrimary>
 
-				{extensionModal && <AddProductModal toggleModal={toggleExtensionModal} />}
+				{extensionModal && <AddExtensionModal toggleModal={toggleExtensionModal} />}
 
 			</div>
 

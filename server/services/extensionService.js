@@ -4,9 +4,18 @@ import { addTokenToBlackList } from './tokenBlackListService.js';
 
 // EXTENSION REACT request ---------------------
 
-const getAllExtension = (userId) => Extension.find({ owner: userId }).select('-accessToken');
+const getAllExtension = (userId) => Extension.find({ owner: userId }).select('-accessToken').sort({ createdAt: -1 });
 
 const getOneExtension = async (extensionId) => Extension.findById(extensionId).select('-accessToken');
+
+// CREATE 
+const createExtension = async (extensionName, userId) => Extension.create({ extensionName, owner: userId }).select('-accessToken');
+
+// UPDATE
+const updateExtension = async (extensionName, extensionId) => Extension.findByIdAndUpdate(extensionId, { extensionName }, { runValidators: true, new: true }).select('-accessToken');
+
+// DELETE 
+const deleteExtension = async (extensionId) => Extension.findByIdAndDelete(extensionId, { returnDocument: true }).select('-accessToken');
 
 // LOGOUT extension from React
 const logoutExtensionFromReact = async (userId, extensionId) => {
@@ -104,6 +113,9 @@ function createExclusionObject() {
 export {
     getAllExtension,
     getOneExtension,
+    createExtension,
+    updateExtension,
+    deleteExtension,
     logoutExtensionFromReact,
     getLatestUpdatedProduct,
     updatedProductFromExtension,

@@ -7,12 +7,15 @@ export const SERVER_PATHS = {
     UPDATE_PROFILE: '/users/profile',
     FORGOT_PASSWORD: '/users/forgot-password',
     RESET_PASSWORD: '/users/reset-password',
-    GET_ALL_PRODUCTS: '/products',
+    GET_PRODUCTS: '/products',
     CREATE_PRODUCT: '/products',
     UPDATE_PRODUCT: (productId) => `/products/${productId}`,
     DELETE_PRODUCT: (productId) => `/products/${productId}`,
     GET_GENERAL_STATISTICS: '/statistics/general',
-    GET_ALL_EXTENSIONS: '/extensions',
+    GET_EXTENSIONS: '/extensions',
+    CREATE_EXTENSION: '/extensions',
+    UPDATE_EXTENSION: '/extensions',
+    DELETE_EXTENSION: (extensionId) => `/extensions/${extensionId}`,
 };
 
 export const CLIENT_PATHS = {

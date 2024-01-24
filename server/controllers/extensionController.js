@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { extractASIN } from '../util/extractASIN.js';
-import { updateProductSchema } from '../util/validationSchemes.js';
+import { updateProductSchema, validateExtensionSchema } from '../util/validationSchemes.js';
 import { isOwner, isUserLogged } from '../middlewares/guards.js';
 import { preload } from '../middlewares/preloader.js';
 import {
@@ -15,6 +15,9 @@ import {
     logoutExtensionFromReact,
     getOneExtension,
     getAllExtension,
+    createExtension,
+    updateExtension,
+    deleteExtension,
 } from '../services/extensionService.js';
 
 const extensionController = Router();
@@ -26,9 +29,51 @@ extensionController.get('/', isUserLogged, async (req, res, next) => {
     try {
         const userId = req.user._id;
 
-        const extensionData = await getAllExtension(userId);
+        const extension = await getAllExtension(userId);
 
-        res.status(200).json(extensionData);
+        res.status(200).json(extension);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// POST 
+extensionController.post('/', isUserLogged, async (req, res, next) => {
+    try {
+        const { extensionName } = req.body;
+        const userId = req.user._id;
+
+        await validateExtensionSchema.validateAsync({ extensionName });
+        const newExtension = await createExtension(extensionName, userId);
+
+        res.status(201).json(newExtension);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// PUT
+extensionController.put('/', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+    try {
+        const { _id, extensionName } = req.body;
+
+        await validateExtensionSchema.validateAsync({ extensionName });
+        const editedExtension = await updateExtension(extensionName, _id);
+
+        res.status(200).json(editedExtension);
+    } catch (err) {
+        next(err);
+    }
+});
+
+// DELETE
+extensionController.delete('/:extensionId', isUserLogged, preload(getOneExtension, 'extensionId'), isOwner, async (req, res, next) => {
+    try {
+        const extensionId = req.params.extensionId;
+
+        const deletedExtension = await deleteExtension(extensionId);
+
+        res.status(200).json(deletedExtension);
     } catch (err) {
         next(err);
     }
@@ -38,11 +83,11 @@ extensionController.get('/', isUserLogged, async (req, res, next) => {
 extensionController.put('/logout', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
     try {
         const userId = req.user._id;
-        const extensionData = req.body;
+        const extension = req.body;
 
-        const updatedExtensionData = await logoutExtensionFromReact(userId, extensionData._id);
+        const updatedExtension = await logoutExtensionFromReact(userId, extension._id);
 
-        res.status(200).json(updatedExtensionData);
+        res.status(200).json(updatedExtension);
     } catch (err) {
         next(err);
     }

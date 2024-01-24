@@ -6,10 +6,14 @@ import { Modal } from './Modal.jsx';
 export const EditProductModal = memo(({ toggleModal, product }) => {
 	return (
 		<Modal
-			title={'Edit product'}
+			title={'Edit Product'}
 			toggleModal={toggleModal}
+			Content={() => (
+				<EditProductForm
+					product={product}
+					toggleModal={toggleModal}
+				/>)}
 			backdrop={false}
-			Content={() => <EditProductForm product={product} toggleModal={toggleModal} />}
 		/>
 	);
 });

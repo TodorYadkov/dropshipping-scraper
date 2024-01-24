@@ -6,6 +6,10 @@ const preload = (api, option) => async (req, res, next) => {
 			params = [req.body._id];
 			errorMessage = 'The extension you are looking for does not exist!';
 
+		} else if (option === 'extensionId') {
+			params = [req.params.extensionId];
+			errorMessage = 'The extension you are looking for does not exist!';
+
 		} else if (option === 'product') {
 			params = [req.params.productId];
 			errorMessage = 'The product you are looking for does not exist!';
