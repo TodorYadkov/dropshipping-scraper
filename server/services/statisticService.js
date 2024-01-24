@@ -84,9 +84,6 @@ const getGeneralStatistic = async (userId) => {
 	return generalStatistic;
 };
 
-const getExtensionsStatistic = async (userId) => Extension.find({ owner: userId });
-
 export {
 	getGeneralStatistic,
-	getExtensionsStatistic,
 };
