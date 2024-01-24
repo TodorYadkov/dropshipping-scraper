@@ -7,7 +7,7 @@ import { Tooltip } from '../Tooltip.jsx';
 export const TableBodyProducts = ({ products, onModalClick }) => {
 
     return (
-        <tbody className="cursor-default">
+        <tbody>
 
             {products.length === 0 && (
                 <tr className="text-center bg-white">
