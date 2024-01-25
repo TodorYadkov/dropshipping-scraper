@@ -114,7 +114,7 @@ export const NotifierDropdown = memo(() => {
 
         return jsxErrors;
 
-    }, [errors]);
+    }, [errors.extensionErrors, errors.productErrors, isShownResetModal, toggleResetModal]);
 
     const toggleErrorDropdown = () => {
         setErrorDropdownOpen(!errorDropdownOpen);
