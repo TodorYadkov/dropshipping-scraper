@@ -1,6 +1,6 @@
 export const SERVER_PATHS = {
-    HOST: 'https://dropshipping-scraper.vercel.app',
-    // HOST: 'http://localhost:3000',
+    // HOST: 'https://dropshipping-scraper.vercel.app',
+    HOST: 'http://localhost:3000',
     LOGIN: '/users/login',
     REGISTER: '/users/register',
     LOGOUT: '/users/logout',
