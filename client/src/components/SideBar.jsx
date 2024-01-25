@@ -48,6 +48,7 @@ export const SideBar = memo(() => {
 						<NavLink
 							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to={CLIENT_PATHS.DASHBOARD}
+							onClick={() => changeSideBarState(false)}
 						>
 							<svg
 								className="w-5 h-5"
@@ -70,6 +71,7 @@ export const SideBar = memo(() => {
 						<NavLink
 							className={({ isActive }) => setActiveAndInactiveCss(isActive)}
 							to={CLIENT_PATHS.EXTENSIONS}
+							onClick={() => changeSideBarState(false)}
 						>
 							<svg
 								className="w-5 h-5"
