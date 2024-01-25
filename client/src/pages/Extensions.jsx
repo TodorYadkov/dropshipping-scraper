@@ -10,6 +10,7 @@ import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveD
 import { DATA_TYPES, REDUCER_TYPES } from "../util/constants.js";
 
 import { extensionService } from "../services/extensionService.js";
+import { statisticService } from "../services/statisticService.js";
 
 import { PageTitle } from "../components/PageTitle.jsx";
 import { Loader } from "../components/Loader.jsx";
@@ -26,7 +27,9 @@ export const Extensions = () => {
 	const [_] = useIntervalTimeToReceiveData(fetchExtensionsData);
 
 	const { getExtensions } = useApi(extensionService);
-	const { appState, setExtensions: setExtensionGlobalStateData } = useAppStateContext();
+	const { getGeneralStatistic } = useApi(statisticService);
+
+	const { appState, setExtensions: setExtensionGlobalStateData, setGeneralStatistic } = useAppStateContext();
 
 	// Initial
 	useEffect(() => {
@@ -46,13 +49,18 @@ export const Extensions = () => {
 		setExtensionsLocalStateData(appState[REDUCER_TYPES.EXTENSIONS]);
 	}, [appState[REDUCER_TYPES.EXTENSIONS]]);
 
-	// Fetch extension statistic data from server
+	// Fetch extension data from server
 	async function fetchExtensionsData() {
 		try {
-			const extensionsData = await getExtensions();
+			const [extensionsData, generalStatistic] = await Promise.all([
+				getExtensions(),
+				getGeneralStatistic()
+			]);
 
 			setExtensionsLocalStateData(extensionsData);
 			setExtensionGlobalStateData(extensionsData);
+			setGeneralStatistic(generalStatistic);
+
 		} catch (error) {
 			console.error(error);
 			addAlertMessage(error.message);
