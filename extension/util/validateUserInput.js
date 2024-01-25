@@ -38,9 +38,9 @@ export function checkUserInput(userInput, form) {
 		if (extensionName === '') {
 			hasError = true;
 			error = 'Extension name is required';
-		} else if (extensionName.length < 5 || extensionName.length > 100) {
+		} else if (extensionName.length > 100) {
 			hasError = true;
-			error = 'Extension name must be between 5 and 100 characters';
+			error = 'Extension name must be less than 100 characters';
 		} else {
 			error = '';
 		}
