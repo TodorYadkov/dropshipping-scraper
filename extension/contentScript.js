@@ -82,6 +82,8 @@ try {
                 return 'JPY';
             case 'A$':
                 return 'AUD';
+            case 'AU $':
+                return 'AUD';
             default:
                 return currencySymbol;
         }
