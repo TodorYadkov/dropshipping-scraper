@@ -36,6 +36,7 @@ async function userRegister({ name, email, password, role, extensionName }) {
     // Create extension
     const extension = await Extension.create({
         extensionName,
+        default: true,
         owner: user._id,
     });
 
