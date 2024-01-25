@@ -4,7 +4,7 @@ import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 
 import { UserDropdown } from './UserDropdown.jsx';
-import { ErrorNotifierDropdown } from './ErrorNotifierDropdown.jsx';
+import { NotifierDropdown } from './NotifierDropdown.jsx';
 
 export const Header = memo(() => {
 	const { changeSideBarState } = useAppStateContext();
@@ -66,7 +66,7 @@ export const Header = memo(() => {
 
 			{isAuthenticated && (
 				<div className="flex items-center">
-					<ErrorNotifierDropdown />
+					<NotifierDropdown />
 					<UserDropdown />
 				</div>
 			)}
