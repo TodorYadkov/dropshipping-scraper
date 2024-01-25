@@ -9,13 +9,22 @@ const getAllExtension = (userId) => Extension.find({ owner: userId }).select('-a
 const getOneExtension = async (extensionId) => Extension.findById(extensionId).select('-accessToken');
 
 // CREATE 
-const createExtension = async (extensionName, userId) => Extension.create({ extensionName, owner: userId }).select('-accessToken');
+const createExtension = async (extensionName, userId) => Extension.create({ extensionName, owner: userId });
 
 // UPDATE
 const updateExtension = async (extensionName, extensionId) => Extension.findByIdAndUpdate(extensionId, { extensionName }, { runValidators: true, new: true }).select('-accessToken');
 
 // DELETE 
-const deleteExtension = async (extensionId) => Extension.findByIdAndDelete(extensionId, { returnDocument: true }).select('-accessToken');
+const deleteExtension = async (extensionId) => {
+    const extensionToDelete = await Extension.findOne({ _id: extensionId });
+
+    if (!extensionToDelete || extensionToDelete.default) {
+        throw new Error('This is the default extension and cannot be deleted');
+    }
+
+    const deletedExtension = await Extension.findOneAndDelete({ _id: extensionId }).select('-accessToken').exec();
+    return deletedExtension;
+}
 
 // Reset error
 const resetErrorExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { error: null }, { runValidators: true, new: true }).select('-accessToken');
