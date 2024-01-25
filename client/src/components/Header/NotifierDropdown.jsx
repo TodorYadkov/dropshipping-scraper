@@ -1,16 +1,18 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useAppStateContext } from "../../hooks/useAppStateContext.js";
 import { useApi } from "../../hooks/useApi.js";
+import { useModal } from "../../hooks/useModal.js";
 
 import { extensionService } from "../../services/extensionService.js";
 import { productService } from "../../services/productService.js";
 
 import { Tooltip } from "../Tooltip.jsx";
-import { useModal } from "../../hooks/useModal.js";
 import { ResetErrorExtensionModal } from "../Modal/ResetErrorExtensionModal.jsx";
+import { REDUCER_TYPES } from "../../util/constants.js";
 
-export const ErrorNotifierDropdown = memo(() => {
+export const NotifierDropdown = memo(() => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);
     const [errors, setErrors] = useState({ productErrors: [], extensionErrors: [] });
     const [countErrors, setCountErrors] = useState(0);
@@ -18,23 +20,30 @@ export const ErrorNotifierDropdown = memo(() => {
 
     const [isShownResetModal, toggleResetModal] = useModal();
 
+    const { appState } = useAppStateContext();
     const { getProducts } = useApi(productService);
     const { getExtensions } = useApi(extensionService);
 
+    const requestHandler = useCallback(async () => {
+        try {
+            const [products, extensions] = await Promise.all([
+                getProducts(),
+                getExtensions()
+            ]);
+
+            setAllData({ products, extensions });
+        } catch (error) {
+            console.error(error);
+        }
+        
+    }, []);
+
     useEffect(() => {
-        // Initial Load error
         (async function () {
             await requestHandler();
         })()
 
-        const intervalId = setInterval(async () => {
-            await requestHandler();
-
-        }, 120000);
-
-        return () => clearInterval(intervalId);
-
-    }, []);
+    }, [appState[REDUCER_TYPES.EXTENSIONS], appState[REDUCER_TYPES.PRODUCTS]]);
 
     useEffect(() => {
         const productErrors = allData?.products?.filter(p => p?.error) || [];
@@ -47,8 +56,10 @@ export const ErrorNotifierDropdown = memo(() => {
 
     }, [allData.extensions, allData.products]);
 
+
+
     // Show different error
-    const errorHandler = () => {
+    const errorHandler = useCallback(() => {
         const jsxErrors = [];
 
         // Errors product
@@ -102,25 +113,12 @@ export const ErrorNotifierDropdown = memo(() => {
         }
 
         return jsxErrors;
-    };
+
+    }, [errors]);
 
     const toggleErrorDropdown = () => {
         setErrorDropdownOpen(!errorDropdownOpen);
     };
-
-    async function requestHandler() {
-        try {
-            const [products, extensions] = await Promise.all([
-                getProducts(),
-                getExtensions()
-            ]);
-
-            setAllData({ products, extensions });
-
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     return (
         <div className="relative cursor-default">
@@ -166,4 +164,4 @@ export const ErrorNotifierDropdown = memo(() => {
     );
 });
 
-ErrorNotifierDropdown.displayName = 'ErrorNotifierDropdown';
+NotifierDropdown.displayName = 'NotifierDropdown';
