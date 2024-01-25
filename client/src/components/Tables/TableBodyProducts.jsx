@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
@@ -5,11 +6,20 @@ import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
 import { Tooltip } from '../Tooltip.jsx';
 
 export const TableBodyProducts = ({ products, onModalClick }) => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsVisible(true);
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+
+    }, []);
 
     return (
         <tbody>
-
-            {products.length === 0 && (
+            {isVisible && (products.length === 0 && (
                 <tr className="text-center bg-white">
                     <td colSpan={9} className="gap-2 py-5 text-lg border-b border-gray-200">
                         <svg className="inline-block w-8 h-8 text-gray-900" viewBox="0 0 28 28" fill="none">
@@ -23,7 +33,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         </p>
                     </td>
                 </tr>
-            )}
+            ))}
 
             {products.length > 0 && products.map(product => (
                 <tr key={product._id} className="bg-white hover:bg-gray-50">
