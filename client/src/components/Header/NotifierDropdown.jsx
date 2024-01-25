@@ -15,8 +15,8 @@ import { CLIENT_PATHS } from "../../util/paths.js";
 
 export const NotifierDropdown = memo(() => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);
-    const [errors, setErrors] = useState({ productErrors: [], extensionErrors: [] });
     const [countErrors, setCountErrors] = useState(0);
+    const [errors, setErrors] = useState({ productErrors: [], extensionErrors: [] });
     const [allData, setAllData] = useState({ products: [], extensions: [] });
 
     const [isShownResetModal, toggleResetModal] = useModal();
@@ -57,7 +57,9 @@ export const NotifierDropdown = memo(() => {
 
     }, [allData.extensions, allData.products]);
 
-
+    const toggleErrorDropdown = () => {
+        setErrorDropdownOpen(!errorDropdownOpen);
+    };
 
     // Show different error
     const errorHandler = useCallback(() => {
@@ -68,7 +70,16 @@ export const NotifierDropdown = memo(() => {
             jsxErrors.push(
                 ...errors.productErrors.map(p => (
                     <div key={p._id} className="py-1 px-2 text-xs text-gray-700 hover:bg-indigo-600 hover:text-white relative group">
-                        <p className="truncate w-11/12"><Link to={CLIENT_PATHS.DASHBOARD}><span className="font-bold cursor-pointer hover:underline">Product: </span></Link>{p.name}
+                        <p className="truncate w-11/12">
+                            <Link
+                                to={CLIENT_PATHS.DASHBOARD}
+                                onClick={toggleErrorDropdown}
+                            >
+                                <span className="font-bold cursor-pointer hover:underline">Product:</span>
+                            </Link>
+
+                            {` ${p.name}`}
+
                             <Link to={p.amazonUrl} target="blank" rel="noopener noreferrer">
                                 <svg
                                     className="absolute top-1 right-2 w-3 h-3 fill-white"
@@ -93,7 +104,16 @@ export const NotifierDropdown = memo(() => {
                 ...errors.extensionErrors.map(e => (
                     <div key={e._id}>
                         <div className="py-1 px-2 text-xs text-gray-700 hover:bg-indigo-600 hover:text-white relative group">
-                            <p className="truncate w-11/12"><Link to={CLIENT_PATHS.EXTENSIONS}><span className="font-bold cursor-pointer hover:underline">Extension: </span></Link>{e.extensionName}
+                            <p className="truncate w-11/12">
+                                <Link
+                                    to={CLIENT_PATHS.EXTENSIONS}
+                                    onClick={toggleErrorDropdown}
+                                >
+                                    <span className="font-bold cursor-pointer hover:underline">Extension:</span>
+                                </Link>
+
+                                {` ${e.extensionName}`}
+
                                 <svg
                                     className="absolute top-1 right-2 w-3 h-3 fill-white cursor-pointer"
                                     viewBox="0 0 384 512"
@@ -116,10 +136,6 @@ export const NotifierDropdown = memo(() => {
         return jsxErrors;
 
     }, [errors.extensionErrors, errors.productErrors, isShownResetModal, toggleResetModal]);
-
-    const toggleErrorDropdown = () => {
-        setErrorDropdownOpen(!errorDropdownOpen);
-    };
 
     return (
         <div className="relative cursor-default">
