@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 
 import { User } from '../models/User.js';
-import { Extension } from '../models/Extension.js';
 
 const getGeneralStatistic = async (userId) => {
 	const aggregationPipeline = [
@@ -40,6 +39,7 @@ const getGeneralStatistic = async (userId) => {
 				extensionsNotWorked: { $sum: { $cond: [{ $isArray: '$extensionStatus' }, { $size: { $filter: { input: '$extensionStatus', as: 'e', cond: { $eq: ['$$e.isWork', false] } } } }, 0] } },
 				productsCount: { $sum: { $cond: [{ $isArray: '$userProducts' }, { $size: '$userProducts' }, 0] } },
 				productsErrorCount: { $sum: { $size: { $filter: { input: '$userProducts', as: 'p', cond: { $ne: ['$$p.error', null] } } } } },
+				availableProductsCount: { $sum: { $cond: [{ $isArray: '$userProducts', }, { $size: { $filter: { input: '$userProducts', as: 'p', cond: { $and: [{ $ne: ['$$p.availability', 'Out of Stock'] }, { $ne: ['$$p.availability', 'Not available'] },], }, }, }, }, 0,], }, },
 			},
 		},
 		{
@@ -52,6 +52,7 @@ const getGeneralStatistic = async (userId) => {
 				extensionsNotWorked: 1,
 				productsCount: 1,
 				productsErrorCount: 1,
+				availableProductsCount: 1,
 			},
 		},
 	];
@@ -70,6 +71,7 @@ const getGeneralStatistic = async (userId) => {
 		extensionsNotWorked,
 		productsCount,
 		productsErrorCount,
+		availableProductsCount,
 	} = result;
 
 	const generalStatistic = {
@@ -79,6 +81,7 @@ const getGeneralStatistic = async (userId) => {
 		extensionsNotWorked,
 		productsCount,
 		productsErrorCount,
+		availableProductsCount,
 	};
 
 	return generalStatistic;
