@@ -6,6 +6,7 @@ import { reducer } from './reducer.js';
 const initialState = {
 	[REDUCER_TYPES.IS_SIDE_BAR_OPEN]: false,
 	[REDUCER_TYPES.PRODUCTS]: [],
+	[REDUCER_TYPES.EXTENSIONS]: [],
 	[REDUCER_TYPES.GENERAL_STATISTIC]: {},
 };
 
@@ -15,7 +16,8 @@ AppStateContext.displayName = 'AppStateContext';
 export const AppStateProvider = ({ children }) => {
 	const [appState, dispatch] = useReducer(reducer, initialState);
 
-	const changeSideBarState = (value) => dispatch({ type: REDUCER_TYPES.IS_SIDE_BAR_OPEN, value });
+	// Sidebar
+	const changeSideBarState = (boolean) => dispatch({ type: REDUCER_TYPES.IS_SIDE_BAR_OPEN, value: boolean });
 
 	// Products
 	const setProducts = (value) => dispatch({ type: REDUCER_TYPES.PRODUCTS, value });
