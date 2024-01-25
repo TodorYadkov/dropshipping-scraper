@@ -25,6 +25,10 @@ const extensionSchema = new Schema({
         type: String,
         default: null
     },
+    default: {
+        type: Boolean,
+        default: false
+    },
     owner: {
         type: Types.ObjectId,
         ref: 'User',
