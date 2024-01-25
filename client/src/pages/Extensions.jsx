@@ -15,6 +15,7 @@ import { PageTitle } from "../components/PageTitle.jsx";
 import { Loader } from "../components/Loader.jsx";
 import { AlertError } from "../components/Alerts/AlertError.jsx";
 import { ResponsiveComponent } from "../components/ResponsiveComponent.jsx";
+import { DashboardSummary } from "../components/DashboardSummary.jsx";
 
 
 export const Extensions = () => {
@@ -78,6 +79,8 @@ export const Extensions = () => {
 					? <Loader />
 					: (
 						<>
+							<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
+
 							{alert && (
 								<div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5">
 									<AlertError message={alert} close={onCloseAlert} />
