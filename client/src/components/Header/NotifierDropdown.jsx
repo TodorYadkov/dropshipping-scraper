@@ -11,6 +11,7 @@ import { productService } from "../../services/productService.js";
 import { Tooltip } from "../Tooltip.jsx";
 import { ResetErrorExtensionModal } from "../Modal/ResetErrorExtensionModal.jsx";
 import { REDUCER_TYPES } from "../../util/constants.js";
+import { CLIENT_PATHS } from "../../util/paths.js";
 
 export const NotifierDropdown = memo(() => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);
@@ -35,7 +36,7 @@ export const NotifierDropdown = memo(() => {
         } catch (error) {
             console.error(error);
         }
-        
+
     }, []);
 
     useEffect(() => {
@@ -67,7 +68,7 @@ export const NotifierDropdown = memo(() => {
             jsxErrors.push(
                 ...errors.productErrors.map(p => (
                     <div key={p._id} className="py-1 px-2 text-xs text-gray-700 hover:bg-indigo-600 hover:text-white relative group">
-                        <p className="truncate w-11/12"><span className="font-bold">Product: </span>{p.name}
+                        <p className="truncate w-11/12"><Link to={CLIENT_PATHS.DASHBOARD}><span className="font-bold cursor-pointer hover:underline">Product: </span></Link>{p.name}
                             <Link to={p.amazonUrl} target="blank" rel="noopener noreferrer">
                                 <svg
                                     className="absolute top-1 right-2 w-3 h-3 fill-white"
@@ -92,7 +93,7 @@ export const NotifierDropdown = memo(() => {
                 ...errors.extensionErrors.map(e => (
                     <div key={e._id}>
                         <div className="py-1 px-2 text-xs text-gray-700 hover:bg-indigo-600 hover:text-white relative group">
-                            <p className="truncate w-11/12"><span className="font-bold">Extension: </span>{e.extensionName}
+                            <p className="truncate w-11/12"><Link to={CLIENT_PATHS.EXTENSIONS}><span className="font-bold cursor-pointer hover:underline">Extension: </span></Link>{e.extensionName}
                                 <svg
                                     className="absolute top-1 right-2 w-3 h-3 fill-white cursor-pointer"
                                     viewBox="0 0 384 512"
