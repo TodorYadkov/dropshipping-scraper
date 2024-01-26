@@ -78,10 +78,12 @@ async function userLogin({ email, password, isExtension, extensionName }) {
         // Create token to be used on extension
         user.isExtension = isExtension;
         user.extensionName = extensionName;
+        user.extensionId = extension._id;
         userToken = await generateUserToken(user);
 
         // Save extension details
         extension.isLogin = true;
+        extension.isWorkBrowser = true;
         extension.accessToken = userToken;
         await extension.save();
     } else {
@@ -96,22 +98,14 @@ async function userLogin({ email, password, isExtension, extensionName }) {
 }
 
 //  Logout
-async function userLogout({ _id, accessToken, isExtension, extensionName }) {
+async function userLogout({ _id, accessToken, isExtension, extensionName, extensionId }) {
     const userLogoutData = {
         accessToken,
         userId: _id
     };
 
     if (isExtension) {
-        const extension = await Extension.findOne({ extensionName, owner: _id });
-        if (extension) {
-            extension.isWork = false;
-            extension.isLogin = false;
-            extension.isWorkBrowser = false;
-            extension.accessToken = null;
-
-            await extension.save();
-        }
+        await Extension.findByIdAndUpdate(extensionId, { isWork: false, isLogin: false, isWorkBrowser: false, accessToken: null });
 
         userLogoutData.extensionName = extensionName;
     }
@@ -212,6 +206,7 @@ async function generateUserToken(user) {
         role: user.role,
         isExtension: user.isExtension,
         extensionName: user?.extensionName ? user.extensionName : 'React Client',
+        ...(user.extensionId && { extensionId: user.extensionId }), // Optional property
     }
 
     const signedToken = await signJwtToken(payload, options);
