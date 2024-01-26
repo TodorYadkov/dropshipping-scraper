@@ -14,7 +14,7 @@ export const DeleteExtensionForm = ({ toggleModal, extension }) => {
     const [serverError, setServerError] = useState('');
     const [isBtnPressed, setIsBtnPressed] = useState(false);
 
-    const { removeExtension } = useAppStateContext();
+    const { removeExtension, setRefreshState } = useAppStateContext();
     const { deleteExtension } = useApi(extensionService);
 
     async function deleteHandler() {
@@ -25,6 +25,7 @@ export const DeleteExtensionForm = ({ toggleModal, extension }) => {
             await deleteExtension(extension._id);
 
             removeExtension(extension);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
