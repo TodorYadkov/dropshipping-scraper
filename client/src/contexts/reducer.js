@@ -32,6 +32,12 @@ export const reducer = (state, action) => {
 		case REDUCER_TYPES.GENERAL_STATISTIC:
 			return { ...state, [action.type]: { ...state[action.type], ...action.value } };
 
+		case REDUCER_TYPES.REFRESH_STATE:
+			return { ...state, [action.type]: action.value };
+
+		case REDUCER_TYPES.IS_LOADING_STATE:
+			return { ...state, [action.type]: action.value };
+
 		default:
 			throw new Error('Unrecognized reducer type');
 	}
