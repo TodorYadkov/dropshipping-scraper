@@ -58,45 +58,25 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
                         </p>
                     </td>
 
-                    {/* <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap flex items-center justify-center relative group">
-                            {user.error
-                                ? (
-                                    <>
-                                        <svg
-                                            className="fill-red-600 group-hover:text-gray-900"
-                                            height="24"
-                                            width="24"
-                                            viewBox="0 0 512 512"
-                                            onClick={() => onModalClick('ResetErrorExtensionModal', { ...user })}
-                                        >
-                                            <path d="M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
-                                        </svg>
-                                        <Tooltip message={user.error} direction="left" customTailwindClass="mb-1" />
-                                    </>
-                                ) : (
-                                    '-'
-                                )}
-                        </p>
-                    </td> */}
-
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <div className="relative group">
+                            {user.disable
+                                ? <svg
+                                    viewBox="0 0 512 512"
+                                    className="w-6 h-6 mx-auto fill-green-600 cursor-pointer"
+                                    onClick={() => onModalClick('EnableUser', { ...user })}
+                                >
+                                    <path d="M48.5 224H40c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2L98.6 96.6c87.6-86.5 228.7-86.2 315.8 1c87.5 87.5 87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3c-62.2-62.2-162.7-62.5-225.3-1L185 183c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H48.5z" />
+                                </svg>
 
-                            <svg
-                                viewBox="0 0 512 512"
-                                className={`w-6 h-6 mx-auto ${user.isWork ? 'fill-green-600' : 'fill-red-600'} ${user.isWorkBrowser ? 'cursor-pointer' : 'cursor-not-allowed opacity-20'}`}
-                                onClick={
-                                    user.isWorkBrowser
-                                        ? (
-                                            user.isWork
-                                                ? () => onModalClick('StopExtensionModal', { ...user })
-                                                : () => onModalClick('StartExtensionModal', { ...user })
-                                        ) : undefined
-                                }
-                            >
-                                <path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
-                            </svg>
+                                : <svg
+                                    viewBox="0 0 512 512"
+                                    className="w-6 h-6 mx-auto fill-red-600 cursor-pointer"
+                                    onClick={() => onModalClick('DisableUser', { ...user })}
+                                >
+                                    <path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
+                                </svg>
+                            }
 
                             <Tooltip message={`${user.disable ? 'Undo' : 'Disable'}`} customTailwindClass="mb-[1px]" />
                         </div>
