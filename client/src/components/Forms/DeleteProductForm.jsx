@@ -14,7 +14,7 @@ export const DeleteProductForm = ({ toggleModal, product }) => {
     const [serverError, setServerError] = useState('');
     const [isBtnPressed, setIsBtnPressed] = useState(false);
 
-    const { removeProduct } = useAppStateContext();
+    const { removeProduct, setRefreshState } = useAppStateContext();
     const { deleteProduct } = useApi(productService);
 
     async function deleteHandler() {
@@ -25,6 +25,7 @@ export const DeleteProductForm = ({ toggleModal, product }) => {
             await deleteProduct(product._id);
 
             removeProduct(product);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
