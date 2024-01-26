@@ -1,6 +1,6 @@
 export const SERVER_PATHS = {
-    HOST: 'https://dropshipping-scraper.vercel.app',
-    // HOST: 'http://localhost:3000',
+    // HOST: 'https://dropshipping-scraper.vercel.app',
+    HOST: 'http://localhost:3000',
     LOGIN: '/users/login',
     REGISTER: '/users/register',
     LOGOUT: '/users/logout',
@@ -20,6 +20,7 @@ export const SERVER_PATHS = {
     REACT_START_EXTENSION: '/extensions/react-start',
     REACT_STOP_EXTENSION: '/extensions/react-stop',
     LOGOUT_EXTENSION: '/extensions/logout',
+    GET_ALL_USERS: '/admin',
 };
 
 export const CLIENT_PATHS = {
@@ -31,6 +32,7 @@ export const CLIENT_PATHS = {
     RESET_PASSWORD: '/reset-password/:resetToken',
     DASHBOARD: '/dashboard',
     EXTENSIONS: '/extensions',
+    ADMIN: '/admin'
 };
 
 export const EXTERNAL_API_PATHS = {

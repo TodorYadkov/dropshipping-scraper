@@ -4,6 +4,7 @@ import { productController } from '../controllers/productController.js';
 import { userController } from '../controllers/userController.js';
 import { statisticController } from '../controllers/statisticController.js';
 import { extensionController } from '../controllers/extensionController.js';
+import { adminController } from '../controllers/adminController.js';
 
 export default (app) => {
 	app.use(logRequests()); // Logging every request
@@ -11,6 +12,7 @@ export default (app) => {
 	app.use('/products', productController);
 	app.use('/extensions', extensionController);
 	app.use('/users', userController);
+	app.use('/admin', adminController);
 	app.use('/statistics', statisticController);
 	app.all('*', (req, res, next) => {
 		try {

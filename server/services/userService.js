@@ -87,6 +87,9 @@ async function userLogin({ email, password, isExtension, extensionName }) {
         extension.accessToken = userToken;
         await extension.save();
     } else {
+        // Set isLogin to true
+        user = await User.findByIdAndUpdate(user._id, { isLogin: true }, { runValidators: true, new: true });
+
         // Create token to be used with React
         userToken = await generateUserToken(user);
     }
@@ -108,6 +111,9 @@ async function userLogout({ _id, accessToken, isExtension, extensionName, extens
         await Extension.findByIdAndUpdate(extensionId, { isWork: false, isLogin: false, isWorkBrowser: false, accessToken: null });
 
         userLogoutData.extensionName = extensionName;
+    } else {
+        // Set isLogin to false
+        await User.findByIdAndUpdate(_id, { isLogin: false }, { runValidators: true, new: true });
     }
 
     await addTokenToBlackList(userLogoutData);
