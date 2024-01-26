@@ -11,7 +11,7 @@ export const AlertLogoutExtension = ({ toggleModal, extension }) => {
     const [serverError, setServerError] = useState('');
     const [isBtnPressed, setIsBtnPressed] = useState(false);
 
-    const { editExtension } = useAppStateContext();
+    const { editExtension, setRefreshState } = useAppStateContext();
     const { logoutExtension } = useApi(extensionService);
 
     const logoutExtensionHandler = async () => {
@@ -22,6 +22,7 @@ export const AlertLogoutExtension = ({ toggleModal, extension }) => {
 
             const updatedExtension = await logoutExtension(dataForServer);
             editExtension(updatedExtension);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
