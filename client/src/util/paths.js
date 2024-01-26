@@ -20,6 +20,7 @@ export const SERVER_PATHS = {
     REACT_START_EXTENSION: '/extensions/react-start',
     REACT_STOP_EXTENSION: '/extensions/react-stop',
     LOGOUT_EXTENSION: '/extensions/logout',
+    GET_ALL_USERS: '/admin',
 };
 
 export const CLIENT_PATHS = {
