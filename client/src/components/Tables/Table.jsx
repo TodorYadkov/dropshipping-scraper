@@ -5,6 +5,7 @@ import { DATA_TYPES } from '../../util/constants.js';
 import { TableHeader } from './TableHeader.jsx';
 import { TableBodyProducts } from './TableBodyProducts.jsx';
 import { TableExtensionsData } from './TableExtensionsData.jsx';
+import { TableBodyUsers } from './TableBodyUsers.jsx';
 
 export const Table = ({ typeBody, data, onModalClick }) => {
 
@@ -30,6 +31,11 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 				break;
 
 			case DATA_TYPES.USER:
+				{
+					const headings = ['User', 'Email', 'Login Status', 'Extension number', 'Role', 'Actions'];
+					Body = <TableBodyUsers usersData={data} onModalClick={onModalClick} />;
+					Heading = <TableHeader headings={headings} />;
+				}
 				break;
 		}
 
