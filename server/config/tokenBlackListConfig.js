@@ -1,10 +1,12 @@
 import { getBlackListTokens } from '../util/getBlackListTokens.js';
 
-export default async () => {
+let intervalId;
+
+export async function tokenBlackListConfig() {
 	const blackListState = new Set();
 	await getBlackListTokens(blackListState);
 
-	setInterval(async () => {
+	intervalId = setInterval(async () => {
 		try {
 			await getBlackListTokens(blackListState);
 		} catch (error) {
@@ -13,4 +15,8 @@ export default async () => {
 	}, 1800000);
 
 	return blackListState;
-};
+}
+
+export function stopBlackListInterval() {
+	clearInterval(intervalId);
+}
