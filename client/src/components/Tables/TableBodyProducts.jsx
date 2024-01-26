@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { REDUCER_TYPES } from '../../util/constants.js';
 import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
+
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
 import { Tooltip } from '../Tooltip.jsx';
 
 export const TableBodyProducts = ({ products, onModalClick }) => {
     const [isVisible, setIsVisible] = useState(false);
+
+    const { appState } = useAppStateContext();
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -19,7 +24,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
 
     return (
         <tbody>
-            {isVisible && (products.length === 0 && (
+            {(isVisible && appState[REDUCER_TYPES.PRODUCTS].length === 0) && (
                 <tr className="text-center bg-white">
                     <td colSpan={9} className="gap-2 py-5 text-lg border-b border-gray-200">
                         <svg className="inline-block w-8 h-8 text-gray-900" viewBox="0 0 28 28" fill="none">
@@ -33,7 +38,21 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         </p>
                     </td>
                 </tr>
-            ))}
+            )}
+
+            {(isVisible && appState[REDUCER_TYPES.PRODUCTS].length !== 0 && products.length === 0) && (
+                <tr className="text-center bg-white">
+                    <td colSpan={9} className="gap-2 py-5 text-lg border-b border-gray-200">
+                        <svg className="inline-block w-8 h-8 text-gray-900" viewBox="0 0 28 28" fill="none">
+                            <path d="M6.99998 11.2H21L22.4 23.8H5.59998L6.99998 11.2Z" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"></path>
+                            <path d="M9.79999 8.4C9.79999 6.08041 11.6804 4.2 14 4.2C16.3196 4.2 18.2 6.08041 18.2 8.4V12.6C18.2 14.9197 16.3196 16.8 14 16.8C11.6804 16.8 9.79999 14.9197 9.79999 12.6V8.4Z" stroke="currentColor" strokeWidth="2"></path>
+                            <text x="50%" y="65%" textAnchor="middle" alignmentBaseline="middle" fontSize="12" fill="#fff" fontWeight="bold">x</text>
+                        </svg>
+
+                        <p className="inline-block align-middle ml-1 text-2xl font-semibold text-gray-900">No found products</p>
+                    </td>
+                </tr>
+            )}
 
             {products.length > 0 && products.map(product => (
                 <tr key={product._id} className="bg-white hover:bg-gray-50">
