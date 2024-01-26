@@ -36,8 +36,10 @@ export const EditProductForm = ({ toggleModal, product }) => {
 
             setIsLoading(true);
             const updatedProduct = await updateProduct(formData, productId);
+            
             editProduct(updatedProduct);
             toggleModal();
+            
         } catch (error) {
             setServerError(error.message);
         } finally {
