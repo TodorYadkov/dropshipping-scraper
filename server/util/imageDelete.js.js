@@ -1,4 +1,4 @@
-import cloudinary from '../config/cloudinary.js';
+import { v2 as cloudinary } from 'cloudinary';
 
 export const imageDelete = async (imageId) => {
     const deletedPostImageState = await new Promise((resolve) => {             //{ result: 'ok' }

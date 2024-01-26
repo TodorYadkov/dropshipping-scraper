@@ -1,4 +1,4 @@
-import cloudinary from '../config/cloudinary.js';
+import { v2 as cloudinary } from 'cloudinary';
 
 export const imageUpload = async (file) => {
 
