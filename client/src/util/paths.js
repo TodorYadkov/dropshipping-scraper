@@ -31,6 +31,7 @@ export const CLIENT_PATHS = {
     RESET_PASSWORD: '/reset-password/:resetToken',
     DASHBOARD: '/dashboard',
     EXTENSIONS: '/extensions',
+    ADMIN: '/admin'
 };
 
 export const EXTERNAL_API_PATHS = {
