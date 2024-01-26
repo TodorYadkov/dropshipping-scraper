@@ -11,7 +11,6 @@ import { useAppStateContext } from '../hooks/useAppStateContext.js';
 import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
 
 import { productService } from '../services/productService.js';
-import { statisticService } from '../services/statisticService.js';
 
 import { Loader } from '../components/Loader.jsx';
 import { PageTitle } from '../components/PageTitle.jsx';
@@ -27,9 +26,8 @@ export const Dashboard = () => {
 	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler);
 
 	const { getProducts } = useApi(productService);
-	const { getGeneralStatistic } = useApi(statisticService);
 
-	const { appState, setProducts, setGeneralStatistic } = useAppStateContext();
+	const { appState, setProducts } = useAppStateContext();
 	const { localFilteredState, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage, productExchangeCourse);
 
 	// Initial
@@ -50,15 +48,11 @@ export const Dashboard = () => {
 	// Fetch products from server
 	async function fetchProductsHandler() {
 		try {
-			const [products, generalStatistic] = await Promise.all([
-				getProducts(),
-				getGeneralStatistic()
-			]);
+			const products = await getProducts();
 
 			await loadCurrencyCourses(products, productExchangeCourse, setProductExchangeCourseHandler);
 
 			setProducts(products);
-			setGeneralStatistic(generalStatistic);
 
 			return products;
 
