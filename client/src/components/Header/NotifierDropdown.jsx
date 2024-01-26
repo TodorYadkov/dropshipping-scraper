@@ -1,69 +1,39 @@
 import { memo, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { useAppStateContext } from "../../hooks/useAppStateContext.js";
-import { useApi } from "../../hooks/useApi.js";
-import { useModal } from "../../hooks/useModal.js";
+import { REDUCER_TYPES } from "../../util/constants.js";
+import { CLIENT_PATHS } from "../../util/paths.js";
 
-import { extensionService } from "../../services/extensionService.js";
-import { productService } from "../../services/productService.js";
-import { statisticService } from "../../services/statisticService.js";
+import { useAppStateContext } from "../../hooks/useAppStateContext.js";
+import { useModal } from "../../hooks/useModal.js";
 
 import { Tooltip } from "../Tooltip.jsx";
 import { ResetErrorExtensionModal } from "../Modal/ResetErrorExtensionModal.jsx";
-import { REDUCER_TYPES } from "../../util/constants.js";
-import { CLIENT_PATHS } from "../../util/paths.js";
 
 export const NotifierDropdown = memo(() => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);
     const [countErrors, setCountErrors] = useState(0);
     const [errors, setErrors] = useState({ productErrors: [], extensionErrors: [] });
-    const [allData, setAllData] = useState({ products: [], extensions: [] });
 
     const [isShownResetModal, toggleResetModal] = useModal();
 
-    const { appState, setGeneralStatistic } = useAppStateContext();
-
-    const { getProducts } = useApi(productService);
-    const { getExtensions } = useApi(extensionService);
-    const { getGeneralStatistic } = useApi(statisticService);
-
-    const requestHandler = useCallback(async () => {
-        try {
-            const [products, extensions, generalStatistic] = await Promise.all([
-                getProducts(),
-                getExtensions(),
-                getGeneralStatistic()
-            ]);
-
-            setAllData({ products, extensions });
-            setGeneralStatistic(generalStatistic);
-            
-        } catch (error) {
-            console.error(error);
-        }
-
-    }, []);
+    const { appState } = useAppStateContext();
 
     useEffect(() => {
-        (async function () {
-            await requestHandler();
-        })()
+        const products = appState[REDUCER_TYPES.PRODUCTS];
+        const extensions = appState[REDUCER_TYPES.EXTENSIONS];
 
-    }, [appState[REDUCER_TYPES.EXTENSIONS], appState[REDUCER_TYPES.PRODUCTS]]);
-
-    useEffect(() => {
-        const productErrors = allData?.products?.filter(p => p?.error) || [];
-        const extensionErrors = allData?.extensions?.filter(e => e?.error) || [];
+        const productErrors = products?.filter(p => p?.error) || [];
+        const extensionErrors = extensions?.filter(e => e?.error) || [];
 
         const allErrors = [...productErrors, ...extensionErrors];
 
         setErrors({ productErrors, extensionErrors });
         setCountErrors(allErrors.length);
 
-    }, [allData.extensions, allData.products]);
+    }, [appState[REDUCER_TYPES.PRODUCTS], appState[REDUCER_TYPES.EXTENSIONS]]);
 
-    const toggleErrorDropdown = () => {
+    const toggleErrorDropdownHandler = () => {
         setErrorDropdownOpen(!errorDropdownOpen);
     };
 
@@ -79,7 +49,7 @@ export const NotifierDropdown = memo(() => {
                         <p className="truncate w-11/12">
                             <Link
                                 to={CLIENT_PATHS.DASHBOARD}
-                                onClick={toggleErrorDropdown}
+                                onClick={toggleErrorDropdownHandler}
                             >
                                 <span className="font-bold cursor-pointer hover:underline">Product:</span>
                             </Link>
@@ -113,7 +83,7 @@ export const NotifierDropdown = memo(() => {
                             <p className="truncate w-11/12">
                                 <Link
                                     to={CLIENT_PATHS.EXTENSIONS}
-                                    onClick={toggleErrorDropdown}
+                                    onClick={toggleErrorDropdownHandler}
                                 >
                                     <span className="font-bold cursor-pointer hover:underline">Extension:</span>
                                 </Link>
@@ -145,7 +115,7 @@ export const NotifierDropdown = memo(() => {
 
     return (
         <div className="relative cursor-default">
-            <button className="relative group z-5 flex mx-4 text-gray-600 focus:outline-none" onClick={toggleErrorDropdown}>
+            <button className="relative group z-5 flex mx-4 text-gray-600 focus:outline-none" onClick={toggleErrorDropdownHandler}>
                 <svg
                     className="w-6 h-6"
                     viewBox="0 0 24 24"
@@ -171,7 +141,7 @@ export const NotifierDropdown = memo(() => {
             {errorDropdownOpen && (
                 <div
                     className="fixed inset-0 z-10 w-full h-full"
-                    onClick={toggleErrorDropdown}
+                    onClick={toggleErrorDropdownHandler}
                 />
             )}
 
