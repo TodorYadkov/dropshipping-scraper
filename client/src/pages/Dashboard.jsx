@@ -5,12 +5,9 @@ import { useEffect, useState } from 'react';
 import { DATA_TYPES, REDUCER_TYPES } from '../util/constants.js';
 import { loadCurrencyCourses } from '../util/calculateProfit.js';
 
-import { useApi } from '../hooks/useApi.js';
 import { useLocalProductState } from '../hooks/useLocalProductsState.js';
 import { useAppStateContext } from '../hooks/useAppStateContext.js';
 import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
-
-import { productService } from '../services/productService.js';
 
 import { Loader } from '../components/Loader.jsx';
 import { PageTitle } from '../components/PageTitle.jsx';
@@ -19,24 +16,20 @@ import { DashboardSummary } from '../components/DashboardSummary.jsx';
 import { ResponsiveComponent } from '../components/ResponsiveComponent.jsx';
 
 export const Dashboard = () => {
-	const [isLoading, setIsLoading] = useState(false);
 	const [alert, setAlert] = useState('');
 	const [productExchangeCourse, setProductExchangeCourse] = useState({});
 
-	const [_] = useIntervalTimeToReceiveData(fetchProductsHandler);
+	const [_] = useIntervalTimeToReceiveData(getProductsHandler);
 
-	const { getProducts } = useApi(productService);
-
-	const { appState, setProducts } = useAppStateContext();
+	const { appState, setIsLoadingState, setRefreshState } = useAppStateContext();
 	const { localFilteredState, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage, productExchangeCourse);
 
 	// Initial
 	useEffect(() => {
 		async function initialLoading() {
-			setIsLoading(true);
+			setIsLoadingState(true);
 
-			await fetchProductsHandler();
-			setIsLoading(false);
+			await getProductsHandler();
 		}
 
 		initialLoading();
@@ -45,16 +38,15 @@ export const Dashboard = () => {
 		setLocalProductsWithSameCurrencyAndProfit();
 	}, []);
 
-	// Fetch products from server
-	async function fetchProductsHandler() {
+	// Get products from global state
+	async function getProductsHandler() {
 		try {
-			const products = await getProducts();
+			// Start fetch products
+			setRefreshState(true);
+
+			const products = appState[REDUCER_TYPES.PRODUCTS];
 
 			await loadCurrencyCourses(products, productExchangeCourse, setProductExchangeCourseHandler);
-
-			setProducts(products);
-
-			return products;
 
 		} catch (error) {
 			console.error(error);
@@ -75,29 +67,31 @@ export const Dashboard = () => {
 	}
 
 	async function onRefreshClick() {
-		return fetchProductsHandler();
+		await getProductsHandler();
 	}
 
 	return (
-		<PageTitle title={'Dashboard'}>
-			<div className='relative'>
-				{isLoading
-					? <Loader />
-					: (
-						<>
-							<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
+		<>
+			{alert && (
+				<div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+					<AlertError message={alert} close={onCloseAlert} />
+				</div>
+			)}
 
-							{alert && (
-								<div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5">
-									<AlertError message={alert} close={onCloseAlert} />
-								</div>
-							)}
+			<PageTitle title={'Dashboard'}>
+				<div className='relative'>
+					{appState[REDUCER_TYPES.IS_LOADING_STATE]
+						? <Loader />
+						: (
+							<>
+								<DashboardSummary {...appState[REDUCER_TYPES.GENERAL_STATISTIC]} />
 
-							<ResponsiveComponent dataType={DATA_TYPES.PRODUCT} localFilteredState={localFilteredState} onRefresh={onRefreshClick} />
-						</>
-					)
-				}
-			</div>
-		</PageTitle>
+								<ResponsiveComponent dataType={DATA_TYPES.PRODUCT} localFilteredState={localFilteredState} onRefresh={onRefreshClick} />
+							</>
+						)
+					}
+				</div>
+			</PageTitle>
+		</>
 	);
 };
