@@ -5,6 +5,8 @@ import { reducer } from './reducer.js';
 
 const initialState = {
 	[REDUCER_TYPES.IS_SIDE_BAR_OPEN]: false,
+	[REDUCER_TYPES.REFRESH_STATE]: false,
+	[REDUCER_TYPES.IS_LOADING_STATE]: false,
 	[REDUCER_TYPES.PRODUCTS]: [],
 	[REDUCER_TYPES.EXTENSIONS]: [],
 	[REDUCER_TYPES.GENERAL_STATISTIC]: {},
@@ -40,6 +42,11 @@ export const AppStateProvider = ({ children }) => {
 	// Statistic
 	const setGeneralStatistic = (statisticData) => dispatch({ type: REDUCER_TYPES.GENERAL_STATISTIC, value: statisticData });
 
+	// Refresh state
+	const setRefreshState = (boolean) => dispatch({ type: REDUCER_TYPES.REFRESH_STATE, value: boolean });
+
+	const setIsLoadingState = (boolean) => dispatch({ type: REDUCER_TYPES.IS_LOADING_STATE, value: boolean });
+
 	const values = {
 		appState,
 		changeSideBarState,
@@ -52,6 +59,8 @@ export const AppStateProvider = ({ children }) => {
 		editExtension,
 		removeExtension,
 		setGeneralStatistic,
+		setRefreshState,
+		setIsLoadingState,
 	};
 
 	return (
