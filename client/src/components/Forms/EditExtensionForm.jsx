@@ -32,6 +32,7 @@ export const EditExtensionForm = ({ toggleModal, extension }) => {
             const dataForServer = { ...formData, _id: extension._id };
 
             const updatedExtension = await updateExtension(dataForServer);
+            
             editExtension(updatedExtension);
             toggleModal();
 
