@@ -47,8 +47,11 @@ export const SORTING_KEYS = {
 	PRODUCT_EBAY_PRICE_DESC: 'ebay_price_desc',
 	PRODUCT_PROFIT_ASC: 'profit_asc',
 	PRODUCT_PROFIT_DESC: 'profit_desc',
+	PRODUCT_AVAILABILITY_ASC: 'availability_asc',
+	PRODUCT_AVAILABILITY_DESC: 'availability_desc',
 	PRODUCT_LAST_UPDATED_ASC: 'last_updated_asc',
 	PRODUCT_LAST_UPDATED_DESC: 'last_updated_desc',
+
 	EXTENSION_NAME_ASC: 'extension_name_asc',
 	EXTENSION_NAME_DESC: 'extension_name_desc',
 	EXTENSION_LOGGED_ASC: 'extension_logged_asc',
