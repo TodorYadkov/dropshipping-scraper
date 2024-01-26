@@ -30,6 +30,8 @@ export const REDUCER_TYPES = {
 	UPDATE_EXTENSION: 'updateExtension',
 	DELETE_EXTENSION: 'deleteExtension',
 	GENERAL_STATISTIC: 'generalStatistic',
+	REFRESH_STATE: 'refreshState',
+	IS_LOADING_STATE: 'loadingState',
 };
 
 export const DATA_TYPES = {
