@@ -11,9 +11,7 @@ export const useIntervalTimeToReceiveData = (requestHandler, intervalInMinutes =
             setData(responseData);
         }, intervalTimeToMilliseconds);
 
-        return () => {
-            clearInterval(intervalId)
-        };
+        return () => clearInterval(intervalId);
 
     }, [requestHandler, intervalTimeToMilliseconds]);
 
