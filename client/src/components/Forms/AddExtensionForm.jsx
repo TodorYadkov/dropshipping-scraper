@@ -15,7 +15,7 @@ export const AddExtensionForm = ({ toggleModal }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState('');
 
-    const { addExtension } = useAppStateContext();
+    const { addExtension, setRefreshState } = useAppStateContext();
     const { createExtension } = useApi(extensionService);
 
     const { values, formErrors, onChange, onSubmit, onBlur, isInvalidForm } = useForm(
@@ -28,9 +28,11 @@ export const AddExtensionForm = ({ toggleModal }) => {
     async function submitFunction(formData) {
         try {
             setIsLoading(true);
+            
             const extension = await createExtension(formData);
 
             addExtension(extension);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
