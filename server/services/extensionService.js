@@ -74,54 +74,22 @@ const updatedProductOnError = async (error, productId) => Product.findByIdAndUpd
 
 // CHECK
 // If the user remotely starts or stops the extension (changing isWorkBrowser to true is important for the front-end to know it can start or stop the browser remotely)
-const checkExtensionDataInDB = async (userId, extensionName) => {
-    const extension = await Extension.findOneAndUpdate(
-        { extensionName, owner: userId },
-        { isWorkBrowser: true },
-        { new: true }
-    ).select(createExclusionObject());
-
-    return extension;
-};
+const checkExtensionDataInDB = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { isWorkBrowser: true }, { new: true }).select(createExclusionObject());
 
 // START extension
-const startExtension = async (userId, extensionName) => {
-    const extension = await Extension.findOneAndUpdate(
-        { extensionName, owner: userId },
-        { isWork: true },
-        { new: true }
-    ).select(createExclusionObject());
-
-    return extension;
-};
+const startExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { isWork: true }, { new: true }).select(createExclusionObject());
 
 // STOP working extension
-const stopExtension = async (userId, extensionName) => {
-    const extension = await Extension.findOneAndUpdate(
-        { extensionName, owner: userId },
-        { isWork: false },
-        { new: true }
-    ).select(createExclusionObject());
-
-    return extension;
-};
+const stopExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { isWork: false }, { new: true }).select(createExclusionObject());
 
 // STOP working extension and set error
-const errorExtension = async (userId, extensionName, error) => {
-    const extension = await Extension.findOneAndUpdate(
-        { extensionName, owner: userId },
-        { error, isWork: false },
-        { new: true }
-    ).select(createExclusionObject());
-
-    return extension;
-};
+const errorExtension = async (extensionId, error) => Extension.findByIdAndUpdate(extensionId, { error, isWork: false }, { new: true }).select(createExclusionObject());
 
 // UTIL FUNCTION  ---------------------
 
 // Exclude properties to return on extension
 function createExclusionObject() {
-    const excludedFields = ['_id', 'extensionName', 'error', 'owner', 'accessToken', 'isWorkBrowser', 'createdAt', 'updatedAt', '__v'];
+    const excludedFields = ['_id', 'error', 'owner', 'accessToken', 'default', 'isWorkBrowser', 'createdAt', 'updatedAt', '__v'];
     const exclusion = {};
     excludedFields.forEach(field => (exclusion[field] = 0));
     return exclusion;
