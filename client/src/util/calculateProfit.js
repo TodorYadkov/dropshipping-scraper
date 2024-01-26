@@ -87,4 +87,6 @@ export const loadCurrencyCourses = async (
             }
         }
     }
+
+    return { ...allAvailableCurrencies, ...newCurrencyCourses };
 };
