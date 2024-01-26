@@ -26,6 +26,10 @@ const userSchema = new Schema({
         type: String,
         default: null
     },
+    disable: {
+        type: Boolean,
+        default: false
+    },
     role: {
         type: String,
         required: [true, 'Role is required!'],
@@ -39,7 +43,7 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    
+
 }, { timestamps: true });
 
 userSchema.index({ email: 1 }, {
