@@ -20,6 +20,7 @@ export const Pagination = ({ localFilteredState }) => {
 	useEffect(() => {
 		const pages = calculateNumberOfPages();
 		setTotalPageCount(pages);
+		setVisiblePages(getVisiblePageNumbers(currentPage));
 
 	}, [localFilteredState]);
 
