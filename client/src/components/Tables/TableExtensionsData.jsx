@@ -43,7 +43,7 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                                 ? (
                                     <>
                                         <svg
-                                            className="fill-red-600 group-hover:text-gray-900"
+                                            className="fill-red-600 group-hover:text-gray-900 cursor-pointer hover:opacity-70"
                                             height="24"
                                             width="24"
                                             viewBox="0 0 512 512"
@@ -64,7 +64,7 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                             <div className="relative group">
                                 <svg
                                     viewBox="0 0 30.143 30.143"
-                                    className={`w-6 h-6 ${extension.isWork ? 'fill-green-600' : 'fill-red-600'} ${extension.isWorkBrowser ? 'cursor-pointer' : 'cursor-not-allowed opacity-20'}`}
+                                    className={`w-6 h-6 ${extension.isWork ? 'fill-green-600' : 'fill-red-600'} ${extension.isWorkBrowser ? 'cursor-pointer hover:opacity-70' : 'cursor-not-allowed opacity-20'}`}
                                     onClick={
                                         extension.isWorkBrowser
                                             ? (
@@ -87,7 +87,7 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                             <div className="relative group">
                                 <svg
                                     viewBox="0 0 1024 1024"
-                                    className={`icon w-6 h-6 fill-indigo-600 ${extension.isWorkBrowser ? 'cursor-pointer' : 'cursor-not-allowed opacity-20'}`}
+                                    className={`icon w-6 h-6 fill-indigo-600 ${extension.isWorkBrowser ? 'cursor-pointer hover:opacity-70' : 'cursor-not-allowed opacity-20'}`}
                                     stroke="#4f46e5"
                                     strokeWidth="50"
                                     onClick={
