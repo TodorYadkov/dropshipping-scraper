@@ -20,10 +20,16 @@ try {
         let currencyAmazon = 'USD';
         if (priceElement) {
             const priceWithCurrency = priceElement.textContent;
-            const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
+            // Extract numeric part
+            const matches = priceWithCurrency.match(/(\d{1,3}(,\d{3})*(\.\d{1,2})?)/);
 
-            priceAmazon = priceWithCurrency.substring(positionOfFirstNumber).split(',').join('');
-            currencyAmazon = priceWithCurrency.substring(0, positionOfFirstNumber);
+            if (matches && matches[1]) {
+                // Remove commas from the matched numeric part
+                priceAmazon = matches[1].replace(/,/g, '');
+            }
+
+            // Extract currency part
+            currencyAmazon = priceWithCurrency.replace(matches[0], '').trim();
             currencyAmazon = getCurrencyCode(currencyAmazon);
         }
 
@@ -39,7 +45,7 @@ try {
             name: document.querySelector('h1#title span#productTitle')?.textContent ?? 'We couldn\'t find name property',
             description: document.querySelector('#feature-bullets > ul')?.textContent ?? 'We couldn\'t find description property',
             imageURL: document.querySelector('.imgTagWrapper img')?.src ?? 'We couldn\'t find image url',
-            rating: document.querySelector('#acrPopover > span.a-declarative > a > span')?.textContent ?? 'We couldn\'t find rating property',
+            rating: document.querySelector('#acrPopover > span.a-declarative > a > span')?.textContent ?? '1',
         };
 
     } else if (isEbayPage) {
@@ -51,14 +57,19 @@ try {
         let currencyEbay = 'USD';
         if (priceElement) {
             const priceWithCurrency = priceElement.textContent;
-            const positionOfFirstNumber = Array.from(priceWithCurrency).findIndex(char => /\d/.test(char));
+            // Extract numeric part
+            const matches = priceWithCurrency.match(/(\d{1,3}(,\d{3})*(\.\d{1,2})?)/);
 
-            priceEbay = priceWithCurrency.substring(positionOfFirstNumber).split(',').join('');
-            currencyEbay = priceWithCurrency.substring(0, positionOfFirstNumber);
-            currencyEbay = currencyEbay.includes('US') ? currencyEbay.split('US ')[1] : currencyEbay;
+            if (matches && matches[1]) {
+                // Remove commas from the matched numeric part
+                priceEbay = matches[1].replace(/,/g, '');
+            }
+
+            // Extract currency part
+            currencyEbay = priceWithCurrency.replace(matches[0], '').trim();
+            currencyEbay = currencyEbay.includes('US') ? currencyEbay.replace('US', '').trim() : currencyEbay;
             currencyEbay = getCurrencyCode(currencyEbay);
         }
-
 
         productInfoRaw = {
             priceEbay,
@@ -71,22 +82,17 @@ try {
     chrome.runtime.sendMessage({ message: 'doneScraping', product: productInfoTrimmed });
 
     function getCurrencyCode(currencySymbol) {
-        switch (currencySymbol) {
-            case '$':
-                return 'USD';
-            case '€':
-                return 'EUR';
-            case '£':
-                return 'GBP';
-            case '¥':
-                return 'JPY';
-            case 'A$':
-                return 'AUD';
-            case 'AU $':
-                return 'AUD';
-            default:
-                return currencySymbol;
-        }
+        const currencyMapping = {
+            '$': 'USD',
+            '€': 'EUR',
+            '£': 'GBP',
+            '¥': 'JPY',
+            'A$': 'AUD',
+            'AU $': 'AUD',
+            '$/ea': 'USD',
+        };
+
+        return currencyMapping[currencySymbol] || currencySymbol;
     }
 
 } catch (error) {
