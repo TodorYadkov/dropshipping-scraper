@@ -40,7 +40,7 @@ extensionController.get('/', isUserLogged, async (req, res, next) => {
     }
 });
 
-// POST 
+// POST - create extension
 extensionController.post('/', isUserLogged, async (req, res, next) => {
     try {
         const { extensionName } = req.body;
@@ -55,7 +55,7 @@ extensionController.post('/', isUserLogged, async (req, res, next) => {
     }
 });
 
-// PUT
+// PUT - update extension
 extensionController.put('/', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
     try {
         const { _id, extensionName } = req.body;
@@ -69,7 +69,7 @@ extensionController.put('/', isUserLogged, preload(getOneExtension, 'extension')
     }
 });
 
-// DELETE
+// DELETE - delete extension
 extensionController.delete('/:extensionId', isUserLogged, preload(getOneExtension, 'extensionId'), isOwner, async (req, res, next) => {
     try {
         const extensionId = req.params.extensionId;
@@ -178,9 +178,9 @@ extensionController.put('/put-one', isUserLogged, async (req, res, next) => {
 // Check extension status on server
 extensionController.get('/status', isUserLogged, async (req, res, next) => {
     try {
-        const userId = req.user._id;
-        const extensionName = req.user.extensionName;
-        const extensionData = await checkExtensionDataInDB(userId, extensionName);
+        const extensionId = req.user.extensionId;
+
+        const extensionData = await checkExtensionDataInDB(extensionId);
 
         res.status(200).json(extensionData);
     } catch (err) {
@@ -188,15 +188,14 @@ extensionController.get('/status', isUserLogged, async (req, res, next) => {
     }
 });
 
-// Set extension property isWork to true/false
+// Set extension property isWork to true
 extensionController.put('/start', isUserLogged, async (req, res, next) => {
     try {
-        const userId = req.user._id;
-        const extensionName = req.user.extensionName;
+        const extensionId = req.user.extensionId;
 
-        const extensionData = await startExtension(userId, extensionName);
+        const extensionData = await startExtension(extensionId);
 
-        res.status(200).json({ message: `Extension ${extensionName} is successfully started.` });
+        res.status(200).json({ message: `Extension ${extensionData.extensionName} is successfully started.` });
     } catch (err) {
         next(err);
     }
@@ -205,12 +204,11 @@ extensionController.put('/start', isUserLogged, async (req, res, next) => {
 // Set extension property isWork to false
 extensionController.put('/stop', isUserLogged, async (req, res, next) => {
     try {
-        const userId = req.user._id;
-        const extensionName = req.user.extensionName;
+        const extensionId = req.user.extensionId;
 
-        const extensionData = await stopExtension(userId, extensionName);
+        const extensionData = await stopExtension(extensionId);
 
-        res.status(200).json({ message: `Extension ${extensionName} is successfully stopped.` });
+        res.status(200).json({ message: `Extension ${extensionData.extensionName} is successfully stopped.` });
     } catch (err) {
         next(err);
     }
@@ -219,13 +217,12 @@ extensionController.put('/stop', isUserLogged, async (req, res, next) => {
 // Check if the browser is working
 extensionController.put('/error', isUserLogged, async (req, res, next) => {
     try {
-        const userId = req.user._id;
-        const extensionName = req.user.extensionName;
+        const extensionId = req.user.extensionId;
         const { error } = req.body;
 
-        const extensionData = await errorExtension(userId, extensionName, error);
+        const extensionData = await errorExtension(extensionId, error);
 
-        res.status(200).json({ message: `Extension ${extensionName} is reported for current error.` });
+        res.status(200).json({ message: `Extension ${extensionData.extensionName} is reported for current error.` });
     } catch (err) {
         next(err);
     }
