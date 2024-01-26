@@ -11,7 +11,7 @@ export const AlertResetError = ({ toggleModal, extension }) => {
     const [serverError, setServerError] = useState('');
     const [isBtnPressed, setIsBtnPressed] = useState(false);
 
-    const { editExtension } = useAppStateContext();
+    const { editExtension, setRefreshState } = useAppStateContext();
     const { resetErrorExtension } = useApi(extensionService);
 
     const resetErrorHandler = async () => {
@@ -22,6 +22,7 @@ export const AlertResetError = ({ toggleModal, extension }) => {
 
             const updatedExtension = await resetErrorExtension(dataForServer);
             editExtension(updatedExtension);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
