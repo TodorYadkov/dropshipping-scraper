@@ -15,7 +15,7 @@ export const AddProductForm = ({ toggleModal }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState('');
 
-    const { addProduct } = useAppStateContext();
+    const { addProduct, setRefreshState } = useAppStateContext();
     const { createProduct } = useApi(productService);
 
     const { values, formErrors, onChange, onSubmit, onBlur } = useForm(
@@ -33,8 +33,11 @@ export const AddProductForm = ({ toggleModal }) => {
             }
 
             setIsLoading(true);
+            
             const product = await createProduct(formData);
+
             addProduct(product);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
