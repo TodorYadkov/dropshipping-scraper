@@ -30,6 +30,10 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
+    isLogin: {
+        type: Boolean,
+        default: true
+    },
     role: {
         type: String,
         required: [true, 'Role is required!'],
