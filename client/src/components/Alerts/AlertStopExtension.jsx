@@ -11,7 +11,7 @@ export const AlertStopExtension = ({ toggleModal, extension }) => {
     const [serverError, setServerError] = useState('');
     const [isBtnPressed, setIsBtnPressed] = useState(false);
 
-    const { editExtension } = useAppStateContext();
+    const { editExtension, setRefreshState } = useAppStateContext();
     const { stopExtension } = useApi(extensionService);
 
     const stopExtensionHandler = async () => {
@@ -22,6 +22,7 @@ export const AlertStopExtension = ({ toggleModal, extension }) => {
 
             const updatedExtension = await stopExtension(dataForServer);
             editExtension(updatedExtension);
+            setRefreshState(true);
             toggleModal();
 
         } catch (error) {
