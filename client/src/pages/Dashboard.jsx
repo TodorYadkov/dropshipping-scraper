@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 
 import { DATA_TYPES, REDUCER_TYPES } from '../util/constants.js';
-import { loadCurrencyCourses } from '../util/calculateProfit.js';
 
 import { useLocalProductState } from '../hooks/useLocalProductsState.js';
 import { useAppStateContext } from '../hooks/useAppStateContext.js';
@@ -17,41 +16,25 @@ import { ResponsiveComponent } from '../components/ResponsiveComponent.jsx';
 
 export const Dashboard = () => {
 	const [alert, setAlert] = useState('');
-	const [productExchangeCourse, setProductExchangeCourse] = useState({});
-
+	
 	const [_] = useIntervalTimeToReceiveData(getProductsHandler);
 
 	const { appState, setIsLoadingState, setRefreshState } = useAppStateContext();
-	const { localFilteredState, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage, productExchangeCourse);
+	const { localFilteredState, setLocalProductsWithSameCurrencyAndProfit } = useLocalProductState(addAlertMessage);
 
 	// Initial
 	useEffect(() => {
-		async function initialLoading() {
-			setIsLoadingState(true);
-
-			await getProductsHandler();
-		}
-
-		initialLoading();
+		setIsLoadingState(true);
+		getProductsHandler();
 
 		// On load set up currency on local products
 		setLocalProductsWithSameCurrencyAndProfit();
 	}, []);
 
 	// Get products from global state
-	async function getProductsHandler() {
-		try {
-			// Start fetch products
-			setRefreshState(true);
-
-			const products = appState[REDUCER_TYPES.PRODUCTS];
-
-			await loadCurrencyCourses(products, productExchangeCourse, setProductExchangeCourseHandler);
-
-		} catch (error) {
-			console.error(error);
-			addAlertMessage(error.message);
-		}
+	function getProductsHandler() {
+		// Start fetch products
+		setRefreshState(true);
 	}
 
 	function addAlertMessage(error) {
@@ -62,12 +45,8 @@ export const Dashboard = () => {
 		setAlert('');
 	}
 
-	function setProductExchangeCourseHandler(coursesData) {
-		setProductExchangeCourse(coursesData);
-	}
-
-	async function onRefreshClick() {
-		await getProductsHandler();
+	function onRefreshClick() {
+		getProductsHandler();
 	}
 
 	return (
