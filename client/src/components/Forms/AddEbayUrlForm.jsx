@@ -32,9 +32,12 @@ export const AddEbayUrlForm = ({ toggleModal, product }) => {
             const productDataForServer = { ...formData, [PRODUCT_FORM_KEYS.AMAZON]: product[PRODUCT_FORM_KEYS.AMAZON] };
 
             setIsLoading(true);
+
             const updatedProduct = await updateProduct(productDataForServer, productId);
+            
             editProduct(updatedProduct);
             toggleModal();
+            
         } catch (error) {
             setServerError(error.message);
         } finally {
