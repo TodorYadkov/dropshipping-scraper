@@ -10,8 +10,11 @@ export const sortingData = (sortBy, data) => {
         [SORTING_KEYS.PRODUCT_EBAY_PRICE_DESC]: (a, b) => b.priceEbay - a.priceEbay,
         [SORTING_KEYS.PRODUCT_PROFIT_ASC]: (a, b) => a.profit - b.profit,
         [SORTING_KEYS.PRODUCT_PROFIT_DESC]: (a, b) => b.profit - a.profit,
+        [SORTING_KEYS.PRODUCT_AVAILABILITY_ASC]: (a, b) => (a.availability === 'Out of Stock' || a.availability === 'Not available') ? -1 : (b.availability === 'Out of Stock' || b.availability === 'Not available') ? 1 : 0,
+        [SORTING_KEYS.PRODUCT_AVAILABILITY_DESC]: (a, b) => (a.availability === 'Out of Stock' || a.availability === 'Not available') ? 1 : (b.availability === 'Out of Stock' || b.availability === 'Not available') ? -1 : 0,
         [SORTING_KEYS.PRODUCT_LAST_UPDATED_ASC]: (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
         [SORTING_KEYS.PRODUCT_LAST_UPDATED_DESC]: (a, b) => new Date(a.updatedAt) - new Date(b.updatedAt),
+
         [SORTING_KEYS.EXTENSION_NAME_ASC]: (a, b) => a.extensionName.localeCompare(b.extensionName),
         [SORTING_KEYS.EXTENSION_NAME_DESC]: (a, b) => b.extensionName.localeCompare(a.extensionName),
         [SORTING_KEYS.EXTENSION_LOGGED_ASC]: (a, b) => b.isLogin - a.isLogin,
