@@ -7,6 +7,7 @@ import { useModal } from "../../hooks/useModal.js";
 
 import { extensionService } from "../../services/extensionService.js";
 import { productService } from "../../services/productService.js";
+import { statisticService } from "../../services/statisticService.js";
 
 import { Tooltip } from "../Tooltip.jsx";
 import { ResetErrorExtensionModal } from "../Modal/ResetErrorExtensionModal.jsx";
@@ -21,18 +22,23 @@ export const NotifierDropdown = memo(() => {
 
     const [isShownResetModal, toggleResetModal] = useModal();
 
-    const { appState } = useAppStateContext();
+    const { appState, setGeneralStatistic } = useAppStateContext();
+
     const { getProducts } = useApi(productService);
     const { getExtensions } = useApi(extensionService);
+    const { getGeneralStatistic } = useApi(statisticService);
 
     const requestHandler = useCallback(async () => {
         try {
-            const [products, extensions] = await Promise.all([
+            const [products, extensions, generalStatistic] = await Promise.all([
                 getProducts(),
-                getExtensions()
+                getExtensions(),
+                getGeneralStatistic()
             ]);
 
             setAllData({ products, extensions });
+            setGeneralStatistic(generalStatistic);
+            
         } catch (error) {
             console.error(error);
         }
