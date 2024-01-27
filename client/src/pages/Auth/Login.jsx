@@ -39,6 +39,10 @@ export const Login = () => {
 			setIsLoading(true);
 			const userInfo = await login(formData);
 
+			if (userInfo.userDetails.disable) {
+				throw new Error('Your account has been disabled from admin');
+			}
+
 			setUserState(userInfo);
 			navigate(CLIENT_PATHS.DASHBOARD, { replace: true });
 		} catch (error) {
