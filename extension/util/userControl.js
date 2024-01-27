@@ -7,7 +7,7 @@ import { removeData, setData } from "./storageActions.js";
 export const userLogin = async (userData) => {
     try {
         const loggedUserData = await login(userData);
-        await setData({ [tokenName]: loggedUserData });
+        await setData({ [tokenName]: loggedUserData, activeTabs: [], isScriptRunning: false });
 
         // Set up the alarm to trigger extensionStatusAlarm
         multiBrowser.alarms.create('extensionStatusAlarm', { periodInMinutes: timeToFetchExtensionStatus });
