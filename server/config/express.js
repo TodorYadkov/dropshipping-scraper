@@ -5,6 +5,7 @@ import userSession from '../middlewares/userSession.js';
 import tokenBlackListMiddleware from '../middlewares/tokenBlackListMiddleware.js';
 import { stopBlackListInterval, tokenBlackListConfig } from './tokenBlackListConfig.js';
 import { checkWorkingExtension, stopCheckWorkingExtension } from '../util/checkWorkingExtension.js';
+import checkUserIsDisabled from '../middlewares/checkUserIsDisabled.js';
 
 export default async (app) => {
 	const tokenBlackList = await tokenBlackListConfig();
@@ -14,6 +15,7 @@ export default async (app) => {
 	app.use(urlencoded({ extended: true }));
 	app.use(tokenBlackListMiddleware(tokenBlackList));
 	app.use(userSession());
+	app.use(checkUserIsDisabled());
 
 	// Run the scheduled task
 	checkWorkingExtension();
