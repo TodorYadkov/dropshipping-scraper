@@ -42,9 +42,9 @@ userController.get('/logout', isUserLogged, async (req, res, next) => {
     try {
         const userData = { ...req.user, accessToken: req.userToken };
 
-        await userLogout(userData);
+        const logoutMsg = await userLogout(userData);
 
-        res.status(200).json({ message: 'Logout successful.' });
+        res.status(200).json(logoutMsg);
     } catch (err) {
         next(err);
     }
