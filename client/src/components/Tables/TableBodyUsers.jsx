@@ -1,5 +1,3 @@
-import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
-
 import { Tooltip } from '../Tooltip.jsx';
 
 export const TableBodyUsers = ({ usersData, onModalClick }) => {
@@ -10,7 +8,7 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
             {usersData.length > 0 && usersData.map(user => (
                 <tr key={user._id} className="bg-white hover:bg-gray-50">
 
-                    <td className="px-5 py-5 text-sm  border-b border-gray-200 w-1/4">
+                    <td className="px-5 py-5 text-sm  border-b border-gray-200 w-2/12">
 
                         <div className="flex items-center hover:opacity-80">
                             <div className="flex-shrink-0 w-10 h-10">
@@ -39,46 +37,81 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {user.isLogin ? 'Logged in' : 'Not logged in'}
+                            <span
+                                class={`inline-flex px-2 text-xs font-semibold leading-5 rounded-full ${user.isLogin ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                            >
+                                {user.isLogin ? 'Logged In' : 'Not Logged In'}
+                            </span>
                             <Tooltip message={'Login Status'} />
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {user.isWork ? 'Working' : 'Not working'}
-                            <Tooltip message={'Extension Status'} />
+                            {user.extensionCount || 0}
+                            <Tooltip message={'Count Extensions'} />
                         </p>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {user.updatedAt !== '1970-01-01T00:00:00.000Z' ? formatDateToTimeAgo(user.updatedAt) : "-"}
-                            {user.updatedAt !== '1970-01-01T00:00:00.000Z' && <Tooltip message={'Last Seen'} />}
+                            {user.productCount || 0}
+                            <Tooltip message={'Count Products'} />
                         </p>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-2/12">
+                        <p className="text-gray-900 whitespace-wrap text-center relative group">
+                            {/* TODO */}
+                        </p>
+                    </td>
+
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[3%]">
                         <div className="relative group">
                             {user.disable
                                 ? <svg
                                     viewBox="0 0 512 512"
-                                    className="w-6 h-6 mx-auto fill-green-600 cursor-pointer"
-                                    onClick={() => onModalClick('EnableUser', { ...user })}
+                                    className="w-6 h-6 mx-auto fill-red-600"
                                 >
-                                    <path d="M48.5 224H40c-13.3 0-24-10.7-24-24V72c0-9.7 5.8-18.5 14.8-22.2s19.3-1.7 26.2 5.2L98.6 96.6c87.6-86.5 228.7-86.2 315.8 1c87.5 87.5 87.5 229.3 0 316.8s-229.3 87.5-316.8 0c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0c62.5 62.5 163.8 62.5 226.3 0s62.5-163.8 0-226.3c-62.2-62.2-162.7-62.5-225.3-1L185 183c6.9 6.9 8.9 17.2 5.2 26.2s-12.5 14.8-22.2 14.8H48.5z" />
+                                    <path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
                                 </svg>
 
                                 : <svg
                                     viewBox="0 0 512 512"
-                                    className="w-6 h-6 mx-auto fill-red-600 cursor-pointer"
+                                    className="w-6 h-6 mx-auto fill-green-600"
+                                >
+                                    <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" />
+                                </svg>
+
+                            }
+
+                            <Tooltip message={`${user.disable ? 'Account Status Banned' : 'Account Status Ok'}`} customTailwindClass="mb-[1px]" />
+                        </div>
+                    </td>
+
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[3%]">
+                        <div className="relative group">
+                            {user.disable
+
+                                ? <svg
+                                    viewBox="0 0 448 512"
+                                    className="w-6 h-6 mx-auto fill-green-600 cursor-pointer"
                                     onClick={() => onModalClick('DisableUser', { ...user })}
                                 >
-                                    <path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
+                                    <path d="M352 144c0-44.2 35.8-80 80-80s80 35.8 80 80v48c0 17.7 14.3 32 32 32s32-14.3 32-32V144C576 64.5 511.5 0 432 0S288 64.5 288 144v48H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H352V144z" />
+                                </svg>
+
+                                : <svg
+                                    viewBox="0 0 576 512"
+                                    className="w-6 h-6 mx-auto fill-red-600 cursor-pointer"
+                                    onClick={() => onModalClick('EnableUser', { ...user })}
+                                >
+                                    <path d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z" />
+
                                 </svg>
                             }
 
-                            <Tooltip message={`${user.disable ? 'Undo' : 'Disable'}`} customTailwindClass="mb-[1px]" />
+                            <Tooltip message={`${user.disable ? 'Unlock Account' : 'Lock Account'}`} customTailwindClass="mb-[1px]" />
                         </div>
                     </td>
                 </tr>
