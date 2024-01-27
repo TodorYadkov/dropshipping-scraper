@@ -41,14 +41,16 @@ const logoutExtension = async (userId, extensionId) => {
     if (!extension) {
         throw new Error('The extension does not exist.')
     }
-
-    const extensionLogoutData = {
-        userId,
-        extensionName: extension.extensionName,
-        accessToken: extension.accessToken,
-    };
-
-    await addTokenToBlackList(extensionLogoutData);
+    
+    if (extension.accessToken) {
+        const extensionBlacklistData = {
+            userId,
+            extensionName: extension.extensionName,
+            accessToken: extension.accessToken,
+        };
+    
+        await addTokenToBlackList(extensionBlacklistData);
+    }
 
     extension.isLogin = false;
     extension.isWork = false;
