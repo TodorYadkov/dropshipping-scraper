@@ -20,6 +20,7 @@ import { ForgotPassword } from './pages/Auth/ForgotPassword.jsx';
 import { ResetPassword } from './pages/Auth/ResetPassword.jsx';
 import { Extensions } from './pages/Extensions.jsx';
 import { AdminPanel } from './pages/AdminPanel.jsx';
+import { RouteGuardAdmin } from './guards/RouterGuardAdmin.jsx';
 
 export const App = () => {
 
@@ -44,6 +45,9 @@ export const App = () => {
 							<Route path={CLIENT_PATHS.LOGOUT} element={<Logout />} />
 							<Route path={CLIENT_PATHS.PROFILE} element={<Profile />} />
 							<Route path={CLIENT_PATHS.EXTENSIONS} element={<Extensions />} />
+						</Route>
+
+						<Route element={<RouteGuardAdmin />}>
 							<Route path={CLIENT_PATHS.ADMIN} element={<AdminPanel />} />
 						</Route>
 
