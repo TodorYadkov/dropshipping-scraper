@@ -32,6 +32,7 @@ export const REDUCER_TYPES = {
 	GENERAL_STATISTIC: 'generalStatistic',
 	REFRESH_STATE: 'refreshState',
 	IS_LOADING_STATE: 'loadingState',
+	CLEAR_APP_STATE: 'clearAppState',
 };
 
 export const DATA_TYPES = {
@@ -62,4 +63,10 @@ export const SORTING_KEYS = {
 	EXTENSION_WORKING_DESC: 'extension_working_desc',
 	EXTENSION_LAST_SEEN_ASC: 'extension_last_seen_asc',
 	EXTENSION_LAST_SEEN_DESC: 'extension_last_seen_desc',
+};
+
+export const USER_ROLES = {
+    USER: 'user',
+    PREMIUM: 'premium',
+    ADMIN: 'admin'
 };
