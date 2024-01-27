@@ -6,7 +6,7 @@ import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
 import { AddExtensionModal } from '../Modal/AddExtensionModal.jsx';
 
 import { OffsetSelector } from '../Pagination/OffsetSelector.jsx';
-import { SearchInput } from '../SearchInput.jsx';
+import { SearchInput } from './SearchInput.jsx';
 import { DropdownSorts } from '../Sorts/DropdownSorts.jsx';
 import { SORTING_KEYS } from '../../util/constants.js';
 

@@ -8,7 +8,7 @@ import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
 import { AddProductModal } from '../Modal/AddProductModal.jsx';
 
 import { OffsetSelector } from '../Pagination/OffsetSelector.jsx';
-import { SearchInput } from '../SearchInput.jsx';
+import { SearchInput } from './SearchInput.jsx';
 import { DropdownSorts } from '../Sorts/DropdownSorts.jsx';
 
 export const ProductOptions = ({ onRefresh }) => {
