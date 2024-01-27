@@ -1,11 +1,39 @@
+import { useEffect, useState } from 'react';
+
 import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
 
 import { Tooltip } from '../Tooltip.jsx';
 
 export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsVisible(true);
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+
+    }, []);
 
     return (
         <tbody>
+
+            {(extensionsData.length == 0 && isVisible) && (
+                <tr className="text-center bg-white">
+                    <td colSpan={7} className="gap-2 py-5 text-lg border-b border-gray-200">
+                        <svg
+                            className="inline-block w-7 h-7"
+                            viewBox="-40 0 550 550"
+                        >
+                            <path d="M192 104.8c0-9.2-5.8-17.3-13.2-22.8C167.2 73.3 160 61.3 160 48c0-26.5 28.7-48 64-48s64 21.5 64 48c0 13.3-7.2 25.3-18.8 34c-7.4 5.5-13.2 13.6-13.2 22.8c0 12.8 10.4 23.2 23.2 23.2H336c26.5 0 48 21.5 48 48v56.8c0 12.8 10.4 23.2 23.2 23.2c9.2 0 17.3-5.8 22.8-13.2c8.7-11.6 20.7-18.8 34-18.8c26.5 0 48 28.7 48 64s-21.5 64-48 64c-13.3 0-25.3-7.2-34-18.8c-5.5-7.4-13.6-13.2-22.8-13.2c-12.8 0-23.2 10.4-23.2 23.2V464c0 26.5-21.5 48-48 48H279.2c-12.8 0-23.2-10.4-23.2-23.2c0-9.2 5.8-17.3 13.2-22.8c11.6-8.7 18.8-20.7 18.8-34c0-26.5-28.7-48-64-48s-64 21.5-64 48c0 13.3 7.2 25.3 18.8 34c7.4 5.5 13.2 13.6 13.2 22.8c0 12.8-10.4 23.2-23.2 23.2H48c-26.5 0-48-21.5-48-48V343.2C0 330.4 10.4 320 23.2 320c9.2 0 17.3 5.8 22.8 13.2C54.7 344.8 66.7 352 80 352c26.5 0 48-28.7 48-64s-21.5-64-48-64c-13.3 0-25.3 7.2-34 18.8C40.5 250.2 32.4 256 23.2 256C10.4 256 0 245.6 0 232.8V176c0-26.5 21.5-48 48-48H168.8c12.8 0 23.2-10.4 23.2-23.2z" />
+                        </svg>
+
+                        <p className="inline-block align-middle ml-1 text-2xl font-semibold text-gray-900">No found Extensions</p>
+                    </td>
+                </tr>
+            )}
+
             {extensionsData.length > 0 && extensionsData.map(extension => (
                 <tr key={extension._id} className="bg-white hover:bg-gray-50">
 
@@ -87,11 +115,11 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                             <div className="relative group">
                                 <svg
                                     viewBox="0 0 1024 1024"
-                                    className={`icon w-6 h-6 fill-indigo-600 ${extension.isWorkBrowser ? 'cursor-pointer hover:opacity-70' : 'cursor-not-allowed opacity-20'}`}
+                                    className={`icon w-6 h-6 fill-indigo-600 ${(extension.isWorkBrowser || extension.isWork || extension.isLogin) ? 'cursor-pointer hover:opacity-70' : 'cursor-not-allowed opacity-20'}`}
                                     stroke="#4f46e5"
                                     strokeWidth="50"
                                     onClick={
-                                        extension.isWorkBrowser
+                                        (extension.isWorkBrowser || extension.isWork || extension.isLogin)
                                             ? () => onModalClick('LogoutExtensionModal', { ...extension })
                                             : undefined
                                     }
@@ -99,7 +127,7 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
                                     <path d="M868 732h-70.3c-4.8 0-9.3 2.1-12.3 5.8-7 8.5-14.5 16.7-22.4 24.5a353.84 353.84 0 0 1-112.7 75.9A352.8 352.8 0 0 1 512.4 866c-47.9 0-94.3-9.4-137.9-27.8a353.84 353.84 0 0 1-112.7-75.9 353.28 353.28 0 0 1-76-112.5C167.3 606.2 158 559.9 158 512s9.4-94.2 27.8-137.8c17.8-42.1 43.4-80 76-112.5s70.5-58.1 112.7-75.9c43.6-18.4 90-27.8 137.9-27.8 47.9 0 94.3 9.3 137.9 27.8 42.2 17.8 80.1 43.4 112.7 75.9 7.9 7.9 15.3 16.1 22.4 24.5 3 3.7 7.6 5.8 12.3 5.8H868c6.3 0 10.2-7 6.7-12.3C798 160.5 663.8 81.6 511.3 82 271.7 82.6 79.6 277.1 82 516.4 84.4 751.9 276.2 942 512.4 942c152.1 0 285.7-78.8 362.3-197.7 3.4-5.3-.4-12.3-6.7-12.3zm88.9-226.3L815 393.7c-5.3-4.2-13-.4-13 6.3v76H488c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h314v76c0 6.7 7.8 10.5 13 6.3l141.9-112a8 8 0 0 0 0-12.6z" />
                                 </svg>
 
-                                {extension.isWorkBrowser
+                                {(extension.isWorkBrowser || extension.isWork || extension.isLogin)
                                     ? (<Tooltip message="Logout" customTailwindClass="mb-[2px]" />)
                                     : (<Tooltip message="To use control, please login in extension" customTailwindClass="mb-[2px]" />)
                                 }
