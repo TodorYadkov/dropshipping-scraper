@@ -1,6 +1,6 @@
 import { SERVER_PATHS } from '../util/paths.js';
 
-async function httpRequester(method, endpoint, clearUserState, accessToken, data) {
+async function httpRequester(method, endpoint, clearUserState, clearAppState, accessToken, data) {
 	const url = SERVER_PATHS.HOST + endpoint;
 	const options = {
 		method,
@@ -22,6 +22,7 @@ async function httpRequester(method, endpoint, clearUserState, accessToken, data
 	if (response.ok === false) {
 		if (response.status === 403) {
 			clearUserState();
+			clearAppState();
 		}
 
 		const error = await response.json();
@@ -32,9 +33,9 @@ async function httpRequester(method, endpoint, clearUserState, accessToken, data
 
 }
 
-export const api = (clearUserState, accessToken) => ({
-	get: (endpoint) => httpRequester('GET', endpoint, clearUserState, accessToken),
-	post: (endpoint, data) => httpRequester('POST', endpoint, clearUserState, accessToken, data),
-	put: (endpoint, data) => httpRequester('PUT', endpoint, clearUserState, accessToken, data),
-	delete: (endpoint) => httpRequester('DELETE', endpoint, clearUserState, accessToken)
+export const api = (clearUserState, clearAppState, accessToken) => ({
+	get: (endpoint) => httpRequester('GET', endpoint, clearUserState, clearAppState, accessToken),
+	post: (endpoint, data) => httpRequester('POST', endpoint, clearUserState, clearAppState, accessToken, data),
+	put: (endpoint, data) => httpRequester('PUT', endpoint, clearUserState, clearAppState, accessToken, data),
+	delete: (endpoint) => httpRequester('DELETE', endpoint, clearUserState, clearAppState, accessToken)
 });
