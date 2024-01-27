@@ -51,10 +51,15 @@ async function userRegister({ name, email, password, role, extensionName }) {
 
 //  Login
 async function userLogin({ email, password, isExtension, extensionName }) {
+
     // Check if the user with this email exists
     const user = await User.findOne({ email });
     if (!user) {
         throw new Error('Invalid email or password!');
+    }
+
+    if (user.disable) {
+        throw new Error('Your account has been disabled from admin');
     }
 
     // Validate password
@@ -88,7 +93,8 @@ async function userLogin({ email, password, isExtension, extensionName }) {
         await extension.save();
     } else {
         // Set isLogin to true
-        user = await User.findByIdAndUpdate(user._id, { isLogin: true }, { runValidators: true, new: true });
+        user.isLogin = true;
+        await user.save();
 
         // Create token to be used with React
         userToken = await generateUserToken(user);
@@ -102,21 +108,25 @@ async function userLogin({ email, password, isExtension, extensionName }) {
 
 //  Logout
 async function userLogout({ _id, accessToken, isExtension, extensionName, extensionId }) {
-    const userLogoutData = {
+    const userBlacklistData = {
         accessToken,
         userId: _id
     };
-
+ 
     if (isExtension) {
         await Extension.findByIdAndUpdate(extensionId, { isWork: false, isLogin: false, isWorkBrowser: false, accessToken: null });
 
-        userLogoutData.extensionName = extensionName;
-    } else {
-        // Set isLogin to false
-        await User.findByIdAndUpdate(_id, { isLogin: false }, { runValidators: true, new: true });
+        const isExistAccessToken = await TokenBlackList.findOne({ accessToken });
+        if (!isExistAccessToken) {
+            userBlacklistData.extensionName = extensionName;
+            await addTokenToBlackList(userBlacklistData);
+        }
+
+        return { message: 'Logout successful from Extension!' };
     }
 
-    await addTokenToBlackList(userLogoutData);
+    await User.findByIdAndUpdate(_id, { isLogin: false }, { runValidators: true, new: true });
+    await addTokenToBlackList(userBlacklistData);
 
     return { message: 'Logout successful!' };
 }
@@ -127,6 +137,10 @@ async function createResetLink({ email, origin }) {
     const user = await User.findOne({ email });
     if (!user) {
         throw new Error('Invalid email!');
+    }
+
+    if (user.disable) {
+        throw new Error('Your account has been disabled from admin');
     }
 
     const temporaryToken = await signJwtToken({ _id: user._id }, { expiresIn: '10m' });
@@ -166,22 +180,33 @@ async function resetUserPassword({ password, resetToken }) {
     // Check if the current token is already used
     const isTokenUsed = await TokenBlackList.findOne({ accessToken: decodedToken, userId: userDetails._id });
     if (isTokenUsed) {
-        throw new Error('Reset link is already used!');
+        throw new Error('Reset link is already used');
+    }
+
+    await addTokenToBlackList({ accessToken: decodedToken, userId: userDetails._id });
+
+    const user = await User.findOne({ _id: userDetails._id });
+    if (!user) {
+        throw new Error('User does not exist');
+    }
+    
+    // Check if the current user is disabled
+    if (user.disable) {
+        throw new Error('Your account has been disabled from admin');
     }
 
     // Hash password
     const roundsBcrypt = Number(process.env.ROUNDS_BCRYPT);
     const hashedPassword = await bcrypt.hash(password, roundsBcrypt);
 
-    const userWithNewPassword = await User.findByIdAndUpdate(userDetails._id, { password: hashedPassword }, { runValidators: true, new: true });
+    user.password = hashedPassword;
+    await user.save();
 
     // Create token
-    const userToken = await generateUserToken(userWithNewPassword);
-
-    await addTokenToBlackList({ accessToken: decodedToken, userId: userDetails._id });
+    const userToken = await generateUserToken(user);
 
     // Return user info
-    const responseObject = createResponseObject(userToken, userWithNewPassword);
+    const responseObject = createResponseObject(userToken, user);
 
     return responseObject;
 }
@@ -228,6 +253,7 @@ function createResponseObject(userToken, user) {
             name: user.name,
             email: user.email,
             role: user.role,
+            disable: user.disable,
             avatarURL: user.avatarURL,
             extensionName: user?.extensionName ? user.extensionName : 'React Client',
         }
