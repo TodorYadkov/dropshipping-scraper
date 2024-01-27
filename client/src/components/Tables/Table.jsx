@@ -32,7 +32,7 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 
 			case DATA_TYPES.USER:
 				{
-					const headings = ['User', 'Email', 'Login Status', 'Extension number', 'Role', 'Actions'];
+					const headings = ['User', 'Email', 'Login Status', 'Extensions', 'Products', 'Role', 'Status', 'Actions'];
 					Body = <TableBodyUsers usersData={data} onModalClick={onModalClick} />;
 					Heading = <TableHeader headings={headings} />;
 				}
