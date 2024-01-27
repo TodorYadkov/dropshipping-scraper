@@ -1,12 +1,9 @@
 import { useMemo } from 'react';
-import { useModal } from '../../hooks/useModal.js';
 
-import { ButtonPrimary } from '../Buttons/ButtonPrimary.jsx';
 import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
-import { AddExtensionModal } from '../Modal/AddExtensionModal.jsx';
 
 import { OffsetSelector } from '../Pagination/OffsetSelector.jsx';
-import { SearchInput } from '../SearchInput.jsx';
+import { SearchInput } from './SearchInput.jsx';
 import { DropdownSorts } from '../Sorts/DropdownSorts.jsx';
 import { SORTING_KEYS } from '../../util/constants.js';
 
