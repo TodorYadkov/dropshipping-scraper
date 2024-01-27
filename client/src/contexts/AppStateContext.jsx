@@ -47,6 +47,8 @@ export const AppStateProvider = ({ children }) => {
 
 	const setIsLoadingState = (boolean) => dispatch({ type: REDUCER_TYPES.IS_LOADING_STATE, value: boolean });
 
+	const clearAppState = () => dispatch({ type: REDUCER_TYPES.CLEAR_APP_STATE, value: initialState });
+
 	const values = {
 		appState,
 		changeSideBarState,
@@ -61,6 +63,7 @@ export const AppStateProvider = ({ children }) => {
 		setGeneralStatistic,
 		setRefreshState,
 		setIsLoadingState,
+		clearAppState
 	};
 
 	return (
