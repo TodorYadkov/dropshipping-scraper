@@ -1,10 +1,10 @@
+import { DropdownRoleSelector } from '../DropdownRoleSelector.jsx';
 import { Tooltip } from '../Tooltip.jsx';
 
 export const TableBodyUsers = ({ usersData, onModalClick }) => {
 
     return (
         <tbody>
-            {console.log(usersData)}
             {usersData.length > 0 && usersData.map(user => (
                 <tr key={user._id} className="bg-white hover:bg-gray-50">
 
@@ -38,7 +38,7 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             <span
-                                class={`inline-flex px-2 text-xs font-semibold leading-5 rounded-full ${user.isLogin ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
+                                className={`inline-flex px-2 text-xs font-semibold leading-5 rounded-full ${user.isLogin ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
                             >
                                 {user.isLogin ? 'Logged In' : 'Not Logged In'}
                             </span>
@@ -61,9 +61,7 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-2/12">
-                        <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {/* TODO */}
-                        </p>
+                        <DropdownRoleSelector role={user.role} userId={user._id} />
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-[3%]">
