@@ -63,5 +63,11 @@ export const useFilterData = () => {
         filterData(data);
     };
 
-    return [localFilteredState, setLocalDataHandler];
+
+    const updateLocalDataHandler = (data = {}) => {
+        setLocalData(oldData => oldData.map(x => x._id === data._id ? data : x));
+        // TODO check for filtered data
+    }
+
+    return [localFilteredState, setLocalDataHandler, updateLocalDataHandler];
 };
