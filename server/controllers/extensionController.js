@@ -22,6 +22,7 @@ import {
     reactStartExtension,
     reactStopExtension,
 } from '../services/extensionService.js';
+import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
 
 const extensionController = Router();
 
@@ -56,7 +57,7 @@ extensionController.post('/', isUserLogged, async (req, res, next) => {
 });
 
 // PUT - update extension
-extensionController.put('/', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+extensionController.put('/', isUserLogged, preload(getOneExtension, PRELOAD_OPTIONS.EXTENSION), isOwner, async (req, res, next) => {
     try {
         const { _id, extensionName } = req.body;
 
@@ -70,7 +71,7 @@ extensionController.put('/', isUserLogged, preload(getOneExtension, 'extension')
 });
 
 // DELETE - delete extension
-extensionController.delete('/:extensionId', isUserLogged, preload(getOneExtension, 'extensionId'), isOwner, async (req, res, next) => {
+extensionController.delete('/:extensionId', isUserLogged, preload(getOneExtension, PRELOAD_OPTIONS.EXTENSION_ID), isOwner, async (req, res, next) => {
     try {
         const extensionId = req.params.extensionId;
 
@@ -83,7 +84,7 @@ extensionController.delete('/:extensionId', isUserLogged, preload(getOneExtensio
 });
 
 // PUT request to reset error on extension
-extensionController.put('/reset-error', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+extensionController.put('/reset-error', isUserLogged, preload(getOneExtension, PRELOAD_OPTIONS.EXTENSION), isOwner, async (req, res, next) => {
     try {
         const { _id } = req.body;
 
@@ -96,7 +97,7 @@ extensionController.put('/reset-error', isUserLogged, preload(getOneExtension, '
 });
 
 // PUT request to start extension from React
-extensionController.put('/react-start', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+extensionController.put('/react-start', isUserLogged, preload(getOneExtension, PRELOAD_OPTIONS.EXTENSION), isOwner, async (req, res, next) => {
     try {
         const { _id } = req.body;
 
@@ -109,7 +110,7 @@ extensionController.put('/react-start', isUserLogged, preload(getOneExtension, '
 });
 
 // PUT request to stop extension from React
-extensionController.put('/react-stop', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+extensionController.put('/react-stop', isUserLogged, preload(getOneExtension, PRELOAD_OPTIONS.EXTENSION), isOwner, async (req, res, next) => {
     try {
         const { _id } = req.body;
 
@@ -122,7 +123,7 @@ extensionController.put('/react-stop', isUserLogged, preload(getOneExtension, 'e
 });
 
 // Logout extension from React
-extensionController.put('/logout', isUserLogged, preload(getOneExtension, 'extension'), isOwner, async (req, res, next) => {
+extensionController.put('/logout', isUserLogged, preload(getOneExtension, PRELOAD_OPTIONS.EXTENSION), isOwner, async (req, res, next) => {
     try {
         const { _id } = req.body;
         const userId = req.user._id;
