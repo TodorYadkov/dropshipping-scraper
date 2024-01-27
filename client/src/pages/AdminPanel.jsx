@@ -17,9 +17,9 @@ export const AdminPanel = () => {
 
     const [adminPanelData, setAdminPanelData] = useFilterData();
     const [_] = useIntervalTimeToReceiveData(fetchAdminPanelData);
-
+   
     const { getAllUsers } = useApi(adminService);
-
+  
     // Initial
     useEffect(() => {
         async function initialLoading() {
@@ -54,7 +54,7 @@ export const AdminPanel = () => {
     }
 
     async function onRefreshClick() {
-        return fetchExtensionsData();
+        return fetchAdminPanelData();
     }
 
     return (
