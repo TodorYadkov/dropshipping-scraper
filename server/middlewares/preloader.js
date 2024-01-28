@@ -19,6 +19,7 @@ const preload = (api, option) => async (req, res, next) => {
 
 		} else if (option === PRELOAD_OPTIONS.ROLE) {
 			params = [req.user._id];
+			errorMessage = 'The user does not exist!';
 		}
 
 		const currentState = await api(...params);
