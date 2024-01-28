@@ -4,6 +4,7 @@ import { extractASIN } from '../util/extractASIN.js';
 import { extractItemIdEbay } from '../util/extractItemIdEbay.js';
 import { updateProductSchema, validateProductSchema } from '../util/validationSchemes.js';
 import { preload } from '../middlewares/preloader.js';
+import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
 import { isOwner, isUserLogged } from '../middlewares/guards.js';
 import {
     getSingleProduct,
@@ -12,7 +13,6 @@ import {
     deleteProduct,
     getAllProducts
 } from '../services/productService.js';
-import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
 
 const productController = Router();
 
