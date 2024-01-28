@@ -1,27 +1,31 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 
+import { DATA_TYPES } from "../util/constants.js";
+
 import { useApi } from "../hooks/useApi.js";
-import { adminService } from "../services/adminService.js";
 import { useFilterData } from "../hooks/useFilterData.js";
 import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
 
+import { adminService } from "../services/adminService.js";
+
 import { AdminPanelContext } from "../contexts/AdminPanelContext.jsx";
-import { AlertError } from "../components/Alerts/AlertError.jsx";
-import { ResponsiveComponent } from "../components/ResponsiveComponent.jsx";
-import { PageTitle } from "../components/PageTitle.jsx";
+
 import { Loader } from "../components/Loader.jsx";
-import { DATA_TYPES } from "../util/constants.js";
-
-
+import { PageTitle } from "../components/PageTitle.jsx";
+import { AlertError } from "../components/Alerts/AlertError.jsx";
+import { DashboardAdminPanel } from "../components/DashboardAdminPanel.jsx";
+import { ResponsiveComponent } from "../components/ResponsiveComponent.jsx";
 
 export const AdminPanel = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [alert, setAlert] = useState('');
+    const [adminPanelStatistic, setAdminPanelStatistic] = useState({});
 
     const [adminPanelData, setAdminPanelData, updateUserData] = useFilterData();
-    const [_] = useIntervalTimeToReceiveData(fetchAdminPanelData);
+    const { getAllUsers, getAdminStatistic, updateUserRole } = useApi(adminService);
 
-    const { getAllUsers } = useApi(adminService);
+    const [_] = useIntervalTimeToReceiveData(fetchAdminPanelData, 10);
 
     // Initial
     useEffect(() => {
@@ -29,6 +33,7 @@ export const AdminPanel = () => {
             setIsLoading(true);
 
             await fetchAdminPanelData();
+
             setIsLoading(false);
         }
 
@@ -36,11 +41,16 @@ export const AdminPanel = () => {
 
     }, []);
 
-
     async function fetchAdminPanelData() {
         try {
-            const users = await getAllUsers();
+
+            const [users, adminPanelStatistic] = await Promise.all([
+                getAllUsers(),
+                getAdminStatistic()
+            ]);
+
             setAdminPanelData(users);
+            setAdminPanelStatistic(adminPanelStatistic);
 
         } catch (error) {
             console.error(error);
@@ -57,12 +67,15 @@ export const AdminPanel = () => {
     }
 
     async function onRefreshClick() {
-        return fetchAdminPanelData();
+        await fetchAdminPanelData();
+
     }
 
     const values = {
-        updateUserData
-    }
+        updateUserData,
+        updateUserRole,
+        adminPanelStatistic
+    };
 
     return (
         <PageTitle title={'Admin Panel'}>
@@ -72,16 +85,19 @@ export const AdminPanel = () => {
                         ? <Loader />
                         : (
                             <>
-                                {alert && (
-                                    <div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4/5">
-                                        <AlertError message={alert} close={onCloseAlert} />
-                                    </div>
-                                )}
+                                <DashboardAdminPanel addAlertMessage={addAlertMessage} />
 
                                 <ResponsiveComponent dataType={DATA_TYPES.USER} localFilteredState={adminPanelData} onRefresh={onRefreshClick} />
+
                             </>
                         )
                     }
+
+                    {alert && (
+                        <div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            <AlertError message={alert} close={onCloseAlert} />
+                        </div>
+                    )}
                 </div>
             </AdminPanelContext.Provider>
         </PageTitle>
