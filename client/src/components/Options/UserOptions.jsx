@@ -11,14 +11,21 @@ export const UserOption = ({ onRefresh }) => {
 
 	const sortingCriteria = useMemo(() => {
 		return ({
-			[SORTING_KEYS.EXTENSION_NAME_ASC]: 'Name 🠅',
-			[SORTING_KEYS.EXTENSION_NAME_DESC]: 'Name 🠇',
-			[SORTING_KEYS.EXTENSION_LOGGED_ASC]: 'Logged In',
-			[SORTING_KEYS.EXTENSION_LOGGED_DESC]: 'Not Logged In',
-			[SORTING_KEYS.EXTENSION_WORKING_ASC]: 'Working',
-			[SORTING_KEYS.EXTENSION_WORKING_DESC]: 'Not Working',
-			[SORTING_KEYS.EXTENSION_LAST_SEEN_ASC]: 'Last Seen 🠅',
-			[SORTING_KEYS.EXTENSION_LAST_SEEN_DESC]: 'Last Seen 🠇',
+			[SORTING_KEYS.USER_NAME_ASC]: 'Name 🠅',
+			[SORTING_KEYS.USER_NAME_DESC]: 'Name 🠇',
+			[SORTING_KEYS.USER_EMAIL_ASC]: 'Email 🠅',
+			[SORTING_KEYS.USER_EMAIL_DESC]: 'Email 🠇',
+			[SORTING_KEYS.USER_LOGIN_STATUS_ASC]: 'Logged In',
+			[SORTING_KEYS.USER_LOGIN_STATUS_DESC]: 'Not Logged In',
+			[SORTING_KEYS.USER_EXTENSIONS_ASC]: 'Extensions 🠅',
+			[SORTING_KEYS.USER_EXTENSIONS_DESC]: 'Extensions 🠇',
+			[SORTING_KEYS.USER_PRODUCTS_ASC]: 'Products 🠅',
+			[SORTING_KEYS.USER_PRODUCTS_DESC]: 'Products 🠇',
+			[SORTING_KEYS.USER_ROLE_USER]: 'User',
+			[SORTING_KEYS.USER_ROLE_PREMIUM]: 'Premium',
+			[SORTING_KEYS.USER_ROLE_ADMIN]: 'Admin',
+			[SORTING_KEYS.USER_ACCOUNT_STATUS_ASC]: 'Account Status 🠅',
+			[SORTING_KEYS.USER_ACCOUNT_STATUS_DESC]: 'Account Status 🠇',
 		});
 	}, []);
 
