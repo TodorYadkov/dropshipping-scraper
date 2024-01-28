@@ -63,10 +63,12 @@ export const useFilterData = () => {
         filterData(data);
     };
 
-
     const updateLocalDataHandler = (data = {}) => {
-        setLocalData(oldData => oldData.map(x => x._id === data._id ? data : x));
-        // TODO check for filtered data
+        setLocalFilteredState(state => ({ ...state, data: state.data.map(x => x._id === data._id ? data : x) }));
+        // TODO: FILTERED DATA ON ADMIN PANEL
+        // const updateState = ({ ...localFilteredState, data: localFilteredState.data.map(x => x._id === data._id ? data : x) });
+        // setLocalFilteredState(updateState);
+        // filterData(updateState.data);
     }
 
     return [localFilteredState, setLocalDataHandler, updateLocalDataHandler];
