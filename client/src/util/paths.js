@@ -20,7 +20,11 @@ export const SERVER_PATHS = {
     REACT_START_EXTENSION: '/extensions/react-start',
     REACT_STOP_EXTENSION: '/extensions/react-stop',
     LOGOUT_EXTENSION: '/extensions/logout',
-    GET_ALL_USERS: '/admin',
+    ADMIN_GET_USERS: '/admin',
+    ADMIN_UPDATE_USER_ROLE: '/admin/role',
+    ADMIN_DISABLE_USER_STATUS: '/admin/disable',
+    ADMIN_ENABLE_USER_STATUS: '/admin/enable',
+    ADMIN_USERS_STATISTIC: '/admin/statistic',
 };
 
 export const CLIENT_PATHS = {
