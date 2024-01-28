@@ -26,7 +26,7 @@ export const DashboardSummary = ({
                             <Tooltip message="Extension count" direction="bottom" customTailwindClass="mt-1" />
                         </div>
 
-                        <div className="mx-5">
+                        <div className="mx-3">
                             <h4 className="text-2xl font-semibold text-gray-700">
                                 {extensionsCount}
                             </h4>
@@ -44,7 +44,7 @@ export const DashboardSummary = ({
                             <Tooltip message="Logged extensions" direction="bottom" customTailwindClass="mt-1" />
                         </div>
 
-                        <div className="mx-5">
+                        <div className="mx-3">
                             <h4 className="text-2xl font-semibold text-gray-700">
                                 {extensionsIsLogin}
                             </h4>
@@ -66,7 +66,7 @@ export const DashboardSummary = ({
                             <Tooltip message="Started extensions" direction="bottom" customTailwindClass="mt-1" />
                         </div>
 
-                        <div className="mx-5">
+                        <div className="mx-3">
                             <h4 className="text-2xl font-semibold text-gray-700">
                                 {extensionsIsWork}
                             </h4>
@@ -84,7 +84,7 @@ export const DashboardSummary = ({
                             <Tooltip message="Stopped extensions" direction="bottom" customTailwindClass="mt-1" />
                         </div>
 
-                        <div className="mx-5">
+                        <div className="mx-3">
                             <h4 className="text-2xl font-semibold text-gray-700">
                                 {extensionsNotWorked}
                             </h4>
@@ -118,7 +118,7 @@ export const DashboardSummary = ({
                             <Tooltip message="All products" direction="bottom" customTailwindClass="mt-1" />
                         </div>
 
-                        <div className="mx-5">
+                        <div className="mx-3">
                             <h4 className="text-2xl font-semibold text-gray-700">
                                 {productsCount}
                             </h4>
@@ -135,7 +135,7 @@ export const DashboardSummary = ({
                             <Tooltip message="Available products" direction="bottom" customTailwindClass="mt-1" />
                         </div>
 
-                        <div className="mx-5">
+                        <div className="mx-3">
                             <h4 className="text-2xl font-semibold text-gray-700">
                                 {availableProductsCount}
                             </h4>
