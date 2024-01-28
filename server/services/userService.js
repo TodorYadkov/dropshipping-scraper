@@ -112,7 +112,7 @@ async function userLogout({ _id, accessToken, isExtension, extensionName, extens
         accessToken,
         userId: _id
     };
- 
+
     if (isExtension) {
         await Extension.findByIdAndUpdate(extensionId, { isWork: false, isLogin: false, isWorkBrowser: false, accessToken: null });
 
@@ -189,7 +189,7 @@ async function resetUserPassword({ password, resetToken }) {
     if (!user) {
         throw new Error('User does not exist');
     }
-    
+
     // Check if the current user is disabled
     if (user.disable) {
         throw new Error('Your account has been disabled from admin');
