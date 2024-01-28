@@ -4,6 +4,7 @@ import { extractASIN } from '../util/extractASIN.js';
 import { updateProductSchema, validateExtensionSchema } from '../util/validationSchemes.js';
 import { isOwner, isUserLogged } from '../middlewares/guards.js';
 import { preload } from '../middlewares/preloader.js';
+import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
 import {
     getLatestUpdatedProduct,
     updatedProductFromExtension,
@@ -22,7 +23,6 @@ import {
     reactStartExtension,
     reactStopExtension,
 } from '../services/extensionService.js';
-import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
 
 const extensionController = Router();
 
