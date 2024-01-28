@@ -2,8 +2,10 @@ import { AddEbayProductModal } from './AddEbayProductModal.jsx';
 import { AddProductModal } from './AddProductModal.jsx';
 import { DeleteExtensionModal } from './DeleteExtensionModal.jsx';
 import { DeleteProductModal } from './DeleteProductModal.jsx';
+import { DisableUserModal } from './DisableUserModal.jsx';
 import { EditExtensionModal } from './EditExtensionModal.jsx';
 import { EditProductModal } from './EditProductModal.jsx';
+import { EnableUserModal } from './EnableUserModal.jsx';
 import { LogoutExtensionModal } from './LogoutExtensionModal.jsx';
 import { ResetErrorExtensionModal } from './ResetErrorExtensionModal.jsx';
 import { StartExtensionModal } from './StartExtensionModal.jsx';
@@ -27,6 +29,8 @@ export const ModalManager = ({ useModal, data, closeModal }) => {
             {useModal === 'StopExtensionModal' && <StopExtensionModal toggleModal={closeModal} extension={data} />}
             {useModal === 'LogoutExtensionModal' && <LogoutExtensionModal toggleModal={closeModal} extension={data} />}
 
+            {useModal === 'DisableUserModal' && <DisableUserModal toggleModal={closeModal} userDetails={data} />}
+            {useModal === 'EnableUserModal' && <EnableUserModal toggleModal={closeModal} userDetails={data} />}
         </>
     );
 };
