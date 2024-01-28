@@ -63,10 +63,26 @@ export const SORTING_KEYS = {
 	EXTENSION_WORKING_DESC: 'extension_working_desc',
 	EXTENSION_LAST_SEEN_ASC: 'extension_last_seen_asc',
 	EXTENSION_LAST_SEEN_DESC: 'extension_last_seen_desc',
+
+	USER_NAME_ASC: 'user_name_asc',
+	USER_NAME_DESC: 'user_name_desc',
+	USER_EMAIL_ASC: 'user_email_asc',
+	USER_EMAIL_DESC: 'user_email_desc',
+	USER_LOGIN_STATUS_ASC: 'user_login_status_asc',
+	USER_LOGIN_STATUS_DESC: 'user_login_status_desc',
+	USER_EXTENSIONS_ASC: 'user_extensions_asc',
+	USER_EXTENSIONS_DESC: 'user_extensions_desc',
+	USER_PRODUCTS_ASC: 'user_products_asc',
+	USER_PRODUCTS_DESC: 'user_products_desc',
+	USER_ROLE_USER: 'user_role_user',
+	USER_ROLE_PREMIUM: 'user_role_premium',
+	USER_ROLE_ADMIN: 'user_role_admin',
+	USER_ACCOUNT_STATUS_ASC: 'user_account_status_asc',
+	USER_ACCOUNT_STATUS_DESC: 'user_account_status_desc',
 };
 
 export const USER_ROLES = {
-    USER: 'user',
-    PREMIUM: 'premium',
-    ADMIN: 'admin'
+	USER: 'user',
+	PREMIUM: 'premium',
+	ADMIN: 'admin'
 };
