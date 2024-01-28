@@ -17,7 +17,7 @@ userController.post('/register', isUserGuest, async (req, res, next) => {
         await validateRegisterSchema.validateAsync(userData);
         const user = await userRegister(userData);
 
-        res.status(200).json(user);
+        res.status(201).json(user);
     } catch (err) {
         next(err);
     }
