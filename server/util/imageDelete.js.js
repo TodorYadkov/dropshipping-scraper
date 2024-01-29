@@ -11,4 +11,4 @@ export const imageDelete = async (imageId) => {
     // }    
 
     return deletedPostImageState;
-}
+};

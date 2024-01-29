@@ -3,7 +3,7 @@ import { Schema, Types, model } from 'mongoose';
 const extensionSchema = new Schema({
     extensionName: {
         type: String,
-        required: [true, 'Extension Name is required!']
+        required: [true, 'Extension name is required']
     },
     isWork: {
         type: Boolean,
@@ -32,7 +32,7 @@ const extensionSchema = new Schema({
     owner: {
         type: Types.ObjectId,
         ref: 'User',
-        required: [true, 'User reference is required!']
+        required: [true, 'User reference is required']
     },
 
 }, { timestamps: true });

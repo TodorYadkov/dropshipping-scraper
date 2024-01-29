@@ -6,5 +6,5 @@ const addTokenToBlackList = async (token) => TokenBlackList.create(token);
 
 export {
     getTokensBlackList,
-    addTokenToBlackList
+    addTokenToBlackList,
 };

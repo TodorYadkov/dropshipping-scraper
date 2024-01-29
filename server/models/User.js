@@ -5,21 +5,21 @@ import { USER_ROLES } from '../environments/userRoles.js';
 const userSchema = new Schema({
     name: {
         type: String,
-        required: [true, 'Name is required!']
+        required: [true, 'Name is required']
     },
     email: {
         type: String,
-        required: [true, 'Email is required!'],
+        required: [true, 'Email is required'],
         unique: true,
-        match: [/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,20}$/, 'Email is not valid!']
+        match: [/^[\w\-\.]+@([\w-]+\.)+[\w-]{2,20}$/, 'Email is not valid']
     },
     password: {
         type: String,
-        required: [true, 'Password is required!']
+        required: [true, 'Password is required']
     },
     avatarURL: {
         type: String,
-        match: [/^https?:\/\//, 'Image URL must start with http or https!'],
+        match: [/^https?:\/\//, 'Image URL must start with http or https'],
         default: null
     },
     avatarId: {
@@ -36,10 +36,10 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        required: [true, 'Role is required!'],
+        required: [true, 'Role is required'],
         enum: {
             values: [...Object.values(USER_ROLES)],
-            message: '{VALUE} is not supported!'
+            message: '{VALUE} is not supported'
         },
         default: USER_ROLES.USER
     },

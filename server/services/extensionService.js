@@ -1,5 +1,6 @@
 import { Product } from '../models/Product.js';
 import { Extension } from '../models/Extension.js';
+
 import { addTokenToBlackList } from './tokenBlackListService.js';
 
 // EXTENSION REACT request ---------------------
@@ -24,7 +25,7 @@ const deleteExtension = async (extensionId) => {
 
     const deletedExtension = await Extension.findOneAndDelete({ _id: extensionId }).select('-accessToken').exec();
     return deletedExtension;
-}
+};
 
 // Reset error
 const resetErrorExtension = async (extensionId) => Extension.findByIdAndUpdate(extensionId, { error: null }, { runValidators: true, new: true }).select('-accessToken');

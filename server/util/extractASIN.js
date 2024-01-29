@@ -24,4 +24,4 @@ export function extractASIN(url) {
 
     // If the input doesn't match either pattern, return the original URL
     return url;
-};
+}

@@ -8,4 +8,4 @@ export const imageUpload = async (file) => {
         }).end(file.buffer);
 
     });
-}
+};

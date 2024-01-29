@@ -18,7 +18,7 @@ async function userRegister({ name, email, password, role, extensionName }) {
     // Check if the email is already taken
     const isEmailExisting = await User.findOne({ email });
     if (isEmailExisting) {
-        throw new Error('Email is already taken!');
+        throw new Error('Email is already taken');
     }
 
     // Hash password
@@ -55,7 +55,7 @@ async function userLogin({ email, password, isExtension, extensionName }) {
     // Check if the user with this email exists
     const user = await User.findOne({ email });
     if (!user) {
-        throw new Error('Invalid email or password!');
+        throw new Error('Invalid email or password');
     }
 
     if (user.isDisable) {
@@ -65,7 +65,7 @@ async function userLogin({ email, password, isExtension, extensionName }) {
     // Validate password
     const matchPassword = await bcrypt.compare(password, user.password);
     if (!matchPassword) {
-        throw new Error('Invalid email or password!');
+        throw new Error('Invalid email or password');
     }
 
     let userToken;
@@ -73,11 +73,11 @@ async function userLogin({ email, password, isExtension, extensionName }) {
         // Check if extension is already in use
         const extension = await Extension.findOne({ extensionName, owner: user._id });
         if (!extension) {
-            throw new Error('The extension does not exist!');
+            throw new Error('The extension does not exist');
         }
 
         if (extension.isLogin) {
-            throw new Error('Extension is already in use!');
+            throw new Error('Extension is already in use');
         }
 
         // Create token to be used on extension
@@ -122,13 +122,13 @@ async function userLogout({ _id, accessToken, isExtension, extensionName, extens
             await addTokenToBlackList(userBlacklistData);
         }
 
-        return { message: 'Logout successful from Extension!' };
+        return { message: 'Successful logout from Extension' };
     }
 
     await User.findByIdAndUpdate(_id, { isLogin: false }, { runValidators: true, new: true });
     await addTokenToBlackList(userBlacklistData);
 
-    return { message: 'Logout successful!' };
+    return { message: 'Successful logout' };
 }
 
 // Create reset link
@@ -136,7 +136,7 @@ async function createResetLink({ email, origin }) {
     // Check if the user with this email exists
     const user = await User.findOne({ email });
     if (!user) {
-        throw new Error('Invalid email!');
+        throw new Error('Invalid email');
     }
 
     if (user.isDisable) {

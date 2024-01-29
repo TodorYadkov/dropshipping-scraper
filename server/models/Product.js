@@ -28,7 +28,7 @@ const productSchema = new Schema({
 	imageURL: {
 		type: String,
 		default: null,
-		match: [/^https?:\/\//, 'Image URL must start with http or https!']
+		match: [/^https?:\/\//, 'Image URL must start with http or https']
 	},
 	availability: {
 		type: String,
@@ -37,12 +37,12 @@ const productSchema = new Schema({
 	amazonUrl: {
 		type: String,
 		required: [true, 'Amazon URL is required!'],
-		match: [/^https?:\/\//, 'Amazon URL must start with http or https!']
+		match: [/^https?:\/\//, 'Amazon URL must start with http or https']
 	},
 	ebayUrl: {
 		type: String,
 		default: null,
-		match: [/^https?:\/\//, 'eBay URL must start with http or https!']
+		match: [/^https?:\/\//, 'eBay URL must start with http or https']
 	},
 	rating: {
 		type: Number,
@@ -55,7 +55,7 @@ const productSchema = new Schema({
 	owner: {
 		type: Types.ObjectId,
 		ref: 'User',
-		required: [true, 'Owner is required!']
+		required: [true, 'Owner is required']
 	}
 }, { timestamps: true });
 

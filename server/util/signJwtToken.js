@@ -11,7 +11,7 @@ export async function signJwtToken(payload, options) {
                 options,
                 (err, signedToken) => {
                     if (err) {
-                        reject(new Error('The token could not be signed!'));
+                        reject(new Error('The token could not be signed'));
                     } else {
                         resolve(signedToken);
                     }
@@ -21,6 +21,6 @@ export async function signJwtToken(payload, options) {
         return token;
 
     } catch (err) {
-        throw new Error('An error occurred while generating the token!');
+        throw new Error('An error occurred while generating the token');
     }
 }
