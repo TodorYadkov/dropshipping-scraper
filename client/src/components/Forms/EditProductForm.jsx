@@ -10,7 +10,7 @@ import { productService } from '../../services/productService.js';
 
 import { validationProductInput } from './validationProductInput.js';
 
-import { Loader } from '../Loader.jsx';
+import { Loader } from '../Shared/Loader.jsx';
 
 export const EditProductForm = ({ toggleModal, product }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -31,15 +31,16 @@ export const EditProductForm = ({ toggleModal, product }) => {
         try {
             const productId = product._id;
             if (formData[PRODUCT_FORM_KEYS.EBAY] === '') {
-                formData[PRODUCT_FORM_KEYS.EBAY] = null;
+                setServerError('Ebay URL is required');
+                return;
             }
 
             setIsLoading(true);
             const updatedProduct = await updateProduct(formData, productId);
-            
+
             editProduct(updatedProduct);
             toggleModal();
-            
+
         } catch (error) {
             setServerError(error.message);
         } finally {
