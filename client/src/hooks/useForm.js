@@ -41,6 +41,12 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 		setValues(initialValues);
 	};
 
+	const resetError = () => {
+		setFormErrors((state) => Object.keys(state).reduce((acc, inputFieldName) => (
+			{ ...acc, [inputFieldName]: { isTouched: false, message: '' } }
+		), {}))
+	};
+
 	function validateForm() {
 		setIsInvalidForm(
 			Object.values(values).some(value => value === '') ||
@@ -56,5 +62,6 @@ export const useForm = (submitHandler, initialValues, validationFunction) => {
 		onSubmit,
 		onBlur,
 		formReset,
+		resetError,
 	};
 }
