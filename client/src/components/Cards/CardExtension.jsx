@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
 
-import { Tooltip } from '../Tooltip.jsx';
+import { Tooltip } from '../Shared/Tooltip.jsx';
 
 export const CardExtension = ({ extensions, onModalClick }) => {
 	const [isVisible, setIsVisible] = useState(false);

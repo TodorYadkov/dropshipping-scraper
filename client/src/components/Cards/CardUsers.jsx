@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { Tooltip } from '../Tooltip.jsx';
-import { DropdownRoleSelector } from '../DropdownRoleSelector.jsx';
+import { Tooltip } from '../Shared/Tooltip.jsx';
+import { DropdownRoleSelector } from '../Shared/DropdownRoleSelector.jsx';
 
 export const CardUsers = ({ usersData, onModalClick }) => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -61,13 +61,13 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 										>
 											{user.isLogin ? 'Logged In' : 'Not Logged In'}
 										</span>
-										<Tooltip message={'Login Status'} />
+										<Tooltip message={'Login Status'} direction="right" customTailwindClass={"ml-2 bottom-1/2 translate-y-1/2"} />
 									</p>
 								</div>
 								<div>
 									<p className="inline-block text-xl font-bold text-gray-900 relative group">
 										{user.name}
-										<Tooltip message={'Username'} />
+										<Tooltip message={'Username'} direction="right" customTailwindClass={"ml-2 bottom-1/2 translate-y-1/2"} />
 									</p>
 								</div>
 								<div>
@@ -80,7 +80,7 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 										>
 											{user.email}
 										</a>
-										<Tooltip message={'Email'} />
+										<Tooltip message={'Email'} direction="right" customTailwindClass={"ml-2 bottom-1/2 translate-y-1/2"} />
 									</p>
 								</div>
 
@@ -89,11 +89,11 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 										<p>Extensions: </p>
 										<p className="text-center relative group px-3 py-1 font-semibold leading-5 rounded-full bg-gray-100 text-gray-900">
 											All: {user.extensionCount}
-											<Tooltip message={'Count Extensions'} />
+											<Tooltip message={'Count Extensions'} customTailwindClass={'mb-1'} />
 										</p>
 										<p className={`text-center relative group px-3 py-1 font-semibold leading-5 rounded-full ${user.extensionsWithIsWorkBrowser === 0 ? 'bg-gray-100 text-gray-900' : 'bg-green-300 text-green-900'}`}>
 											Active: {user.extensionsWithIsWorkBrowser}
-											<Tooltip message={'Worked Extensions'} />
+											<Tooltip message={'Worked Extensions'} customTailwindClass={'mb-1'} />
 										</p>
 									</div>
 
@@ -101,11 +101,11 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 										<p className="mr-3">Products: </p>
 										<p className="text-center relative group px-3 py-1 font-semibold leading-5 rounded-full bg-gray-100 text-gray-900">
 											All: {user.productCount}
-											<Tooltip message={'All Products'} />
+											<Tooltip message={'All Products'} customTailwindClass={'mb-1'} />
 										</p>
 										<p className={`text-center relative group px-3 py-1 font-semibold leading-5 rounded-full ${user.productsWithErrorCount === 0 ? 'bg-gray-100 text-gray-900' : 'bg-red-100 text-red-800'}`}>
 											With Error: {user.productsWithErrorCount}
-											<Tooltip message={'Products with error'} />
+											<Tooltip message={'Products with error'} customTailwindClass={'mb-1'} />
 										</p>
 									</div>
 
@@ -141,7 +141,7 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 										<Tooltip message={`${user.disable ? 'Account Status Banned' : 'Account Status Ok'}`} customTailwindClass="mb-[1px]" />
 									</div>
 
-									<div className="relative group">
+									<div className="mr-3 relative group">
 										{user.disable
 
 											? <svg
