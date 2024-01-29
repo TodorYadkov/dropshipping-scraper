@@ -2,17 +2,17 @@
 
 Our project is part of the Softuni initiative, providing students with an opportunity to work on a project that closely resembles real-world applications. 
 
-This project is managed by [Deyan Danailov](https://github.com/DeyanDanailov) and developped by [Rosen Dobrev](https://github.com/RosenDobrev10), [Todor Yadkov](https://github.com/TodorYadkov) and [Maxim Kraychev](https://github.com/maximkraychev).
+This project is managed by [Deyan Danailov](https://github.com/DeyanDanailov) and developed by [Rosen Dobrev](https://github.com/RosenDobrev10), [Todor Yadkov](https://github.com/TodorYadkov) and [Maxim Kraychev](https://github.com/maximkraychev).
 
 ## Project Overview
 
-The Dropshipping Software System comprises three essential components that work together seamlessly to enhance your dropshipping experience.
+The main purpose of the system is to automate, organize and put to a whole new level the dropshipping experience. It is designed after several years of experience in maintaining and developing custom software in the sphere. The Dropshipping Software System comprises three essential components that work together seamlessly to enhance your dropshipping experience.
 
 ## Components:
 
 ### Browser Extension
 
-The Browser Extension is the first pillar of our system. It acts as a virtual shopping assistant, scraping crucial information from Amazon. It maintains constant communication with a central server, ensuring that the data it collects remains up-to-date. Whether it's prices, product availability, or other vital details, this extension has you covered.
+The Browser Extension is the first pillar of our system. It acts as a virtual dropshipping assistant, scraping crucial information from Amazon and Ebay. It maintains constant communication with a central server, ensuring that the data it collects remains up-to-date. Whether it's prices, product availability, or other vital details, this extension has you covered.
 
 ### API Server
 
@@ -31,4 +31,5 @@ The Website is your control center for managing your dropshipping business. It p
 - Front-End
     - React
     - React-router-dom
-    - Vanilla.js
+- Browser Extension
+    - Vanilla.js (developed under Manifest v.3)
