@@ -12,11 +12,11 @@ import { authService } from '../../services/authService.js';
 
 import { validationUserInput } from './validationUserInput.js';
 
-import { Input } from '../../components/Input.jsx';
-import { Loader } from '../../components/Loader.jsx';
-import { PageTitle } from '../../components/PageTitle.jsx';
+import { Input } from '../../components/Shared/Input.jsx';
+import { Loader } from '../../components/Shared/Loader.jsx';
+import { PageTitle } from '../../components/Shared/PageTitle.jsx';
 
-export const ResetPassword = () => {
+const ResetPassword = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [serverError, setServerError] = useState('');
@@ -158,3 +158,5 @@ export const ResetPassword = () => {
 		</PageTitle>
 	);
 };
+
+export default ResetPassword;

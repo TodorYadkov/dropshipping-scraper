@@ -6,7 +6,7 @@ import { adminService } from '../../services/adminService.js';
 
 import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
 
-import { Loader } from '../Loader.jsx';
+import { Loader } from '../Shared/Loader.jsx';
 
 export const AlertEnableUser = ({ toggleModal, userDetails }) => {
     const [isLoading, setIsLoading] = useState(false);

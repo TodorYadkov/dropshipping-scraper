@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 
-import { AdminPanelContext } from '../contexts/AdminPanelContext.jsx';
+import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
 
-import { Tooltip } from './Tooltip.jsx';
+import { Tooltip } from '../Shared/Tooltip.jsx';
 
-export const DashboardAdminPanel = () => {
+export const DashboardAdminSummary = () => {
 
     const { adminPanelStatistic } = useContext(AdminPanelContext);
 

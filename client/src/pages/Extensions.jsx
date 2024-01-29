@@ -8,10 +8,10 @@ import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveD
 
 import { DATA_TYPES, REDUCER_TYPES } from "../util/constants.js";
 
-import { PageTitle } from "../components/PageTitle.jsx";
-import { Loader } from "../components/Loader.jsx";
-import { ResponsiveComponent } from "../components/ResponsiveComponent.jsx";
-import { DashboardSummary } from "../components/DashboardSummary.jsx";
+import { PageTitle } from "../components/Shared/PageTitle.jsx";
+import { Loader } from "../components/Shared/Loader.jsx";
+import { ResponsiveComponent } from "../components/Shared/ResponsiveComponent.jsx";
+import { DashboardSummary } from "../components/Summaries/DashboardSummary.jsx";
 
 export const Extensions = () => {
 	const [extensionsData, setExtensionsLocalStateData] = useFilterData();

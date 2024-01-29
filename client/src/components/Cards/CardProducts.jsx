@@ -6,7 +6,7 @@ import { formatDateToTimeAgo } from '../../util/formatDateToTimeAgo.js';
 
 import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
-import { Tooltip } from '../Tooltip.jsx';
+import { Tooltip } from '../Shared/Tooltip.jsx';
 
 export const CardProducts = ({ products, onModalClick }) => {
 	const [isVisible, setIsVisible] = useState(false);

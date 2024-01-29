@@ -9,7 +9,7 @@ import { useAppStateContext } from "../../hooks/useAppStateContext.js";
 import { extensionService } from "../../services/extensionService.js";
 
 import { validationExtensionInput } from "./validationExtensionInput.js";
-import { Loader } from "../Loader.jsx";
+import { Loader } from "../Shared/Loader.jsx";
 
 export const AddExtensionForm = ({ toggleModal }) => {
     const [isLoading, setIsLoading] = useState(false);

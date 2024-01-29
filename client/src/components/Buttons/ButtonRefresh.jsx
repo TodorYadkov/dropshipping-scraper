@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Loader } from "../Loader.jsx";
+import { Loader } from "../Shared/Loader.jsx";
 
 export const ButtonRefresh = ({ onRefresh }) => {
 	const [isLoading, setIsLoading] = useState(false);

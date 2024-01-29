@@ -11,13 +11,13 @@ import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveD
 
 import { adminService } from "../services/adminService.js";
 
-import { Loader } from "../components/Loader.jsx";
-import { PageTitle } from "../components/PageTitle.jsx";
+import { Loader } from "../components/Shared/Loader.jsx";
+import { PageTitle } from "../components/Shared/PageTitle.jsx";
 import { AlertError } from "../components/Alerts/AlertError.jsx";
-import { DashboardAdminPanel } from "../components/DashboardAdminPanel.jsx";
-import { ResponsiveComponent } from "../components/ResponsiveComponent.jsx";
+import { DashboardAdminSummary } from "../components/Summaries/DashboardAdminSummary.jsx";
+import { ResponsiveComponent } from "../components/Shared/ResponsiveComponent.jsx";
 
-export const AdminPanel = () => {
+const AdminPanel = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [alert, setAlert] = useState('');
     const [adminPanelStatistic, setAdminPanelStatistic] = useState({});
@@ -85,7 +85,7 @@ export const AdminPanel = () => {
                         ? <Loader />
                         : (
                             <>
-                                <DashboardAdminPanel addAlertMessage={addAlertMessage} />
+                                <DashboardAdminSummary addAlertMessage={addAlertMessage} />
 
                                 <ResponsiveComponent dataType={DATA_TYPES.USER} localFilteredState={adminPanelData} onRefresh={onRefreshClick} />
 
@@ -103,3 +103,5 @@ export const AdminPanel = () => {
         </PageTitle>
     );
 };
+
+export default AdminPanel;

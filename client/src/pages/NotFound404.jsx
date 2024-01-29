@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
-export const NotFound404 = () => {
-
+const NotFound404 = () => {
     return (
         <section className="flex items-center h-full p-16 dark:text-gray-100">
             <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
@@ -17,4 +16,6 @@ export const NotFound404 = () => {
         </section>
     );
 };
+
+export default NotFound404;
 

@@ -4,7 +4,7 @@ import { useApi } from '../../hooks/useApi.js';
 import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
 import { extensionService } from '../../services/extensionService.js';
-import { Loader } from '../Loader.jsx';
+import { Loader } from '../Shared/Loader.jsx';
 
 export const AlertResetError = ({ toggleModal, extension }) => {
     const [isLoading, setIsLoading] = useState(false);

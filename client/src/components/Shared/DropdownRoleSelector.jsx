@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 
-import { USER_ROLES } from '../util/constants.js';
+import { USER_ROLES } from '../../util/constants.js';
 
-import { AdminPanelContext } from '../contexts/AdminPanelContext.jsx';
+import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
 
-import { AlertError } from './Alerts/AlertError.jsx';
+import { AlertError } from '../Alerts/AlertError.jsx';
 
 export const DropdownRoleSelector = ({ role, userDetails }) => {
     const [serverErrorMessage, setServerErrorMessage] = useState('');

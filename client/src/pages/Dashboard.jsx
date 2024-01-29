@@ -8,11 +8,11 @@ import { useLocalProductState } from '../hooks/useLocalProductsState.js';
 import { useAppStateContext } from '../hooks/useAppStateContext.js';
 import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
 
-import { Loader } from '../components/Loader.jsx';
-import { PageTitle } from '../components/PageTitle.jsx';
+import { Loader } from '../components/Shared/Loader.jsx';
+import { PageTitle } from '../components/Shared/PageTitle.jsx';
 import { AlertError } from '../components/Alerts/AlertError.jsx';
-import { DashboardSummary } from '../components/DashboardSummary.jsx';
-import { ResponsiveComponent } from '../components/ResponsiveComponent.jsx';
+import { DashboardSummary } from '../components/Summaries/DashboardSummary.jsx';
+import { ResponsiveComponent } from '../components/Shared/ResponsiveComponent.jsx';
 
 export const Dashboard = () => {
 	const [alert, setAlert] = useState('');

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
-import { useAppStateContext } from '../../hooks/useAppStateContext.js';
-import { useAuthContext } from '../../hooks/useAuthContext.js';
+import { useAppStateContext } from '../../../hooks/useAppStateContext.js';
+import { useAuthContext } from '../../../hooks/useAuthContext.js';
 
 import { UserDropdown } from './UserDropdown.jsx';
 import { NotifierDropdown } from './NotifierDropdown.jsx';

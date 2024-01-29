@@ -1,10 +1,10 @@
-import { useAuthContext } from '../hooks/useAuthContext.js';
-import { useDataFetcher } from '../hooks/useDataFetcher.js';
+import { useAuthContext } from '../../hooks/useAuthContext.js';
+import { useDataFetcher } from '../../hooks/useDataFetcher.js';
 
 import { Footer } from './Footer.jsx';
 import { Header } from './Header/Header.jsx';
 import { SideBar } from './SideBar.jsx';
-import { AlertError } from './Alerts/AlertError.jsx';
+import { AlertError } from '../Alerts/AlertError.jsx';
 
 export const Layout = ({ children }) => {
 	const { isAuthenticated } = useAuthContext();

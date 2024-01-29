@@ -7,12 +7,12 @@ import { authService } from "../../services/authService.js";
 import { validationUserInput } from "./validationUserInput.js";
 import { AUTH_FORM_KEYS } from "../../util/constants.js";
 
-import { Input } from "../../components/Input.jsx";
-import { Loader } from "../../components/Loader.jsx";
-import { PageTitle } from "../../components/PageTitle.jsx";
-import { ImageInput } from "../../components/ImageInput.jsx";
+import { Input } from "../../components/Shared/Input.jsx";
+import { Loader } from "../../components/Shared/Loader.jsx";
+import { PageTitle } from "../../components/Shared/PageTitle.jsx";
+import { ImageInput } from "../../components/Shared/ImageInput.jsx";
 
-export const Profile = () => {
+const Profile = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isEditable, setIsEditable] = useState(false);
     const [serverError, setServerError] = useState('');
@@ -130,3 +130,5 @@ export const Profile = () => {
         </PageTitle>
     );
 };
+
+export default Profile;

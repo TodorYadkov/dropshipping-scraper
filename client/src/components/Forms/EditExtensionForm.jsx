@@ -10,7 +10,7 @@ import { extensionService } from '../../services/extensionService.js';
 
 import { validationExtensionInput } from './validationExtensionInput.js';
 
-import { Loader } from '../Loader.jsx';
+import { Loader } from '../Shared/Loader.jsx';
 
 export const EditExtensionForm = ({ toggleModal, extension }) => {
     const [isLoading, setIsLoading] = useState(false);

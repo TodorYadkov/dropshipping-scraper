@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { Table } from './Tables/Table.jsx';
-import { Card } from './Cards/Card.jsx';
-import { ModalManager } from './Modal/ModalManager.jsx';
-import { Pagination } from './Pagination/Pagination.jsx';
-import { OptionsData } from './Options/OptionsData.jsx';
+import { Table } from '../Tables/Table.jsx';
+import { Card } from '../Cards/Card.jsx';
+import { ModalManager } from '../Modal/ModalManager.jsx';
+import { Pagination } from '../Pagination/Pagination.jsx';
+import { OptionsData } from '../Options/OptionsData.jsx';
 
 export const ResponsiveComponent = ({ dataType, localFilteredState, onRefresh }) => {
 	const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1360);

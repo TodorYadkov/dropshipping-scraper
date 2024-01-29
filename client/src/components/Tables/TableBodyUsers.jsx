@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { DropdownRoleSelector } from '../DropdownRoleSelector.jsx';
-import { Tooltip } from '../Tooltip.jsx';
+import { DropdownRoleSelector } from '../Shared/DropdownRoleSelector.jsx';
+import { Tooltip } from '../Shared/Tooltip.jsx';
 
 export const TableBodyUsers = ({ usersData, onModalClick }) => {
     const [isVisible, setIsVisible] = useState(false);

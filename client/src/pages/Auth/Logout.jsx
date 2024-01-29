@@ -9,8 +9,8 @@ import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
 import { authService } from '../../services/authService.js';
 
-import { Loader } from '../../components/Loader.jsx';
-import { PageTitle } from '../../components/PageTitle.jsx';
+import { Loader } from '../../components/Shared/Loader.jsx';
+import { PageTitle } from '../../components/Shared/PageTitle.jsx';
 
 export const Logout = () => {
 	const [isLoading, setIsLoading] = useState(false);

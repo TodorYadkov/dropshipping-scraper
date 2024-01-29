@@ -7,7 +7,7 @@ import { useAppStateContext } from "../../hooks/useAppStateContext.js";
 
 import { productService } from "../../services/productService.js";
 
-import { Loader } from "../Loader.jsx";
+import { Loader } from "../Shared/Loader.jsx";
 
 export const DeleteProductForm = ({ toggleModal, product }) => {
     const [isLoading, setIsLoading] = useState(false);

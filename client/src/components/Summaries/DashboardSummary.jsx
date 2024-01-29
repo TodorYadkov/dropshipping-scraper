@@ -1,4 +1,4 @@
-import { Tooltip } from './Tooltip.jsx';
+import { Tooltip } from '../Shared/Tooltip.jsx';
 
 export const DashboardSummary = ({
     extensionsCount,

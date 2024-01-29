@@ -12,9 +12,9 @@ import { authService } from '../../services/authService.js';
 
 import { validationUserInput } from './validationUserInput.js';
 
-import { Input } from '../../components/Input.jsx';
-import { Loader } from '../../components/Loader.jsx';
-import { PageTitle } from '../../components/PageTitle.jsx';
+import { Input } from '../../components/Shared/Input.jsx';
+import { Loader } from '../../components/Shared/Loader.jsx';
+import { PageTitle } from '../../components/Shared/PageTitle.jsx';
 
 export const Login = () => {
 	const [showPassword, setShowPassword] = useState(false);
