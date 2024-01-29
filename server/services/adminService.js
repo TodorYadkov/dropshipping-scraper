@@ -4,9 +4,9 @@ import { User } from '../models/User.js';
 
 const updateUserRole = async (userId, role) => User.findByIdAndUpdate(userId, { role }, { runValidators: true, new: true }).select('-password -avatarId -isExtension -createdAt -updatedAt -__v');
 
-const updateUserStatusToBeDisabled = async (userId) => User.findByIdAndUpdate(userId, { disable: true, isLogin: false }, { runValidators: true, new: true }).select('-password -avatarId -isExtension -createdAt -updatedAt -__v');
+const updateUserStatusToBeDisabled = async (userId) => User.findByIdAndUpdate(userId, { isDisable: true, isLogin: false }, { runValidators: true, new: true }).select('-password -avatarId -isExtension -createdAt -updatedAt -__v');
 
-const updateUserStatusToBeEnabled = async (userId) => User.findByIdAndUpdate(userId, { disable: false }, { runValidators: true, new: true }).select('-password -avatarId -isExtension -createdAt -updatedAt -__v');
+const updateUserStatusToBeEnabled = async (userId) => User.findByIdAndUpdate(userId, { isDisable: false }, { runValidators: true, new: true }).select('-password -avatarId -isExtension -createdAt -updatedAt -__v');
 
 // Get all user without the user which made request
 const getAllUsersDetails = async (userId) => User.aggregate([
@@ -50,7 +50,7 @@ const getAllUsersDetails = async (userId) => User.aggregate([
             extensionCount: 1,
             extensionsWithIsWorkBrowser: 1,
             productsWithErrorCount: 1,
-            disable: 1,
+            isDisable: 1,
             isLogin: 1,
         }
     }

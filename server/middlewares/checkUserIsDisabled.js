@@ -6,7 +6,7 @@ export default () => async (req, res, next) => {
     if (user) {
         try {
             const userFromDb = await getUserById(user._id);
-            if (userFromDb.disable) {
+            if (userFromDb.isDisable) {
                 throw new Error('Your account has been disabled from admin');
             }
             

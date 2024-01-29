@@ -26,7 +26,7 @@ const userSchema = new Schema({
         type: String,
         default: null
     },
-    disable: {
+    isDisable: {
         type: Boolean,
         default: false
     },

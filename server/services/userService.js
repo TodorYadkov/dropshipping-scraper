@@ -36,7 +36,7 @@ async function userRegister({ name, email, password, role, extensionName }) {
     // Create extension
     const extension = await Extension.create({
         extensionName,
-        default: true,
+        isDefault: true,
         owner: user._id,
     });
 
@@ -58,7 +58,7 @@ async function userLogin({ email, password, isExtension, extensionName }) {
         throw new Error('Invalid email or password!');
     }
 
-    if (user.disable) {
+    if (user.isDisable) {
         throw new Error('Your account has been disabled from admin');
     }
 
@@ -139,7 +139,7 @@ async function createResetLink({ email, origin }) {
         throw new Error('Invalid email!');
     }
 
-    if (user.disable) {
+    if (user.isDisable) {
         throw new Error('Your account has been disabled from admin');
     }
 
@@ -191,7 +191,7 @@ async function resetUserPassword({ password, resetToken }) {
     }
 
     // Check if the current user is disabled
-    if (user.disable) {
+    if (user.isDisable) {
         throw new Error('Your account has been disabled from admin');
     }
 
@@ -253,7 +253,7 @@ function createResponseObject(userToken, user) {
             name: user.name,
             email: user.email,
             role: user.role,
-            disable: user.disable,
+            isDisable: user.isDisable,
             avatarURL: user.avatarURL,
             extensionName: user?.extensionName ? user.extensionName : 'React Client',
         }

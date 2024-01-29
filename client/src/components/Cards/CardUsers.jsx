@@ -121,7 +121,7 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 
 								<div className="flex justify-center gap-2 ml-auto mr-2">
 									<div className="mr-1 relative group">
-										{user.disable
+										{user.isDisable
 											? <svg
 												viewBox="0 0 512 512"
 												className="w-6 h-6 mx-auto fill-red-600"
@@ -138,11 +138,11 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 
 										}
 
-										<Tooltip message={`${user.disable ? 'Account Status Banned' : 'Account Status Ok'}`} customTailwindClass="mb-[1px]" />
+										<Tooltip message={`${user.isDisable ? 'Account Status Banned' : 'Account Status Ok'}`} customTailwindClass="mb-[1px]" />
 									</div>
 
 									<div className="mr-3 relative group">
-										{user.disable
+										{user.isDisable
 
 											? <svg
 												viewBox="0 0 448 512"
@@ -162,7 +162,7 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 											</svg>
 										}
 
-										<Tooltip message={`${user.disable ? 'Unlock Account' : 'Lock Account'}`} customTailwindClass="mb-[1px]" />
+										<Tooltip message={`${user.isDisable ? 'Unlock Account' : 'Lock Account'}`} customTailwindClass="mb-[1px]" />
 									</div>
 								</div>
 							</div>

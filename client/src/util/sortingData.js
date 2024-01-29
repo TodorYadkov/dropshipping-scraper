@@ -41,8 +41,8 @@ export const sortingData = (sortBy, data) => {
         [SORTING_KEYS.USER_ROLE_USER]: customRoleSort(USER_ROLES.USER),
         [SORTING_KEYS.USER_ROLE_PREMIUM]: customRoleSort(USER_ROLES.PREMIUM),
         [SORTING_KEYS.USER_ROLE_ADMIN]: customRoleSort(USER_ROLES.ADMIN),
-        [SORTING_KEYS.USER_ACCOUNT_STATUS_ASC]: (a, b) => b.disable - a.disable,
-        [SORTING_KEYS.USER_ACCOUNT_STATUS_DESC]: (a, b) => a.disable - b.disable,
+        [SORTING_KEYS.USER_ACCOUNT_STATUS_ASC]: (a, b) => b.isDisable - a.isDisable,
+        [SORTING_KEYS.USER_ACCOUNT_STATUS_DESC]: (a, b) => a.isDisable - b.isDisable,
     };
 
     data.sort(sortFunctions[sortBy] || ((a, b) => a - b));

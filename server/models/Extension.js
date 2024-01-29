@@ -25,7 +25,7 @@ const extensionSchema = new Schema({
         type: String,
         default: null
     },
-    default: {
+    isDefault: {
         type: Boolean,
         default: false
     },

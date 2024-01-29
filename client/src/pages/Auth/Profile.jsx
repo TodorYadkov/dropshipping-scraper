@@ -20,7 +20,7 @@ const Profile = () => {
     const { currentUserData, setUserState } = useAuthContext();
     const { profileUpdate } = useApi(authService);
 
-    const { values, formErrors, isInvalidForm, onChange, onSubmit, onBlur } = useForm(
+    const { values, formErrors, isInvalidForm, onChange, onSubmit, onBlur, formReset, resetError } = useForm(
         onUpdate,
         {
             [AUTH_FORM_KEYS.name]: currentUserData.userDetails[AUTH_FORM_KEYS.name],
@@ -54,9 +54,15 @@ const Profile = () => {
         }
     }
 
-    function changeStateToEditable(e) {
+    function changeStateToEditableHandler(e) {
         e.preventDefault();
         setIsEditable(true);
+    }
+
+    function cancelEditHandler() {
+        formReset();
+        resetError();
+        setIsEditable(false);
     }
 
     return (
@@ -109,17 +115,31 @@ const Profile = () => {
                                 isEditable={isEditable}
                             />
 
-                            <div className="mt-6">
+                            <div className="flex justify-between gap-2 mt-6">
+                                {isEditable && (
+                                    <input
+                                        type="button"
+                                        onClick={cancelEditHandler}
+                                        value="Cancel"
+                                        className="basis-1/2 px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none cursor-pointer bg-indigo-600 hover:opacity-70" />
+                                )}
+
                                 {isLoading ? (
-                                    <Loader width={6} height={6} />
+                                    <Loader width={6} height={6} margin="my-1 justify-self-center basis-1/2" />
                                 ) : (
                                     <input
                                         type={isEditable ? "submit" : "button"}
-                                        onClick={isEditable ? undefined : changeStateToEditable}
+                                        onClick={isEditable ? undefined : changeStateToEditableHandler}
                                         disabled={isEditable ? isInvalidForm : false}
                                         value={isEditable ? 'Update' : 'Change Profile'}
-                                        className={`${isEditable ? isInvalidForm ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer bg-indigo-600 hover:bg-indigo-400' : 'cursor-pointer bg-indigo-600 hover:bg-indigo-400'} 
-                                            w-full px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none`}
+                                        className={`px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none 
+                                        ${isEditable ? 'basis-1/2' : 'w-full'}
+                                        ${isEditable
+                                                ? isInvalidForm
+                                                    ? 'cursor-not-allowed bg-indigo-200'
+                                                    : 'cursor-pointer bg-indigo-600 hover:opacity-70'
+                                                : 'cursor-pointer bg-indigo-600 hover:opacity-70'} 
+                                            `}
                                     />
                                 )}
                             </div>

@@ -127,7 +127,7 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-[3%]">
                         <div className="relative group">
-                            {user.disable
+                            {user.isDisable
                                 ? <svg
                                     viewBox="0 0 512 512"
                                     className="w-6 h-6 mx-auto fill-red-600"
@@ -144,13 +144,13 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
 
                             }
 
-                            <Tooltip message={`${user.disable ? 'Account Status Banned' : 'Account Status Ok'}`} customTailwindClass="mb-[1px]" />
+                            <Tooltip message={`${user.isDisable ? 'Account Status Banned' : 'Account Status Ok'}`} customTailwindClass="mb-[1px]" />
                         </div>
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-[3%]">
                         <div className="relative group">
-                            {user.disable
+                            {user.isDisable
 
                                 ? <svg
                                     viewBox="0 0 448 512"
@@ -170,7 +170,7 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
                                 </svg>
                             }
 
-                            <Tooltip message={`${user.disable ? 'Unlock Account' : 'Lock Account'}`} customTailwindClass="mb-[1px]" />
+                            <Tooltip message={`${user.isDisable ? 'Unlock Account' : 'Lock Account'}`} customTailwindClass="mb-[1px]" />
                         </div>
                     </td>
                 </tr>

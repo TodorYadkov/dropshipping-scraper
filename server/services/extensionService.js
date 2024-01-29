@@ -18,7 +18,7 @@ const updateExtension = async (extensionName, extensionId) => Extension.findById
 const deleteExtension = async (extensionId) => {
     const extensionToDelete = await Extension.findOne({ _id: extensionId });
 
-    if (!extensionToDelete || extensionToDelete.default) {
+    if (!extensionToDelete || extensionToDelete.isDefault) {
         throw new Error('This is the default extension and cannot be deleted');
     }
 
@@ -91,7 +91,7 @@ const errorExtension = async (extensionId, error) => Extension.findByIdAndUpdate
 
 // Exclude properties to return on extension
 function createExclusionObject() {
-    const excludedFields = ['_id', 'error', 'owner', 'accessToken', 'default', 'isWorkBrowser', 'createdAt', 'updatedAt', '__v'];
+    const excludedFields = ['_id', 'error', 'owner', 'accessToken', 'isDefault', 'isWorkBrowser', 'createdAt', 'updatedAt', '__v'];
     const exclusion = {};
     excludedFields.forEach(field => (exclusion[field] = 0));
     return exclusion;
