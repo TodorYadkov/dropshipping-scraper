@@ -96,11 +96,11 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
                         <div className="flex justify-center items-center gap-5">
                             <p className="text-center relative group px-3 py-1 font-semibold leading-5 rounded-full bg-gray-100 text-gray-900">
                                 {user.extensionCount}
-                                <Tooltip message={'Count Extensions'} />
+                                <Tooltip message={'All Extensions'} />
                             </p>
                             <p className={`text-center relative group px-3 py-1 font-semibold leading-5 rounded-full ${user.extensionsWithIsWorkBrowser === 0 ? 'bg-gray-100 text-gray-900' : 'bg-green-300 text-green-900'}`}>
                                 {user.extensionsWithIsWorkBrowser}
-                                <Tooltip message={'Worked Extensions'} />
+                                <Tooltip message={'Active Extensions'} />
                             </p>
                         </div>
                     </td>
@@ -109,7 +109,7 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
                         <div className="flex justify-center items-center gap-5">
                             <p className="text-center relative group px-3 py-1 font-semibold leading-5 rounded-full bg-gray-100 text-gray-900">
                                 {user.productCount}
-                                <Tooltip message={'Count Products'} />
+                                <Tooltip message={'All Products'} />
                             </p>
                             <p className={`text-center relative group px-3 py-1 font-semibold leading-5 rounded-full ${user.productsWithErrorCount === 0 ? 'bg-gray-100 text-gray-900' : 'bg-red-100 text-red-800'}`}>
                                 {user.productsWithErrorCount}

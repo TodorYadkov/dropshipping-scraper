@@ -26,6 +26,8 @@ export const ProductOptions = ({ onRefresh }) => {
 			[SORTING_KEYS.PRODUCT_PROFIT_DESC]: 'Profit 🠇',
 			[SORTING_KEYS.PRODUCT_AVAILABILITY_ASC]: 'Availability 🠅',
 			[SORTING_KEYS.PRODUCT_AVAILABILITY_DESC]: 'Availability 🠇',
+			[SORTING_KEYS.PRODUCT_ERROR_DESC]: 'With Error',
+			[SORTING_KEYS.PRODUCT_ERROR_ASC]: 'Without Error',
 			[SORTING_KEYS.PRODUCT_LAST_UPDATED_ASC]: 'Last Updated 🠅',
 			[SORTING_KEYS.PRODUCT_LAST_UPDATED_DESC]: 'Last Updated 🠇',
 		});

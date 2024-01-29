@@ -52,6 +52,8 @@ export const SORTING_KEYS = {
 	PRODUCT_PROFIT_DESC: 'profit_desc',
 	PRODUCT_AVAILABILITY_ASC: 'availability_asc',
 	PRODUCT_AVAILABILITY_DESC: 'availability_desc',
+	PRODUCT_ERROR_ASC: 'error_asc',
+	PRODUCT_ERROR_DESC: 'error_desc',
 	PRODUCT_LAST_UPDATED_ASC: 'last_updated_asc',
 	PRODUCT_LAST_UPDATED_DESC: 'last_updated_desc',
 
@@ -63,6 +65,8 @@ export const SORTING_KEYS = {
 	EXTENSION_WORKING_DESC: 'extension_working_desc',
 	EXTENSION_LAST_SEEN_ASC: 'extension_last_seen_asc',
 	EXTENSION_LAST_SEEN_DESC: 'extension_last_seen_desc',
+	EXTENSION_ERROR_ASC: 'error_asc',
+	EXTENSION_ERROR_DESC: 'error_desc',
 
 	USER_NAME_ASC: 'user_name_asc',
 	USER_NAME_DESC: 'user_name_desc',

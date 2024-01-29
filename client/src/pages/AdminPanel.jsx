@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 
 import { DATA_TYPES } from "../util/constants.js";
 
+import { AdminPanelContext } from "../contexts/AdminPanelContext.jsx";
+
 import { useApi } from "../hooks/useApi.js";
 import { useFilterData } from "../hooks/useFilterData.js";
 import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
 
 import { adminService } from "../services/adminService.js";
-
-import { AdminPanelContext } from "../contexts/AdminPanelContext.jsx";
 
 import { Loader } from "../components/Loader.jsx";
 import { PageTitle } from "../components/PageTitle.jsx";

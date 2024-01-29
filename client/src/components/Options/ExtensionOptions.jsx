@@ -23,6 +23,8 @@ export const ExtensionOptions = ({ onRefresh }) => {
 			[SORTING_KEYS.EXTENSION_WORKING_DESC]: 'Not Working',
 			[SORTING_KEYS.EXTENSION_LAST_SEEN_ASC]: 'Last Seen 🠅',
 			[SORTING_KEYS.EXTENSION_LAST_SEEN_DESC]: 'Last Seen 🠇',
+			[SORTING_KEYS.EXTENSION_ERROR_DESC]: 'With Error',
+			[SORTING_KEYS.EXTENSION_ERROR_ASC]: 'Without Error',
 		});
 	}, []);
 

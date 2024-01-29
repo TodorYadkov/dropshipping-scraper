@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const DropdownSorts = ({ sortingCriteria }) => {
-
     const [searchParams, setSearchParams] = useSearchParams();
     const [sort, setSort] = useState(() => searchParams.get('sort') || '');
 
@@ -17,6 +16,7 @@ export const DropdownSorts = ({ sortingCriteria }) => {
                 return 'sort' in paramsObject === false ? { page: 1, offset: 10, sort: sort } : { ...paramsObject, sort: sort }
             }
         });
+
     }, [sort]);
 
     const handleSelectChange = (e) => {
