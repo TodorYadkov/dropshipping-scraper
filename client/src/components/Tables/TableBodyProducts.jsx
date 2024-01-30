@@ -54,7 +54,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                 </tr>
             )}
 
-            {products.length > 0 && products.map(product => (
+            {products.length > 0 && products.map((product, index) => (
                 <tr key={product._id} className="bg-white hover:bg-gray-50">
 
                     <td className="px-5 py-5 text-sm  border-b border-gray-200 w-2/6">
@@ -74,7 +74,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                                         <p className="text-gray-900 line-clamp-2 truncate whitespace-pre-wrap hover:opacity-80">
                                             {product.name}
                                         </p>
-                                        <Tooltip message={product.name} direction="bottom-right" customTailwindClass="whitespace-pre-wrap w-72" />
+                                        <Tooltip message={product.name} direction={(products.length - 1) === index ? 'top-right' : 'bottom-right'} customTailwindClass="whitespace-pre-wrap w-72" />
                                     </div>
 
                                 </div>
