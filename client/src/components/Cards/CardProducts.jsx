@@ -223,7 +223,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 									{product?.profit ? (
 										<p>
-											Profit: <span className={`${product.profit < 0 && 'fill-red-500 text-red-500 inline-flex items-center gap-1'}`}>
+											Profit: <span className={`${product.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} inline-flex items-center gap-1'}`}>
 												{product.profit && `${product.profit} ${product.currencyAmazon}`}
 												{product.profit < 0 && (
 													<svg
