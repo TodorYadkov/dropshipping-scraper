@@ -19,7 +19,7 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center cursor-default">
+		<div className="flex flex-col items-center cursor-default pb-4">
 
 			{(isVisible && usersData.length === 0 && searchParams.get('search') === null) && (
 				<div className="flex flex-col items-center justify-center p-10 mt-4 bg-white rounded-md">
