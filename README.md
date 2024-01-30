@@ -33,3 +33,5 @@ The Website is your control center for managing your dropshipping business. It p
     - React-router-dom
 - Browser Extension
     - Vanilla.js (developed under Manifest v.3)
+ 
+https://rosendobrev10.github.io/dropshipping-scraper/
