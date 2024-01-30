@@ -57,24 +57,26 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
             {products.length > 0 && products.map(product => (
                 <tr key={product._id} className="bg-white hover:bg-gray-50">
 
-                    <td className="px-5 py-5 text-sm  border-b border-gray-200 w-1/4">
+                    <td className="px-5 py-5 text-sm  border-b border-gray-200 w-2/6">
                         {product.name ? (
                             <Link to={product.amazonUrl} target="blank" rel="noopener noreferrer">
-                                <div className="flex items-center relative group hover:opacity-80">
-                                    <div className="flex-shrink-0 w-10 h-10">
+                                <div className="flex items-center">
+                                    <div className="flex-shrink-0 w-10 h-10 relative group">
                                         <img
-                                            className="w-full h-full"
+                                            className="w-full h-full hover:opacity-80"
                                             src={product.imageURL}
                                             alt={product.name}
                                         />
+                                        <Tooltip message="Open Amazon Product" direction="right" />
                                     </div>
 
-                                    <div className="ml-3 cursor-pointer">
-                                        <p className="text-gray-900">
+                                    <div className="w-full ml-3 cursor-pointer relative group">
+                                        <p className="text-gray-900 line-clamp-2 truncate whitespace-pre-wrap hover:opacity-80">
                                             {product.name}
                                         </p>
+                                        <Tooltip message={product.name} direction="bottom-right" customTailwindClass="whitespace-pre-wrap w-72" />
                                     </div>
-                                    <Tooltip message={'Open Amazon Product'} />
+
                                 </div>
                             </Link>
                         ) : (
@@ -116,17 +118,17 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                     </td>
 
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center relative group">
+                        <p className="text-gray-900 whitespace-nowrap text-center relative group">
                             {product.priceAmazon ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
                             <Tooltip message={'Amazon Price'} />
                         </p>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[10%]">
                         {product.priceEbay ? (
                             <>
                                 <Link to={product.ebayUrl} target="blank" rel="noopener noreferrer">
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 relative group">
+                                    <p className="text-gray-900 whitespace-nowrap text-center hover:text-indigo-500 relative group">
                                         {product.priceEbay && `${product.priceEbay.toFixed(2)} ${product.currencyEbay}`}
                                         <Tooltip message={'Open eBay Product'} />
                                     </p>
@@ -140,7 +142,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         ) : (
                             <>
                                 {!product.ebayUrl && (
-                                    <p className="text-gray-900 whitespace-wrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
+                                    <p className="text-gray-900 whitespace-nowrap text-center hover:text-indigo-500 cursor-cell relative group" onClick={() => onModalClick('AddEbayProductModal', { ...product })}>
                                         Add eBay product
                                         <Tooltip message={'Add eBay Product'} />
                                     </p>
@@ -152,19 +154,18 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                     <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
 
                         {product?.profit ? (
-                            <p className={`${product.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} flex gap-1 justify-center items-center whitespace-wrap text-center relative group`}>
+                            <p className={`${product.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} flex gap-1 justify-center items-center text-center whitespace-nowrap relative group`}>
                                 {product.profit !== 0 ? `${product.profit} ${product.currencyAmazon}` : '-'}
                                 {product.profit <= 0 ? (
                                     <svg
-                                        className="w-4 h-4"
+                                        className="w-3 h-3"
                                         viewBox="0 0 512 512"
                                     >
                                         <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
-                                        {/* <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" /> */}
                                     </svg>
                                 ) : (
                                     <svg
-                                        className="w-4 h-4"
+                                        className="w-3 h-3"
                                         viewBox="0 0 512 512"
                                     >
                                         <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
@@ -190,14 +191,16 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
 
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
-                        <p className="text-gray-900 whitespace-wrap text-center relative group">
-                            {product.availability || '-'}
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[11%]">
+                        <div className="relative group">
+                            <p className="text-gray-900 text-center line-clamp-2 truncate whitespace-pre-wrap">
+                                {product.availability || '-'}
+                            </p>
                             {product.availability && <Tooltip message={'Availability'} />}
-                        </p>
+                        </div>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[4%]">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {product.rating || '-'}
                             {product.rating && <Tooltip message={'Rating'} />}
