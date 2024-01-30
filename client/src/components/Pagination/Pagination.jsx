@@ -106,7 +106,7 @@ export const Pagination = ({ localFilteredState }) => {
 	}
 
 	return (
-		<div className="flex justify-center mx-auto px-4 py-4 overflow-x-auto bg-white rounded-b-lg w-full max-w-sm lg:max-w-full lg:flex">
+		<div className="flex justify-center mx-auto px-4 py-4 overflow-x-auto bg-white rounded-lg xl:rounded-t-none w-full max-w-sm lg:max-w-full lg:flex">
 			<div className="flex mr-4 rounded-b-lg">
 				<p
 					onClick={setFirstPage}

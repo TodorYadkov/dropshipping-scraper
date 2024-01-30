@@ -57,7 +57,7 @@ export const Register = () => {
 	return (
 		<PageTitle title={'Register'}>
 			<div className="flex items-center justify-center mt-20 px-6 bg-gray-200">
-				<div className="w-full max-w-sm p-6 bg-white rounded-md shadow-md">
+				<div className="w-full max-w-sm p-5 bg-white rounded-md shadow-md">
 					<div className="flex items-center justify-center">
 						<svg
 							className="w-10 h-10"
@@ -171,7 +171,7 @@ export const Register = () => {
 						</div>
 					</form>
 
-					<div className="flex items-center justify-center gap-1 mt-3">
+					<div className="flex items-center justify-center gap-1 mt-3 mb-1">
 						<p className="text-sm">Already have an account?</p>
 						<Link
 							to={CLIENT_PATHS.LOGIN}

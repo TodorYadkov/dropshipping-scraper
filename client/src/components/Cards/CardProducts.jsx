@@ -23,7 +23,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center cursor-default">
+		<div className="flex flex-col items-center cursor-default pb-4">
 
 			{(isVisible && appState[REDUCER_TYPES.PRODUCTS].length === 0) && (
 				<div className="flex flex-col items-center justify-center p-10 mt-4 bg-white rounded-md">
@@ -107,20 +107,20 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 			{products.length > 0 &&
 				products.map((product) => (
-					<div key={product._id} className="w-full max-w-sm mt-4 lg:max-w-full lg:flex rounded-lg overflow-hidden">
-						<div className="flex-none w-full h-48 overflow-hidden text-center bg-cover rounded-t lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l">
+					<div key={product._id} className="w-full max-w-sm mt-4 lg:max-w-full lg:flex rounded-lg overflow-hidden bg-white">
+						<div className="flex justify-center items-center self-center w-full h-auto overflow-hidden text-center bg-cover rounded-t lg:w-48 lg:h-full lg:rounded-t-none lg:rounded-l lg:pl-4">
 							{product.imageURL ? (
-								<Link
-									to={product.amazonUrl}
-									target="blank"
-									rel="noopener noreferrer"
-								>
-									<img
-										className="block w-full h-full"
-										src={product.imageURL}
-										alt={product.name}
-									/>
-								</Link>
+									<Link
+										to={product.amazonUrl}
+										target="blank"
+										rel="noopener noreferrer"
+									>
+										<img
+											className="block"
+											src={product.imageURL}
+											alt={product.name}
+										/>
+									</Link>
 							) : (
 								<svg
 									className="block w-full h-full bg-white"
@@ -148,7 +148,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 								</svg>
 							)}
 						</div>
-						<div className="flex flex-col justify-between p-4 leading-normal bg-white border-b border-l border-r border-gray-200 rounded-b lg:w-full lg:border-l-0 lg:border-t lg:border-gray-200 lg:rounded-b-none lg:rounded-r">
+						<div className="flex flex-col justify-between p-4 leading-normal bg-white lg:w-full">
 							<div className="mb-8">
 								{product.availability && (
 									<p className="flex items-center text-sm text-gray-600">
@@ -223,7 +223,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 
 									{product?.profit ? (
 										<p>
-											Profit: <span className={`${product.profit < 0 && 'fill-red-500 text-red-500 inline-flex items-center gap-1'}`}>
+											Profit: <span className={`${product.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} inline-flex items-center gap-1'}`}>
 												{product.profit && `${product.profit} ${product.currencyAmazon}`}
 												{product.profit < 0 && (
 													<svg

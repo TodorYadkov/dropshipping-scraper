@@ -17,7 +17,7 @@ export const CardExtension = ({ extensions, onModalClick }) => {
 	}, []);
 
 	return (
-		<div className="flex flex-col items-center cursor-default">
+		<div className="flex flex-col items-center cursor-default pb-4">
 
 			{(extensions.length == 0 && isVisible) && (
 				<div className="flex items-center justify-center p-10 mt-4 bg-white rounded-md">
