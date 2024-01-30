@@ -3,8 +3,8 @@ export function extractItemIdEbay(url) {
         return url;
     }
 
-    const itemIDRegex = /^\d{12}$/; // eBay item ID pattern: 12 digits
-    const urlRegex = /\/itm\/(\d{12})/; // eBay URL pattern: /itm/{itemID}/
+    const itemIDRegex = /^\d{12}$/;      // eBay item ID pattern: 12 digits
+    const urlRegex = /\/itm\/(\d{12})/;  // eBay URL pattern: /itm/{itemID}/
 
     if (itemIDRegex.test(url)) {
         // If the input is an item ID, return it directly

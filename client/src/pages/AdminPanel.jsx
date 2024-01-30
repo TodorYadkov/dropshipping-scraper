@@ -1,21 +1,22 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 
-import { DATA_TYPES } from "../util/constants.js";
+import { DATA_TYPES } from '../util/constants.js';
 
-import { AdminPanelContext } from "../contexts/AdminPanelContext.jsx";
+import { AdminPanelContext } from '../contexts/AdminPanelContext.jsx';
 
-import { useApi } from "../hooks/useApi.js";
-import { useFilterData } from "../hooks/useFilterData.js";
-import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
+import { useApi } from '../hooks/useApi.js';
+import { useFilterData } from '../hooks/useFilterData.js';
+import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
 
-import { adminService } from "../services/adminService.js";
+import { adminService } from '../services/adminService.js';
 
-import { Loader } from "../components/Shared/Loader.jsx";
-import { PageTitle } from "../components/Shared/PageTitle.jsx";
-import { AlertError } from "../components/Alerts/AlertError.jsx";
-import { DashboardAdminSummary } from "../components/Summaries/DashboardAdminSummary.jsx";
-import { ResponsiveComponent } from "../components/Shared/ResponsiveComponent.jsx";
+import { Loader } from '../components/Shared/Loader.jsx';
+import { PageTitle } from '../components/Shared/PageTitle.jsx';
+import { AlertError } from '../components/Alerts/AlertError.jsx';
+import { DashboardAdminSummary } from '../components/Summaries/DashboardAdminSummary.jsx';
+import { ResponsiveComponent } from '../components/Shared/ResponsiveComponent.jsx';
 
 const AdminPanel = () => {
     const [isLoading, setIsLoading] = useState(false);

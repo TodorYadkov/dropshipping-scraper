@@ -1,6 +1,7 @@
 import { createContext, useReducer } from 'react';
 
 import { REDUCER_TYPES } from '../util/constants.js';
+
 import { reducer } from './reducer.js';
 
 const initialState = {
@@ -63,7 +64,7 @@ export const AppStateProvider = ({ children }) => {
 		setGeneralStatistic,
 		setRefreshState,
 		setIsLoadingState,
-		clearAppState
+		clearAppState,
 	};
 
 	return (

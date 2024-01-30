@@ -20,5 +20,4 @@ function multerFilter(req, file, cb) {
         cb(new Error('The image format should be jpeg or png'));
     }
 }
-
 // When encountering an error, Multer will delegate the error to Express

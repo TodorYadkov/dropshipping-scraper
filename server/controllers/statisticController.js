@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { isUserLogged } from '../middlewares/guards.js';
+
 import { getGeneralStatistic } from '../services/statisticService.js';
 
 const statisticController = Router();

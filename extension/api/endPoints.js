@@ -10,4 +10,4 @@ export const ENDPOINTS = {
     ERROR_EXTENSION: 'extensions/error',
     LOGIN: 'users/login',
     LOGOUT: 'users/logout',
-}
+};

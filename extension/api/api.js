@@ -1,6 +1,7 @@
+import { getData, removeData } from '../util/storageActions.js';
+
 import { HOST } from './endPoints.js';
 import { tokenName } from '../constants/constants.js';
-import { getData, removeData } from '../util/storageActions.js';
 
 async function httpRequester(method, endpoint, data) {
     const url = HOST + endpoint;
@@ -36,5 +37,5 @@ export const api = {
     get: (endpoint) => httpRequester('GET', endpoint),
     post: (endpoint, data) => httpRequester('POST', endpoint, data),
     put: (endpoint, data) => httpRequester('PUT', endpoint, data),
-    delete: (endpoint) => httpRequester('DELETE', endpoint)
+    delete: (endpoint) => httpRequester('DELETE', endpoint),
 };

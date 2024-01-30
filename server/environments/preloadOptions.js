@@ -3,4 +3,4 @@ export const PRELOAD_OPTIONS = {
     EXTENSION_ID: 'extensionId',
     PRODUCT: 'product',
     ROLE: 'role',
-}
+};

@@ -1,9 +1,10 @@
 import logRequests from '../middlewares/displayRequest.js';
+
 import { productController } from '../controllers/productController.js';
-import { userController } from '../controllers/userController.js';
-import { statisticController } from '../controllers/statisticController.js';
 import { extensionController } from '../controllers/extensionController.js';
+import { userController } from '../controllers/userController.js';
 import { adminController } from '../controllers/adminController.js';
+import { statisticController } from '../controllers/statisticController.js';
 
 export default (app) => {
 	app.use(logRequests()); // Logging every request

@@ -1,7 +1,9 @@
-import { setData } from "./storageActions.js";
-import { multiBrowser, timeToFetchProduct } from "../constants/constants.js";
-import { serverStartExtension, serverStopExtension } from "../services/dataService.js";
-import { closeAllOpenTabs } from "./autoCloseTabs.js";
+import { multiBrowser, timeToFetchProduct } from '../constants/constants.js';
+
+import { serverStartExtension, serverStopExtension } from '../services/dataService.js';
+
+import { setData } from './storageActions.js';
+import { closeAllOpenTabs } from './autoCloseTabs.js';
 
 // Start extension
 export const startExtension = async () => {

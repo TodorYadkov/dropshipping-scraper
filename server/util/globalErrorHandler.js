@@ -1,6 +1,5 @@
 import { Error as _Error } from 'mongoose';
 
-
 // Global error handler
 export default (err, req, res, next) => {
     // Get status code

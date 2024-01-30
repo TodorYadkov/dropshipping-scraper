@@ -16,21 +16,21 @@ export const useLocalStorage = () => {
         return null;
     });
 
-    function setUserState(userData) {
+    const setUserState = (userData) => {
         if (userData) {
             localStorage.setItem(TOKEN_NAME, JSON.stringify(userData));
             setCurrentUserData(userData);
         }
-    }
+    };
 
-    function clearUserState() {
+    const clearUserState = () => {
         localStorage.removeItem(TOKEN_NAME);
         setCurrentUserData(null);
-    }
+    };
 
     return {
         currentUserData,
         setUserState,
-        clearUserState
+        clearUserState,
     };
 };

@@ -122,4 +122,4 @@ export {
     updateUserStatusToBeEnabled,
     getAllUsersDetails,
     adminUserStatistics,
-}
+};

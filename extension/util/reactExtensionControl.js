@@ -1,6 +1,6 @@
-import { getData } from "./storageActions.js";
-import { startExtension, stopExtension } from "./extensionControl.js";
-import { userLogout } from "./userControl.js";
+import { getData } from './storageActions.js';
+import { userLogout } from './userControl.js';
+import { startExtension, stopExtension } from './extensionControl.js';
 
 export const reactExtensionControl = async (extensionStatus) => {
     const { isScriptRunning } = await getData(['isScriptRunning']);

@@ -40,7 +40,7 @@ const reactStopExtension = async (extensionId) => Extension.findByIdAndUpdate(ex
 const logoutExtension = async (userId, extensionId) => {
     const extension = await Extension.findById(extensionId);
     if (!extension) {
-        throw new Error('The extension does not exist.')
+        throw new Error('The extension does not exist.');
     }
     
     if (extension.accessToken) {
@@ -97,7 +97,6 @@ function createExclusionObject() {
     excludedFields.forEach(field => (exclusion[field] = 0));
     return exclusion;
 };
-
 
 export {
     getAllExtension,

@@ -1,7 +1,9 @@
-import { multiBrowser, timeToFetchExtensionStatus, tokenName } from "../constants/constants.js";
-import { login, logout } from "../services/authService.js";
-import { closeAllOpenTabs } from "./autoCloseTabs.js";
-import { removeData, setData } from "./storageActions.js";
+import { multiBrowser, timeToFetchExtensionStatus, tokenName } from '../constants/constants.js';
+
+import { login, logout } from '../services/authService.js';
+
+import { closeAllOpenTabs } from './autoCloseTabs.js';
+import { removeData, setData } from './storageActions.js';
 
 // Login function
 export const userLogin = async (userData) => {

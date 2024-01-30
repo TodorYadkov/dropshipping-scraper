@@ -1,5 +1,6 @@
 import { getData } from './util/storageActions.js';
 import { checkUserInput } from './util/validateUserInput.js';
+
 import { multiBrowser, tokenName } from './constants/constants.js';
 
 // Get reference to DOM elements

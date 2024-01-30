@@ -1,11 +1,14 @@
 import { Router } from 'express';
-import { upload } from '../config/multer.js'
+
+import { imageDelete } from '../util/imageDelete.js.js';
+import { imageUpload } from '../util/imageUpload.js';
+import { validateRegisterSchema, validateLoginSchema, validateResetPasswordSchema, validateUpdateProfileSchema } from '../util/validationSchemes.js';
+
+import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
 
 import { userRegister, userLogin, userLogout, getUserById, createResetLink, updateUser, resetUserPassword } from '../services/userService.js'
-import { validateRegisterSchema, validateLoginSchema, validateResetPasswordSchema, validateUpdateProfileSchema } from '../util/validationSchemes.js';
-import { isUserGuest, isUserLogged } from '../middlewares/guards.js';
-import { imageUpload } from '../util/imageUpload.js';
-import { imageDelete } from '../util/imageDelete.js.js';
+
+import { upload } from '../config/multer.js'
 
 const userController = Router();
 
@@ -107,7 +110,7 @@ userController.post('/forgot-password', isUserGuest, async (req, res, next) => {
 
         await createResetLink({ ...userData, origin });
 
-        res.status(200).json({ message: 'Your reset token is send successfully!' });
+        res.status(200).json({ message: 'Your reset token is send successfully' });
     } catch (error) {
         next(error);
     }

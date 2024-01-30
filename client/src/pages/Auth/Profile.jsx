@@ -1,16 +1,19 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { useAuthContext } from "../../hooks/useAuthContext.js";
-import { useApi } from "../../hooks/useApi.js";
-import { useForm } from "../../hooks/useForm.js";
-import { authService } from "../../services/authService.js";
-import { validationUserInput } from "./validationUserInput.js";
-import { AUTH_FORM_KEYS } from "../../util/constants.js";
+import { AUTH_FORM_KEYS } from '../../util/constants.js';
 
-import { Input } from "../../components/Shared/Input.jsx";
-import { Loader } from "../../components/Shared/Loader.jsx";
-import { PageTitle } from "../../components/Shared/PageTitle.jsx";
-import { ImageInput } from "../../components/Shared/ImageInput.jsx";
+import { useApi } from '../../hooks/useApi.js';
+import { useForm } from '../../hooks/useForm.js';
+import { useAuthContext } from '../../hooks/useAuthContext.js';
+
+import { authService } from '../../services/authService.js';
+
+import { validationUserInput } from './validationUserInput.js';
+
+import { Loader } from '../../components/Shared/Loader.jsx';
+import { PageTitle } from '../../components/Shared/PageTitle.jsx';
+import { Input } from '../../components/Shared/Input.jsx';
+import { ImageInput } from '../../components/Shared/ImageInput.jsx';
 
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(false);

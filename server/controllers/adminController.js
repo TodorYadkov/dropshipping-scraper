@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
-import { isUserLogged, isUserRole } from '../middlewares/guards.js';
 import { preload } from '../middlewares/preloader.js';
-import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
+import { isUserLogged, isUserRole } from '../middlewares/guards.js';
+
 import { USER_ROLES } from '../environments/userRoles.js';
+import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
+
 import { getUserById } from '../services/userService.js';
 import {
     getAllUsersDetails,

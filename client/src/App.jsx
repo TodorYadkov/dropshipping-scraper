@@ -6,20 +6,18 @@ import { CLIENT_PATHS } from './util/paths.js';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { AppStateProvider } from './contexts/AppStateContext.jsx';
 
-import { RouteGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
 import { RouteGuardPublic } from './guards/RouteGuardPublic.jsx';
+import { RouteGuardAuthenticated } from './guards/RouteGuardAuthenticated.jsx';
 import { RouteGuardAdmin } from './guards/RouterGuardAdmin.jsx';
 
 import { Loader } from './components/Shared/Loader.jsx';
 import { Layout } from './components/Layout/Layout.jsx';
-
 
 import { Login } from './pages/Auth/Login.jsx';
 import { Logout } from './pages/Auth/Logout.jsx';
 import { Register } from './pages/Auth/Register.jsx';
 import { Dashboard } from './pages/Dashboard.jsx';
 import { Extensions } from './pages/Extensions.jsx';
-
 
 const ForgotPassword = lazy(() => import('./pages/Auth/ForgotPassword.jsx'));
 const ResetPassword = lazy(() => import('./pages/Auth/ResetPassword.jsx'));

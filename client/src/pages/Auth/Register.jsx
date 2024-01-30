@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { AUTH_FORM_KEYS } from '../../util/constants.js';
 import { CLIENT_PATHS } from '../../util/paths.js';
+import { AUTH_FORM_KEYS } from '../../util/constants.js';
 
-import { useForm } from '../../hooks/useForm.js';
 import { useApi } from '../../hooks/useApi.js';
+import { useForm } from '../../hooks/useForm.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 
 import { authService } from '../../services/authService.js';
 
 import { validationUserInput } from './validationUserInput.js';
 
-import { Input } from '../../components/Shared/Input.jsx';
 import { Loader } from '../../components/Shared/Loader.jsx';
 import { PageTitle } from '../../components/Shared/PageTitle.jsx';
+import { Input } from '../../components/Shared/Input.jsx';
 
 export const Register = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -52,7 +52,7 @@ export const Register = () => {
 
 	const togglePasswordVisibility = () => {
 		setShowPassword(!showPassword);
-	}
+	};
 
 	return (
 		<PageTitle title={'Register'}>

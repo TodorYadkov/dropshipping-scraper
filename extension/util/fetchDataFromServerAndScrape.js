@@ -1,5 +1,7 @@
 import { multiBrowser, timeToFetchProduct } from '../constants/constants.js';
+
 import { errorExtension, getLink } from '../services/dataService.js';
+
 import { getData, setData } from './storageActions.js';
 
 export function fetchDataFromServerAndScrape() {

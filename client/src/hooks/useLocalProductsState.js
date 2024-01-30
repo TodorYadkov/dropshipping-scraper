@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 
-import { calculateProfit, loadCurrencyCourses } from '../util/calculateProfit.js';
 import { REDUCER_TYPES } from '../util/constants.js';
+import { calculateProfit, loadCurrencyCourses } from '../util/calculateProfit.js';
 
 import { useAppStateContext } from './useAppStateContext.js';
 import { useFilterData } from './useFilterData.js';
@@ -40,6 +41,6 @@ export const useLocalProductState = (addAlertMessage) => {
 
 	return {
 		localFilteredState,
-		setLocalProductsWithSameCurrencyAndProfit
+		setLocalProductsWithSameCurrencyAndProfit,
 	};
-}
+};

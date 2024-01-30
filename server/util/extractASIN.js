@@ -3,8 +3,8 @@ export function extractASIN(url) {
         return url;
     }
 
-    const asinRegex = /^[A-Z0-9]+$/; // ASIN pattern: only letters and numbers
-    const urlRegex = /\/dp\/([A-Z0-9]+)/; // URL pattern: /dp/{ASIN}/
+    const asinRegex = /^[A-Z0-9]+$/;       // ASIN pattern: only letters and numbers
+    const urlRegex = /\/dp\/([A-Z0-9]+)/;  // URL pattern: /dp/{ASIN}/
 
     if (asinRegex.test(url)) {
         // If the input is an ASIN, return it directly

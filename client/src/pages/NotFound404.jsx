@@ -18,4 +18,3 @@ const NotFound404 = () => {
 };
 
 export default NotFound404;
-

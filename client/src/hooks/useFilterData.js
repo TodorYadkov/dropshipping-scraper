@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-import { sortingData } from "../util/sortingData.js";
+import { sortingData } from '../util/sortingData.js';
 
 export const useFilterData = () => {
     const [localData, setLocalData] = useState([]);
@@ -67,7 +68,7 @@ export const useFilterData = () => {
         const updateState = ({ ...localFilteredState, data: localFilteredState.data.map(x => x._id === newData._id ? newData : x) });
         setLocalData(updateState.data);
         filterData(updateState.data);
-    }
+    };
 
     return [localFilteredState, setLocalDataHandler, updateLocalDataHandler];
 };

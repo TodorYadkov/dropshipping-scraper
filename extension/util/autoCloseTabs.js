@@ -1,5 +1,6 @@
-import { multiBrowser } from "../constants/constants.js";
-import { getData, setData } from "./storageActions.js";
+import { multiBrowser } from '../constants/constants.js';
+
+import { getData, setData } from './storageActions.js';
 
 export const closeAllOpenTabs = async () => {
     // Close all open tabs

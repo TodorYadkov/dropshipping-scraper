@@ -37,5 +37,5 @@ export const api = (clearUserState, clearAppState, accessToken) => ({
 	get: (endpoint) => httpRequester('GET', endpoint, clearUserState, clearAppState, accessToken),
 	post: (endpoint, data) => httpRequester('POST', endpoint, clearUserState, clearAppState, accessToken, data),
 	put: (endpoint, data) => httpRequester('PUT', endpoint, clearUserState, clearAppState, accessToken, data),
-	delete: (endpoint) => httpRequester('DELETE', endpoint, clearUserState, clearAppState, accessToken)
+	delete: (endpoint) => httpRequester('DELETE', endpoint, clearUserState, clearAppState, accessToken),
 });

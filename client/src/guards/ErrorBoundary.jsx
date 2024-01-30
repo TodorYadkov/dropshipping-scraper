@@ -22,7 +22,9 @@ export class ErrorBoundary extends Component {
 			return (
 				<div className="flex gap-3 h-screen flex-col items-center justify-center bg-indigo-200">
 					<h2>Oops! An unexpected error occurred!</h2>
-					<p className='mb-2'>Please try again later or contact support.</p>
+					<p className="mb-2">
+						Please try again later or contact support.
+					</p>
 					<a
 						href={CLIENT_PATHS.DASHBOARD}
 						className="px-4 py-2 font-medium tracking-wide  text-white capitalize transition-colors duration-200 transform bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500"

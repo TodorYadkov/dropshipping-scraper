@@ -116,5 +116,5 @@ export {
 	validateLoginSchema,
 	validateResetPasswordSchema,
 	validateUpdateProfileSchema,
-	validateExtensionSchema
+	validateExtensionSchema,
 };

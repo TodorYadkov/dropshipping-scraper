@@ -2,13 +2,13 @@ import base64url from 'base64url';
 import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 
-import { User } from '../models/User.js';
-import { Extension } from '../models/Extension.js';
-import { TokenBlackList } from '../models/TokenBlacklist.js';
-
 import { signJwtToken } from '../util/signJwtToken.js';
 import { verifyJwtToken } from '../util/verifyJwtToken.js';
 import { passwordResetTemplate } from '../util/passwordResetTemplate.js';
+
+import { User } from '../models/User.js';
+import { Extension } from '../models/Extension.js';
+import { TokenBlackList } from '../models/TokenBlacklist.js';
 
 import { addTokenToBlackList } from './tokenBlackListService.js';
 
@@ -238,7 +238,7 @@ async function generateUserToken(user) {
         isExtension: user.isExtension,
         extensionName: user?.extensionName ? user.extensionName : 'React Client',
         ...(user.extensionId && { extensionId: user.extensionId }), // Optional property
-    }
+    };
 
     const signedToken = await signJwtToken(payload, options);
     return signedToken;

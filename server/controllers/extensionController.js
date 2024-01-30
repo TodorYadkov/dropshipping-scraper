@@ -2,8 +2,10 @@ import { Router } from 'express';
 
 import { extractASIN } from '../util/extractASIN.js';
 import { updateProductSchema, validateExtensionSchema } from '../util/validationSchemes.js';
-import { isOwner, isUserLogged } from '../middlewares/guards.js';
+
 import { preload } from '../middlewares/preloader.js';
+import { isOwner, isUserLogged } from '../middlewares/guards.js';
+
 import { PRELOAD_OPTIONS } from '../environments/preloadOptions.js';
 import {
     getLatestUpdatedProduct,
@@ -196,7 +198,7 @@ extensionController.put('/start', isUserLogged, async (req, res, next) => {
 
         const extensionData = await startExtension(extensionId);
 
-        res.status(200).json({ message: `Extension ${extensionData.extensionName} is successfully started.` });
+        res.status(200).json({ message: `Extension ${extensionData.extensionName} is successfully started` });
     } catch (err) {
         next(err);
     }
@@ -209,7 +211,7 @@ extensionController.put('/stop', isUserLogged, async (req, res, next) => {
 
         const extensionData = await stopExtension(extensionId);
 
-        res.status(200).json({ message: `Extension ${extensionData.extensionName} is successfully stopped.` });
+        res.status(200).json({ message: `Extension ${extensionData.extensionName} is successfully stopped` });
     } catch (err) {
         next(err);
     }
@@ -218,12 +220,12 @@ extensionController.put('/stop', isUserLogged, async (req, res, next) => {
 // Check if the browser is working
 extensionController.put('/error', isUserLogged, async (req, res, next) => {
     try {
-        const extensionId = req.user.extensionId;
         const { error } = req.body;
+        const extensionId = req.user.extensionId;
 
         const extensionData = await errorExtension(extensionId, error);
 
-        res.status(200).json({ message: `Extension ${extensionData.extensionName} is reported for current error.` });
+        res.status(200).json({ message: `Extension ${extensionData.extensionName} is reported for current error` });
     } catch (err) {
         next(err);
     }

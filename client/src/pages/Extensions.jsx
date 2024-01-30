@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { useFilterData } from "../hooks/useFilterData.js";
-import { useAppStateContext } from "../hooks/useAppStateContext.js";
-import { useIntervalTimeToReceiveData } from "../hooks/useIntervalTimeToReceiveData.js";
+import { DATA_TYPES, REDUCER_TYPES } from '../util/constants.js';
 
-import { DATA_TYPES, REDUCER_TYPES } from "../util/constants.js";
+import { useFilterData } from '../hooks/useFilterData.js';
+import { useAppStateContext } from '../hooks/useAppStateContext.js';
+import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
 
-import { PageTitle } from "../components/Shared/PageTitle.jsx";
-import { Loader } from "../components/Shared/Loader.jsx";
-import { ResponsiveComponent } from "../components/Shared/ResponsiveComponent.jsx";
-import { DashboardSummary } from "../components/Summaries/DashboardSummary.jsx";
+import { Loader } from '../components/Shared/Loader.jsx';
+import { PageTitle } from '../components/Shared/PageTitle.jsx';
+import { DashboardSummary } from '../components/Summaries/DashboardSummary.jsx';
+import { ResponsiveComponent } from '../components/Shared/ResponsiveComponent.jsx';
 
 export const Extensions = () => {
 	const [extensionsData, setExtensionsLocalStateData] = useFilterData();
@@ -23,7 +23,6 @@ export const Extensions = () => {
 	useEffect(() => {
 		setIsLoadingState(true);
 		getExtensionsData();
-
 	}, []);
 
 	// Handle change on global state

@@ -1,7 +1,8 @@
 import { createContext } from 'react';
 
-import { useLocalStorage } from '../hooks/useLocalStorage.js';
 import { USER_ROLES } from '../util/constants.js';
+
+import { useLocalStorage } from '../hooks/useLocalStorage.js';
 
 export const AuthContext = createContext();
 AuthContext.displayName = 'AuthContext';

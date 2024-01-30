@@ -1,10 +1,10 @@
-import { sendData, statusExtension } from './services/dataService.js';
-
-import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
 import { closeAllOpenTabs } from './util/autoCloseTabs.js';
 import { userLogin, userLogout } from './util/userControl.js';
 import { reactExtensionControl } from './util/reactExtensionControl.js';
 import { startExtension, stopExtension } from './util/extensionControl.js';
+import { fetchDataFromServerAndScrape } from './util/fetchDataFromServerAndScrape.js';
+
+import { sendData, statusExtension } from './services/dataService.js';
 
 import { multiBrowser } from './constants/constants.js';
 

@@ -1,11 +1,13 @@
 import { json, urlencoded } from 'express';
 
-import cors from '../middlewares/cors.js';
-import userSession from '../middlewares/userSession.js';
-import tokenBlackListMiddleware from '../middlewares/tokenBlackListMiddleware.js';
-import { stopBlackListInterval, tokenBlackListConfig } from './tokenBlackListConfig.js';
 import { checkWorkingExtension, stopCheckWorkingExtension } from '../util/checkWorkingExtension.js';
+
+import cors from '../middlewares/cors.js';
+import tokenBlackListMiddleware from '../middlewares/tokenBlackListMiddleware.js';
+import userSession from '../middlewares/userSession.js';
 import checkUserIsDisabled from '../middlewares/checkUserIsDisabled.js';
+
+import { stopBlackListInterval, tokenBlackListConfig } from './tokenBlackListConfig.js';
 
 export default async (app) => {
 	const tokenBlackList = await tokenBlackListConfig();

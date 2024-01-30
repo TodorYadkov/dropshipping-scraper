@@ -1,4 +1,4 @@
-import { getUserById } from "../services/userService.js";
+import { getUserById } from '../services/userService.js';
 
 export default () => async (req, res, next) => {
     const user = req.user;

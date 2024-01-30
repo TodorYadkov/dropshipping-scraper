@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export const useIntervalTimeToReceiveData = (requestHandler, intervalInMinutes = 0.5) => {
     const [data, setData] = useState(null);

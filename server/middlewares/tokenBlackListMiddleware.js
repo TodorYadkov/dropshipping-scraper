@@ -4,7 +4,7 @@ export default (tokenBlackList) => (req, res, next) => {
     if (userToken) {
         try {
             if (tokenBlackList.has(userToken)) {
-                throw new Error('The token has already been used. Please sign in again.');
+                throw new Error('The token has already been used. Please sign in again');
             }
         } catch (error) {
             // Add status code and invoke global error handler

@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 
-import { REDUCER_TYPES } from "../util/constants.js";
+import { REDUCER_TYPES } from '../util/constants.js';
 
-import { extensionService } from "../services/extensionService.js";
-import { productService } from "../services/productService.js";
-import { statisticService } from "../services/statisticService.js";
+import { productService } from '../services/productService.js';
+import { extensionService } from '../services/extensionService.js';
+import { statisticService } from '../services/statisticService.js';
 
-import { useApi } from "./useApi.js";
-import { useAppStateContext } from "./useAppStateContext.js";
+import { useApi } from './useApi.js';
+import { useAppStateContext } from './useAppStateContext.js';
 
 export const useDataFetcher = () => {
     const [alert, setAlert] = useState('');

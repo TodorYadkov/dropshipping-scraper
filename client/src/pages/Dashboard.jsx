@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { DATA_TYPES, REDUCER_TYPES } from '../util/constants.js';
 
-import { useLocalProductState } from '../hooks/useLocalProductsState.js';
 import { useAppStateContext } from '../hooks/useAppStateContext.js';
+import { useLocalProductState } from '../hooks/useLocalProductsState.js';
 import { useIntervalTimeToReceiveData } from '../hooks/useIntervalTimeToReceiveData.js';
 
 import { Loader } from '../components/Shared/Loader.jsx';

@@ -1,4 +1,4 @@
-import { SORTING_KEYS, USER_ROLES } from "./constants.js";
+import { SORTING_KEYS, USER_ROLES } from './constants.js';
 
 export const sortingData = (sortBy, data) => {
     const sortFunctions = {
