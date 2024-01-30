@@ -43,16 +43,16 @@ export const CardUsers = ({ usersData, onModalClick }) => {
 
 			{usersData.length > 0 &&
 				usersData.map((user) => (
-					<div key={user._id} className="w-full max-w-sm mt-4 lg:max-w-full lg:flex rounded-lg overflow-hidden">
+					<div key={user._id} className="w-full max-w-sm mt-4 lg:max-w-full lg:flex rounded-lg overflow-hidden bg-white">
 						<div className="flex-none w-full h-48 overflow-hidden text-center bg-cover rounded-t lg:h-auto lg:w-48 lg:rounded-t-none lg:rounded-l">
 							<img
-								className="block w-full h-full"
+								className="block w-full h-full aspect-video object-contain"
 								src={user.avatarURL ? user.avatarURL : "https://res.cloudinary.com/framevibe/image/upload/v1705609288/xfq6pgcrwaybffifd3fk.png"}
 								alt={user.name}
 							/>
 						</div>
 
-						<div className="flex flex-col justify-between p-4 leading-normal bg-white border-b border-l border-r border-gray-200 rounded-b lg:w-full lg:border-l-0 lg:border-t lg:border-gray-200 lg:rounded-b-none lg:rounded-r">
+						<div className="flex flex-col justify-between p-4 leading-normal bg-white rounded-b lg:w-full lg:rounded-b-none lg:rounded-r">
 							<div className="mb-8">
 								<div>
 									<p className="inline-block text-sm text-gray-600 relative group">
