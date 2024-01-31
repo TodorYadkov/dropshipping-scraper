@@ -40,168 +40,168 @@
 
 - **POST /users/login**
   - **Description:** Authenticate and log in a user.
-  - **Method:** POST
+  - **Method:** `POST`
   - **Endpoint:** `/users/login`
 
 - **POST /users/register**
   - **Description:** Register a new user.
-  - **Method:** POST
+  - **Method:** `POST`
   - **Endpoint:** `/users/register`
 
 - **GET /users/logout**
   - **Description:** Log out the currently authenticated user.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/users/logout`
 
 - **GET /users/profile**
   - **Description:** Retrieve user profile information.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/users/profile`
 
 - **PUT /users/profile**
   - **Description:** Update user profile information.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/users/profile`
 
 - **POST /users/forgot-password**
   - **Description:** Initiate the forgot password process (with email notification).
-  - **Method:** POST
+  - **Method:** `POST`
   - **Endpoint:** `/users/forgot-password`
 
 - **PUT /users/reset-password**
   - **Description:** Reset user password.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/users/reset-password`
 
 ### Products
 
 - **POST /products**
   - **Description:** Add a new product.
-  - **Method:** POST
+  - **Method:** `POST`
   - **Endpoint:** `/products`
 
 - **GET /products**
   - **Description:** Retrieve a list of all products.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/products`
 
 - **GET /products/:productId**
   - **Description:** Retrieve details of a specific product.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/products/:productId`
 
 - **PUT /products/:productId**
   - **Description:** Update details of a specific product.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/products/:productId`
 
 - **DELETE /products/:productId**
   - **Description:** Delete a specific product.
-  - **Method:** DELETE
+  - **Method:** `DELETE`
   - **Endpoint:** `/products/:productId`
 
 ### Extensions
 
 - **GET /extensions**
   - **Description:** Retrieve a list of all extensions.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/extensions`
 
 - **POST /extensions**
   - **Description:** Add a new extension.
-  - **Method:** POST
+  - **Method:** `POST`
   - **Endpoint:** `/extensions`
 
 - **PUT /extensions**
   - **Description:** Update details of an extension.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions`
 
 - **DELETE /extensions/:extensionId**
   - **Description:** Delete a specific extension.
-  - **Method:** DELETE
+  - **Method:** `DELETE`
   - **Endpoint:** `/extensions/:extensionId`
 
 - **PUT /extensions/reset-error**
   - **Description:** Reset error status for extensions.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/reset-error`
 
 - **PUT /extensions/react-start**
   - **Description:** Initiate start process for extensions.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/react-start`
 
 - **PUT /extensions/react-stop**
   - **Description:** Initiate stop process for extensions.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/react-stop`
 
 - **PUT /extensions/logout**
   - **Description:** Log out from an extension.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/logout`
 
 - **GET /extensions/get-one**
   - **Description:** Retrieve information about a specific extension.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/extensions/get-one`
 
 - **PUT /extensions/put-one**
   - **Description:** Update details of a specific extension.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/put-one`
 
 - **PUT /extensions/start**
   - **Description:** Start a specific extension.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/start`
 
 - **PUT /extensions/stop**
   - **Description:** Stop a specific extension.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/stop`
 
 - **GET /extensions/status**
   - **Description:** Retrieve the current status of all extensions.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/extensions/status`
 
 - **PUT /extensions/error**
   - **Description:** Update error status for extensions.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/extensions/error`
 
 ### Admin
 
 - **GET /admin**
   - **Description:** Retrieve general admin information.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/admin`
 
 - **PUT /admin/role**
   - **Description:** Update user roles (admin, premium).
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/admin/role`
 
 - **PUT /admin/disable**
   - **Description:** Disable user accounts.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/admin/disable`
 
 - **PUT /admin/enable**
   - **Description:** Enable user accounts.
-  - **Method:** PUT
+  - **Method:** `PUT`
   - **Endpoint:** `/admin/enable`
 
 - **GET /admin/statistic**
   - **Description:** Retrieve statistical information for admin purposes.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/admin/statistic`
 
 ### Statistics
 
 - **GET /statistics/general**
   - **Description:** Retrieve general statistical information.
-  - **Method:** GET
+  - **Method:** `GET`
   - **Endpoint:** `/statistics/general`
