@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
@@ -109,7 +108,7 @@ export const Pagination = ({ localFilteredState, customCSS }) => {
 
 	return (
 		<div className={`flex justify-center mx-auto px-4 py-4 overflow-x-auto bg-white w-full max-w-sm lg:max-w-full lg:flex ${customCSS}`}>
-			<div className="flex mr-4" >
+			<div className="flex mr-4">
 				<p
 					onClick={setFirstPage}
 					className="px-3 py-2 ml-0 leading-tight text-indigo-700 bg-white border border-r-0 border-gray-200 rounded-l hover:bg-indigo-500 hover:text-white cursor-pointer"

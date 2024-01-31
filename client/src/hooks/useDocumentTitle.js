@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useEffect } from 'react'
 
 export const useDocumentTitle = (title, prevailOnUnmount = false) => {
