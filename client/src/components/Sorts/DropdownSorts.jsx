@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const DropdownSorts = ({ sortingCriteria }) => {
-    const [sort, setSort] = useState(() => searchParams.get('sort') || '');
-    
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const [sort, setSort] = useState(() => searchParams.get('sort') || '');
 
     useEffect(() => {
         setSearchParams((params) => {
