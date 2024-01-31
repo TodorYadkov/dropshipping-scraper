@@ -8,12 +8,7 @@ export const StopExtensionModal = memo(({ toggleModal, extension }) => {
 		<Modal
 			title={'Stop Extension'}
 			toggleModal={toggleModal}
-			Content={() => (
-				<AlertStopExtension
-					extension={extension}
-					toggleModal={toggleModal}
-				/>
-			)}
+			Content={() => <AlertStopExtension extension={extension} toggleModal={toggleModal} />}
 		/>
 	);
 });

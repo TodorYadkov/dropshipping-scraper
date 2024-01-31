@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { EXTENSION_FORM_KEYS } from "../../util/constants.js";
+import { EXTENSION_FORM_KEYS } from '../../util/constants.js';
 
-import { useApi } from "../../hooks/useApi.js";
-import { useForm } from "../../hooks/useForm.js";
-import { useAppStateContext } from "../../hooks/useAppStateContext.js";
+import { useApi } from '../../hooks/useApi.js';
+import { useForm } from '../../hooks/useForm.js';
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
-import { extensionService } from "../../services/extensionService.js";
+import { extensionService } from '../../services/extensionService.js';
 
-import { validationExtensionInput } from "./validationExtensionInput.js";
-import { Loader } from "../Shared/Loader.jsx";
+import { validationExtensionInput } from './validationExtensionInput.js';
+
+import { Loader } from '../Shared/Loader.jsx';
 
 export const AddExtensionForm = ({ toggleModal }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,8 @@ export const AddExtensionForm = ({ toggleModal }) => {
         {
             [EXTENSION_FORM_KEYS.EXTENSION_NAME]: '',
         },
-        validationExtensionInput);
+        validationExtensionInput
+    );
 
     async function submitFunction(formData) {
         try {

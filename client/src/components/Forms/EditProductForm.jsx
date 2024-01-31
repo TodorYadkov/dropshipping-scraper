@@ -25,7 +25,8 @@ export const EditProductForm = ({ toggleModal, product }) => {
             [PRODUCT_FORM_KEYS.AMAZON]: product[PRODUCT_FORM_KEYS.AMAZON],
             [PRODUCT_FORM_KEYS.EBAY]: product[PRODUCT_FORM_KEYS.EBAY] || ''
         },
-        validationProductInput);
+        validationProductInput
+    );
 
     async function submitFunction(formData) {
         try {
@@ -50,8 +51,8 @@ export const EditProductForm = ({ toggleModal, product }) => {
 
     const isInvalidFormHandler = () => {
         const amazonValue = values[PRODUCT_FORM_KEYS.AMAZON];
-        const amazonError = formErrors[PRODUCT_FORM_KEYS.AMAZON];
 
+        const amazonError = formErrors[PRODUCT_FORM_KEYS.AMAZON];
         const ebayError = formErrors[PRODUCT_FORM_KEYS.EBAY];
 
         const isInvalidForm = amazonValue === '' || !!amazonError.message || !!ebayError.message;

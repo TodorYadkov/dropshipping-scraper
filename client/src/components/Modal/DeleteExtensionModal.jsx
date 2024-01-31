@@ -8,12 +8,7 @@ export const DeleteExtensionModal = memo(({ toggleModal, extension }) => {
 		<Modal
 			title={'Delete Extension'}
 			toggleModal={toggleModal}
-			Content={() => (
-				<DeleteExtensionForm
-					extension={extension}
-					toggleModal={toggleModal}
-				/>
-			)}
+			Content={() => <DeleteExtensionForm extension={extension} toggleModal={toggleModal} />}
 		/>
 	);
 });

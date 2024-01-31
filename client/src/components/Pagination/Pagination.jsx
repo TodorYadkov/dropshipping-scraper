@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const Pagination = ({ localFilteredState }) => {
-	const [searchParams, setSearchParams] = useSearchParams();
 	const [currentPage, setCurrentPage] = useState(() => Math.abs(Number(searchParams.get('page'))) || 1);
 	const [currentOffset, setCurrentOffset] = useState(searchParams.get('offset'));
 	const [currentSearch, setCurrentSearch] = useState(searchParams.get('search'));
 	const [totalPageCount, setTotalPageCount] = useState(calculateNumberOfPages);
 	const [visiblePages, setVisiblePages] = useState(getVisiblePageNumbers);
+	
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	useEffect(() => {
 		setSearchParams((params) => {
@@ -49,31 +51,31 @@ export const Pagination = ({ localFilteredState }) => {
 		setCurrentPage(1);
 
 		setVisiblePages(getVisiblePageNumbers(1));
-	}
+	};
 
 	const previousPage = () => {
 		setCurrentPage((page) => Math.max(page - 1, 1));
 
 		setVisiblePages(getVisiblePageNumbers(currentPage - 1));
-	}
+	};
 
 	const nextPage = () => {
 		setCurrentPage(page => Math.min(page + 1, totalPageCount));
 
 		setVisiblePages(getVisiblePageNumbers(currentPage + 1));
-	}
+	};
 
 	const setLastPage = () => {
 		setCurrentPage(totalPageCount);
 
 		setVisiblePages(getVisiblePageNumbers(totalPageCount));
-	}
+	};
 
 	const goToPage = (targetPage) => {
 		setCurrentPage(targetPage);
 
 		setVisiblePages(getVisiblePageNumbers(targetPage));
-	}
+	};
 
 	function calculateNumberOfPages() {
 		const offset = Number(searchParams.get('offset')) || 10;

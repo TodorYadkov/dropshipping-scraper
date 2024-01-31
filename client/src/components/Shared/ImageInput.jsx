@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const ImageInput = ({ type, name, value, onChange, onBlur, error, isEditable = true }) => {
-
     const [previewImage, setPreviewImage] = useState(null);
 
     const handleImageChange = (e) => {
@@ -17,7 +16,6 @@ export const ImageInput = ({ type, name, value, onChange, onBlur, error, isEdita
             reader.onerror = (e) => {
                 console.error('Error reading the file:', e.target.error);
                 // TODO find a way to broke it and figure out what values we've got and handle it
-
             };
 
             reader.readAsDataURL(file);
@@ -30,7 +28,6 @@ export const ImageInput = ({ type, name, value, onChange, onBlur, error, isEdita
             <div className="w-36 h-w-36 overflow-hidden rounded-full shadow p-5 mb-2 mx-auto">
                 <img src={previewImage ? previewImage : value !== ' ' ? value : "https://res.cloudinary.com/framevibe/image/upload/v1705613842/nl9lfvifhh4kb718wbnf.png"} alt="User Image" />
             </div>
-
 
             <label
                 htmlFor="upload-image"
@@ -50,7 +47,5 @@ export const ImageInput = ({ type, name, value, onChange, onBlur, error, isEdita
             />
             {(error.isTouched && !!error.message) && <p className="text-xs -mb-4 text-red-600">{error.message}</p>}
         </div>
-
-
     );
 };

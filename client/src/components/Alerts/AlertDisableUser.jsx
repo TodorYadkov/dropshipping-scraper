@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react';
 
+import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
+
 import { useApi } from '../../hooks/useApi.js';
 
 import { adminService } from '../../services/adminService.js';
-
-import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
 
 import { Loader } from '../Shared/Loader.jsx';
 

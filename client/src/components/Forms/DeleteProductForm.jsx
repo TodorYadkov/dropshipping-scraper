@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { PRODUCT_FORM_KEYS } from "../../util/constants.js";
+import { PRODUCT_FORM_KEYS } from '../../util/constants.js';
 
-import { useApi } from "../../hooks/useApi.js";
-import { useAppStateContext } from "../../hooks/useAppStateContext.js";
+import { useApi } from '../../hooks/useApi.js';
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
-import { productService } from "../../services/productService.js";
+import { productService } from '../../services/productService.js';
 
-import { Loader } from "../Shared/Loader.jsx";
+import { Loader } from '../Shared/Loader.jsx';
 
 export const DeleteProductForm = ({ toggleModal, product }) => {
     const [isLoading, setIsLoading] = useState(false);

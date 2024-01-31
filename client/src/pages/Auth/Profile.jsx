@@ -17,8 +17,8 @@ import { ImageInput } from '../../components/Shared/ImageInput.jsx';
 
 const Profile = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [isEditable, setIsEditable] = useState(false);
     const [serverError, setServerError] = useState('');
+    const [isEditable, setIsEditable] = useState(false);
 
     const { currentUserData, setUserState } = useAuthContext();
     const { profileUpdate } = useApi(authService);

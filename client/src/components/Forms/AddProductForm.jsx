@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { PRODUCT_FORM_KEYS } from "../../util/constants.js";
+import { PRODUCT_FORM_KEYS } from '../../util/constants.js';
 
-import { useApi } from "../../hooks/useApi.js";
-import { useForm } from "../../hooks/useForm.js";
-import { useAppStateContext } from "../../hooks/useAppStateContext.js";
+import { useApi } from '../../hooks/useApi.js';
+import { useForm } from '../../hooks/useForm.js';
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
-import { productService } from "../../services/productService.js";
+import { productService } from '../../services/productService.js';
 
-import { validationProductInput } from "./validationProductInput.js";
-import { Loader } from "../Shared/Loader.jsx";
+import { validationProductInput } from './validationProductInput.js';
+
+import { Loader } from '../Shared/Loader.jsx';
 
 export const AddProductForm = ({ toggleModal }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,8 @@ export const AddProductForm = ({ toggleModal }) => {
             [PRODUCT_FORM_KEYS.AMAZON]: '',
             [PRODUCT_FORM_KEYS.EBAY]: ''
         },
-        validationProductInput);
+        validationProductInput
+    );
 
     async function submitFunction(formData) {
         try {
@@ -49,8 +51,8 @@ export const AddProductForm = ({ toggleModal }) => {
 
     const isInvalidFormHandler = () => {
         const amazonValue = values[PRODUCT_FORM_KEYS.AMAZON];
-        const amazonError = formErrors[PRODUCT_FORM_KEYS.AMAZON];
 
+        const amazonError = formErrors[PRODUCT_FORM_KEYS.AMAZON];
         const ebayError = formErrors[PRODUCT_FORM_KEYS.EBAY];
 
         const isInvalidForm = amazonValue === '' || !!amazonError.message || !!ebayError.message;

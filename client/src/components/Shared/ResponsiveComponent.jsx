@@ -18,9 +18,7 @@ export const ResponsiveComponent = ({ dataType, localFilteredState, onRefresh })
 
 		window.addEventListener('resize', handleResize);
 
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
+		return () => window.removeEventListener('resize', handleResize);
 	}, []);
 
 	const modalHandler = useCallback((modalName, data) => {

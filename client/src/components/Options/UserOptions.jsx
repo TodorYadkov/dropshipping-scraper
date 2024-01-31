@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
-import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
+import { SORTING_KEYS } from '../../util/constants.js';
 
+import { ButtonRefresh } from '../Buttons/ButtonRefresh.jsx';
 import { OffsetSelector } from '../Pagination/OffsetSelector.jsx';
 import { SearchInput } from './SearchInput.jsx';
 import { DropdownSorts } from '../Sorts/DropdownSorts.jsx';
-import { SORTING_KEYS } from '../../util/constants.js';
 
 export const UserOption = ({ onRefresh }) => {
 

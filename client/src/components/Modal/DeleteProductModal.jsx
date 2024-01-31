@@ -8,12 +8,7 @@ export const DeleteProductModal = memo(({ toggleModal, product }) => {
 		<Modal
 			title={'Delete Product'}
             toggleModal={toggleModal}
-			Content={() => (
-				<DeleteProductForm
-					product={product}
-					toggleModal={toggleModal}
-				/>
-			)}
+			Content={() => <DeleteProductForm product={product} toggleModal={toggleModal} />}
 		/>
 	);
 });

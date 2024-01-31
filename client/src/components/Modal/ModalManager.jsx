@@ -1,15 +1,18 @@
-import { AddEbayProductModal } from './AddEbayProductModal.jsx';
 import { AddProductModal } from './AddProductModal.jsx';
-import { DeleteExtensionModal } from './DeleteExtensionModal.jsx';
-import { DeleteProductModal } from './DeleteProductModal.jsx';
-import { DisableUserModal } from './DisableUserModal.jsx';
-import { EditExtensionModal } from './EditExtensionModal.jsx';
+import { AddEbayProductModal } from './AddEbayProductModal.jsx';
 import { EditProductModal } from './EditProductModal.jsx';
-import { EnableUserModal } from './EnableUserModal.jsx';
-import { LogoutExtensionModal } from './LogoutExtensionModal.jsx';
+import { DeleteProductModal } from './DeleteProductModal.jsx';
+
+import { DeleteExtensionModal } from './DeleteExtensionModal.jsx';
+import { EditExtensionModal } from './EditExtensionModal.jsx';
 import { ResetErrorExtensionModal } from './ResetErrorExtensionModal.jsx';
+
 import { StartExtensionModal } from './StartExtensionModal.jsx';
 import { StopExtensionModal } from './StopExtensionModal.jsx';
+import { LogoutExtensionModal } from './LogoutExtensionModal.jsx';
+
+import { DisableUserModal } from './DisableUserModal.jsx';
+import { EnableUserModal } from './EnableUserModal.jsx';
 
 export const ModalManager = ({ useModal, data, closeModal }) => {
 
@@ -22,7 +25,6 @@ export const ModalManager = ({ useModal, data, closeModal }) => {
 
             {useModal === 'DeleteExtensionModal' && <DeleteExtensionModal toggleModal={closeModal} extension={data} />}
             {useModal === 'EditExtensionModal' && <EditExtensionModal toggleModal={closeModal} extension={data} />}
-
             {useModal === 'ResetErrorExtensionModal' && <ResetErrorExtensionModal toggleModal={closeModal} extension={data} />}
 
             {useModal === 'StartExtensionModal' && <StartExtensionModal toggleModal={closeModal} extension={data} />}

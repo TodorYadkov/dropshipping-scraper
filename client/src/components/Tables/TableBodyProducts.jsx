@@ -19,7 +19,6 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-
     }, []);
 
     return (

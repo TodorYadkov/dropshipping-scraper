@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 
-import { USER_ROLES } from '../../util/constants.js';
-
 import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
+
+import { USER_ROLES } from '../../util/constants.js';
 
 import { AlertError } from '../Alerts/AlertError.jsx';
 
@@ -50,11 +50,11 @@ export const DropdownRoleSelector = ({ role, userDetails }) => {
                 </div>
             </div>
 
-            {serverErrorMessage && ((
+            {serverErrorMessage && (
                 <div className="absolute z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <AlertError message={serverErrorMessage} close={removeServerErrorMessageHandler} />
                 </div>
-            ))}
+            )}
         </>
     );
 };

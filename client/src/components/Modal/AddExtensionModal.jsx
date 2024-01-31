@@ -5,9 +5,9 @@ export const AddExtensionModal = ({ toggleModal }) => {
 	return (
 		<Modal
 			title={'Add Extension'}
-			Content={AddExtensionForm}
 			toggleModal={toggleModal}
 			backdrop={false}
+			Content={AddExtensionForm}
 		/>
 	);
 };

@@ -5,9 +5,9 @@ export const AddProductModal = ({ toggleModal }) => {
 	return (
 		<Modal
 			title={'Add Product'}
-			Content={AddProductForm}
 			toggleModal={toggleModal}
 			backdrop={false}
+			Content={AddProductForm}
 		/>
 	);
 };

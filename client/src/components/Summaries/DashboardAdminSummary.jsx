@@ -5,7 +5,6 @@ import { AdminPanelContext } from '../../contexts/AdminPanelContext.jsx';
 import { Tooltip } from '../Shared/Tooltip.jsx';
 
 export const DashboardAdminSummary = () => {
-
     const { adminPanelStatistic } = useContext(AdminPanelContext);
 
     return (

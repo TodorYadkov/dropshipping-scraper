@@ -8,13 +8,8 @@ export const EditExtensionModal = memo(({ toggleModal, extension }) => {
 		<Modal
 			title={'Edit Extension'}
 			toggleModal={toggleModal}
-			Content={() => (
-				<EditExtensionForm
-					extension={extension}
-					toggleModal={toggleModal}
-				/>
-			)}
 			backdrop={false}
+			Content={() => <EditExtensionForm extension={extension} toggleModal={toggleModal} />}
 		/>
 	);
 });

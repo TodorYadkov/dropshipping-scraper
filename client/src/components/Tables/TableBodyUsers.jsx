@@ -15,7 +15,6 @@ export const TableBodyUsers = ({ usersData, onModalClick }) => {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-
     }, []);
 
     return (

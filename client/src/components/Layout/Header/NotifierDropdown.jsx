@@ -1,14 +1,15 @@
-import { memo, useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { memo, useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { REDUCER_TYPES } from "../../../util/constants.js";
-import { CLIENT_PATHS } from "../../../util/paths.js";
+import { REDUCER_TYPES } from '../../../util/constants.js';
+import { CLIENT_PATHS } from '../../../util/paths.js';
 
-import { useAppStateContext } from "../../../hooks/useAppStateContext.js";
-import { useModal } from "../../../hooks/useModal.js";
+import { useAppStateContext } from '../../../hooks/useAppStateContext.js';
+import { useModal } from '../../../hooks/useModal.js';
 
-import { Tooltip } from "../../Shared/Tooltip.jsx";
-import { ResetErrorExtensionModal } from "../../Modal/ResetErrorExtensionModal.jsx";
+import { Tooltip } from '../../Shared/Tooltip.jsx';
+import { ResetErrorExtensionModal } from '../../Modal/ResetErrorExtensionModal.jsx';
 
 export const NotifierDropdown = memo(() => {
     const [errorDropdownOpen, setErrorDropdownOpen] = useState(false);
@@ -16,7 +17,6 @@ export const NotifierDropdown = memo(() => {
     const [errors, setErrors] = useState({ productErrors: [], extensionErrors: [] });
 
     const [isShownResetModal, toggleResetModal] = useModal();
-
     const { appState } = useAppStateContext();
 
     useEffect(() => {

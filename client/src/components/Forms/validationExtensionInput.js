@@ -1,4 +1,4 @@
-import { EXTENSION_FORM_KEYS } from "../../util/constants.js";
+import { EXTENSION_FORM_KEYS } from '../../util/constants.js';
 
 export const validationExtensionInput = (inputName, inputValue) => {
     if (inputName === EXTENSION_FORM_KEYS.EXTENSION_NAME) {
@@ -13,4 +13,4 @@ export const validationExtensionInput = (inputName, inputValue) => {
 
         return { [inputName]: '' };
     }
-}
+};

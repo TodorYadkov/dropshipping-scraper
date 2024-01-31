@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { EXTENSION_FORM_KEYS } from "../../util/constants.js";
+import { EXTENSION_FORM_KEYS } from '../../util/constants.js';
 
-import { useApi } from "../../hooks/useApi.js";
-import { useAppStateContext } from "../../hooks/useAppStateContext.js";
+import { useApi } from '../../hooks/useApi.js';
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
-import { extensionService } from "../../services/extensionService.js";
+import { extensionService } from '../../services/extensionService.js';
 
-import { Loader } from "../Shared/Loader.jsx";
+import { Loader } from '../Shared/Loader.jsx';
 
 export const DeleteExtensionForm = ({ toggleModal, extension }) => {
     const [isLoading, setIsLoading] = useState(false);

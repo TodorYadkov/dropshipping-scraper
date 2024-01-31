@@ -13,7 +13,6 @@ export const TableExtensionsData = ({ extensionsData, onModalClick }) => {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-
     }, []);
 
     return (

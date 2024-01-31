@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { PRODUCT_FORM_KEYS } from "../../util/constants.js";
+import { PRODUCT_FORM_KEYS } from '../../util/constants.js';
 
-import { useApi } from "../../hooks/useApi.js";
-import { useForm } from "../../hooks/useForm.js";
-import { useAppStateContext } from "../../hooks/useAppStateContext.js";
+import { useApi } from '../../hooks/useApi.js';
+import { useForm } from '../../hooks/useForm.js';
+import { useAppStateContext } from '../../hooks/useAppStateContext.js';
 
-import { productService } from "../../services/productService.js";
+import { productService } from '../../services/productService.js';
 
-import { validationProductInput } from "./validationProductInput.js";
-import { Loader } from "../Shared/Loader.jsx";
+import { validationProductInput } from './validationProductInput.js';
+
+import { Loader } from '../Shared/Loader.jsx';
 
 export const AddEbayUrlForm = ({ toggleModal, product }) => {
     const [isLoading, setIsLoading] = useState(false);

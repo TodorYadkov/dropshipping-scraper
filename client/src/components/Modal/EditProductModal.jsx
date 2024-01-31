@@ -8,12 +8,8 @@ export const EditProductModal = memo(({ toggleModal, product }) => {
 		<Modal
 			title={'Edit Product'}
 			toggleModal={toggleModal}
-			Content={() => (
-				<EditProductForm
-					product={product}
-					toggleModal={toggleModal}
-				/>)}
 			backdrop={false}
+			Content={() => <EditProductForm product={product} toggleModal={toggleModal} />}
 		/>
 	);
 });

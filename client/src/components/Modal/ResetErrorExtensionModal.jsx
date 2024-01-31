@@ -8,12 +8,7 @@ export const ResetErrorExtensionModal = memo(({ toggleModal, extension }) => {
 		<Modal
 			title={'Clear Error'}
 			toggleModal={toggleModal}
-			Content={() => (
-				<AlertResetError
-					extension={extension}
-					toggleModal={toggleModal}
-				/>
-			)}
+			Content={() => <AlertResetError extension={extension} toggleModal={toggleModal} />}
 		/>
 	);
 });

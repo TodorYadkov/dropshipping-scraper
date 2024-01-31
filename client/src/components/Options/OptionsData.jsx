@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
 import { DATA_TYPES } from '../../util/constants.js';
+
 import { ProductOptions } from './ProductOptions.jsx';
 import { ExtensionOptions } from './ExtensionOptions.jsx';
 import { UserOption } from './UserOptions.jsx';

@@ -24,7 +24,8 @@ export const EditExtensionForm = ({ toggleModal, extension }) => {
         {
             [EXTENSION_FORM_KEYS.EXTENSION_NAME]: extension[EXTENSION_FORM_KEYS.EXTENSION_NAME],
         },
-        validationExtensionInput);
+        validationExtensionInput
+    );
 
     async function submitFunction(formData) {
         try {

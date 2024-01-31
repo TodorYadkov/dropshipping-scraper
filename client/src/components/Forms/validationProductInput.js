@@ -46,4 +46,4 @@ export const validationProductInput = (inputName, inputValue) => {
 
         return { [inputName]: '' };
     }
-}
+};

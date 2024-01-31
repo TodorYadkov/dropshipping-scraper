@@ -17,9 +17,9 @@ import { PageTitle } from '../../components/Shared/PageTitle.jsx';
 import { Input } from '../../components/Shared/Input.jsx';
 
 export const Login = () => {
-	const [showPassword, setShowPassword] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [serverError, setServerError] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 
 	const { setUserState } = useAuthContext();
 	const { login } = useApi(authService);

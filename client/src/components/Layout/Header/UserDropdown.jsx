@@ -1,9 +1,9 @@
 import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useAuthContext } from '../../../hooks/useAuthContext.js';
 import { CLIENT_PATHS } from '../../../util/paths.js';
 
+import { useAuthContext } from '../../../hooks/useAuthContext.js';
 
 export const UserDropdown = memo(() => {
     const [avatarDropdownOpen, setAvatarDropdownOpen] = useState(false);
@@ -20,7 +20,6 @@ export const UserDropdown = memo(() => {
                 onClick={toggleAvatarDropdown}
             >
                 <img
-                    // className="object-cover w-full h-full"
                     className="object-cover w-9/12 h-11/12 ml-1"
                     src={currentUserData.userDetails.avatarURL ? currentUserData.userDetails.avatarURL : "https://res.cloudinary.com/framevibe/image/upload/v1705609288/xfq6pgcrwaybffifd3fk.png"}
                     alt="Your avatar"
