@@ -1,4 +1,4 @@
-# Project Title
+# Dropshipping Application
 
 Our project is part of the Softuni initiative, providing students with an opportunity to work on a project that closely resembles real-world applications.
 
