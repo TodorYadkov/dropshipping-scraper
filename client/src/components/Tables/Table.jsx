@@ -45,7 +45,7 @@ export const Table = ({ typeBody, data, onModalClick }) => {
 
 	return (
 		<div className="-mb-2">
-			<div className="px-4 pt-4 overflow-x-auto sm:-mx-8 sm:px-8">
+			<div className="px-4 pt-4 overflow-x-hidden sm:-mx-8 sm:px-8">
 				<div className="inline-block min-w-full overflow-hidden rounded-lg rounded-b-none">
 					<table className="min-w-full leading-normal">
 						{TableVariant.Heading}

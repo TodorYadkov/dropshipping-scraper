@@ -116,14 +116,14 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         )}
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-nowrap text-center relative group">
                             {product.priceAmazon ? `${product.priceAmazon.toFixed(2)} ${product.currencyAmazon}` : 'No price'}
                             <Tooltip message={'Amazon Price'} />
                         </p>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[10%]">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-[10%]">
                         {product.priceEbay ? (
                             <>
                                 <Link to={product.ebayUrl} target="blank" rel="noopener noreferrer">
@@ -150,7 +150,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         )}
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-1/12">
 
                         {product?.profit ? (
                             <p className={`${product.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} flex gap-1 justify-center items-center text-center whitespace-nowrap relative group`}>
@@ -190,7 +190,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
 
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[11%]">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-[11%]">
                         <div className="relative group">
                             <p className="text-gray-900 text-center line-clamp-2 truncate whitespace-pre-wrap">
                                 {product.availability || '-'}
@@ -199,7 +199,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         </div>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-[4%]">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-[4%]">
                         <p className="text-gray-900 whitespace-wrap text-center relative group">
                             {product.rating || '-'}
                             {product.rating && <Tooltip message={'Rating'} />}
@@ -213,7 +213,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         </p>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-1/12">
                         <p className="text-gray-900 whitespace-wrap flex items-center justify-center relative group">
                             {product.error
                                 ? (
@@ -233,7 +233,7 @@ export const TableBodyProducts = ({ products, onModalClick }) => {
                         </p>
                     </td>
 
-                    <td className="px-5 py-5 text-sm border-b border-gray-200 w-1/12">
+                    <td className="px-2 py-5 text-sm border-b border-gray-200 w-1/12">
                         <div className="flex justify-center gap-2">
                             <div className="relative group">
                                 <svg

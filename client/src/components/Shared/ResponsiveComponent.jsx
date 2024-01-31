@@ -7,13 +7,13 @@ import { Pagination } from '../Pagination/Pagination.jsx';
 import { OptionsData } from '../Options/OptionsData.jsx';
 
 export const ResponsiveComponent = ({ dataType, localFilteredState, onRefresh }) => {
-	const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1360);
+	const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1340);
 	const [modalState, setModalState] = useState({ modalName: '', data: {} });
 	const [toggleModal, setToggleModal] = useState(false);
 
 	useEffect(() => {
 		const handleResize = () => {
-			setIsDesktop(window.innerWidth >= 1360);
+			setIsDesktop(window.innerWidth >= 1340);
 		};
 
 		window.addEventListener('resize', handleResize);
@@ -50,7 +50,7 @@ export const ResponsiveComponent = ({ dataType, localFilteredState, onRefresh })
 				/>
 			)}
 
-			{localFilteredState.totalDataCount !== 0 && <Pagination localFilteredState={localFilteredState} />}
+			{localFilteredState.totalDataCount !== 0 && <Pagination localFilteredState={localFilteredState} customCSS={isDesktop ? 'rounded-b-lg' : 'rounded-lg'} />}
 
 			{toggleModal && (
 				<ModalManager
