@@ -4,40 +4,32 @@ Our project is part of the Softuni initiative, providing students with an opport
 
 This project is managed by [Deyan Danailov](https://github.com/DeyanDanailov) and developed by [Rosen Dobrev](https://github.com/RosenDobrev10), [Todor Yadkov](https://github.com/TodorYadkov) and [Maxim Kraychev](https://github.com/maximkraychev).
 
+
 ## Project Overview
 
 The main purpose of the system is to automate, organize and put to a whole new level the dropshipping experience. It is designed after several years of experience in maintaining and developing custom software in the sphere. The Dropshipping Software System comprises three essential components that work together seamlessly to enhance your dropshipping experience.
 
 ## Demo
 
-https://rosendobrev10.github.io/dropshipping-scraper/
-
-Check out the live demo of at []()
+Check out the live demo of at [https://drop-shipping-trm.vercel.app](https://drop-shipping-trm.vercel.app)
 
 For a quick exploration, you can use the following demo accounts:
 
-- **Demo User 1:**
-
-  - Username:
-  - Email:
-  - Password:
-
-- **Demo User 2:**
-  - Username: 
-  - Email: 
-  - Password: 
-
-
+- **Demo User:**
+  - Email: demo@example.com
+  - Password: 12345678
+  - Extension name: Extension 1
+https://rosendobrev10.github.io/dropshipping-scraper/
 ## Components
 
 ### Chrome Extension
 
-The Browser Extension is the first pillar of our system, acting as a virtual dropshipping assistant. It specializes in scraping crucial information from Amazon and eBay, ensuring that you have access to up-to-date data. The extension maintains constant communication with a central server to provide real-time information, covering essential details such as prices, product availability, and more.
+The Chrome Extension is the first pillar of our system, acting as a virtual dropshipping assistant. It specializes in scraping crucial information from Amazon and eBay, ensuring that you have access to up-to-date data. The extension maintains constant communication with a central server to provide real-time information, covering essential details such as prices, product availability and more.
 
 #### Installation
 
 1. Download the extension from [GitHub Releases](https://github.com/TodorYadkov/dropshipping-scraper/releases/latest/download/extension.zip).
-2. Extract the extension files into a folder of your choice. **Note:** Do not delete this folder after the extraction, it is essential for the extension to function correctly.
+2. Extract the extension files into a folder of your choice.<br/> **Note:** Do not delete this folder after the extraction, it is essential for the extension to function correctly.
 3. Open [Google Chrome](https://www.google.com/chrome/) and navigate to `chrome://extensions/`.
 4. Enable "Developer mode."
 5. Click "Load unpacked" and select the folder where you extracted the extension files.
@@ -47,6 +39,7 @@ The Browser Extension is the first pillar of our system, acting as a virtual dro
 The extension offers key functionalities related to authentication and control:
 
 - **Login:** Users can log in using their email, extension name, and password.
+- **Logout:** Users can logout.
 - **Start Extension:** Initiate the scraping process.
 - **Stop Extension:** Halt the scraping process.
 
@@ -54,9 +47,9 @@ For additional operations, including product management and data interaction, pl
 
 ---
 
-### Frontend
+### Client
 
-The Website serves as your control center for efficiently managing your dropshipping business. It provides real-time information about the products you've chosen to track, ensuring you're always in the loop. Easily add new products for monitoring by sharing their Amazon URLs. Our site features a variety of filters, robust user account management, and a permissions system, all designed to enhance your user experience.
+The Website serves as your control center for efficiently managing your dropshipping business. It provides real-time information about the products you have chosen to track, ensuring you are always in the loop. Easily add new products for monitoring by sharing their Amazon URLs. Our site features a variety of filters, robust user account management, and a permission system, all designed to enhance your user experience.
 
 #### Features
 
@@ -67,16 +60,16 @@ The Website serves as your control center for efficiently managing your dropship
 - **Forgot Password with Email Notification:** Seamless password recovery process.
 - **Real-time Updates:** Receive real-time information updates via AJAX requests.
 - **Statistics:** Detailed information on products, extensions, and users.
-- **Search Functionality:** Easily find what you're looking for.
+- **Search Functionality:** Easily find what you are looking for.
 - **Filter Functionality:** Streamline data based on your preferences.
 - **Pagination:** Navigate through content effortlessly.
-- **Responsive Design:** Enjoy a seamless experience across devices.
+- **Responsive Design:** Enjoy a seamless experience across different devices.
 
 #### Admin Panel
 
 - **User Management:** Admins can control other users by assigning roles like admin or premium.
 - **Account Disabling:** Admins can disable user accounts, preventing login.
-- **Extension and Product Insights:** Admins can view the count and status of other users' extensions and products.
+- **Extension and Product Insights:** Admins can view the count and status of other users, extensions and products.
 
 #### Technologies Used
 
@@ -94,144 +87,193 @@ The Website serves as your control center for efficiently managing your dropship
 - Image upload to Cloudinary
 - Email sending capabilities
 
-### API Endpoints
+#### API Endpoints
 
-#### Users
+### Users
 
 - **POST /users/login**
-
-  - Authenticate and log in a user.
+  - **Description:** Authenticate and log in a user.
+  - **Method:** POST
+  - **Endpoint:** `/users/login`
 
 - **POST /users/register**
-
-  - Register a new user.
+  - **Description:** Register a new user.
+  - **Method:** POST
+  - **Endpoint:** `/users/register`
 
 - **GET /users/logout**
-
-  - Log out the currently authenticated user.
+  - **Description:** Log out the currently authenticated user.
+  - **Method:** GET
+  - **Endpoint:** `/users/logout`
 
 - **GET /users/profile**
-
-  - Retrieve user profile information.
+  - **Description:** Retrieve user profile information.
+  - **Method:** GET
+  - **Endpoint:** `/users/profile`
 
 - **PUT /users/profile**
-
-  - Update user profile information.
+  - **Description:** Update user profile information.
+  - **Method:** PUT
+  - **Endpoint:** `/users/profile`
 
 - **POST /users/forgot-password**
-
-  - Initiate the forgot password process (with email notification).
+  - **Description:** Initiate the forgot password process (with email notification).
+  - **Method:** POST
+  - **Endpoint:** `/users/forgot-password`
 
 - **PUT /users/reset-password**
-  - Reset user password.
+  - **Description:** Reset user password.
+  - **Method:** PUT
+  - **Endpoint:** `/users/reset-password`
 
-#### Products
+### Products
 
 - **POST /products**
-
-  - Add a new product.
+  - **Description:** Add a new product.
+  - **Method:** POST
+  - **Endpoint:** `/products`
 
 - **GET /products**
-
-  - Retrieve a list of all products.
+  - **Description:** Retrieve a list of all products.
+  - **Method:** GET
+  - **Endpoint:** `/products`
 
 - **GET /products/:productId**
-
-  - Retrieve details of a specific product.
+  - **Description:** Retrieve details of a specific product.
+  - **Method:** GET
+  - **Endpoint:** `/products/:productId`
 
 - **PUT /products/:productId**
-
-  - Update details of a specific product.
+  - **Description:** Update details of a specific product.
+  - **Method:** PUT
+  - **Endpoint:** `/products/:productId`
 
 - **DELETE /products/:productId**
-  - Delete a specific product.
+  - **Description:** Delete a specific product.
+  - **Method:** DELETE
+  - **Endpoint:** `/products/:productId`
 
-#### Statistics
+### Statistics
 
 - **GET /statistics/general**
-  - Retrieve general statistical information.
+  - **Description:** Retrieve general statistical information.
+  - **Method:** GET
+  - **Endpoint:** `/statistics/general`
 
-#### Extensions
+### Extensions
 
 - **GET /extensions**
-
-  - Retrieve a list of all extensions.
+  - **Description:** Retrieve a list of all extensions.
+  - **Method:** GET
+  - **Endpoint:** `/extensions`
 
 - **POST /extensions**
-
-  - Add a new extension.
+  - **Description:** Add a new extension.
+  - **Method:** POST
+  - **Endpoint:** `/extensions`
 
 - **PUT /extensions**
-
-  - Update details of an extension.
+  - **Description:** Update details of an extension.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions`
 
 - **DELETE /extensions/:extensionId**
-
-  - Delete a specific extension.
+  - **Description:** Delete a specific extension.
+  - **Method:** DELETE
+  - **Endpoint:** `/extensions/:extensionId`
 
 - **PUT /extensions/reset-error**
-
-  - Reset error status for extensions.
+  - **Description:** Reset error status for extensions.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/reset-error`
 
 - **PUT /extensions/react-start**
-
-  - Initiate start process for extensions.
+  - **Description:** Initiate start process for extensions.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/react-start`
 
 - **PUT /extensions/react-stop**
-
-  - Initiate stop process for extensions.
+  - **Description:** Initiate stop process for extensions.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/react-stop`
 
 - **PUT /extensions/logout**
-  - Log out from an extension.
+  - **Description:** Log out from an extension.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/logout`
 
-#### Admin
+### Admin
 
 - **GET /admin**
-
-  - Retrieve general admin information.
+  - **Description:** Retrieve general admin information.
+  - **Method:** GET
+  - **Endpoint:** `/admin`
 
 - **PUT /admin/role**
-
-  - Update user roles (admin, premium).
+  - **Description:** Update user roles (admin, premium).
+  - **Method:** PUT
+  - **Endpoint:** `/admin/role`
 
 - **PUT /admin/disable**
-
-  - Disable user accounts.
+  - **Description:** Disable user accounts.
+  - **Method:** PUT
+  - **Endpoint:** `/admin/disable`
 
 - **PUT /admin/enable**
-
-  - Enable user accounts.
+  - **Description:** Enable user accounts.
+  - **Method:** PUT
+  - **Endpoint:** `/admin/enable`
 
 - **GET /admin/statistic**
-  - Retrieve statistical information for admin purposes.
+  - **Description:** Retrieve statistical information for admin purposes.
+  - **Method:** GET
+  - **Endpoint:** `/admin/statistic`
 
-#### Additional Extension Endpoints
+### Additional Extension Endpoints
 
 - **GET /extensions/get-one**
-
-  - Retrieve information about a specific extension.
+  - **Description:** Retrieve information about a specific extension.
+  - **Method:** GET
+  - **Endpoint:** `/extensions/get-one`
 
 - **PUT /extensions/put-one**
-
-  - Update details of a specific extension.
+  - **Description:** Update details of a specific extension.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/put-one`
 
 - **PUT /extensions/start**
-
-  - Start a specific extension.
+  - **Description:** Start a specific extension.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/start`
 
 - **PUT /extensions/stop**
-
-  - Stop a specific extension.
+  - **Description:** Stop a specific extension.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/stop`
 
 - **GET /extensions/status**
-
-  - Retrieve the current status of all extensions.
+  - **Description:** Retrieve the current status of all extensions.
+  - **Method:** GET
+  - **Endpoint:** `/extensions/status`
 
 - **PUT /extensions/error**
-  - Update error status for extensions.
+  - **Description:** Update error status for extensions.
+  - **Method:** PUT
+  - **Endpoint:** `/extensions/error`
+
 
 #### Technologies Used
 
 - Node.js
 - Express.js
 - MongoDB
+
+#### Additional Libraries
+- base64url 
+- bcrypt 
+- cloudinary
+- dotenv
+- joi 
+- jsonwebtoken 
+- multer
+- nodemailer 
