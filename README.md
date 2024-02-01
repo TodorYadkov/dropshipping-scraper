@@ -45,9 +45,7 @@ Explore the live flow of the Dropshipping App architecture by visiting the [Live
 #### Server architecture
 
 #### Client architecture
-
-
-
+![1](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/3856aabc-d05e-4e96-8b2a-6e8b99567b97)
 
 
 
