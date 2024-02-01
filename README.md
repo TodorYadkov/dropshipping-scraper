@@ -11,6 +11,7 @@ The main purpose of the system is to automate, organize and put to a whole new l
 
 ## Table of Contents
 - [Demo](#demo)
+- [Usage](#usage)
 - [Application Architecture](#application-architecture)
 - [Screenshots](#screenshots)
 - [Extension](#extension)
@@ -32,6 +33,13 @@ For a quick exploration, you can use the following demo accounts:
   - Email: demo@example.com
   - Password: 12345678
   - Extension name: Extension 1
+
+## Usage
+  - Step 1. Open our [client app](https://drop-shipping-trm.vercel.app/register) and register.
+  - Step 2. Click on `Add Product` button and add Amazon and eBay URL to be scraped.
+  - Step 3. To install the extension follow the instruction [here](extension/README.md#installation).
+  - Step 4. Log in to extension and start scraping.
+  - Step 5. Congratulations! Enjoy our application! 🚀
 
 ## Application Architecture
 
