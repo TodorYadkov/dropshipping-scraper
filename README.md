@@ -13,7 +13,7 @@ The main purpose of the system is to automate, organize and put to a whole new l
 - [Demo](#demo)
 - [Application Architecture](#application-architecture)
 - [Screenshots](#screenshots)
-  - [Extension](#extension)
+- [Extension](#extension)
 - [Client](#client)
   - [Desktop](#desktop)
   - [Tablet](#tablet)
