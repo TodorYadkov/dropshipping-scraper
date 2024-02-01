@@ -1,15 +1,11 @@
-<span style="font-size: 3em;">Client</span>
+# Client Introduction
+The Website serves as your control center for efficiently managing your dropshipping business. It provides real-time information about the products you have chosen to track, ensuring you are always in the loop. Easily add new products for monitoring by sharing their Amazon URLs. Our site features a variety of filters, robust user account management, and a permission system, all designed to enhance your user experience.
 
 ## Table of Contents
 - [Back to Project Documentation](../README.md)
-- [Introduction](#introduction)
 - [Features](#features)
 - [Admin Panel](#admin-panel)
 - [Technologies Used](#technologies-used)
-
-## Introduction
-
-The Website serves as your control center for efficiently managing your dropshipping business. It provides real-time information about the products you have chosen to track, ensuring you are always in the loop. Easily add new products for monitoring by sharing their Amazon URLs. Our site features a variety of filters, robust user account management, and a permission system, all designed to enhance your user experience.
 
 ## Features
 
