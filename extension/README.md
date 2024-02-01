@@ -1,14 +1,10 @@
-<span style="font-size: 3em;">Extension</span>
+# Chrome Extension Introduction
+The Chrome Extension is the first pillar of our system, acting as a virtual dropshipping assistant. It specializes in scraping crucial information from Amazon and eBay, ensuring that you have access to up-to-date data. The extension maintains constant communication with a central server to provide real-time information, covering essential details such as prices, product availability and more.
 
 ## Table of Contents
 - [Back to Project Documentation](../README.md)
-- [Chrome Extension](#chrome-extension)
 - [Installation](#installation)
 - [Usage](#usage)
-
-## Chrome Extension
-
-The Chrome Extension is the first pillar of our system, acting as a virtual dropshipping assistant. It specializes in scraping crucial information from Amazon and eBay, ensuring that you have access to up-to-date data. The extension maintains constant communication with a central server to provide real-time information, covering essential details such as prices, product availability and more.
 
 ## Installation
 
