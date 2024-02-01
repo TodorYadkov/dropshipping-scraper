@@ -1,4 +1,4 @@
-<span style="font-size: 3rem;">Server</span>
+<span style="font-size: 48px;">Server</span>
 
 ## Table of Contents
 - [Back to Project Documentation](../README.md)
