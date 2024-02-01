@@ -1,4 +1,7 @@
-<span style="font-size: 48px;">Server</span>
+# Server Introduction
+
+Welcome to the comprehensive documentation for our Express.js and Node.js server, meticulously designed to provide a robust and scalable RESTful API. This server seamlessly interacts with a MongoDB database, harnessing the power of Mongoose as the ODM (Object Data Modeling) tool. Together, they offer an efficient and flexible solution for managing data, ensuring your application operates with utmost reliability.
+
 
 ## Table of Contents
 - [Back to Project Documentation](../README.md)
