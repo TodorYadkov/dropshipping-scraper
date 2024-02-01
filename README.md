@@ -61,22 +61,31 @@ For a detailed analysis of dependencies, you can run dependency-cruiser in your 
 ### Client
 
 #### Desktop
+##### Dashboard
+<img width="1920" alt="Dashboard-Desktop" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/8a715324-d5c2-460a-ae48-01532290229d">
 
+##### Extension
+<img width="1918" alt="Extensions-Desktop" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/21fb4ac6-73ac-45b2-8df2-8997b87526b8">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##### Admin Panel
+<img width="1919" alt="Admin panel-Desktop" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/3b777dc8-bf25-40d2-8c3e-41389ec500d8">
 
 #### Tablet
+##### Dashboard
+![Dashboard-Tablet](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/c4a40400-3918-42fa-a6ae-781b30141939)
+
+##### Extension
+![Extensions-Tablet](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/3d2e64ee-fd36-4535-960f-90653600bff5)
+
+##### Admin Panel
+![Admin panel-Tablet](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/790d2b43-0037-437a-9819-26738a2ec0c0)
+
 #### Mobile
+##### Dashboard
+![Dashboard - Mobile](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/a58ba579-85af-48a1-b79f-cc8f66ec9fc8)
+
+##### Extension
+![Extensions - Mobile](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/b1cf7574-f2e7-476e-93dc-be2eddd1893c)
+
+##### Admin Panel
+![Admin panel - Mobile](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/cbc737f3-8de0-4666-a3d2-8a13e759a126)
