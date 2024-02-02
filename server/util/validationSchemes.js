@@ -1,7 +1,5 @@
 import joi from 'joi';
 
-// import { USER_ROLES } from '../environments/userRoles.js';
-
 const validateProductSchema = joi.object({
 	name: joi.string().allow(null).trim().max(500).optional(),
 
@@ -39,20 +37,12 @@ const validateRegisterSchema = joi.object({
 	password: joi.string().required().trim().min(8).max(20),
 
 	extensionName: joi.string().required().trim().max(100),
-
-	// This doesn't work - password: joi.string().required().trim().min(8).max(20).lowercase(1).uppercase(1),
-	// TODO: If we want to add more complex password validation without any other library, we can use this regex
-	// Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character:
-	// /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-
-	// role: joi.any().valid(...Object.values(USER_ROLES))
 });
 
 const validateLoginSchema = joi.object({
 	email: joi.string().required().trim().email().lowercase(),
 
 	password: joi.string().required().trim().min(8).max(20),
-	// TODO: Same as above if we want complex password validation
 
 	extensionName: joi.string().allow(null).trim().max(100).optional(),
 
@@ -61,7 +51,6 @@ const validateLoginSchema = joi.object({
 
 const validateResetPasswordSchema = joi.object({
 	password: joi.string().required().trim().min(8).max(20),
-	// TODO: Same as above if we want complex password validation
 
 	resetToken: joi.string().required().trim()
 });
