@@ -19,6 +19,7 @@ const Profile = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState('');
     const [isEditable, setIsEditable] = useState(false);
+    const [isBtnCancelPressed, setIsBtnCancelPressed] = useState(false);
 
     const { currentUserData, setUserState } = useAuthContext();
     const { profileUpdate } = useApi(authService);
@@ -36,6 +37,7 @@ const Profile = () => {
     async function onUpdate(formData) {
         try {
             setIsLoading(true);
+            setIsBtnCancelPressed(true);
 
             if (formData[AUTH_FORM_KEYS.uploadAvatar] === '') {
                 formData[AUTH_FORM_KEYS.uploadAvatar] = null;
@@ -123,8 +125,9 @@ const Profile = () => {
                                     <input
                                         type="button"
                                         onClick={cancelEditHandler}
+                                        disabled={isBtnCancelPressed}
                                         value="Cancel"
-                                        className="basis-1/2 px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none cursor-pointer bg-indigo-600 hover:opacity-70" />
+                                        className={`basis-1/2 px-4 py-2 text-sm text-center text-white rounded-md focus:outline-none ${isBtnCancelPressed ? 'cursor-not-allowed bg-indigo-200' : 'cursor-pointer bg-indigo-600 hover:opacity-70'}`} />
                                 )}
 
                                 {isLoading ? (
