@@ -56,6 +56,7 @@ const Profile = () => {
         } finally {
             setIsLoading(false);
             setIsEditable(false);
+            setIsBtnCancelPressed(false);
         }
     }
 
