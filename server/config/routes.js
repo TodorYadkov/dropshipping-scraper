@@ -7,12 +7,14 @@ import { adminController } from '../controllers/adminController.js';
 import { statisticController } from '../controllers/statisticController.js';
 
 export default (app) => {
-	app.use(logRequests()); // Logging every request
+	app.use(logRequests());
+	
 	app.use('/products', productController);
 	app.use('/extensions', extensionController);
 	app.use('/users', userController);
 	app.use('/admin', adminController);
 	app.use('/statistics', statisticController);
+
 	app.all('*', (req, res, next) => {
 		try {
 			throw new Error(`No content - path ${req.path} of method ${req.method} not found`);
