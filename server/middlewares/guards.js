@@ -32,8 +32,6 @@ function isUserRole(role) {
 	}
 }
 
-// TODO... add more guards if needed
-
 export {
 	isUserLogged,
 	isUserGuest,
