@@ -60,13 +60,3 @@ multiBrowser.alarms.onAlarm.addListener(async (alarm) => {
         console.error(error.message);
     }
 });
-
-// TODO: maybe send message to popup on storage.locals change
-// multiBrowser.storage.onChanged.addListener((changes, namespace) => {
-//     for (let [key, { oldValue, newValue }] of Object.entries(changes)) {
-//         console.log(
-//           `Storage key "${key}" in namespace "${namespace}" changed.`,
-//           `Old value was "${oldValue}", new value is "${newValue}".`
-//         );
-//       }
-// })
