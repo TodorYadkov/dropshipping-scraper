@@ -6,19 +6,37 @@ export const ImageInput = ({ type, name, value, onChange, onBlur, error, isEdita
     const handleImageChange = (e) => {
         onChange(e);
         const file = e.target.files[0];
+
         if (file) {
             const reader = new FileReader();
 
             reader.onload = (e) => {
                 setPreviewImage(e.target.result);
-            }
+            };
 
             reader.onerror = (e) => {
                 console.error('Error reading the file:', e.target.error);
-                // TODO find a way to broke it and figure out what values we've got and handle it
+
+                switch (e.target.error.code) {
+                    case e.target.error.NOT_FOUND_ERR:
+                        console.error('File not found!');
+                        break;
+                    case e.target.error.NOT_READABLE_ERR:
+                        console.error('File is not readable!');
+                        break;
+                    case e.target.error.ABORT_ERR:
+                        console.error('File reading aborted!');
+                        break;
+                    default:
+                        console.error('An error occurred while reading the file.');
+                }
             };
 
-            reader.readAsDataURL(file);
+            try {
+                reader.readAsDataURL(file);
+            } catch (err) {
+                console.error('An error occurred during readAsDataURL:', err);
+            }
         }
     };
 
