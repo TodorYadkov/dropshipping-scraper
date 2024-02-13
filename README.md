@@ -37,7 +37,8 @@ For a quick exploration, you can use the following demo accounts:
 ## Usage
   - Step 1. Open our [client app](https://drop-shipping-trm.vercel.app/register) and register.
   - Step 2. Click on `Add Product` button and add Amazon and eBay URL to be scraped.
-  - Step 3. To install the extension follow the instruction [here](extension/README.md#installation).
+  - Step 3. Download the extension from the Chrome Web Store by visiting the following link: [Download from Chrome Web Store](https://chromewebstore.google.com/detail/scraper/mhoonglfjagkpchkddmcicpbjgdfibjd).
+    - **Note:** If you prefer to manually install the extension, follow the instruction provided [here](extension/README.md#installation).
   - Step 4. Log in to extension and start scraping.
   - Step 5. Congratulations! Enjoy our application! 🚀
 
