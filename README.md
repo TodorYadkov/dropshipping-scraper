@@ -11,9 +11,10 @@ The main purpose of the system is to automate, organize and put to a whole new l
 
 ## Table of Contents
 - [Demo](#demo)
+- [Usage](#usage)
 - [Application Architecture](#application-architecture)
 - [Screenshots](#screenshots)
-  - [Extension](#extension)
+- [Extension](#extension)
 - [Client](#client)
   - [Desktop](#desktop)
   - [Tablet](#tablet)
@@ -33,16 +34,26 @@ For a quick exploration, you can use the following demo accounts:
   - Password: 12345678
   - Extension name: Extension 1
 
+## Usage
+  - Step 1. Open our [client app](https://drop-shipping-trm.vercel.app/register) and register.
+  - Step 2. Click on `Add Product` button and add Amazon and eBay URL to be scraped.
+  - Step 3. To install the extension follow the instruction [here](extension/README.md#installation).
+  - Step 4. Log in to extension and start scraping.
+  - Step 5. Congratulations! Enjoy our application! 🚀
+
 ## Application Architecture
 
 The following application architecture diagram is generated using [dependency-cruiser](https://github.com/sverweij/dependency-cruiser). It visually represents the dependencies within the project.
 
 Explore the live flow of the Dropshipping App architecture by visiting the [Live Flow Page](https://rosendobrev10.github.io/dropshipping-scraper/)
 #### Project architecture
+<img width="1643" alt="architecture - all" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/579f637b-5728-4087-8351-e508b2daba2b">
 
 #### Extension architecture
+<img width="1787" alt="architecture - extension" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/2e3da894-ffda-4a68-9fe4-166c326a29af">
 
 #### Server architecture
+<img width="1335" alt="architecture - server" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/5f00d137-5008-4878-babc-35737865a699">
 
 #### Client architecture
 ![1](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/3856aabc-d05e-4e96-8b2a-6e8b99567b97)
@@ -73,17 +84,18 @@ For a detailed analysis of dependencies, you can run dependency-cruiser in your 
 ![Dashboard-Tablet](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/c4a40400-3918-42fa-a6ae-781b30141939)
 
 ##### Extension
-![Extensions-Tablet](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/3d2e64ee-fd36-4535-960f-90653600bff5)
+<img width="1002" alt="extension - tablet" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/30ac9df7-bbd2-4bbe-b37b-8c9c8edcaccd">
 
 ##### Admin Panel
 ![Admin panel-Tablet](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/790d2b43-0037-437a-9819-26738a2ec0c0)
 
 #### Mobile
 ##### Dashboard
-![Dashboard - Mobile](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/a58ba579-85af-48a1-b79f-cc8f66ec9fc8)
+<img width="337" alt="dashboard - mobile" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/2ac1c269-b95c-4671-bef9-3ae7eb97a64d">
 
 ##### Extension
-![Extensions - Mobile](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/b1cf7574-f2e7-476e-93dc-be2eddd1893c)
+<img width="336" alt="extension - mobile" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/728de3bf-e92e-4b42-b4b4-b2831ba24638">
 
 ##### Admin Panel
-![Admin panel - Mobile](https://github.com/TodorYadkov/dropshipping-scraper/assets/4013980/cbc737f3-8de0-4666-a3d2-8a13e759a126)
+<img width="336" alt="admin panel - mobile" src="https://github.com/TodorYadkov/dropshipping-scraper/assets/107685528/a227b057-de74-4347-aadb-1839f3956b11">
+

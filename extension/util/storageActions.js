@@ -1,7 +1,5 @@
 import { multiBrowser } from '../constants/constants.js';
 
-// TODO Choose between local and session storage
-
 export const setData = (data) => {
 	return new Promise((resolve) => {
 		multiBrowser.storage.local.set(data, () => resolve());

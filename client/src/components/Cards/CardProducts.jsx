@@ -110,17 +110,17 @@ export const CardProducts = ({ products, onModalClick }) => {
 					<div key={product._id} className="w-full max-w-sm mt-4 lg:max-w-full lg:flex rounded-lg overflow-hidden bg-white">
 						<div className="flex justify-center items-center self-center w-full h-auto overflow-hidden text-center bg-cover rounded-t lg:w-48 lg:h-full lg:rounded-t-none lg:rounded-l lg:pl-4">
 							{product.imageURL ? (
-									<Link
-										to={product.amazonUrl}
-										target="blank"
-										rel="noopener noreferrer"
-									>
-										<img
-											className="block"
-											src={product.imageURL}
-											alt={product.name}
-										/>
-									</Link>
+								<Link
+									to={product.amazonUrl}
+									target="blank"
+									rel="noopener noreferrer"
+								>
+									<img
+										className="block"
+										src={product.imageURL}
+										alt={product.name}
+									/>
+								</Link>
 							) : (
 								<svg
 									className="block w-full h-full bg-white"
@@ -172,7 +172,7 @@ export const CardProducts = ({ products, onModalClick }) => {
 									</p>
 								)}
 
-								<p className="mb-2 text-xl font-bold text-gray-900">
+								<p className="mb-2 text-base lg:text-xl font-bold text-gray-900">
 									{product.name ? (
 										<Link
 											to={product.amazonUrl}
@@ -225,14 +225,16 @@ export const CardProducts = ({ products, onModalClick }) => {
 										<p>
 											Profit: <span className={`${product.profit > 0 ? 'text-green-600 fill-green-600' : 'fill-red-500 text-red-500'} inline-flex items-center gap-1'}`}>
 												{product.profit && `${product.profit} ${product.currencyAmazon}`}
-												{product.profit < 0 && (
-													<svg
-														className="w-4 h-4"
-														viewBox="0 0 512 512"
-													>
+												<svg
+													className="ml-1 w-4 h-4"
+													viewBox="0 0 512 512"
+												>
+													{product.profit <= 0 ? (
 														<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z" />
-													</svg>
-												)}
+													) : (
+														<path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+													)}
+												</svg>
 											</span>
 										</p>
 									) : (
