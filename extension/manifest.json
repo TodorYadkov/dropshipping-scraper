@@ -27,10 +27,7 @@
 		"default_title": "Scraper"
 	},
 	"permissions": [
-		"activeTab",
-		"tabs",
 		"storage",
-		"scripting",
 		"alarms"
 	],
 	"host_permissions": [
